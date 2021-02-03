@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "jj@rstudio.com",
            comment = c(ORCID = "0000-0003-0174-9868"))
-Description: Convert R Markdown documents and Jupyter Notebooks to a variety of
+Description: Convert R Markdown documents and 'Jupyter' notebooks to a variety of
   output formats using 'Quarto'.
 Imports: rmarkdown,jsonlite,yaml
 SystemRequirements: Quarto command line tools (https://github.com/quarto-dev/quarto-cli).
