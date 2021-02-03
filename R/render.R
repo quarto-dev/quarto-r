@@ -86,7 +86,7 @@ quarto_render <- function(input,
     args <- c(args, "--cache-refresh")
   }
   if (!missing(kernel_keepalive)) {
-    args <- c("kernel-keepalive", kernel_keepalive)
+    args <- c("--kernel-keepalive", kernel_keepalive)
   }
   if (isTRUE(kernel_restart)) {
     args <- c(args, "--kernel-restart")
