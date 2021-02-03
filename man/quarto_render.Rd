@@ -11,7 +11,7 @@ quarto_render(
   execute = TRUE,
   execute_params = NULL,
   execute_dir = NULL,
-  cache = FALSE,
+  cache = NULL,
   cache_refresh = FALSE,
   kernel_keepalive = NULL,
   kernel_restart = FALSE,
