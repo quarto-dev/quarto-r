@@ -8,6 +8,7 @@
 quarto_serve(
   dir = NULL,
   port = 4848,
+  render = TRUE,
   browse = TRUE,
   watch = TRUE,
   navigate = TRUE
@@ -20,6 +21,8 @@ quarto_serve_stop()
 directory)}
 
 \item{port}{Port to listen on (defaults to 4848)}
+
+\item{render}{Render the site before serving it.}
 
 \item{browse}{Open a browser to preview the site. Defaults to using the
 RStudio Viewer when running within RStudio.Pass a function (e.g.

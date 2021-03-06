@@ -5,6 +5,7 @@
 #' @param dir The project directory to serve (defaults to current working
 #'   directory)
 #' @param port Port to listen on (defaults to 4848)
+#' @param render Render the site before serving it.
 #' @param browse Open a browser to preview the site. Defaults to using the
 #'   RStudio Viewer when running within RStudio.Pass a function (e.g.
 #'   `utils::browseURL` to override this behavior).
@@ -34,6 +35,7 @@
 #' @export
 quarto_serve <- function(dir = NULL,
                          port = 4848,
+                         render = TRUE,
                          browse = TRUE,
                          watch = TRUE,
                          navigate = TRUE) {
@@ -46,13 +48,18 @@ quarto_serve <- function(dir = NULL,
   # manage existing server instances
   quarto_serve_stop()
 
+  # render if requested
+  if (!isFALSE(render)) {
+    quarto_render(dir)
+  }
+
   # check for port availability
   if (port_active(port)) {
     stop("Server port ", port, " already in use.")
   }
 
   # build args
-  args <- c("serve", "--port", port, "--quiet", "--no-browse")
+  args <- c("serve", "--port", port, "--quiet", "--no-browse", "--no-render")
   if (isFALSE(watch)) {
     args <- c(args, "--no-watch")
   }
