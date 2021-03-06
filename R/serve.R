@@ -38,13 +38,17 @@ quarto_serve <- function(dir = NULL,
                          watch = TRUE,
                          navigate = TRUE) {
 
+  # provide default for dir
+  if (is.null(dir)) {
+    dir <- getwd()
+  }
 
   # manage existing server instances
   quarto_serve_stop()
 
-  # provide default for dir
-  if (is.null(dir)) {
-    dir <- getwd()
+  # check for port availability
+  if (port_active(port)) {
+    stop("Server port ", port, " already in use.")
   }
 
   # build args
@@ -132,6 +136,7 @@ quarto_serve_stop <- function() {
       ps$wait(3000)
     }
   }
+  Sys.sleep(0.5)
   invisible()
 }
 
