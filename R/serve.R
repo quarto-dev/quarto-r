@@ -34,7 +34,7 @@
 #'
 #' @export
 quarto_serve <- function(dir = NULL,
-                         port = 4848,
+                         port = "auto",
                          render = TRUE,
                          browse = TRUE,
                          watch = TRUE,
@@ -48,14 +48,27 @@ quarto_serve <- function(dir = NULL,
   # manage existing server instances
   quarto_serve_stop()
 
-  # render if requested
-  if (!isFALSE(render)) {
-    quarto_render(dir)
+  # if the last server had a port then re-use it for "auto"
+  if (port == "auto") {
+    if (!is.null(quarto$port)) {
+      port <- quarto$port
+      quarto$port <- NULL # don't re-use again unless we successfully bind
+    } else {
+      port <- find_port()
+      if (is.null(port)) {
+        stop("Unable to find port to start server on")
+      }
+    }
   }
 
   # check for port availability
   if (port_active(port)) {
     stop("Server port ", port, " already in use.")
+  }
+
+  # render if requested
+  if (!isFALSE(render)) {
+    quarto_render(dir)
   }
 
   # build args
@@ -89,6 +102,7 @@ quarto_serve <- function(dir = NULL,
     }
     Sys.sleep(0.2)
   }
+  quarto$port <- port
 
   # monitor the process for abnormal exit
   poll_process <- function() {
@@ -145,6 +159,22 @@ quarto_serve_stop <- function() {
   }
   Sys.sleep(0.5)
   invisible()
+}
+
+find_port <- function(port) {
+  for (i in 1:20) {
+    # determine the port (exclude those considered unsafe by Chrome)
+    while(TRUE) {
+      port <- 3000 + sample(5000, 1)
+      if (!port %in% c(3659, 4045, 6000, 6665:6669,6697))
+        break
+    }
+    # see if it's active
+    if (!port_active(port)) {
+      return(port)
+    }
+  }
+  NULL
 }
 
 port_active <- function(port) {
