@@ -69,7 +69,7 @@ quarto_render <- function(input = NULL,
   # build args
   args <- c("render", input)
   if (!missing(output_format)) {
-    args <- c(args, "--to", output_format)
+    args <- c(args, "--to", paste(output_format, collapse = ","))
   }
   if (!missing(output_file)) {
     args <- c(args, "--output", output_file)
