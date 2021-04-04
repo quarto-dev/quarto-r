@@ -7,7 +7,7 @@
 \usage{
 quarto_serve(
   dir = NULL,
-  port = 4848,
+  port = "auto",
   render = TRUE,
   browse = TRUE,
   watch = TRUE,
