@@ -128,11 +128,12 @@ quarto_publish <- function(input = ".", name = NULL,
       if (!is.null(output_dir))
         app_dir <- output_dir
       else
-        app_dir <- dir
+        app_dir <- input
 
       # deploy project
       rsconnect::deployApp(
         appDir = app_dir,
+        recordDir = input,
         appName = name,
         appTitle = title,
         account = account,
