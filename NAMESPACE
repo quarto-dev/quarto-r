@@ -2,6 +2,7 @@
 
 export(quarto_metadata)
 export(quarto_path)
+export(quarto_publish)
 export(quarto_render)
 export(quarto_serve)
 export(quarto_serve_stop)
