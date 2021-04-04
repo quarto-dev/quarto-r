@@ -1,6 +1,6 @@
 Package: quarto
 Title: R Interface to 'Quarto' Markdown Publishing System
-Version: 0.1
+Version: 0.2
 Authors@R: 
     person(given = "JJ",
            family = "Allaire",

@@ -2,10 +2,10 @@
 % Please edit documentation in R/publish.R
 \name{quarto_publish}
 \alias{quarto_publish}
-\title{Publish a Quarto Project}
+\title{Publish to RStudio Connect}
 \usage{
 quarto_publish(
-  dir = ".",
+  input = ".",
   name = NULL,
   method = c("rsconnect"),
   server = NULL,
@@ -15,30 +15,30 @@ quarto_publish(
 )
 }
 \arguments{
-\item{dir}{Directory containing project. Defaults to current working
-directory.}
+\item{input}{The input file or project directory to be published. Defaults to
+current working directory.}
 
-\item{name}{Name for the published project (names must be unique within
-an account). Defaults to the \code{name} provided by the project (or to the base
-name of the \code{dir} if there is no \code{name} specified).}
+\item{name}{Name for publishing (names must be unique within an account). For
+projects, defaults to the \code{name} provided by the project (alternatively
+uses the base name of the \code{input}).}
 
 \item{method}{Publishing method (currently only "rsconnect" is available)}
 
 \item{server}{Server name. Required only if you use the same account name on
 multiple servers.}
 
-\item{account}{Account to deploy application to. This parameter is only
-required for the initial deployment of an application when there are
-multiple accounts configured on the system.}
+\item{account}{Account to deploy to. This parameter is only required for the
+initial deployment when there are multiple accounts configured on the
+system.}
 
-\item{render}{\code{TRUE} to render the project locally before publishing.}
+\item{render}{\code{TRUE} to render locally before publishing.}
 
 \item{launch_browser}{If \code{TRUE}, the system's default web browser will be
-launched automatically after the project is deployed. Defaults to \code{TRUE} in
-interactive sessions only.}
+launched automatically after deployment. Defaults to \code{TRUE} in interactive
+sessions only.}
 }
 \description{
-Publish a project to RStudio Connect
+Publish a quarto document or project to RStudio Connect
 }
 \examples{
 \dontrun{

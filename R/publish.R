@@ -1,23 +1,23 @@
 
-#' Publish a Quarto Project
+#' Publish to RStudio Connect
 #'
-#' Publish a project to RStudio Connect
+#' Publish a quarto document or project to RStudio Connect
 #'
-#' @inheritParams rsconnect::deploySite
+#' @inheritParams rsconnect::deployApp
 #'
-#' @param dir Directory containing project. Defaults to current working
-#'   directory.
-#' @param name Name for the published project (names must be unique within
-#'   an account). Defaults to the `name` provided by the project (or to the base
-#'   name of the `dir` if there is no `name` specified).
-#' @param account Account to deploy application to. This parameter is only
-#'   required for the initial deployment of an application when there are
-#'   multiple accounts configured on the system.
+#' @param input The input file or project directory to be published. Defaults to
+#'   current working directory.
+#' @param name Name for publishing (names must be unique within an account). For
+#'   projects, defaults to the `name` provided by the project (alternatively
+#'   uses the base name of the `input`).
+#' @param account Account to deploy to. This parameter is only required for the
+#'   initial deployment when there are multiple accounts configured on the
+#'   system.
 #' @param method Publishing method (currently only "rsconnect" is available)
-#' @param render `TRUE` to render the project locally before publishing.
+#' @param render `TRUE` to render locally before publishing.
 #' @param launch_browser If `TRUE`, the system's default web browser will be
-#'   launched automatically after the project is deployed. Defaults to `TRUE` in
-#'   interactive sessions only.
+#'   launched automatically after deployment. Defaults to `TRUE` in interactive
+#'   sessions only.
 #'
 #' @examples
 #' \dontrun{
@@ -26,7 +26,7 @@
 #' }
 #'
 #' @export
-quarto_publish <- function(dir = ".", name = NULL,
+quarto_publish <- function(input = ".", name = NULL,
                            method = c("rsconnect"), server = NULL, account = NULL,
                            render = TRUE, launch_browser = interactive()) {
 
@@ -105,36 +105,70 @@ quarto_publish <- function(dir = ".", name = NULL,
       }
     }
 
-    # render if requested
-    if (render) {
-      quarto_render(dir)
-    }
+    # get metadata that will be used for publishing
+    metadata <- quarto_metadata(input)
 
-    # get project metadata that will be used for publishing
-    metadata <- quarto_metadata(dir)
-    # title
-    title <- metadata$project$title
-    # name
-    if (is.null(name)) {
-      name <- basename(normalizePath(dir))
-    }
-    # output-dir
-    output_dir <- metadata$project[["output-dir"]]
-    if (!is.null(output_dir))
-      app_dir <- output_dir
-    else
-      app_dir <- dir
+    # is this a site or an individual doc?
+    if (file.info(input)$isdir) {
 
-    # deploy project
-    rsconnect::deployApp(
-      appDir = app_dir,
-      appName = name,
-      appTitle = title,
-      account = account,
-      server = server,
-      launch.browser = launch_browser,
-      lint = FALSE,
-      contentCategory = "site"
-    )
+      # render if requested
+      if (render) {
+        quarto_render(input)
+      }
+
+      # title
+      title <- metadata$project$title
+      # name
+      if (is.null(name)) {
+        name <- basename(normalizePath(input))
+      }
+
+      # output-dir
+      output_dir <- metadata$project[["output-dir"]]
+      if (!is.null(output_dir))
+        app_dir <- output_dir
+      else
+        app_dir <- dir
+
+      # deploy project
+      rsconnect::deployApp(
+        appDir = app_dir,
+        appName = name,
+        appTitle = title,
+        account = account,
+        server = server,
+        launch.browser = launch_browser,
+        lint = FALSE,
+        contentCategory = "site"
+      )
+    } else {
+
+      # determine the output format
+      format <- names(metadata)[[1]]
+
+      # render self-contained
+      if (render) {
+        quarto_render(
+          input,
+          output_format = format,
+          pandoc_args = c("--self-contained")
+        )
+      }
+
+      # determine the output file
+      output_file <- metadata[[format]]$pandoc[["output-file"]]
+      output_file <- file.path(dirname(input), output_file)
+
+      # publish
+      rsconnect::deployDoc(
+        doc = output_file,
+        appTitle = metadata[[format]]$metadata$title,
+        account = account,
+        server = server,
+        launch.browser = launch_browser,
+        lint = FALSE,
+        contentCategory = "document"
+      )
+    }
   }
 }
