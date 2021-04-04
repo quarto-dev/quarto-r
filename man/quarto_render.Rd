@@ -5,7 +5,7 @@
 \title{Render Markdown}
 \usage{
 quarto_render(
-  input,
+  input = NULL,
   output_format = NULL,
   output_file = NULL,
   execute = TRUE,
@@ -21,7 +21,8 @@ quarto_render(
 )
 }
 \arguments{
-\item{input}{The input file or project directory to be rendered.}
+\item{input}{The input file or project directory to be rendered (defualts
+to rendering the project in the current working directory).}
 
 \item{output_format}{Target output format (defaults to "html"). The option
 \code{"all"} will render all formats defined within the file or project.}
