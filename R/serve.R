@@ -72,7 +72,7 @@ quarto_serve <- function(dir = NULL,
   }
 
   # build args
-  args <- c("serve", "--port", port, "--quiet", "--no-browse", "--no-render")
+  args <- c("serve", "--port", port, "--quiet", "--no-browse")
   if (isFALSE(watch)) {
     args <- c(args, "--no-watch")
   }
