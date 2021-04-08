@@ -5,7 +5,6 @@
 #' @param dir The project directory to serve (defaults to current working
 #'   directory)
 #' @param port Port to listen on (defaults to 4848)
-#' @param render Render the site before serving it.
 #' @param browse Open a browser to preview the site. Defaults to using the
 #'   RStudio Viewer when running within RStudio.Pass a function (e.g.
 #'   `utils::browseURL` to override this behavior).
@@ -35,7 +34,6 @@
 #' @export
 quarto_serve <- function(dir = NULL,
                          port = "auto",
-                         render = TRUE,
                          browse = TRUE,
                          watch = TRUE,
                          navigate = TRUE) {
@@ -66,13 +64,8 @@ quarto_serve <- function(dir = NULL,
     stop("Server port ", port, " already in use.")
   }
 
-  # render if requested
-  if (!isFALSE(render)) {
-    quarto_render(dir)
-  }
-
   # build args
-  args <- c("serve", "--port", port, "--quiet", "--no-browse")
+  args <- c("serve", "--port", port, "--no-browse")
   if (isFALSE(watch)) {
     args <- c(args, "--no-watch")
   }
@@ -80,27 +73,25 @@ quarto_serve <- function(dir = NULL,
     args <- c("--no-navigate")
   }
 
-  # setup files to handle output streams
-  quarto$stdout <- tempfile()
-  quarto$stderr <- tempfile()
-
   # launch quarto serve
   quarto_bin <- find_quarto()
   quarto$ps <- processx::process$new(
     quarto_bin,
     args,
     wd = dir,
-    stdout = quarto$stdout,
-    stderr = quarto$stderr
+    stdout = "|",
+    stderr = "2>&1"
   )
 
   # wait for port to be bound to
+  init <- ""
   while(!port_active(port)) {
+    quarto$ps$poll_io(50)
+    cat(quarto$ps$read_output())
     if (!quarto$ps$is_alive()) {
       quarto_serve_stop()
-      stop("Error starting quarto: ", readLines(quarto$stderr))
+      stop("Error starting quarto")
     }
-    Sys.sleep(0.2)
   }
   quarto$port <- port
 
@@ -109,6 +100,7 @@ quarto_serve <- function(dir = NULL,
     if (is.null(quarto$ps)) {
       return()
     }
+    cat(quarto$ps$read_output())
     if (!quarto$ps$is_alive()) {
       status <- quarto$ps$get_exit_status()
       quarto$ps <- NULL
@@ -117,19 +109,13 @@ quarto_serve <- function(dir = NULL,
       }
       return()
     }
-    later::later(delay = 1, poll_process)
+    later::later(delay = 0.3, poll_process)
   }
   poll_process()
 
 
   # indicate server is running
-  serve_url <- paste0("http://localhost:", port)
-  message("Serving site from ", dir)
-  if (watch) {
-    message("  Watching project for reload on changes")
-  }
-  message("  Browse the site at ", serve_url)
-  message("  Stop the server with quarto_serve_stop()")
+  cat("Stop the server with quarto_serve_stop()")
 
   # run the preview browser
   if (!isFALSE(browse)) {
@@ -138,6 +124,7 @@ quarto_serve <- function(dir = NULL,
                        rstudioapi::viewer,
                        utils::browseURL)
     }
+    serve_url <- paste0("http://localhost:", port)
     browse(serve_url)
   }
 
