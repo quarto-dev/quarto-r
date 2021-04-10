@@ -105,7 +105,7 @@ quarto_serve <- function(dir = NULL,
       status <- quarto$ps$get_exit_status()
       quarto$ps <- NULL
       if (status != 0) {
-        stop("Error running quarto server: ", readLines(quarto$stderr))
+        stop("Error running quarto server")
       }
       return()
     }
