@@ -117,14 +117,14 @@ quarto_publish <- function(input = ".", name = NULL,
       }
 
       # title
-      title <- metadata$project$title
+      title <- metadata[["site-title"]]
       # name
       if (is.null(name)) {
         name <- basename(normalizePath(input))
       }
 
       # output-dir
-      output_dir <- metadata$project[["output-dir"]]
+      output_dir <- metadata[["project-output-dir"]]
       if (!is.null(output_dir))
         app_dir <- output_dir
       else
