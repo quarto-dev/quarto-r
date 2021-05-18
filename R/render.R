@@ -105,7 +105,7 @@ quarto_render <- function(input = NULL,
   }
 
   # run quarto
-  system2(quarto_bin, args)
+  processx::run(quarto_bin, args, echo = TRUE)
 
   # no return value
   invisible(NULL)
