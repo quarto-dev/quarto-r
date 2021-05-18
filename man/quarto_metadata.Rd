@@ -4,7 +4,7 @@
 \alias{quarto_metadata}
 \title{Read Quarto Metadata}
 \usage{
-quarto_metadata(input)
+quarto_metadata(input = ".")
 }
 \arguments{
 \item{input}{The input file or project directory to read metadata for.}

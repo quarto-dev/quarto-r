@@ -20,7 +20,7 @@
 #' }
 #'
 #' @export
-quarto_metadata <- function(input) {
+quarto_metadata <- function(input = ".") {
 
   quarto_bin <- find_quarto()
 
