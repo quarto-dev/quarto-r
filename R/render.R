@@ -15,18 +15,23 @@
 #'   specified within the YAML front-matter.
 #' @param execute_dir The working directory in which to execute embedded code
 #'   chunks.
+#' @param execute_daemon Keep Jupyter kernel alive (defaults to 300 seconds).
+#'   Note this option is only applicable for rendering Jupyter notebooks or
+#'   Jupyter markdown.
+#' @param execute_daemon_restart Restart keepalive Jupyter kernel before render.
+#'   Note this option is only applicable for rendering Jupyter notebooks or
+#'   Jupyter markdown.
+#' @param execute_debug Show debug output for Jupyter kernel.
 #' @param cache Cache execution output (uses knitr cache and jupyter-cache
 #'   respectively for Rmd and Jupyter input files).
 #' @param cache_refresh Force refresh of execution cache.
-#' @param kernel_keepalive Keep Jupyter kernel alive (defaults to 300 seconds).
-#'   Note this option is only applicable for rendering Jupyter notebooks or
-#'   Jupyter markdown.
-#' @param kernel_restart Restart keepalive Jupyter kernel before render.
-#'   Note this option is only applicable for rendering Jupyter notebooks or
-#'   Jupyter markdown.
 #' @param debug Leave intermediate files in place after render.
 #' @param quiet Suppress warning and other messages.
 #' @param pandoc_args Additional command line options to pass to pandoc.
+#' @param as_job Render as an RStudio background job. Default is "auto",
+#'   which will render individual documents normally and projects as
+#'   background jobs. Use the `quarto.render_as_job` R option to control
+#'   the default globally.
 #'
 #' @importFrom rmarkdown relative_to
 #' @importFrom yaml write_yaml
@@ -50,13 +55,15 @@ quarto_render <- function(input = NULL,
                           execute = TRUE,
                           execute_params = NULL,
                           execute_dir = NULL,
+                          execute_daemon = NULL,
+                          execute_daemon_restart = FALSE,
+                          execute_debug = FALSE,
                           cache = NULL,
                           cache_refresh = FALSE,
-                          kernel_keepalive = NULL,
-                          kernel_restart = FALSE,
                           debug = FALSE,
                           quiet = FALSE,
-                          pandoc_args = NULL) {
+                          pandoc_args = NULL,
+                          as_job = getOption("quarto.render_as_job", "auto")) {
 
   # provide default for input
   if (is.null(input)) {
@@ -65,6 +72,29 @@ quarto_render <- function(input = NULL,
 
   # get quarto binary
   quarto_bin <- find_quarto()
+
+  # see if we need to render as a job
+  if (identical(as_job, "auto")) {
+    as_job <- utils::file_test("-d", input)
+  }
+
+  # render as job if requested and running within rstudio
+  if (as_job && rstudioapi::isAvailable()) {
+    message("Rendering project as backround job (use as_job = FALSE to override)")
+    script <- tempfile(fileext = ".R")
+    writeLines(
+      c("library(quarto)", deparse(sys.call())),
+      script
+    )
+    rstudioapi::jobRunScript(
+      script,
+      name = "quarto render",
+      workingDir = getwd(),
+      importEnv = TRUE
+    )
+    return (invisible(NULL))
+  }
+
 
   # build args
   args <- c("render", input)
@@ -85,17 +115,20 @@ quarto_render <- function(input = NULL,
   if (!missing(execute_dir)) {
     args <- c(args, "--execute-dir", execute_dir)
   }
+  if (!missing(execute_daemon)) {
+    args <- c(args, "--execute-daemon", as.character(execute_daemon))
+  }
+  if (isTRUE(execute_daemon_restart)) {
+    args <- c(args, "--execute-daemon-restart")
+  }
+  if (isTRUE(execute_debug)) {
+    args <- c(args, "--execute-debug")
+  }
   if (!missing(cache)) {
     args <- c(args, ifelse(isTRUE(cache), "--cache", "--no-cache"))
   }
   if (isTRUE(cache_refresh)) {
     args <- c(args, "--cache-refresh")
-  }
-  if (!missing(kernel_keepalive)) {
-    args <- c(args, "--kernel-keepalive", as.character(kernel_keepalive))
-  }
-  if (isTRUE(kernel_restart)) {
-    args <- c(args, "--kernel-restart")
   }
   if (isTRUE(debug)) {
     args <- c(args, "--debug")

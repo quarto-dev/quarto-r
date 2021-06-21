@@ -11,13 +11,15 @@ quarto_render(
   execute = TRUE,
   execute_params = NULL,
   execute_dir = NULL,
+  execute_daemon = NULL,
+  execute_daemon_restart = FALSE,
+  execute_debug = FALSE,
   cache = NULL,
   cache_refresh = FALSE,
-  kernel_keepalive = NULL,
-  kernel_restart = FALSE,
   debug = FALSE,
   quiet = FALSE,
-  pandoc_args = NULL
+  pandoc_args = NULL,
+  as_job = getOption("quarto.render_as_job", "auto")
 )
 }
 \arguments{
@@ -38,24 +40,31 @@ specified within the YAML front-matter.}
 \item{execute_dir}{The working directory in which to execute embedded code
 chunks.}
 
+\item{execute_daemon}{Keep Jupyter kernel alive (defaults to 300 seconds).
+Note this option is only applicable for rendering Jupyter notebooks or
+Jupyter markdown.}
+
+\item{execute_daemon_restart}{Restart keepalive Jupyter kernel before render.
+Note this option is only applicable for rendering Jupyter notebooks or
+Jupyter markdown.}
+
+\item{execute_debug}{Show debug output for Jupyter kernel.}
+
 \item{cache}{Cache execution output (uses knitr cache and jupyter-cache
 respectively for Rmd and Jupyter input files).}
 
 \item{cache_refresh}{Force refresh of execution cache.}
-
-\item{kernel_keepalive}{Keep Jupyter kernel alive (defaults to 300 seconds).
-Note this option is only applicable for rendering Jupyter notebooks or
-Jupyter markdown.}
-
-\item{kernel_restart}{Restart keepalive Jupyter kernel before render.
-Note this option is only applicable for rendering Jupyter notebooks or
-Jupyter markdown.}
 
 \item{debug}{Leave intermediate files in place after render.}
 
 \item{quiet}{Suppress warning and other messages.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc.}
+
+\item{as_job}{Render as an RStudio background job. Default is "auto",
+which will render individual documents normally and projects as
+background jobs. Use the \code{quarto.render_as_job} R option to control
+the default globally.}
 }
 \description{
 Render the input file to the specified output format using quarto. If the
