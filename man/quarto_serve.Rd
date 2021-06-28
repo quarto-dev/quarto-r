@@ -7,6 +7,7 @@
 \usage{
 quarto_serve(
   dir = NULL,
+  render = "none",
   port = "auto",
   browse = TRUE,
   watch = TRUE,
@@ -18,6 +19,12 @@ quarto_serve_stop()
 \arguments{
 \item{dir}{The project directory to serve (defaults to current working
 directory)}
+
+\item{render}{By default, the most recent execution results of computational
+documents are used to render the site (this is to optimize start up time).
+If you want to perform a full render prior to serving pass "all" or a
+vector of specific formats to render. Pass "default" to render the default
+format for the site.}
 
 \item{port}{Port to listen on (defaults to 4848)}
 

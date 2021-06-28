@@ -4,6 +4,11 @@
 #'
 #' @param dir The project directory to serve (defaults to current working
 #'   directory)
+#' @param render By default, the most recent execution results of computational
+#'  documents are used to render the site (this is to optimize start up time).
+#'  If you want to perform a full render prior to serving pass "all" or a
+#'  vector of specific formats to render. Pass "default" to render the default
+#'  format for the site.
 #' @param port Port to listen on (defaults to 4848)
 #' @param browse Open a browser to preview the site. Defaults to using the
 #'   RStudio Viewer when running within RStudio.Pass a function (e.g.
@@ -33,6 +38,7 @@
 #'
 #' @export
 quarto_serve <- function(dir = NULL,
+                         render = "none",
                          port = "auto",
                          browse = TRUE,
                          watch = TRUE,
@@ -71,6 +77,11 @@ quarto_serve <- function(dir = NULL,
   }
   if (isFALSE(navigate)) {
     args <- c("--no-navigate")
+  }
+
+  # add render
+  if (!identical(render, "none")) {
+    args <- c(args, "--render", paste(render, collapse = ","))
   }
 
   # launch quarto serve
