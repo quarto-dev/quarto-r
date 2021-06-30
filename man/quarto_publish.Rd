@@ -10,7 +10,7 @@ quarto_publish(
   method = c("rsconnect"),
   server = NULL,
   account = NULL,
-  render = TRUE,
+  render = c("local", "server", "none"),
   launch_browser = interactive()
 )
 }
@@ -31,7 +31,9 @@ multiple servers.}
 initial deployment when there are multiple accounts configured on the
 system.}
 
-\item{render}{\code{TRUE} to render locally before publishing.}
+\item{render}{\code{local} to render locally before publishing; \code{server} to
+render on the server; \code{none} to use whatever rendered content currently
+exists locally.  (defaults to \code{local})}
 
 \item{launch_browser}{If \code{TRUE}, the system's default web browser will be
 launched automatically after deployment. Defaults to \code{TRUE} in interactive

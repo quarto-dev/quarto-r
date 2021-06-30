@@ -14,7 +14,9 @@
 #'   initial deployment when there are multiple accounts configured on the
 #'   system.
 #' @param method Publishing method (currently only "rsconnect" is available)
-#' @param render `TRUE` to render locally before publishing.
+#' @param render `local` to render locally before publishing; `server` to
+#'   render on the server; `none` to use whatever rendered content currently
+#'   exists locally.  (defaults to `local`)
 #' @param launch_browser If `TRUE`, the system's default web browser will be
 #'   launched automatically after deployment. Defaults to `TRUE` in interactive
 #'   sessions only.
@@ -28,10 +30,12 @@
 #' @export
 quarto_publish <- function(input = ".", name = NULL,
                            method = c("rsconnect"), server = NULL, account = NULL,
-                           render = TRUE, launch_browser = interactive()) {
+                           render = c("local", "server", "none"),
+                           launch_browser = interactive()) {
 
   # resolve method
   method <- match.arg(method)
+  render <- match.arg(render)
 
   if (identical(method, "rsconnect")) {
 
@@ -118,7 +122,7 @@ quarto_publish <- function(input = ".", name = NULL,
     if (file.info(input)$isdir) {
 
       # render if requested
-      if (render) {
+      if (render == "local") {
         quarto_render(input, as_job = FALSE)
       }
 
@@ -131,7 +135,8 @@ quarto_publish <- function(input = ".", name = NULL,
 
       # output-dir
       output_dir <- metadata$project[["output-dir"]]
-      if (!is.null(output_dir))
+
+      if (render != "server" && !is.null(output_dir))
         app_dir <- output_dir
       else
         app_dir <- input
@@ -155,11 +160,10 @@ quarto_publish <- function(input = ".", name = NULL,
       format <- names(metadata)[[1]]
 
       # render self-contained
-      if (render) {
+      if (render == "local") {
         quarto_render(
           input,
           output_format = format,
-          pandoc_args = c("--self-contained"),
           as_job = FALSE
         )
       }
