@@ -37,8 +37,14 @@ quarto_publish <- function(input = ".", name = NULL,
 
     # confirm that we have rsconnect
     if (!requireNamespace("rsconnect", quietly = FALSE)) {
-      stop("The rsconnect package is required to publish projects ",
-           "Please install rsconnect with install.packages(\"rsconnect\")")
+      stop("The rsconnect package is required for publishing. ",
+           "Please install rsconnect with:\n  remotes::install_github(\"rstudio/rsconnect\")")
+    }
+
+    # confirm we have a recent enough version
+    if (packageVersion("rsconnect") < "0.8.20") {
+      stop("Version 0.8.20 or greater of the rsconnect package is required ",
+           "for publishing. Please install with:\n  remotes::install_github(\"rstudio/rsconnect\")")
     }
 
     # check for non shinyapps.io accounts
@@ -113,7 +119,7 @@ quarto_publish <- function(input = ".", name = NULL,
 
       # render if requested
       if (render) {
-        quarto_render(input)
+        quarto_render(input, as_job = FALSE)
       }
 
       # title
@@ -140,6 +146,7 @@ quarto_publish <- function(input = ".", name = NULL,
         server = server,
         launch.browser = launch_browser,
         lint = FALSE,
+        metadata = list(isQuarto = TRUE),
         contentCategory = "site"
       )
     } else {
@@ -152,7 +159,8 @@ quarto_publish <- function(input = ".", name = NULL,
         quarto_render(
           input,
           output_format = format,
-          pandoc_args = c("--self-contained")
+          pandoc_args = c("--self-contained"),
+          as_job = FALSE
         )
       }
 
@@ -168,6 +176,7 @@ quarto_publish <- function(input = ".", name = NULL,
         server = server,
         launch.browser = launch_browser,
         lint = FALSE,
+        metadata = list(isQuarto = TRUE),
         contentCategory = "document"
       )
     }
