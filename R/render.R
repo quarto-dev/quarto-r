@@ -136,6 +136,9 @@ quarto_render <- function(input = NULL,
   if (isTRUE(quiet)) {
     args <- c(args, "--quiet")
   }
+  if (!is.null(pandoc_args)) {
+    args <- c(args, pandoc_args)
+  }
 
   # run quarto
   processx::run(quarto_bin, args, echo = TRUE)
