@@ -21,7 +21,7 @@ quarto_publish_app(
   input = getwd(),
   name = NULL,
   title = NULL,
-  render = TRUE,
+  render = c("local", "server", "none"),
   server = NULL,
   account = NULL,
   metadata = list(),
