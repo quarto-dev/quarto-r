@@ -86,7 +86,7 @@ quarto_publish_doc <- function(input,
 quarto_publish_app <- function(input = getwd(),
                                name = NULL,
                                title = NULL,
-                               render = TRUE,
+                               render = c("local", "server", "none"),
                                server = NULL,
                                account = NULL,
                                metadata = list(),
@@ -108,12 +108,13 @@ quarto_publish_app <- function(input = getwd(),
   }
 
   # render if requested
-  if (render) {
+  if (render == "local") {
     quarto_render(file.path(app_dir, app_primary_doc))
   }
 
   # note that this is a quarto app
   metadata$isQuarto <- TRUE
+  metadata$serverRender <- render == "server"
 
   # delegate to deployApp
   rsconnect::deployApp(appDir = app_dir,
@@ -298,8 +299,8 @@ validate_rsconnect <- function() {
   }
 
   # confirm we have a recent enough version
-  if (utils::packageVersion("rsconnect") < "0.8.21") {
-    stop("Version 0.8.21 or greater of the rsconnect package is required ",
+  if (utils::packageVersion("rsconnect") < "0.8.22") {
+    stop("Version 0.8.22 or greater of the rsconnect package is required ",
          "for publishing. Please install with:\n  remotes::install_github(\"rstudio/rsconnect\")")
   }
 }
