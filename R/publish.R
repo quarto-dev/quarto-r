@@ -86,9 +86,9 @@ quarto_publish_doc <- function(input,
 quarto_publish_app <- function(input = getwd(),
                                name = NULL,
                                title = NULL,
-                               render = c("local", "server", "none"),
                                server = NULL,
                                account = NULL,
+                               render = c("local", "server", "none"),
                                metadata = list(),
                                ...) {
 
