@@ -69,6 +69,7 @@ quarto_render <- function(input = NULL,
   if (is.null(input)) {
     input <- getwd()
   }
+  input <- path.expand(input)
 
   # get quarto binary
   quarto_bin <- find_quarto()

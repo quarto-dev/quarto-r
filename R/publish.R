@@ -46,17 +46,28 @@ quarto_publish_doc <- function(input,
 
   # render if requested
   if (render == "local") {
-    quarto_render(input,
-                  output_format = format,
-                  pandoc_args = c("--self-contained"))
+    quarto_render(input, output_format = format)
   }
 
-  # determine the target doc
+  # determine the target doc and app files
   if (render == "server") {
     doc <- input
   } else {
     doc <- file.path(dirname(normalizePath(input)),
                      input_metadata[[format]]$pandoc[["output-file"]])
+  }
+  app_files <- c(basename(doc))
+  tryCatch({
+    # this operation can be expensive and could also throw if e.g. the
+    # document fails to parse or render
+    deploy_frame <- rmarkdown::find_external_resources(doc)
+  },
+  error = function(e) {
+    # errors are not fatal here; we just might miss some resources, which
+    # the user will have to add manually
+  })
+  if (!is.null(deploy_frame)) {
+    app_files <- c(app_files, deploy_frame$path)
   }
 
   # determine title
@@ -68,17 +79,19 @@ quarto_publish_doc <- function(input,
   metadata$isQuarto <- TRUE
 
   # deploy doc
-  rsconnect::deployDoc(
-    doc = doc,
+  rsconnect::deployApp(
+    appDir = dirname(input),
+    appPrimaryDoc = if (render == "server") NULL else basename(doc),
+    appSourceDoc = input,
+    appFiles = app_files,
     appName = name,
     appTitle = title,
     account = destination$account,
     server = destination$server,
     metadata = metadata,
+    ...
   )
 }
-
-# rsconnect::deployApp(appDir = "/Users/jjallaire/Desktop/shinyquarto",      appFileManifest = "/tmp/7b11-c1c8-177d-4bf0", appPrimaryDoc = "quarto-rmd-on-server.html",      appSourceDoc = "~/Desktop/shinyquarto/quarto-rmd-on-server.Rmd",      account = "jjallaire", server = "beta.rstudioconnect.com",      appName = "quarto-rmd-on-server-2", appTitle = "quarto-rmd-on-server-2",      launch.browser = function(url) {         message("Deployment completed: ", url)     }, lint = FALSE, metadata = list(isQuarto = TRUE, asMultiple = FALSE,          asStatic = TRUE), logLevel = "verbose")
 
 
 #' @rdname quarto_publish_doc

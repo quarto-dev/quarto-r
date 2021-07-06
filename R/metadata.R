@@ -26,7 +26,7 @@ quarto_metadata <- function(input = ".") {
 
   output <- system2(quarto_bin, stdout = TRUE, c(
     "metadata",
-    input,
+    path.expand(input),
     "--json"
   ))
 

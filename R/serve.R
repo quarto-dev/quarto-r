@@ -48,6 +48,7 @@ quarto_serve <- function(dir = NULL,
   if (is.null(dir)) {
     dir <- getwd()
   }
+  dir <- path.expand(dir)
 
   # manage existing server instances
   quarto_serve_stop()
