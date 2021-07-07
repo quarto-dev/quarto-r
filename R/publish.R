@@ -104,6 +104,8 @@ quarto_publish_app <- function(input = getwd(),
                                render = c("local", "server", "none"),
                                metadata = list(),
                                ...) {
+  # resolve render
+  render <- match.arg(render)
 
   # resolve server/account
   destination <- resolve_destination(server, account, TRUE)
