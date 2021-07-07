@@ -312,8 +312,9 @@ validate_rsconnect <- function() {
   }
 
   # confirm we have a recent enough version
-  if (utils::packageVersion("rsconnect") < "0.8.22") {
-    stop("Version 0.8.22 or greater of the rsconnect package is required ",
+  rsc_version <- "0.8.23"
+  if (utils::packageVersion("rsconnect") < rsc_version) {
+    stop("Version ", rsc_version, " or greater of the rsconnect package is required ",
          "for publishing. Please install with:\n  remotes::install_github(\"rstudio/rsconnect\")")
   }
 }
