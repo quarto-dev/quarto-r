@@ -50,8 +50,9 @@ Defaults to the name of the \code{input}.}
 supplied, will often be displayed in favor of the name. When deploying a new
 document, you may supply only the title to receive an auto-generated name}
 
-\item{server}{Server name. Required only if you use the same account name on
-multiple servers.}
+\item{server}{Server name. Use "shinyapps.io" when deploying applications
+to Shinyapps. Use "rpubs.com" when deploying documents to RPubs. Otherwise
+use the domain name or IP address of any RStudio Connect server.}
 
 \item{account}{Account to deploy application to. This parameter is only
 required for the initial deployment of an application when there are
@@ -73,7 +74,9 @@ Publish Quarto documents to RStudio Connect and ShinyApps
 \examples{
 \dontrun{
 library(quarto)
-quarto_publish_app()
+quarto_publish_doc("mydoc.qmd")
+quarto_publish_app(server = "shinyapps.io")
+quarto_publish_site(server = "rstudioconnect.example.com")
 }
 
 }

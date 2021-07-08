@@ -15,12 +15,17 @@
 #' @param render `local` to render locally before publishing; `server` to
 #'   render on the server; `none` to use whatever rendered content currently
 #'   exists locally. (defaults to `local`)
+#' @param server Server name. Use "shinyapps.io" when deploying applications
+#'   to Shinyapps. Use "rpubs.com" when deploying documents to RPubs. Otherwise
+#'   use the domain name or IP address of any RStudio Connect server.
 #' @param ... Named parameters to pass along to `rsconnect::deployApp()`
 #'
 #' @examples
 #' \dontrun{
 #' library(quarto)
-#' quarto_publish_app()
+#' quarto_publish_doc("mydoc.qmd")
+#' quarto_publish_app(server = "shinyapps.io")
+#' quarto_publish_site(server = "rstudioconnect.example.com")
 #' }
 #'
 #' @export
@@ -35,8 +40,8 @@ quarto_publish_doc <- function(input,
   # resolve render
   render <- match.arg(render)
 
-  # resolve server/account
-  destination <- resolve_destination(server, account, TRUE)
+  # check for rpubs target
+  rpubs_destination <- rpubs_publish_destination(input, server)
 
   # get metadata
   inspect <- quarto_inspect(input)
@@ -46,8 +51,12 @@ quarto_publish_doc <- function(input,
   # determine the output format
   format <- names(input_formats)[[1]]
 
-  # render if requested
-  if (render == "local") {
+  # render if requested (always render self-contained locally for rpubs)
+  if (!is.null(rpubs_destination)) {
+    render <- "local"
+    quarto_render(input, output_format = format,
+                  pandoc_args = "--self-contained")
+  } else if (render == "local") {
     quarto_render(input, output_format = format)
   }
 
@@ -58,44 +67,61 @@ quarto_publish_doc <- function(input,
     doc <- file.path(dirname(normalizePath(input)),
                      input_formats[[format]]$pandoc[["output-file"]])
   }
-  app_files <- c(basename(doc))
-  tryCatch({
-    # this operation can be expensive and could also throw if e.g. the
-    # document fails to parse or render
-    deploy_frame <- rmarkdown::find_external_resources(doc)
-  },
-  error = function(e) {
-    # errors are not fatal here; we just might miss some resources, which
-    # the user will have to add manually
-  })
-  if (!is.null(deploy_frame)) {
-    app_files <- c(app_files, deploy_frame$path)
-  }
-
-  # include any explicit resources with app files
-  app_files <- unique(c(app_files, resources))
 
   # determine title
   if (is.null(title)) {
     title <- input_formats[[format]]$metadata$title
   }
 
-  # mark as quaro
-  metadata$isQuarto <- TRUE
+  # special case for rpubs
+  if (!is.null(rpubs_destination)) {
 
-  # deploy doc
-  rsconnect::deployApp(
-    appDir = dirname(input),
-    appPrimaryDoc = if (render == "server") NULL else basename(doc),
-    appSourceDoc = input,
-    appFiles = app_files,
-    appName = name,
-    appTitle = title,
-    account = destination$account,
-    server = destination$server,
-    metadata = metadata,
-    ...
-  )
+    id <- rpubs_destination[["bundleId"]]
+    result <- rsconnect::rpubsUpload(title, doc, input, id)
+    if (!is.null(result$continueUrl))
+      utils::browseURL(result$continueUrl)
+    else
+      stop(result$error)
+
+  } else {
+    # resolve server/account
+    destination <- resolve_destination(server, account, FALSE)
+
+    # determine app_files
+    app_files <- c(basename(doc))
+    tryCatch({
+      # this operation can be expensive and could also throw if e.g. the
+      # document fails to parse or render
+      deploy_frame <- rmarkdown::find_external_resources(doc)
+    },
+    error = function(e) {
+      # errors are not fatal here; we just might miss some resources, which
+      # the user will have to add manually
+    })
+    if (!is.null(deploy_frame)) {
+      app_files <- c(app_files, deploy_frame$path)
+    }
+
+    # include any explicit resources with app files
+    app_files <- unique(c(app_files, resources))
+
+    # deploy doc
+    metadata$isQuarto <- TRUE
+    rsconnect::deployApp(
+      appDir = dirname(input),
+      appPrimaryDoc = if (render == "server") NULL else basename(doc),
+      appSourceDoc = input,
+      appFiles = app_files,
+      appName = name,
+      appTitle = title,
+      account = destination$account,
+      server = destination$server,
+      metadata = metadata,
+      ...
+    )
+  }
+
+
 }
 
 
@@ -111,9 +137,6 @@ quarto_publish_app <- function(input = getwd(),
                                ...) {
   # resolve render
   render <- match.arg(render)
-
-  # resolve server/account
-  destination <- resolve_destination(server, account, TRUE)
 
   # resolve primary doc
   if (file.info(input)$isdir) {
@@ -132,11 +155,12 @@ quarto_publish_app <- function(input = getwd(),
     quarto_render(file.path(app_dir, app_primary_doc))
   }
 
-  # note that this is a quarto app
-  metadata$isQuarto <- TRUE
-  metadata$serverRender <- render == "server"
+  # resolve server/account
+  destination <- resolve_destination(server, account, TRUE)
 
   # delegate to deployApp
+  metadata$isQuarto <- TRUE
+  metadata$serverRender <- render == "server"
   rsconnect::deployApp(appDir = app_dir,
                        appPrimaryDoc = app_primary_doc,
                        appSourceDoc = file.path(app_dir, app_primary_doc),
@@ -163,9 +187,6 @@ quarto_publish_site <- function(input = getwd(),
   # resolve render
   render <- match.arg(render)
 
-  # resolve server/account
-  destination <- resolve_destination(server, account, TRUE)
-
   # get metadata
   config <- quarto_inspect(input)[["config"]]
 
@@ -189,9 +210,11 @@ quarto_publish_site <- function(input = getwd(),
   else
     app_dir <- input
 
-  metadata$isQuarto <- TRUE
+  # resolve server/account
+  destination <- resolve_destination(server, account, FALSE)
 
   # deploy project
+  metadata$isQuarto <- TRUE
   rsconnect::deployApp(
     appDir = app_dir,
     recordDir = input,
@@ -231,7 +254,18 @@ find_app_primary_doc <- function(dir) {
   return(NULL)
 }
 
-
+rpubs_publish_destination <- function(doc, server) {
+  if (identical(server, "rpubs.com")) {
+    list()
+  } else if (is.null(server)) {
+    deployments <- rsconnect::deployments(doc)
+    if (nrow(deployments) == 1 && identical(deployments$server, "rpubs.com")) {
+      as.list(deployments)
+    } else {
+      NULL
+    }
+  }
+}
 
 resolve_destination <- function(server, account, allowShinyapps) {
 
