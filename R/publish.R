@@ -39,10 +39,12 @@ quarto_publish_doc <- function(input,
   destination <- resolve_destination(server, account, TRUE)
 
   # get metadata
-  input_metadata <- quarto_metadata(input)
+  inspect <- quarto_inspect(input)
+  input_formats <- inspect[["formats"]]
+  resources <- inspect[["resources"]]
 
   # determine the output format
-  format <- names(input_metadata)[[1]]
+  format <- names(input_formats)[[1]]
 
   # render if requested
   if (render == "local") {
@@ -54,7 +56,7 @@ quarto_publish_doc <- function(input,
     doc <- input
   } else {
     doc <- file.path(dirname(normalizePath(input)),
-                     input_metadata[[format]]$pandoc[["output-file"]])
+                     input_formats[[format]]$pandoc[["output-file"]])
   }
   app_files <- c(basename(doc))
   tryCatch({
@@ -70,9 +72,12 @@ quarto_publish_doc <- function(input,
     app_files <- c(app_files, deploy_frame$path)
   }
 
+  # include any explicit resources with app files
+  app_files <- unique(c(app_files, resources))
+
   # determine title
   if (is.null(title)) {
-    title <- metadata[[format]]$metadata$title
+    title <- input_formats[[format]]$metadata$title
   }
 
   # mark as quaro
@@ -162,7 +167,7 @@ quarto_publish_site <- function(input = getwd(),
   destination <- resolve_destination(server, account, TRUE)
 
   # get metadata
-  metadata <- quarto_metadata(input)
+  config <- quarto_inspect(input)[["config"]]
 
   # render if requested
   if (render == "local") {
@@ -170,14 +175,14 @@ quarto_publish_site <- function(input = getwd(),
   }
 
   # title
-  title <- metadata$site[["title"]]
+  title <- config$site[["title"]]
   # name
   if (is.null(name)) {
     name <- basename(normalizePath(input))
   }
 
   # output-dir
-  output_dir <- metadata$project[["output-dir"]]
+  output_dir <- config$project[["output-dir"]]
 
   if (render != "server" && !is.null(output_dir))
     app_dir <- output_dir
