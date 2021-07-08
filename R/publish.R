@@ -77,6 +77,9 @@ quarto_publish_doc <- function(input,
   if (!is.null(rpubs_destination)) {
 
     id <- rpubs_destination[["bundleId"]]
+    if (!is.null(id)) {
+      message("Updating document on rpubs.com...")
+    }
     result <- rsconnect::rpubsUpload(title, doc, input, id)
     if (!is.null(result$continueUrl))
       utils::browseURL(result$continueUrl)
@@ -256,7 +259,12 @@ find_app_primary_doc <- function(dir) {
 
 rpubs_publish_destination <- function(doc, server) {
   if (identical(server, "rpubs.com")) {
-    list()
+    deployments <- rsconnect::deployments(doc, serverFilter = "rpubs.com")
+    if (nrow(deployments) > 0) {
+      as.list(deployments[1,])
+    } else {
+      list()
+    }
   } else if (is.null(server)) {
     deployments <- rsconnect::deployments(doc)
     if (nrow(deployments) == 1 && identical(deployments$server, "rpubs.com")) {
