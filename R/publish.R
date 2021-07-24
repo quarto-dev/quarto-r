@@ -109,7 +109,9 @@ quarto_publish_doc <- function(input,
     app_files <- unique(c(app_files, resources))
 
     # deploy doc
-    metadata$isQuarto <- TRUE
+    if (render == "server") {
+      metadata$quarto <- quarto_rsc_metadata(inspect)
+    }
     rsconnect::deployApp(
       appDir = dirname(input),
       appPrimaryDoc = if (render == "server") NULL else basename(doc),
@@ -152,17 +154,18 @@ quarto_publish_app <- function(input = getwd(),
     app_primary_doc <- basename(normalizePath(input))
     app_dir <- dirname(input)
   }
+  app_path <- file.path(app_dir, app_primary_doc)
 
   # render if requested
   if (render == "local") {
-    quarto_render(file.path(app_dir, app_primary_doc))
+    quarto_render(app_path)
   }
 
   # resolve server/account
   destination <- resolve_destination(server, account, TRUE)
 
   # delegate to deployApp
-  metadata$isQuarto <- TRUE
+  metadata$quarto <- quarto_rsc_metadata(quarto_inspect(app_path))
   metadata$serverRender <- render == "server"
   rsconnect::deployApp(appDir = app_dir,
                        appPrimaryDoc = app_primary_doc,
@@ -191,7 +194,8 @@ quarto_publish_site <- function(input = getwd(),
   render <- match.arg(render)
 
   # get metadata
-  config <- quarto_inspect(input)[["config"]]
+  inspect <- quarto_inspect(input)
+  config <- inspect[["config"]]
 
   # render if requested
   if (render == "local") {
@@ -217,7 +221,9 @@ quarto_publish_site <- function(input = getwd(),
   destination <- resolve_destination(server, account, FALSE)
 
   # deploy project
-  metadata$isQuarto <- TRUE
+  if (render == "server") {
+    metadata$quarto <- quarto_rsc_metadata(inspect)
+  }
   rsconnect::deployApp(
     appDir = app_dir,
     recordDir = input,
@@ -374,11 +380,17 @@ validate_rsconnect <- function() {
   }
 
   # confirm we have a recent enough version
-  rsc_version <- "0.8.23"
+  rsc_version <- "0.8.24"
   if (utils::packageVersion("rsconnect") < rsc_version) {
     stop("Version ", rsc_version, " or greater of the rsconnect package is required ",
          "for publishing. Please install with:\n  remotes::install_github(\"rstudio/rsconnect\")")
   }
 }
 
+quarto_rsc_metadata <- function(inspect) {
+  list(
+    version = inspect[["quarto"]][["version"]],
+    engines = I(inspect[["engines"]])
+  )
+}
 
