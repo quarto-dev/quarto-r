@@ -245,8 +245,8 @@ find_app_primary_doc <- function(dir) {
     } else {
       primary_doc <- NULL
       for (doc in all_docs) {
-        runtime <- rmarkdown::yaml_front_matter(file.path(dir, doc))$runtime
-        if (identical(runtime, "shinyrmd") || identical(runtime, "shiny_prerendered")) {
+        yaml <- rmarkdown::yaml_front_matter(file.path(dir, doc))
+        if (is_shiny_prerendered(yaml[["runtime"]], yaml[["server"]])) {
           primary_doc <- doc
           break
         }
@@ -256,6 +256,19 @@ find_app_primary_doc <- function(dir) {
   }
   return(NULL)
 }
+
+is_shiny_prerendered <- function(runtime, server = NULL) {
+  if (identical(runtime, "shinyrmd") || identical(runtime, "shiny_prerendered")) {
+    TRUE
+  } else if (identical(server, "shiny")) {
+    TRUE
+  } else if (is.list(server) && identical(server[["type"]], "shiny")) {
+    TRUE
+  } else {
+    FALSE
+  }
+}
+
 
 rpubs_publish_destination <- function(doc, server) {
   if (identical(server, "rpubs.com")) {
