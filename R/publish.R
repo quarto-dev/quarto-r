@@ -110,7 +110,9 @@ quarto_publish_doc <- function(input,
 
     # deploy doc
     if (render == "server") {
-      metadata$quarto <- quarto_rsc_metadata(inspect)
+      rsc_metadata <- quarto_rsc_metadata(inspect)
+      metadata$quarto_version <- rsc_metadata$version
+      metadata$quarto_engines <- rsc_metadata$engines
     }
     rsconnect::deployApp(
       appDir = dirname(input),
@@ -165,7 +167,9 @@ quarto_publish_app <- function(input = getwd(),
   destination <- resolve_destination(server, account, TRUE)
 
   # delegate to deployApp
-  metadata$quarto <- quarto_rsc_metadata(quarto_inspect(app_path))
+  rsc_metadata <- quarto_rsc_metadata(quarto_inspect(app_path))
+  metadata$quarto_version <- rsc_metadata$version
+  metadata$quarto_engines <- rsc_metadata$engines
   metadata$serverRender <- render == "server"
   rsconnect::deployApp(appDir = app_dir,
                        appPrimaryDoc = app_primary_doc,
@@ -222,7 +226,9 @@ quarto_publish_site <- function(input = getwd(),
 
   # deploy project
   if (render == "server") {
-    metadata$quarto <- quarto_rsc_metadata(inspect)
+    rsc_metadata <- quarto_rsc_metadata(inspect)
+    metadata$quarto_version <- rsc_metadata$version
+    metadata$quarto_engines <- rsc_metadata$engines
   }
   rsconnect::deployApp(
     appDir = app_dir,
