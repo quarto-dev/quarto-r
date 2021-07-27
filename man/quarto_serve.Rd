@@ -9,6 +9,7 @@ quarto_serve(
   dir = NULL,
   render = "none",
   port = "auto",
+  host = "127.0.0.1",
   browse = TRUE,
   watch = TRUE,
   navigate = TRUE
@@ -27,6 +28,8 @@ vector of specific formats to render. Pass "default" to render the default
 format for the site.}
 
 \item{port}{Port to listen on (defaults to 4848)}
+
+\item{host}{Hostname to bind to (defaults to 127.0.0.1)}
 
 \item{browse}{Open a browser to preview the site. Defaults to using the
 RStudio Viewer when running within RStudio.Pass a function (e.g.
