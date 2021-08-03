@@ -24,7 +24,7 @@ quarto_preview_stop()
 
 \item{host}{Hostname to bind to (defaults to 127.0.0.1)}
 
-\item{browse}{Open a browser to preview the site. Defaults to using the
+\item{browse}{Open a browser to preview the content. Defaults to using the
 RStudio Viewer when running within RStudio.Pass a function (e.g.
 \code{utils::browseURL} to override this behavior).}
 }

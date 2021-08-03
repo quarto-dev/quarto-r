@@ -11,7 +11,7 @@
 #'  format for the site.
 #' @param port Port to listen on (defaults to 4848)
 #' @param host Hostname to bind to (defaults to 127.0.0.1)
-#' @param browse Open a browser to preview the site. Defaults to using the
+#' @param browse Open a browser to preview the content. Defaults to using the
 #'   RStudio Viewer when running within RStudio.Pass a function (e.g.
 #'   `utils::browseURL` to override this behavior).
 #' @param watch Watch for changes and automatically reload browser.
