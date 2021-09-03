@@ -84,4 +84,12 @@ quarto_preview_stop <- function() {
   stop_serve_daemon("preview")
 }
 
+#' @keywords internal
+#' @export
+quarto_serve <- quarto_preview
+
+#' @keywords internal
+#' @export
+quarto_serve_stop <- quarto_preview_stop
+
 
