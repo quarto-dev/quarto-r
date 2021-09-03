@@ -6,19 +6,27 @@
 \title{Quarto Preview}
 \usage{
 quarto_preview(
-  file,
-  render = TRUE,
+  file = NULL,
+  render = "auto",
   port = "auto",
   host = "127.0.0.1",
-  browse = TRUE
+  browse = TRUE,
+  watch = TRUE,
+  navigate = TRUE
 )
 
 quarto_preview_stop()
 }
 \arguments{
-\item{file}{Quarto document to preview.}
+\item{file}{The document or website project directory to preview (defaults to
+current working directory)}
 
-\item{render}{Automatically re-render the document when it changes.}
+\item{render}{For website preview, the most recent execution results of
+computational documents are used to render the site (this is to optimize
+startup time). If you want to perform a full render prior to serving pass
+"all" or a vector of specific formats to render. Pass "default" to render
+the default format for the site. For document preview, the document is
+rendered prior to preview (pass \code{FALSE} to override this).}
 
 \item{port}{Port to listen on (defaults to 4848)}
 
@@ -27,23 +35,32 @@ quarto_preview_stop()
 \item{browse}{Open a browser to preview the content. Defaults to using the
 RStudio Viewer when running within RStudio.Pass a function (e.g.
 \code{utils::browseURL} to override this behavior).}
+
+\item{watch}{Watch for changes and automatically reload browser.}
+
+\item{navigate}{Automatically navivate the preview browser to the most
+recently rendered document.}
 }
 \description{
-Render and preview a Quarto document. Automatically re-renders the document
-when the source file changes. Automatically reloads the browser when
-document resources (e.g. CSS) change.
+Render and preview a Quarto document or website project.
 }
 \details{
-Pass \code{render = FALSE} to prevent re-rendering when the source file
-changes (note that even when this option is provided the document will be
-rendered once before previewing).
+Automatically reloads the browser when input files are re-rendered or
+document resources (e.g. CSS) change.
 }
 \examples{
 \dontrun{
+# Preview the project in the current directory
+quarto_preview()
+
 # Preview a document
 quarto_preview("document.qmd")
 
-# Stop any running preview
+# Preview the project in "myproj" directory and use external browser
+# (rather than RStudio Viewer)
+quarto_preview("myproj", open = utils::browseURL)
+
+# Stop any running quarto preview
 quarto_preview_stop()
 }
 

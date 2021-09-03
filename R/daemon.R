@@ -50,12 +50,14 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   }
 
   # render
-  if (is.logical(render)) {
-    if (isFALSE(render)) {
-      args <- c(args, "--no-render")
+  if (!identical(render, "auto")) {
+    if (is.logical(render)) {
+      if (isFALSE(render)) {
+        args <- c(args, "--no-render")
+      }
+    } else if (!identical(render, "none")) {
+      args <- c(args, "--render", paste(render, collapse = ","))
     }
-  } else if (!identical(render, "none")) {
-    args <- c(args, "--render", paste(render, collapse = ","))
   }
 
   # no browse (we'll use browseURL)
@@ -106,7 +108,7 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
 
 
   # indicate server is running
-  cat(paste0("Stop the server with quarto_", command, "_stop()"))
+  cat(paste0("Stop the preview with quarto_", command, "_stop()"))
 
   # run the preview browser
   if (!isFALSE(browse)) {

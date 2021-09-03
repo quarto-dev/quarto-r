@@ -8,7 +8,7 @@
 #'   a `server: shiny` entry in its YAML front-matter.
 #' @param render Render the document before running it.
 #'
-#' @inheritParams quarto_serve
+#' @inheritParams quarto_preview
 #'
 #' @export
 quarto_run <- function(input,
