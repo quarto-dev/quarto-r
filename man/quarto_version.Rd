@@ -11,5 +11,5 @@ a \code{\link[base:numeric_version]{numeric_version}} with the quarto version fo
 }
 \description{
 Determine the specific version of quartobinary found by \code{\link[=quarto_path]{quarto_path()}}.
-If it return \verb{99.9.9} then it means you are using a dev version
+If it returns \verb{99.9.9} then it means you are using a dev version.
 }
