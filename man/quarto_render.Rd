@@ -14,6 +14,7 @@ quarto_render(
   execute_daemon = NULL,
   execute_daemon_restart = FALSE,
   execute_debug = FALSE,
+  use_freezer = FALSE,
   cache = NULL,
   cache_refresh = FALSE,
   debug = FALSE,
@@ -49,6 +50,9 @@ Note this option is only applicable for rendering Jupyter notebooks or
 Jupyter markdown.}
 
 \item{execute_debug}{Show debug output for Jupyter kernel.}
+
+\item{use_freezer}{Force use of frozen computations for an incremental
+file render.}
 
 \item{cache}{Cache execution output (uses knitr cache and jupyter-cache
 respectively for Rmd and Jupyter input files).}
