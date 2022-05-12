@@ -22,6 +22,8 @@
 #'   Note this option is only applicable for rendering Jupyter notebooks or
 #'   Jupyter markdown.
 #' @param execute_debug Show debug output for Jupyter kernel.
+#' @param use_freezer Force use of frozen computations for an incremental
+#'  file render.
 #' @param cache Cache execution output (uses knitr cache and jupyter-cache
 #'   respectively for Rmd and Jupyter input files).
 #' @param cache_refresh Force refresh of execution cache.
@@ -58,6 +60,7 @@ quarto_render <- function(input = NULL,
                           execute_daemon = NULL,
                           execute_daemon_restart = FALSE,
                           execute_debug = FALSE,
+                          use_freezer = FALSE,
                           cache = NULL,
                           cache_refresh = FALSE,
                           debug = FALSE,
@@ -124,6 +127,9 @@ quarto_render <- function(input = NULL,
   }
   if (isTRUE(execute_debug)) {
     args <- c(args, "--execute-debug")
+  }
+  if (isTRUE(use_freezer)) {
+    args <- c(args, "--use-freezer")
   }
   if (!missing(cache)) {
     args <- c(args, ifelse(isTRUE(cache), "--cache", "--no-cache"))
