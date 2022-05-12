@@ -10,11 +10,12 @@ Authors@R:
 Description: Convert R Markdown documents and 'Jupyter' notebooks to a variety of
   output formats using 'Quarto'.
 Imports: utils,rmarkdown,jsonlite,yaml,processx,rstudioapi,later
-Suggests: testthat, rsconnect
+Suggests: testthat (>= 3.1.0), rsconnect
 SystemRequirements: Quarto command line tools (https://github.com/quarto-dev/quarto-cli).
 License: GPL (>= 2)
 URL: https://github.com/quarto-dev/quarto-r
 BugReports: https://github.com/quarto-dev/quarto-r/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
+Config/testthat/edition: 3
