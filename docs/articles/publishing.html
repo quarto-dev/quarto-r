@@ -67,8 +67,106 @@
 
     
     
-
-  </main>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>The <strong>quarto</strong> package includes several functions that
+enable you to publish static and interactive documents, websites, and
+books to <a href="https://www.rstudio.com/products/connect/" class="external-link">RStudio
+Connect</a> and <a href="https://www.shinyapps.io/" class="external-link">shinyapps.io</a>.
+When publishing to RStudio Connect, both simple content publishing
+(local rendering) as well as code publishing (rendering on Connect) are
+supported.</p>
+</div>
+<div class="section level2">
+<h2 id="accounts">Accounts<a class="anchor" aria-label="anchor" href="#accounts"></a>
+</h2>
+<p>Before publishing to RStudio Connect or shinyapps.io you should
+ensure that you have an account configured for publishing.</p>
+<p>For RStudio Connect, use the <code><a href="https://rdrr.io/pkg/rsconnect/man/connectUser.html" class="external-link">rsconnect::connectUser()</a></code>
+function for the server you are publishing to. For example:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">rsconnect</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rsconnect/man/connectUser.html" class="external-link">connectUser</a></span><span class="op">(</span>server <span class="op">=</span> <span class="st">"rsc.example.com"</span><span class="op">)</span></code></pre></div>
+<p>You’ll be prompted to authoring your account in a web browser.</p>
+<p>For shinyapps.io, use the <code><a href="https://rdrr.io/pkg/rsconnect/man/setAccountInfo.html" class="external-link">rsconnect::setAccountInfo()</a></code>
+function. For example:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">rsconnect</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/rsconnect/man/setAccountInfo.html" class="external-link">setAccountInfo</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'norahjones'</span>, token <span class="op">=</span> <span class="st">'AB6783FD23'</span>, secret <span class="op">=</span> <span class="st">'36x+k0bBy6W'</span><span class="op">)</span></code></pre></div>
+<p>Note that you can copy and paste this code from the <a href="https://www.shinyapps.io/admin/#/tokens" class="external-link">Tokens</a> page of your
+shinyapps.io admin panel.</p>
+</div>
+<div class="section level2">
+<h2 id="documents">Documents<a class="anchor" aria-label="anchor" href="#documents"></a>
+</h2>
+<p>Use the <code><a href="../reference/quarto_publish_doc.html">quarto_publish_doc()</a></code> function to publish a
+single document to RStudio Connect. Note that the very <em>first
+time</em> that you publish you should specify both the
+<code>server</code> and <code>account</code> that you want to use for
+publishing. For example:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_doc</a></span><span class="op">(</span><span class="st">"document.qmd"</span>, server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span><span class="op">)</span></code></pre></div>
+<p>Subsequent updates to the same document don’t need to specify the
+<code>server</code> and <code>account</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_doc</a></span><span class="op">(</span><span class="st">"document.qmd"</span><span class="op">)</span></code></pre></div>
+<p>The example above renders content locally and publishes just the
+content to the server. You can also render on the server (uploading the
+source code required to render). You might want to do this in order to
+create scheduled versions of a report that update automatically when the
+underlying data changes. To do this, add the
+<code>render = "server"</code> argument:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_doc</a></span><span class="op">(</span><span class="st">"document.qmd"</span>, 
+                   server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span>,
+                   render <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="websites">Websites<a class="anchor" aria-label="anchor" href="#websites"></a>
+</h2>
+<p>Use the <code><a href="../reference/quarto_publish_doc.html">quarto_publish_site()</a></code> function to publish a <a href="https://quarto.org/docs/websites/" class="external-link">website</a> or <a href="https://quarto.org/docs/books/" class="external-link">book</a> to RStudio Connect. Note
+that the very <em>first time</em> that you publish you should specify
+both the <code>server</code> and <code>account</code> that you want to
+use for publishing. For example:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_site</a></span><span class="op">(</span>server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span><span class="op">)</span></code></pre></div>
+<p>Subsequent updates to the same site don’t need to specify the
+<code>server</code> and <code>account</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_site</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>The example above renders content locally and publishes just the
+content to the server. You can also render on the server (uploading the
+source code required to render). You might want to do this in order to
+create scheduled versions of a website that update automatically when
+the underlying data changes. To do this, add the
+<code>render = "server"</code> argument:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_site</a></span><span class="op">(</span>server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span>,
+                    render <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="interative-docs">Interative Docs<a class="anchor" aria-label="anchor" href="#interative-docs"></a>
+</h2>
+<p>You can publish Shiny <a href="https://quarto.org/docs/interactive/shiny/" class="external-link">interactive
+documents</a> to either RStudio Connect or shinyapps.io.</p>
+<p>To publish to RStudio Connect, specify both the <code>server</code>
+and <code>account</code> that you want to use for publishing (this is
+required for the first publish only). For example:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a></span><span class="op">)</span>
+<span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_app</a></span><span class="op">(</span><span class="st">"shiny.qmd"</span>, server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span><span class="op">)</span></code></pre></div>
+<p>To publish to shinyapps.io, use
+<code>server = "shinyapps.io"</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_app</a></span><span class="op">(</span><span class="st">"shiny.qmd"</span>, server <span class="op">=</span> <span class="st">"shinyapps.io"</span><span class="op">)</span></code></pre></div>
+<p>For both services, subsequent publishes need not provide the
+<code>server</code> or <code>account</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_app</a></span><span class="op">(</span><span class="st">"shiny.qmd"</span><span class="op">)</span></code></pre></div>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
