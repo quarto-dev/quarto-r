@@ -24,3 +24,15 @@ find_quarto <- function() {
     path
   }
 }
+
+#' Check quarto version
+#'
+#' Determine the specific version of quartobinary found by [quarto_path()].
+#' If it returns `99.9.9` then it means you are using a dev version.
+#'
+#' @return a [`numeric_version`][base::numeric_version] with the quarto version found
+#' @export
+quarto_version <- function() {
+  quarto_bin <- find_quarto()
+  as.numeric_version(system2(quarto_bin, "--version", stdout = TRUE))
+}
