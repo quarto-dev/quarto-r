@@ -1,0 +1,8 @@
+---
+title: "Publishing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Publishing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
