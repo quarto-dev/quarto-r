@@ -338,7 +338,7 @@ resolve_destination <- function(server, account, allowShinyapps) {
     # ensure we have this server available
     accounts <- rsconnect::accounts()
     accounts <- subset(accounts, server == server_name)
-    if (nrow(accounts) == 0) {
+    if (is.null(accounts) || nrow(accounts) == 0) {
 
       # prompt
       message(sprintf("You do not currently have a %s publishing account ", server),
