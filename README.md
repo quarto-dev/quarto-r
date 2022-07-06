@@ -16,10 +16,10 @@ The following functions enable you to render and preview Quarto documents and pr
 
 |                                                          |                                |
 |---------------------------|------------------------------------|
-| [`quarto_render()`](reference/quarto_render.html)        | Render a file or project       |
-| [`quarto_preview()`](reference/quarto_preview.html)      | Live preview a file or project |
-| [`quarto_preview_stop()`](reference/quarto_preview.html) | Stop live previewing           |
-| [`quarto_run()`](reference/quarto_run.html)              | Run interactive document       |
+| [`quarto_render()`](https://quarto-dev.github.io/quarto-r/reference/quarto_render.html)        | Render a file or project       |
+| [`quarto_preview()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html)      | Live preview a file or project |
+| [`quarto_preview_stop()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html) | Stop live previewing           |
+| [`quarto_run()`](https://quarto-dev.github.io/quarto-r/reference/quarto_run.html)              | Run interactive document       |
 
 ### Publishing
 
@@ -27,9 +27,9 @@ These functions enable you to publish static and interactive documents, websites
 
 |                                                              |                                        |
 |---------------------------|------------------------------------|
-| [`quarto_publish_doc()`](reference/quarto_publish_doc.html)  | Publish a document or presentation     |
-| [`quarto_publish_site()`](reference/quarto_publish_doc.html) | Current version of Quarto              |
-| [`quarto_publish_app()`](reference/quarto_publish_doc.html)  | Inspect metadata for a file or project |
+| [`quarto_publish_doc()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document or presentation     |
+| [`quarto_publish_site()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html) | Current version of Quarto              |
+| [`quarto_publish_app()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Inspect metadata for a file or project |
 
 ### Configuration
 
@@ -37,6 +37,6 @@ These functions enable you to inspect the Quarto installation as well as the met
 
 |                                                     |                                        |
 |---------------------------|------------------------------------|
-| [`quarto_path()`](reference/quarto_path.html)       | Path to the Quarto binary              |
-| [`quarto_version()`](reference/quarto_version.html) | Current version of Quarto              |
-| [`quarto_inspect()`](reference/quarto_inspect.html) | Inspect metadata for a file or project |
+| [`quarto_path()`](https://quarto-dev.github.io/quarto-r/reference/quarto_path.html)       | Path to the Quarto binary              |
+| [`quarto_version()`](https://quarto-dev.github.io/quarto-r/reference/quarto_version.html) | Current version of Quarto              |
+| [`quarto_inspect()`](https://quarto-dev.github.io/quarto-r/reference/quarto_inspect.html) | Inspect metadata for a file or project |
