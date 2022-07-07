@@ -77,7 +77,7 @@ quarto_publish_site(server = "rsc.example.com", account = "njones",
                     render = "server")
 ```
 
-## Interative Docs
+## Interactive Docs
 
 You can publish Shiny [interactive documents](https://quarto.org/docs/interactive/shiny/) to either RStudio Connect or shinyapps.io. 
 
