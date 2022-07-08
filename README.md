@@ -19,7 +19,7 @@ The following functions enable you to render and preview Quarto documents and pr
 | [`quarto_render()`](https://quarto-dev.github.io/quarto-r/reference/quarto_render.html)        | Render a file or project       |
 | [`quarto_preview()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html)      | Live preview a file or project |
 | [`quarto_preview_stop()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html) | Stop live previewing           |
-| [`quarto_run()`](https://quarto-dev.github.io/quarto-r/reference/quarto_run.html)              | Run interactive document       |
+| [`quarto_serve()`](https://quarto-dev.github.io/quarto-r/reference/quarto_serve.html)              | Run interactive document       |
 
 ### Publishing
 

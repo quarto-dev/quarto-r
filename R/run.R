@@ -1,21 +1,21 @@
-#' Run Interactive Document
+#' Serve Interactive Document
 #'
-#' Run a Shiny interactive document. By default, the document will
-#' be rendered first and then run. If you have previously rendered
+#' Serve a Shiny interactive document. By default, the document will
+#' be rendered first and then served If you have previously rendered
 #' the document, pass `render - FALSE` to skip rendering.
 #'
 #' @param input The input file to run Should be a file with
 #'   a `server: shiny` entry in its YAML front-matter.
-#' @param render Render the document before running it.
+#' @param render Render the document before serving it.
 #'
 #' @inheritParams quarto_preview
 #'
 #' @export
-quarto_run <- function(input,
-                       render = TRUE,
-                       port = getOption("shiny.port"),
-                       host = getOption("shiny.host", "127.0.0.1"),
-                       browse = TRUE) {
+quarto_serve <- function(input,
+                         render = TRUE,
+                         port = getOption("shiny.port"),
+                         host = getOption("shiny.host", "127.0.0.1"),
+                         browse = TRUE) {
 
   # render if requested
   if (render) {

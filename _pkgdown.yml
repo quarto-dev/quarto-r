@@ -20,7 +20,7 @@ reference:
   contents:
   - quarto_render
   - quarto_preview
-  - quarto_run
+  - quarto_serve
 
 - title: "Publishing"
   desc: >
