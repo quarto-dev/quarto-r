@@ -24,7 +24,7 @@ quarto_render(
 )
 }
 \arguments{
-\item{input}{The input file or project directory to be rendered (defualts
+\item{input}{The input file or project directory to be rendered (defaults
 to rendering the project in the current working directory).}
 
 \item{output_format}{Target output format (defaults to "html"). The option

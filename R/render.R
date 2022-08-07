@@ -4,7 +4,7 @@
 #' input requires computations (e.g. for Rmd or Jupyter files) then those
 #' computations are performed before rendering.
 #'
-#' @param input The input file or project directory to be rendered (defualts
+#' @param input The input file or project directory to be rendered (defaults
 #'   to rendering the project in the current working directory).
 #' @param output_format Target output format (defaults to "html"). The option
 #'   `"all"` will render all formats defined within the file or project.

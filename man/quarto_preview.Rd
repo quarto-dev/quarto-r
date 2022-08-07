@@ -38,7 +38,7 @@ RStudio Viewer when running within RStudio.Pass a function (e.g.
 
 \item{watch}{Watch for changes and automatically reload browser.}
 
-\item{navigate}{Automatically navivate the preview browser to the most
+\item{navigate}{Automatically navigate the preview browser to the most
 recently rendered document.}
 }
 \description{

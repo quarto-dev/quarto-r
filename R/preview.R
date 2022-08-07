@@ -19,7 +19,7 @@
 #'   RStudio Viewer when running within RStudio.Pass a function (e.g.
 #'   `utils::browseURL` to override this behavior).
 #' @param watch Watch for changes and automatically reload browser.
-#' @param navigate Automatically navivate the preview browser to the most
+#' @param navigate Automatically navigate the preview browser to the most
 #'   recently rendered document.
 #'
 #' @importFrom processx process

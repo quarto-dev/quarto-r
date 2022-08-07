@@ -15,10 +15,10 @@ Suggests:
     testthat (>= 3.1.0)
 SystemRequirements: Quarto command line tools (https://github.com/quarto-dev/quarto-cli).
 License: GPL (>= 2)
-URL: https://github.com/quarto-dev/quarto-r
+URL: https://github.com/quarto-dev/quarto-r, https://quarto-dev.github.io/quarto-r/
 BugReports: https://github.com/quarto-dev/quarto-r/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Config/testthat/edition: 3
 VignetteBuilder: knitr
