@@ -19,13 +19,13 @@
 quarto_install_extension <- function(template = NULL) {
   quarto_bin <- find_quarto()
   message(
-    "Quarto templates may execute code when documents are rendered. ",
-    "If you do not trust the authors of the template, ",
-    "we recommend that you do not install or use the template."
+    "Quarto extensions may execute code when documents are rendered. ",
+    "If you do not trust the authors of the extension, ",
+    "we recommend that you do not install or use the extension"
   )
-  prompt_value <- tolower(readline("Do you trust the authors of this template (Y/n)? "))
+  prompt_value <- tolower(readline("Do you trust the authors of this extension (Y/n)? "))
   if (!prompt_value %in% "y") {
-    message("Quarto template not installed.")
+    message("Quarto extension not installed.")
     return(invisible())
   }
 
