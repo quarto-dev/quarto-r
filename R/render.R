@@ -25,8 +25,10 @@
 #' @param use_freezer Force use of frozen computations for an incremental
 #'  file render.
 #' @param cache Cache execution output (uses knitr cache and jupyter-cache
-#'   respectively for Rmd and Jupyter input files).
+#'  respectively for Rmd and Jupyter input files).
 #' @param cache_refresh Force refresh of execution cache.
+#' @param override An optional named list used to temporarily override YAML
+#'   metadata.
 #' @param debug Leave intermediate files in place after render.
 #' @param quiet Suppress warning and other messages.
 #' @param pandoc_args Additional command line options to pass to pandoc.
@@ -48,6 +50,9 @@
 #'
 #' # Render Jupyter Markdown
 #' quarto_render("notebook.md")
+#'
+#' # Override metadata
+#' quarto_render("notebook.Rmd", override = list(lang = "fr", echo = "false"))
 #' }
 #' @export
 quarto_render <- function(input = NULL,
@@ -62,6 +67,7 @@ quarto_render <- function(input = NULL,
                           use_freezer = FALSE,
                           cache = NULL,
                           cache_refresh = FALSE,
+                          override = NULL,
                           debug = FALSE,
                           quiet = FALSE,
                           pandoc_args = NULL,
@@ -136,6 +142,16 @@ quarto_render <- function(input = NULL,
   if (isTRUE(cache_refresh)) {
     args <- c(args, "--cache-refresh")
   }
+  if (!missing(override)) {
+    args <- c(
+      args,
+      unlist(lapply(
+        X = sprintf("%s:%s", names(override), override),
+        FUN = function(x, y) c(y, x),
+        y = "--metadata"
+      ))
+    )
+  }
   if (isTRUE(debug)) {
     args <- c(args, "--debug")
   }
@@ -152,9 +168,3 @@ quarto_render <- function(input = NULL,
   # no return value
   invisible(NULL)
 }
-
-
-
-
-
-
