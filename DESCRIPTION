@@ -9,7 +9,7 @@ Authors@R:
            comment = c(ORCID = "0000-0003-0174-9868"))
 Description: Convert R Markdown documents and 'Jupyter' notebooks to a variety of
   output formats using 'Quarto'.
-Imports: utils,rmarkdown,jsonlite,yaml,processx,rstudioapi,later,rsconnect (>= 0.8.26)
+Imports: tools,utils,rmarkdown,jsonlite,yaml,processx,rstudioapi,later,rsconnect (>= 0.8.26)
 Suggests: 
     knitr,
     testthat (>= 3.1.0)
@@ -21,4 +21,4 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Config/testthat/edition: 3
-VignetteBuilder: knitr
+VignetteBuilder: knitr,quarto
