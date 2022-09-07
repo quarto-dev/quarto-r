@@ -21,13 +21,4 @@
                  tangle = vignetteEngine("knitr::rmarkdown")$tangle,
                  aspell = vignetteEngine("knitr::rmarkdown")$aspell
                  )
-  vignetteEngine(name = "all",
-                 package = "quarto",
-                 pattern = "[.]qmd$",
-                 weave = function(file, ..., encoding = "UTF-8") {
-                   quarto_render(file, ..., output_format = "all")
-                 },
-                 tangle = vignetteEngine("knitr::rmarkdown")$tangle,
-                 aspell = vignetteEngine("knitr::rmarkdown")$aspell
-                 )
 }
