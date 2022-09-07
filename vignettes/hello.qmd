@@ -15,7 +15,7 @@ vignette: >
 
 This is an example Quarto vignette, demonstrating how the **quarto** package can let you write package vignettes in Quarto.
 
-## Three Vignette Engines
+## Two Vignette Engines
 
 The **quarto** package registers 2 vignette engines, `quarto::pdf` and `quarto::html`. Either of these may be selected in a Quarto vignette's YAML header. For example, this vignette's header reads:
 ```yaml
