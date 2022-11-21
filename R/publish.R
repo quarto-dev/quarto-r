@@ -238,9 +238,9 @@ quarto_publish_site <- function(input = getwd(),
     account = destination$account,
     server = destination$server,
     metadata = metadata,
-    contentCategory = "site"
+    contentCategory = "site",
+    ...
   )
-
 }
 
 
