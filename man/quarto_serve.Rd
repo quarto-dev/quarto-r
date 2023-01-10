@@ -13,7 +13,7 @@ quarto_serve(
 )
 }
 \arguments{
-\item{input}{The input file to serve Should be a file with
+\item{input}{The input file to run Should be a file with
 a \code{server: shiny} entry in its YAML front-matter.}
 
 \item{render}{Render the document before serving it.}

@@ -1,0 +1,40 @@
+
+url: ~
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+     left: [publishing, reference]
+     right: [search]
+  components:
+     publishing:
+      text: Publishing
+      href: articles/publishing.html
+
+
+reference:
+- title: "Render and Preview"
+  desc: >
+    The following functions enable you to render and preview Quarto documents and projects:
+  contents:
+  - quarto_render
+  - quarto_preview
+  - quarto_serve
+
+- title: "Publishing"
+  desc: >
+    These functions enable you to publish static and interactive documents, websites, and books to
+    [RStudio Connect](https://www.rstudio.com/products/connect/) and [shinyapps.io](https://www.shinyapps.io/):
+  contents:
+  - quarto_publish_doc
+
+- title: "Configuration"
+  desc: >
+    These functions enable you to inspect the Quarto installation as well as the metadata
+    for Quarto documents and projects:
+  contents:
+  - quarto_inspect
+  - quarto_path
+  - quarto_version
+

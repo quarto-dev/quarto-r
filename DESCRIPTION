@@ -1,6 +1,6 @@
 Package: quarto
 Title: R Interface to 'Quarto' Markdown Publishing System
-Version: 1.1.0.9000
+Version: 1.2.0.9000
 Authors@R: 
     person(given = "JJ",
            family = "Allaire",
@@ -9,12 +9,16 @@ Authors@R:
            comment = c(ORCID = "0000-0003-0174-9868"))
 Description: Convert R Markdown documents and 'Jupyter' notebooks to a variety of
   output formats using 'Quarto'.
-Imports: utils,rmarkdown,jsonlite,yaml,processx,rstudioapi,later
-Suggests: testthat, rsconnect
+Imports: utils,rmarkdown,jsonlite,yaml,processx,rstudioapi,later,rsconnect (>= 0.8.26)
+Suggests: 
+    knitr,
+    testthat (>= 3.1.0)
 SystemRequirements: Quarto command line tools (https://github.com/quarto-dev/quarto-cli).
 License: GPL (>= 2)
-URL: https://github.com/quarto-dev/quarto-r
+URL: https://github.com/quarto-dev/quarto-r, https://quarto-dev.github.io/quarto-r/
 BugReports: https://github.com/quarto-dev/quarto-r/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Config/testthat/edition: 3
+VignetteBuilder: knitr
