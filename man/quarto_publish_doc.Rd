@@ -69,7 +69,7 @@ record. These fields will be returned on subsequent calls to
 \item{...}{Named parameters to pass along to \code{rsconnect::deployApp()}}
 }
 \description{
-Publish Quarto documents to RStudio Connect and ShinyApps
+Publish Quarto documents to RStudio Connect, ShinyApps, and RPubs
 }
 \examples{
 \dontrun{
