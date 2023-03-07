@@ -84,7 +84,7 @@ quarto_render <- function(input = NULL,
 
   # render as job if requested and running within rstudio
   if (as_job && rstudioapi::isAvailable()) {
-    message("Rendering project as backround job (use as_job = FALSE to override)")
+    message("Rendering project as background job (use as_job = FALSE to override)")
     script <- tempfile(fileext = ".R")
     writeLines(
       c("library(quarto)", deparse(sys.call())),
