@@ -19,9 +19,9 @@ quarto_path <- function() {
 find_quarto <- function() {
   path <- quarto_path()
   if (is.null(path)) {
-    stop("Unable to find quarto command line tools.")
+     stop("Quarto command-line tools path not found! Please make sure you have installed and added Quarto to your PATH or set the QUARTO_PATH environment variable.")
   } else {
-    path
+    return(path)
   }
 }
 
