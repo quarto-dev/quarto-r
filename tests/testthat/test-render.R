@@ -12,7 +12,7 @@ test_that("R Markdown documents can be rendered", {
 })
 
 
-test_that("`quarto_render()` is wrapable", {
+test_that("`quarto_render(as_job = TRUE)` is wrapable", {
   skip_if(is.null(quarto_path()))
   skip_if_not_installed("rstudioapi")
   skip_if_not_installed("rprojroot")
@@ -20,7 +20,9 @@ test_that("`quarto_render()` is wrapable", {
   dir <- rprojroot::find_testthat_root_file()
   input <- file.path(dir, "test.Rmd")
   output <- file.path(dir, "test.html")
-  wrapper <- function(path) quarto_render(path, quiet = TRUE)
+  wrapper <- function(path) quarto_render(path, quiet = TRUE, as_job = TRUE)
+  # wait for background job to finish (10s should be conservative enough)
+  Sys.sleep(10)
   wrapper(input)
   expect_true(file.exists(output))
   unlink(output)
