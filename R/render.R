@@ -106,9 +106,8 @@ quarto_render <- function(input = NULL,
       workingDir = getwd(),
       importEnv = TRUE
     )
-    return (invisible(NULL))
+    return(invisible(NULL))
   }
-
 
   # build args
   args <- c("render", input)

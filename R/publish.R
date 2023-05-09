@@ -269,7 +269,7 @@ find_app_primary_doc <- function(dir) {
           break
         }
       }
-      return (primary_doc)
+      return(primary_doc)
     }
   }
   return(NULL)

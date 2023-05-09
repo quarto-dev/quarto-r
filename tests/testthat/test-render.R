@@ -1,4 +1,3 @@
-
 test_that("An error is reported when Quarto is not installed", {
   skip_if(!is.null(quarto_path()))
   expect_error(quarto_render("test.Rmd"))
