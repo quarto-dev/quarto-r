@@ -86,7 +86,7 @@ quarto_render <- function(input = NULL,
   if (as_job && rstudioapi::isAvailable()) {
     message("Rendering project as background job (use as_job = FALSE to override)")
     script <- tempfile(fileext = ".R")
-    render_args <- rlang::call_args(sys.call())
+    render_args <- as.list(sys.call()[-1L])
     render_args <- mapply(
       function(arg, arg_name) paste0(
         arg_name,
