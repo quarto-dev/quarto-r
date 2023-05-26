@@ -97,7 +97,7 @@ quarto_render <- function(input = NULL,
       names(render_args)
     )
     writeLines(
-      paste0("quarto::quarto_render(", paste0(render_args, collapse = ", "),")"),
+      paste0("quarto::quarto_render(", paste0(render_args, collapse = ", "), ")"),
       script
     )
     rstudioapi::jobRunScript(
