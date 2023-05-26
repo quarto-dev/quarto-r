@@ -16,7 +16,7 @@ test_that("`quarto_render(as_job = TRUE)` is wrapable", {
   skip_if(is.null(quarto_path()))
   skip_if_not_installed("rstudioapi")
   skip_if_not_installed("rprojroot")
-  skip_if(!rstudioapi::isAvailable())
+  skip_if_not(rstudioapi::isAvailable())
   dir <- rprojroot::find_testthat_root_file()
   input <- file.path(dir, "test.Rmd")
   output <- file.path(dir, "test.html")
