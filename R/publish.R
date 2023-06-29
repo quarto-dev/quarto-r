@@ -111,7 +111,7 @@ quarto_publish_doc <- function(input,
     }
 
     # include any explicit resources with app files
-    app_files <- unique(c(app_files, resources))
+    app_files <- unique(c(app_files, unlist(resources)))
 
     # deploy doc
     if (render == "server") {
