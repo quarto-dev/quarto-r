@@ -1,7 +1,7 @@
 
 #' Publish Quarto Documents
 #'
-#' Publish Quarto documents to RStudio Connect and ShinyApps
+#' Publish Quarto documents to RStudio Connect, ShinyApps, and RPubs
 #'
 #' @inheritParams rsconnect::deployApp
 #'
@@ -92,6 +92,7 @@ quarto_publish_doc <- function(input,
 
     # determine app_files
     app_files <- c(basename(doc))
+    deploy_frame <- NULL
     tryCatch({
       # this operation can be expensive and could also throw if e.g. the
       # document fails to parse or render
@@ -100,13 +101,17 @@ quarto_publish_doc <- function(input,
     error = function(e) {
       # errors are not fatal here; we just might miss some resources, which
       # the user will have to add manually
+      message(
+        "Auto detection of external ressources with `rmarkdown::find_external_resources()` has failed. ",
+        "Adding them manually may be needed (or fixing the doc for auto detection)."
+      )
     })
     if (!is.null(deploy_frame)) {
       app_files <- c(app_files, deploy_frame$path)
     }
 
     # include any explicit resources with app files
-    app_files <- unique(c(app_files, resources))
+    app_files <- unique(c(app_files, unlist(resources)))
 
     # deploy doc
     if (render == "server") {
@@ -238,7 +243,8 @@ quarto_publish_site <- function(input = getwd(),
     account = destination$account,
     server = destination$server,
     metadata = metadata,
-    contentCategory = "site"
+    contentCategory = "site",
+    ...
   )
 
 }

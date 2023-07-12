@@ -9,5 +9,5 @@ test_that("R Markdown documents can be rendered", {
   skip_if(is.null(quarto_path()))
   quarto_render("test.Rmd", quiet = TRUE)
   expect_true(file.exists("test.html"))
-  unlink("test-render.html")
+  unlink("test.html")
 })
