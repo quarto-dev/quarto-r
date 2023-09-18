@@ -1,7 +1,7 @@
 
 #' Publish Quarto Documents
 #'
-#' Publish Quarto documents to RStudio Connect, ShinyApps, and RPubs
+#' Publish Quarto documents to Posit Connect, ShinyApps, and RPubs
 #'
 #' @inheritParams rsconnect::deployApp
 #'
