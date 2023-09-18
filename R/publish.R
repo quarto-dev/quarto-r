@@ -15,9 +15,6 @@
 #' @param render `local` to render locally before publishing; `server` to
 #'   render on the server; `none` to use whatever rendered content currently
 #'   exists locally. (defaults to `local`)
-#' @param server Server name. Use "shinyapps.io" when deploying applications
-#'   to Shinyapps. Use "rpubs.com" when deploying documents to RPubs. Otherwise
-#'   use the domain name or IP address of any RStudio Connect server.
 #' @param ... Named parameters to pass along to `rsconnect::deployApp()`
 #'
 #' @examples
