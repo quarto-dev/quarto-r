@@ -27,9 +27,9 @@ These functions enable you to publish static and interactive documents, websites
 
 |                                                              |                                        |
 |---------------------------|------------------------------------|
-| [`quarto_publish_doc()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document or presentation     |
-| [`quarto_publish_site()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html) | Current version of Quarto              |
-| [`quarto_publish_app()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Inspect metadata for a file or project |
+| [`quarto_publish_doc()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document or presentation                |
+| [`quarto_publish_site()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html) | Publish a website                                 |
+| [`quarto_publish_app()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document with Shiny application runtime |
 
 ### Configuration
 
