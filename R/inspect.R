@@ -4,10 +4,8 @@
 #' config and engines. Inspecting an input path return its formats, engine,
 #' and dependent resources.
 #'
+#' @inheritParams quarto_render
 #' @param input The input file or project directory to inspect.
-#' @param profile [Quarto project
-#'   profile](https://quarto.org/docs/projects/profiles.html) to use. If
-#'   `NULL`, the default profile is used.
 #'
 #' @return Named list. For input files, the list contains the elements
 #'   `quarto`, `engines`, `formats`, `resources`, plus `project` if the file is

@@ -29,6 +29,9 @@
 #' @param cache_refresh Force refresh of execution cache.
 #' @param debug Leave intermediate files in place after render.
 #' @param quiet Suppress warning and other messages.
+#' @param profile [Quarto project
+#'   profile](https://quarto.org/docs/projects/profiles.html) to use. If
+#'   `NULL`, the default profile is used.
 #' @param pandoc_args Additional command line options to pass to pandoc.
 #' @param as_job Render as an RStudio background job. Default is "auto",
 #'   which will render individual documents normally and projects as
@@ -65,6 +68,7 @@ quarto_render <- function(input = NULL,
                           cache_refresh = FALSE,
                           debug = FALSE,
                           quiet = FALSE,
+                          profile = NULL,
                           pandoc_args = NULL,
                           as_job = getOption("quarto.render_as_job", "auto")) {
 
@@ -141,6 +145,9 @@ quarto_render <- function(input = NULL,
   }
   if (isTRUE(quiet)) {
     args <- c(args, "--quiet")
+  }
+  if (!is.null(profile)) {
+    args <- c(args, "--profile", profile)
   }
   if (!is.null(pandoc_args)) {
     args <- c(args, pandoc_args)

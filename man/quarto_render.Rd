@@ -19,6 +19,7 @@ quarto_render(
   cache_refresh = FALSE,
   debug = FALSE,
   quiet = FALSE,
+  profile = NULL,
   pandoc_args = NULL,
   as_job = getOption("quarto.render_as_job", "auto")
 )
@@ -62,6 +63,9 @@ respectively for Rmd and Jupyter input files).}
 \item{debug}{Leave intermediate files in place after render.}
 
 \item{quiet}{Suppress warning and other messages.}
+
+\item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile} to use. If
+\code{NULL}, the default profile is used.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc.}
 
