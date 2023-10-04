@@ -54,7 +54,7 @@
 quarto_render <- function(input = NULL,
                           output_format = NULL,
                           output_file = NULL,
-                          execute = TRUE,
+                          execute = NULL,
                           execute_params = NULL,
                           execute_dir = NULL,
                           execute_daemon = NULL,
@@ -96,30 +96,29 @@ quarto_render <- function(input = NULL,
       workingDir = getwd(),
       importEnv = TRUE
     )
-    return (invisible(NULL))
+    return(invisible(NULL))
   }
-
 
   # build args
   args <- c("render", input)
-  if (!missing(output_format)) {
+  if (!is.null(output_format)) {
     args <- c(args, "--to", paste(output_format, collapse = ","))
   }
-  if (!missing(output_file)) {
+  if (!is.null(output_file)) {
     args <- c(args, "--output", output_file)
   }
-  if (!missing(execute)) {
+  if (!is.null(execute)) {
     args <- c(args, ifelse(isTRUE(execute), "--execute", "--no-execute"))
   }
-  if (!missing(execute_params)) {
+  if (!is.null(execute_params)) {
     params_file <- tempfile(pattern = "quarto-params", fileext = ".yml")
     write_yaml(execute_params, params_file)
     args <- c(args, "--execute-params", params_file)
   }
-  if (!missing(execute_dir)) {
+  if (!is.null(execute_dir)) {
     args <- c(args, "--execute-dir", execute_dir)
   }
-  if (!missing(execute_daemon)) {
+  if (!is.null(execute_daemon)) {
     args <- c(args, "--execute-daemon", as.character(execute_daemon))
   }
   if (isTRUE(execute_daemon_restart)) {
@@ -131,7 +130,7 @@ quarto_render <- function(input = NULL,
   if (isTRUE(use_freezer)) {
     args <- c(args, "--use-freezer")
   }
-  if (!missing(cache)) {
+  if (!is.null(cache)) {
     args <- c(args, ifelse(isTRUE(cache), "--cache", "--no-cache"))
   }
   if (isTRUE(cache_refresh)) {
@@ -153,9 +152,3 @@ quarto_render <- function(input = NULL,
   # no return value
   invisible(NULL)
 }
-
-
-
-
-
-
