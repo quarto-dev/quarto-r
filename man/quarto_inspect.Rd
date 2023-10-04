@@ -9,8 +9,8 @@ quarto_inspect(input = ".", profile = NULL)
 \arguments{
 \item{input}{The input file or project directory to inspect.}
 
-\item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile} to use. If
-\code{NULL}, the default profile is used.}
+\item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
+a character vector of profile names or \code{NULL} to use the default profile.}
 }
 \value{
 Named list. For input files, the list contains the elements

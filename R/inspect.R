@@ -37,7 +37,7 @@ quarto_inspect <- function(input = ".",
     command = quarto_bin,
     args = c(
       "inspect",
-      if (!is.null(profile)) c("--profile", profile),
+      if (!is.null(profile)) c("--profile", paste0(profile, collapse = ",")),
       path.expand(input)
     ),
     stdout = TRUE
