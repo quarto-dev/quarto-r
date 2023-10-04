@@ -1,7 +1,7 @@
 
 #' Publish Quarto Documents
 #'
-#' Publish Quarto documents to RStudio Connect, ShinyApps, and RPubs
+#' Publish Quarto documents to Posit Connect, ShinyApps, and RPubs
 #'
 #' @inheritParams rsconnect::deployApp
 #'
@@ -15,9 +15,6 @@
 #' @param render `local` to render locally before publishing; `server` to
 #'   render on the server; `none` to use whatever rendered content currently
 #'   exists locally. (defaults to `local`)
-#' @param server Server name. Use "shinyapps.io" when deploying applications
-#'   to Shinyapps. Use "rpubs.com" when deploying documents to RPubs. Otherwise
-#'   use the domain name or IP address of any RStudio Connect server.
 #' @param ... Named parameters to pass along to `rsconnect::deployApp()`
 #'
 #' @examples
@@ -111,7 +108,7 @@ quarto_publish_doc <- function(input,
     }
 
     # include any explicit resources with app files
-    app_files <- unique(c(app_files, resources))
+    app_files <- unique(c(app_files, unlist(resources)))
 
     # deploy doc
     if (render == "server") {
