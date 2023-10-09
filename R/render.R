@@ -36,7 +36,6 @@
 #'   the default globally.
 #'
 #' @importFrom rmarkdown relative_to
-#' @importFrom yaml write_yaml
 #'
 #' @examples
 #' \dontrun{
