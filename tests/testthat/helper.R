@@ -13,3 +13,18 @@ local_qmd_file <- function(..., .env = parent.frame()) {
   xfun::write_utf8(c(...), path)
   path
 }
+
+.render <- function(input, ...) {
+  skip_if_no_quarto()
+  output_file <- xfun::with_ext(basename(input), "test.out")
+  quarto_render(input, output_file = output_file, quiet = TRUE, ...)
+  output_file
+}
+
+.render_and_read <- function(input, ...) {
+  skip_if_not_installed("xfun")
+  skip_if_not_installed("withr")
+  out <- .render(input, ...)
+  withr::local_dir(dirname(input))
+  xfun::read_utf8(out)
+}

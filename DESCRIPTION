@@ -21,6 +21,8 @@ Imports:
     yaml
 Suggests: 
     knitr,
+    xfun,
+    withr,
     testthat (>= 3.1.0)
 VignetteBuilder: 
     knitr
