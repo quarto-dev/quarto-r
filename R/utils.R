@@ -15,3 +15,10 @@ write_yaml <- function(x, file) {
   })
   yaml::write_yaml(x, file, handlers = handlers)
 }
+
+
+# inline knitr:::merge_list()
+merge_list <- function(x, y) {
+  x[names(y)] <- y
+  x
+}

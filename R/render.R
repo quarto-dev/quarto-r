@@ -25,8 +25,15 @@
 #' @param use_freezer Force use of frozen computations for an incremental
 #'  file render.
 #' @param cache Cache execution output (uses knitr cache and jupyter-cache
-#'   respectively for Rmd and Jupyter input files).
+#'  respectively for Rmd and Jupyter input files).
 #' @param cache_refresh Force refresh of execution cache.
+#' @param metadata An optional named list used to override YAML
+#'   metadata. It will be passed as a YAML file to `--metadata-file` CLI flag.
+#'   This will be merged over `metadata-file` options if both are
+#'   specified.
+#' @param metadata_file A yaml file passed to `--metadata-file` CLI flags to
+#'   overrite metadata. This will be merged with `metadata` if both are
+#'   specified, with low precedence on `metadata` options.
 #' @param debug Leave intermediate files in place after render.
 #' @param quiet Suppress warning and other messages.
 #' @param pandoc_args Additional command line options to pass to pandoc.
@@ -48,6 +55,9 @@
 #'
 #' # Render Jupyter Markdown
 #' quarto_render("notebook.md")
+#'
+#' # Override metadata
+#' quarto_render("notebook.Rmd", override = list(lang = "fr", echo = "false"))
 #' }
 #' @export
 quarto_render <- function(input = NULL,
@@ -62,6 +72,8 @@ quarto_render <- function(input = NULL,
                           use_freezer = FALSE,
                           cache = NULL,
                           cache_refresh = FALSE,
+                          metadata = NULL,
+                          metadata_file = NULL,
                           debug = FALSE,
                           quiet = FALSE,
                           pandoc_args = NULL,
@@ -136,6 +148,19 @@ quarto_render <- function(input = NULL,
   if (isTRUE(cache_refresh)) {
     args <- c(args, "--cache-refresh")
   }
+  # metadata to pass to quarto render
+  if (!missing(metadata)) {
+    # We merge meta if there is metadata_file passed
+    if (!missing(metadata_file)) {
+      metadata <- merge_list(yaml::read_yaml(metadata_file, eval.expr = FALSE), metadata)
+    }
+    meta_file <- tempfile(pattern = "quarto-meta", fileext = ".yml")
+    on.exit(unlink(meta_file), add = TRUE)
+    write_yaml(metadata, meta_file)
+    args <- c(args, "--metadata-file", meta_file)
+  } else if (!missing(metadata_file)) {
+    args <- c(args, "--metadata-file", metadata_file)
+  }
   if (isTRUE(debug)) {
     args <- c(args, "--debug")
   }
@@ -152,9 +177,3 @@ quarto_render <- function(input = NULL,
   # no return value
   invisible(NULL)
 }
-
-
-
-
-
-
