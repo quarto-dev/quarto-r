@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   publishing: publishing.html
-last_built: 2023-10-12T14:21Z
+last_built: 2023-10-12T16:50Z
 urls:
   reference: https://quarto-dev.github.io/quarto-r/reference
   article: https://quarto-dev.github.io/quarto-r/articles
