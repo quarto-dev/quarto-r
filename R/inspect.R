@@ -12,8 +12,6 @@
 #'   part of a Quarto project. For projects, the list contains the elements
 #'   `quarto`, `dir`, `engines`, `config` and `files`.
 #'
-#' @importFrom jsonlite fromJSON
-#'
 #' @examples
 #' \dontrun{
 #' # Inspect input file file
@@ -27,21 +25,20 @@
 #'   input = "myproject",
 #'   profile = "advanced"
 #' )}
+#' @importFrom jsonlite fromJSON
 #' @export
 quarto_inspect <- function(input = ".",
                            profile = NULL) {
 
   quarto_bin <- find_quarto()
 
-  output <- system2(
-    command = quarto_bin,
-    args = c(
-      "inspect",
-      if (!is.null(profile)) c("--profile", paste0(profile, collapse = ",")),
-      path.expand(input)
-    ),
-    stdout = TRUE
-  )
+  args <- c("inspect", path.expand(input))
 
-  fromJSON(output)
+  if (!is.null(profile)) {
+    args <- c(args, c("--profile", paste0(profile, collapse = ",")))
+  }
+
+  res <- processx::run(quarto_bin, args)
+
+  fromJSON(res$stdout)
 }
