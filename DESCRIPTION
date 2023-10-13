@@ -1,6 +1,6 @@
 Package: quarto
 Title: R Interface to 'Quarto' Markdown Publishing System
-Version: 1.3.3
+Version: 1.3.4
 Authors@R: c(
     person("JJ", "Allaire", , "jj@rstudio.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0174-9868")),
@@ -14,9 +14,11 @@ URL: https://github.com/quarto-dev/quarto-r,
     https://quarto-dev.github.io/quarto-r/
 BugReports: https://github.com/quarto-dev/quarto-r/issues
 Imports: 
+    cli,
     jsonlite,
     later,
     processx,
+    rlang,
     rmarkdown,
     rsconnect (>= 0.8.26),
     rstudioapi,
