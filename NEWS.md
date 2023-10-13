@@ -1,8 +1,6 @@
 # quarto (development version)
 
-* Add wrapper to quarto use template ([#42](https://github.com/quarto-dev/quarto-r/issues/42)).
-
-* Add wrapper to `quarto install extension`.
+* Add `quarto_add_extension()` and `quarto_use_template()` to deal with Quarto extensions for a Quarto project. (thanks, @mcanouil, #45, @remlapmot, #42).
 
 * Add `profile` arguments to `quarto_render()` and `quarto_inspect()` (thanks, #95, @andrewheiss, #123, @salim-b).
 
