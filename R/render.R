@@ -36,6 +36,9 @@
 #'   specified, with low precedence on `metadata` options.
 #' @param debug Leave intermediate files in place after render.
 #' @param quiet Suppress warning and other messages.
+#' @param profile [Quarto project
+#'   profile(s)](https://quarto.org/docs/projects/profiles.html) to use. Either
+#'   a character vector of profile names or `NULL` to use the default profile.
 #' @param pandoc_args Additional command line options to pass to pandoc.
 #' @param as_job Render as an RStudio background job. Default is "auto",
 #'   which will render individual documents normally and projects as
@@ -76,6 +79,7 @@ quarto_render <- function(input = NULL,
                           metadata_file = NULL,
                           debug = FALSE,
                           quiet = FALSE,
+                          profile = NULL,
                           pandoc_args = NULL,
                           as_job = getOption("quarto.render_as_job", "auto")) {
 
@@ -107,7 +111,7 @@ quarto_render <- function(input = NULL,
       workingDir = getwd(),
       importEnv = TRUE
     )
-    return (invisible(NULL))
+    return(invisible(NULL))
   }
 
 
@@ -166,6 +170,9 @@ quarto_render <- function(input = NULL,
   }
   if (isTRUE(quiet)) {
     args <- c(args, "--quiet")
+  }
+  if (!is.null(profile)) {
+    args <- cli_arg_profile(profile, args)
   }
   if (!is.null(pandoc_args)) {
     args <- c(args, pandoc_args)
