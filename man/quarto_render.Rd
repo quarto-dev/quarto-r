@@ -8,7 +8,7 @@ quarto_render(
   input = NULL,
   output_format = NULL,
   output_file = NULL,
-  execute = NULL,
+  execute = TRUE,
   execute_params = NULL,
   execute_dir = NULL,
   execute_daemon = NULL,
