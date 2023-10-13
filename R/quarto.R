@@ -38,9 +38,9 @@ quarto_version <- function() {
 }
 
 #' @importFrom processx run
-quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FALSE, ..., .call = rlang::caller_env()) {
+quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FALSE, echo_cmd = getOption("quarto.echo_cmd", FALSE), ..., .call = rlang::caller_env()) {
   res <- tryCatch({
-    processx::run(quarto_bin, args = args, echo = FALSE, error_on_status = TRUE, ...)
+    processx::run(quarto_bin, args = args, echo = FALSE, error_on_status = TRUE, echo_cmd = echo_cmd, ...)
   },
     error = function(e) rlang::abort(c("Error running quarto cli:", x = e$stderr), call = .call, parent = e)
   )
