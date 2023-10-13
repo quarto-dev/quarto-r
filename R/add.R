@@ -29,6 +29,8 @@
 #' @importFrom cli cli_abort
 #' @export
 quarto_add_extension <- function(extension = NULL, no_prompt = FALSE) {
+  rlang::check_required(extension)
+
   quarto_bin <- find_quarto()
 
   # This will ask for approval or stop installation
@@ -42,6 +44,5 @@ quarto_add_extension <- function(extension = NULL, no_prompt = FALSE) {
 }
 
 quarto_add <- function(args = character(), ...) {
-  args <- c("add", args)
-  quarto_run(args, ...)
+  quarto_run_what("add", args = args, ...)
 }

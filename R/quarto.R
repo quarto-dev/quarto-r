@@ -46,3 +46,8 @@ quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FA
   )
   invisible(res)
 }
+
+quarto_run_what <- function(what = character(), args = character(), quarto_bin = find_quarto(), echo = FALSE, ..., .call = rlang::caller_env()) {
+  res <- quarto_run(quarto_bin, args = c(what, args), echo = FALSE, ..., .call = .call)
+  invisible(res)
+}
