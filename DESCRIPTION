@@ -14,9 +14,11 @@ URL: https://github.com/quarto-dev/quarto-r,
     https://quarto-dev.github.io/quarto-r/
 BugReports: https://github.com/quarto-dev/quarto-r/issues
 Imports: 
+    cli,
     jsonlite,
     later,
     processx,
+    rlang,
     rmarkdown,
     rsconnect (>= 0.8.26),
     rstudioapi,
