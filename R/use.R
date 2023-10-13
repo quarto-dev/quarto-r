@@ -1,6 +1,6 @@
-#' Quarto Use Template
+#' Use acustom format extension template
 #'
-#' Install and use a template into a Quarto project.
+#' Install and use a template for Quarto using `quarto use`.
 #'
 #' @inheritParams quarto_add_extension
 #'

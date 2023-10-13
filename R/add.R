@@ -1,6 +1,6 @@
-#' Quarto Add Extension
+#' Install a Quarto extensions
 #'
-#' Add an extension to this folder or project.
+#' Add an extension to this folder or project by running `quarto add`
 #'
 #' # Extension Trust
 #'
