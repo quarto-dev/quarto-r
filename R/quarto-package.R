@@ -1,4 +1,7 @@
+#' @keywords internal
+"_PACKAGE"
 
-#' Internal package state
-#' @noRd
-quarto <- new.env(parent = emptyenv())
+## usethis namespace: start
+#' @import rlang
+## usethis namespace: end
+NULL
