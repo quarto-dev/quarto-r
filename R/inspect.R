@@ -38,7 +38,7 @@ quarto_inspect <- function(input = ".",
     args <- c(args, c("--profile", paste0(profile, collapse = ",")))
   }
 
-  res <- processx::run(quarto_bin, args)
+  res <- processx::run(quarto_bin, args, echo_cmd = getOption("quarto.echo_cmd", FALSE))
 
   fromJSON(res$stdout)
 }
