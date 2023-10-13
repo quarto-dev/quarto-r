@@ -10,6 +10,8 @@ quarto_use_template(template, no_prompt = FALSE)
 \item{template}{The template to install, either an archive or a GitHub
 repository as described in the documentation
 \url{https://quarto.org/docs/extensions/formats.html}.}
+
+\item{no_prompt}{Do not prompt to confirm approval to download external extension.}
 }
 \description{
 Install and use a template into a Quarto project.

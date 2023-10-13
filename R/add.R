@@ -14,6 +14,7 @@
 #' @param extension The extension to install, either an archive or a GitHub
 #'   repository as described in the documentation
 #'   <https://quarto.org/docs/extensions/managing.html>.
+#'
 #' @param no_prompt Do not prompt to confirm approval to download external extension.
 #'
 #' @examples

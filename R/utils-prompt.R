@@ -1,4 +1,3 @@
-#' @importFrom cli cli_inform cli_abort
 check_extension_approval <- function(no_prompt = FALSE, what = "Something", see_more_at = NULL) {
   if (!no_prompt) {
     if (!rlang::is_interactive()) {

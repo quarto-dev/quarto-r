@@ -2,6 +2,8 @@
 #'
 #' Install and use a template into a Quarto project.
 #'
+#' @inheritParams quarto_add_extension
+#'
 #' @param template The template to install, either an archive or a GitHub
 #'   repository as described in the documentation
 #'   <https://quarto.org/docs/extensions/formats.html>.
