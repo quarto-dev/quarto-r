@@ -1,4 +1,4 @@
-#' Use acustom format extension template
+#' Use a custom format extension template
 #'
 #' Install and use a template for Quarto using `quarto use`.
 #'

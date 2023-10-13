@@ -2,7 +2,7 @@
 % Please edit documentation in R/use.R
 \name{quarto_use_template}
 \alias{quarto_use_template}
-\title{Use acustom format extension template}
+\title{Use a custom format extension template}
 \usage{
 quarto_use_template(template, no_prompt = FALSE)
 }
