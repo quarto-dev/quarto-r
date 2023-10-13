@@ -17,8 +17,11 @@ quarto_render(
   use_freezer = FALSE,
   cache = NULL,
   cache_refresh = FALSE,
+  metadata = NULL,
+  metadata_file = NULL,
   debug = FALSE,
   quiet = FALSE,
+  profile = NULL,
   pandoc_args = NULL,
   as_job = getOption("quarto.render_as_job", "auto")
 )
@@ -59,9 +62,21 @@ respectively for Rmd and Jupyter input files).}
 
 \item{cache_refresh}{Force refresh of execution cache.}
 
+\item{metadata}{An optional named list used to override YAML
+metadata. It will be passed as a YAML file to \code{--metadata-file} CLI flag.
+This will be merged over \code{metadata-file} options if both are
+specified.}
+
+\item{metadata_file}{A yaml file passed to \code{--metadata-file} CLI flags to
+overrite metadata. This will be merged with \code{metadata} if both are
+specified, with low precedence on \code{metadata} options.}
+
 \item{debug}{Leave intermediate files in place after render.}
 
 \item{quiet}{Suppress warning and other messages.}
+
+\item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
+a character vector of profile names or \code{NULL} to use the default profile.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc.}
 
@@ -86,5 +101,8 @@ quarto_render("notebook.ipynb")
 
 # Render Jupyter Markdown
 quarto_render("notebook.md")
+
+# Override metadata
+quarto_render("notebook.Rmd", override = list(lang = "fr", echo = "false"))
 }
 }

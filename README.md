@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/quarto)](https://CRAN.R-project.org/package=quarto)
+[![R-CMD-check](https://github.com/quarto-dev/quarto-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/quarto-dev/quarto-r/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 [Quarto](https://quarto.org) is an open-source scientific and technical publishing system built on [Pandoc](https://pandoc.org).
@@ -19,17 +20,17 @@ The following functions enable you to render and preview Quarto documents and pr
 | [`quarto_render()`](https://quarto-dev.github.io/quarto-r/reference/quarto_render.html)        | Render a file or project       |
 | [`quarto_preview()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html)      | Live preview a file or project |
 | [`quarto_preview_stop()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html) | Stop live previewing           |
-| [`quarto_serve()`](https://quarto-dev.github.io/quarto-r/reference/quarto_serve.html)              | Run interactive document       |
+| [`quarto_run()`](https://quarto-dev.github.io/quarto-r/reference/quarto_run.html)              | Run interactive document       |
 
 ### Publishing
 
-These functions enable you to publish static and interactive documents, websites, and books to [RStudio Connect](https://www.rstudio.com/products/connect/) and [shinyapps.io](https://www.shinyapps.io/):
+These functions enable you to publish static and interactive documents, websites, and books to [Posit Connect](https://posit.co/products/enterprise/connect/) and [shinyapps.io](https://www.shinyapps.io/):
 
 |                                                              |                                        |
 |---------------------------|------------------------------------|
-| [`quarto_publish_doc()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document or presentation     |
-| [`quarto_publish_site()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html) | Current version of Quarto              |
-| [`quarto_publish_app()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Inspect metadata for a file or project |
+| [`quarto_publish_doc()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document or presentation                |
+| [`quarto_publish_site()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html) | Publish a website                                 |
+| [`quarto_publish_app()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document with Shiny application runtime |
 
 ### Configuration
 

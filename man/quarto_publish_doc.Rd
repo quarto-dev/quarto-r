@@ -50,13 +50,11 @@ Defaults to the name of the \code{input}.}
 supplied, will often be displayed in favor of the name. When deploying a new
 document, you may supply only the title to receive an auto-generated name}
 
-\item{server}{Server name. Use "shinyapps.io" when deploying applications
-to Shinyapps. Use "rpubs.com" when deploying documents to RPubs. Otherwise
-use the domain name or IP address of any RStudio Connect server.}
+\item{account, server}{Uniquely identify a remote server with either your
+user \code{account}, the \code{server} name, or both. If neither are supplied, and
+there are multiple options, you'll be prompted to pick one.
 
-\item{account}{Account to deploy application to. This parameter is only
-required for the initial deployment of an application when there are
-multiple accounts configured on the system (see \link[rsconnect]{accounts}).}
+Use \code{\link[rsconnect:accounts]{accounts()}} to see the full list of available options.}
 
 \item{render}{\code{local} to render locally before publishing; \code{server} to
 render on the server; \code{none} to use whatever rendered content currently
@@ -69,7 +67,7 @@ record. These fields will be returned on subsequent calls to
 \item{...}{Named parameters to pass along to \code{rsconnect::deployApp()}}
 }
 \description{
-Publish Quarto documents to RStudio Connect and ShinyApps
+Publish Quarto documents to Posit Connect, ShinyApps, and RPubs
 }
 \examples{
 \dontrun{

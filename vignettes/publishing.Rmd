@@ -9,13 +9,13 @@ vignette: >
 
 ## Overview
 
-The **quarto** package includes several functions that enable you to publish static and interactive documents, websites, and books to [RStudio Connect](https://www.rstudio.com/products/connect/) and [shinyapps.io](https://www.shinyapps.io/). When publishing to RStudio Connect, both simple content publishing (local rendering) as well as code publishing (rendering on Connect) are supported.
+The **quarto** package includes several functions that enable you to publish static and interactive documents, websites, and books to [Posit Connect](https://posit.co/products/enterprise/connect/) and [shinyapps.io](https://www.shinyapps.io/). When publishing to Posit Connect, both simple content publishing (local rendering) as well as code publishing (rendering on Connect) are supported.
 
 ## Accounts
 
-Before publishing to RStudio Connect or shinyapps.io you should ensure that you have an account configured for publishing. 
+Before publishing to Posit Connect or shinyapps.io you should ensure that you have an account configured for publishing. 
 
-For RStudio Connect, use the `rsconnect::connectUser()` function for the server you are publishing to. For example:
+For Posit Connect, use the `rsconnect::connectUser()` function for the server you are publishing to. For example:
 
 ```r
 rsconnect::connectUser(server = "rsc.example.com")
@@ -34,7 +34,7 @@ Note that you can copy and paste this code from the [Tokens](https://www.shinyap
 
 ## Documents
 
-Use the `quarto_publish_doc()` function to publish a single document to RStudio Connect. Note that the very _first time_ that you publish you should specify both the `server` and `account` that you want to use for publishing. For example:
+Use the `quarto_publish_doc()` function to publish a single document to Posit Connect. Note that the very _first time_ that you publish you should specify both the `server` and `account` that you want to use for publishing. For example:
 
 ```r
 library(quarto)
@@ -57,7 +57,7 @@ quarto_publish_doc("document.qmd",
 
 ## Websites
 
-Use the `quarto_publish_site()` function to publish a [website](https://quarto.org/docs/websites/) or [book](https://quarto.org/docs/books/) to RStudio Connect. Note that the very _first time_ that you publish you should specify both the `server` and `account` that you want to use for publishing. For example:
+Use the `quarto_publish_site()` function to publish a [website](https://quarto.org/docs/websites/) or [book](https://quarto.org/docs/books/) to Posit Connect. Note that the very _first time_ that you publish you should specify both the `server` and `account` that you want to use for publishing. For example:
 
 ```r
 library(quarto)
@@ -79,9 +79,9 @@ quarto_publish_site(server = "rsc.example.com", account = "njones",
 
 ## Interactive Docs
 
-You can publish Shiny [interactive documents](https://quarto.org/docs/interactive/shiny/) to either RStudio Connect or shinyapps.io. 
+You can publish Shiny [interactive documents](https://quarto.org/docs/interactive/shiny/) to either Posit Connect or shinyapps.io. 
 
-To publish to RStudio Connect, specify both the `server` and `account` that you want to use for publishing (this is required for the first publish only). For example:
+To publish to Posit Connect, specify both the `server` and `account` that you want to use for publishing (this is required for the first publish only). For example:
 
 ```r
 library(quarto)

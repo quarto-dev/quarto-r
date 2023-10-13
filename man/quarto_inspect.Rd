@@ -4,14 +4,19 @@
 \alias{quarto_inspect}
 \title{Inspect Quarto Input File or Project}
 \usage{
-quarto_inspect(input = ".")
+quarto_inspect(input = ".", profile = NULL)
 }
 \arguments{
 \item{input}{The input file or project directory to inspect.}
+
+\item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
+a character vector of profile names or \code{NULL} to use the default profile.}
 }
 \value{
-Named list. For input files, the list has members engine, format,
-and resources. For projects the list has members engines and config
+Named list. For input files, the list contains the elements
+\code{quarto}, \code{engines}, \code{formats}, \code{resources}, plus \code{project} if the file is
+part of a Quarto project. For projects, the list contains the elements
+\code{quarto}, \code{dir}, \code{engines}, \code{config} and \code{files}.
 }
 \description{
 Inspect a Quarto project or input path. Inspecting a project returns its
@@ -25,6 +30,10 @@ quarto_inspect("notebook.Rmd")
 
 # Inspect project
 quarto_inspect("myproject")
-}
 
+# Inspect project's advanced profile
+quarto_inspect(
+  input = "myproject",
+  profile = "advanced"
+)}
 }
