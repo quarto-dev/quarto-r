@@ -31,26 +31,8 @@
 quarto_add_extension <- function(extension = NULL, no_prompt = FALSE) {
   quarto_bin <- find_quarto()
 
-  if (!no_prompt) {
-    if (!rlang::is_interactive()) {
-      cli::cli_abort(c(
-        "Adding an extension requires explicit approval.",
-        '>' = "Set {.arg no_prompt = TRUE} if you agree.",
-        i = "See more at {.url https://quarto.org/docs/extensions/managing.html}"
-        ))
-    } else {
-      message(
-        "Quarto extensions may execute code when documents are rendered. ",
-        "If you do not trust the authors of the extension, ",
-        "we recommend that you do not install or use the extension"
-      )
-      prompt_value <- tolower(readline("Do you trust the authors of this extension (Y/n)? "))
-      if (!prompt_value %in% "y") {
-        message("Quarto extension not installed.")
-        return(invisible(FALSE))
-      }
-    }
-  }
+  # This will ask for approval or stop installation
+  check_extension_approval(no_prompt, "Quarto extensions", "https://quarto.org/docs/extensions/managing.html")
 
   args <- c(extension,"--no-prompt")
 
