@@ -2,7 +2,7 @@
 % Please edit documentation in R/use.R
 \name{quarto_use_template}
 \alias{quarto_use_template}
-\title{Quarto Use Template}
+\title{Use acustom format extension template}
 \usage{
 quarto_use_template(template, no_prompt = FALSE)
 }
@@ -14,7 +14,7 @@ repository as described in the documentation
 \item{no_prompt}{Do not prompt to confirm approval to download external extension.}
 }
 \description{
-Install and use a template into a Quarto project.
+Install and use a template for Quarto using \verb{quarto use}.
 }
 \examples{
 \dontrun{

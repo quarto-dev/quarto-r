@@ -2,7 +2,7 @@
 % Please edit documentation in R/add.R
 \name{quarto_add_extension}
 \alias{quarto_add_extension}
-\title{Quarto Add Extension}
+\title{Install a Quarto extensions}
 \usage{
 quarto_add_extension(extension = NULL, no_prompt = FALSE)
 }
@@ -14,7 +14,7 @@ repository as described in the documentation
 \item{no_prompt}{Do not prompt to confirm approval to download external extension.}
 }
 \description{
-Add an extension to this folder or project.
+Add an extension to this folder or project by running \verb{quarto add}
 }
 \section{Extension Trust}{
 Quarto extensions may execute code when documents are rendered. Therefore, if
