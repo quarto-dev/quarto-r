@@ -4,7 +4,7 @@
 \alias{quarto_use_template}
 \title{Quarto Use Template}
 \usage{
-quarto_use_template(template = NULL)
+quarto_use_template(template, no_prompt = FALSE)
 }
 \arguments{
 \item{template}{The template to install, either an archive or a GitHub

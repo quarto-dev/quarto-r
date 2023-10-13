@@ -16,28 +16,21 @@
 #' }
 #'
 #' @export
-quarto_use_template <- function(template = NULL) {
-  quarto_bin <- find_quarto()
-  message(
-    "Quarto templates may execute code when documents are rendered. ",
-    "If you do not trust the authors of the template, ",
-    "we recommend that you do not install or use the template."
-  )
-  prompt_value <- tolower(readline("Do you trust the authors of this template (Y/n)? "))
-  if (!prompt_value %in% "y") {
-    message("Quarto template not installed.")
-    return(invisible())
-  }
+quarto_use_template <- function(template, no_prompt = FALSE) {
+  rlang::check_required(template)
 
-  tryCatch(
-    system2(quarto_bin, stdout = TRUE, c(
-      "use",
-      "template",
-      "--no-prompt",
-      template
-    )),
-    error = function(e) e,
-    warning = function(w) w
-  )
+  quarto_bin <- find_quarto()
+
+    # This will ask for approval or stop installation
+  check_extension_approval(no_prompt, "Quarto templates", "https://quarto.org/docs/extensions/formats.html#distributing-formats")
+
+  args <- c("template", template, "--no-prompt")
+
+  quarto_use(args, quarto_bin = quarto_bin, echo = TRUE)
+
   invisible()
+}
+
+quarto_use <- function(args = character(), ...) {
+  quarto_run_what("use", args = args, ...)
 }
