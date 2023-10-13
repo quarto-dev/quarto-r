@@ -36,3 +36,10 @@ quarto_version <- function() {
   quarto_bin <- find_quarto()
   as.numeric_version(system2(quarto_bin, "--version", stdout = TRUE))
 }
+
+#' @importFrom processx run
+quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FALSE, ...) {
+  res <- processx::run(quarto_bin, args = args, echo = FALSE, ...)
+  # TODO: handle better the outputs
+  invisible(res)
+}

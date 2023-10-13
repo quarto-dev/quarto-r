@@ -83,14 +83,14 @@ quarto_render <- function(input = NULL,
                           pandoc_args = NULL,
                           as_job = getOption("quarto.render_as_job", "auto")) {
 
+  # get quarto binary
+  quarto_bin <- find_quarto()
+
   # provide default for input
   if (is.null(input)) {
     input <- getwd()
   }
   input <- path.expand(input)
-
-  # get quarto binary
-  quarto_bin <- find_quarto()
 
   # see if we need to render as a job
   if (identical(as_job, "auto")) {
@@ -179,7 +179,7 @@ quarto_render <- function(input = NULL,
   }
 
   # run quarto
-  processx::run(quarto_bin, args, echo = TRUE)
+  quarto_run(args, echo = TRUE, quarto_bin = quarto_bin)
 
   # no return value
   invisible(NULL)
