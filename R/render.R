@@ -172,7 +172,7 @@ quarto_render <- function(input = NULL,
     args <- c(args, "--quiet")
   }
   if (!is.null(profile)) {
-    args <- c(args, "--profile", paste0(profile, collapse = ","))
+    args <- cli_arg_profile(profile, args)
   }
   if (!is.null(pandoc_args)) {
     args <- c(args, pandoc_args)
