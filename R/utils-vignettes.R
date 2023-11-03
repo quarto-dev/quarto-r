@@ -17,7 +17,9 @@ vig_engine <- function(..., quarto_format) {
 }
 
 vweave_quarto <- function(format) {
+  meta <- list()
+  meta["embed-resources"] <- TRUE
   function(file, driver, syntax, encoding, quiet = FALSE, ...) {
-    quarto_render(file, ..., output_format = format)
+    quarto_render(file, ..., output_format = format, metadata = meta)
   }
 }
