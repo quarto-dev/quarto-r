@@ -6,3 +6,5 @@
 ^\.github$
 ^\.vscode$
 ^\.quarto$
+^doc$
+^Meta$
