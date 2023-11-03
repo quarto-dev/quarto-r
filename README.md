@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/quarto)](https://CRAN.R-project.org/package=quarto)
+[![R-CMD-check](https://github.com/quarto-dev/quarto-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/quarto-dev/quarto-r/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 [Quarto](https://quarto.org) is an open-source scientific and technical publishing system built on [Pandoc](https://pandoc.org).
