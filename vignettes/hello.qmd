@@ -1,0 +1,36 @@
+---
+title: "Quarto Vignettes"
+format:
+  pdf:
+    toc: false
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Vignettes}
+  %\VignetteEngine{quarto::pdf}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Hello Vignette World!
+
+This is an example Quarto vignette, demonstrating how the **quarto** package can let you write package vignettes in Quarto.
+
+## Two Vignette Engines
+
+The **quarto** package registers 2 vignette engines, `quarto::pdf` and `quarto::html`. Either of these may be selected in a Quarto vignette's YAML header. For example, this vignette's header reads:
+```yaml
+---
+title: "Quarto Vignettes"
+format:
+  pdf:
+    toc: false
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Vignettes}
+  %\VignetteEngine{quarto::pdf}
+  %\VignetteEncoding{UTF-8}
+---
+```
+
+Consequently, a PDF version of this vignette is built.
