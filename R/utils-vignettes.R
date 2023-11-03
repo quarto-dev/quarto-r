@@ -1,22 +1,23 @@
 register_vignette_engines <- function(pkg) {
-  vignetteEngine(
-    name = "pdf",
-    package = "quarto",
+  vig_engine("html", quarto_format = "html")
+  vig_engine("pdf", quarto_format = "pdf")
+}
+
+
+vig_engine <- function(..., quarto_format) {
+  rmd_eng <- tools::vignetteEngine('rmarkdown', package = 'knitr')
+  tools::vignetteEngine(
+    ...,
+    weave = vweave_quarto(quarto_format),
+    tangle = rmd_eng$tangle,
     pattern = "[.]qmd$",
-    weave = function(file, ..., encoding = "UTF-8") {
-      quarto_render(file, ..., output_format = "pdf")
-    },
-    tangle = vignetteEngine("knitr::rmarkdown")$tangle,
-    aspell = vignetteEngine("knitr::rmarkdown")$aspell
-  )
-  vignetteEngine(
-    name = "html",
     package = "quarto",
-    pattern = "[.]qmd$",
-    weave = function(file, ..., encoding = "UTF-8") {
-      quarto_render(file, ..., output_format = "html")
-    },
-    tangle = vignetteEngine("knitr::rmarkdown")$tangle,
-    aspell = vignetteEngine("knitr::rmarkdown")$aspell
+    aspell = rmd_eng$aspell
   )
+}
+
+vweave_quarto <- function(format) {
+  function(file, driver, syntax, encoding, quiet = FALSE, ...) {
+    quarto_render(file, ..., output_format = format)
+  }
 }

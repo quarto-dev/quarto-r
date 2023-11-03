@@ -1,9 +1,11 @@
 ---
 title: "Publishing"
-output: rmarkdown::html_vignette
+format: 
+  html:
+    minimal: false
 vignette: >
   %\VignetteIndexEntry{Publishing}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
