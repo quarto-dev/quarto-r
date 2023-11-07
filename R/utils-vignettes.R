@@ -17,9 +17,29 @@ vig_engine <- function(..., quarto_format) {
 }
 
 vweave_quarto <- function(format) {
-  meta <- list()
-  meta["embed-resources"] <- TRUE
+  meta <- get_meta(format)
   function(file, driver, syntax, encoding, quiet = FALSE, ...) {
     quarto_render(file, ..., output_format = format, metadata = meta)
   }
+}
+
+get_meta <- function(format) {
+  if (format == "html") {
+    return(get_meta_for_html())
+  }
+}
+
+get_meta_for_html <- function() {
+
+  css <- system_file("rmarkdown", "template", "quarto_vignette" ,"resources",
+                      "vignette.css", package = "quarto")
+  meta <- list()
+  meta$format$html <-
+    list(
+      `embed-resources` = TRUE,
+      minimal = TRUE,
+      theme = "none",
+      css = css
+    )
+  meta
 }

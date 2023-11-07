@@ -1,8 +1,6 @@
 ---
 title: "Publishing"
-format: 
-  html:
-    minimal: false
+format: html
 vignette: >
   %\VignetteIndexEntry{Publishing}
   %\VignetteEngine{quarto::html}
