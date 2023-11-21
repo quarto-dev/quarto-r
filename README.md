@@ -41,3 +41,25 @@ These functions enable you to inspect the Quarto installation as well as the met
 | [`quarto_path()`](https://quarto-dev.github.io/quarto-r/reference/quarto_path.html)       | Path to the Quarto binary              |
 | [`quarto_version()`](https://quarto-dev.github.io/quarto-r/reference/quarto_version.html) | Current version of Quarto              |
 | [`quarto_inspect()`](https://quarto-dev.github.io/quarto-r/reference/quarto_inspect.html) | Inspect metadata for a file or project |
+
+### Installing the package 
+
+Latest released version from CRAN
+
+```r
+# latest release version 
+install.packages("quarto")
+```
+
+Latest dev version from Github 
+```r
+# dev version
+pak::pak("quarto-dev/quarto-r")
+# or
+remotes::install_github("quarto-dev/quarto-r")
+```
+
+or Latest build of dev version from r-universe 
+```r
+install.packages('quarto', repos = c('https://quarto-dev.r-universe.dev', 'https://cloud.r-project.org'))
+```
