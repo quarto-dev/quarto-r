@@ -7,7 +7,7 @@ format:
     toc: true
 vignette: >
   %\VignetteIndexEntry{Vignettes}
-  %\VignetteEngine{quarto::pdf}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
