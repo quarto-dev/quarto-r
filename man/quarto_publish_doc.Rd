@@ -62,7 +62,10 @@ exists locally. (defaults to \code{local})}
 
 \item{metadata}{Additional metadata fields to save with the deployment
 record. These fields will be returned on subsequent calls to
-\code{\link[rsconnect:deployments]{deployments()}}.}
+\code{\link[rsconnect:deployments]{deployments()}}.
+
+Multi-value fields are recorded as comma-separated values and returned in
+that form. Custom value serialization is the responsibility of the caller.}
 
 \item{...}{Named parameters to pass along to \code{rsconnect::deployApp()}}
 }
