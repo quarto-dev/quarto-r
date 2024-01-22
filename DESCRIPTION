@@ -4,7 +4,7 @@ Version: 1.3.4
 Authors@R: c(
     person("JJ", "Allaire", , "jj@rstudio.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-0174-9868")),
-    person("Christophe", "Dervieux", , "cderv@posit.co", role = c("aut"),
+    person("Christophe", "Dervieux", , "cderv@posit.co", role = "aut",
            comment = c(ORCID = "0000-0003-4474-2498"))
   )
 Description: Convert R Markdown documents and 'Jupyter' notebooks to a
@@ -20,12 +20,13 @@ Imports:
     processx,
     rlang,
     rmarkdown,
-    rsconnect (>= 0.8.26),
     rstudioapi,
     utils,
     yaml
 Suggests: 
+    curl,
     knitr,
+    rsconnect (>= 0.8.26),
     testthat (>= 3.1.0),
     withr,
     xfun

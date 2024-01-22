@@ -34,6 +34,8 @@ quarto_publish_doc <- function(input,
                                render = c("local", "server", "none"),
                                metadata = list(),
                                ...) {
+
+  validate_rsconnect()
   # resolve render
   render <- match.arg(render)
 
@@ -144,6 +146,9 @@ quarto_publish_app <- function(input = getwd(),
                                render = c("local", "server", "none"),
                                metadata = list(),
                                ...) {
+
+  validate_rsconnect()
+
   # resolve render
   render <- match.arg(render)
 
@@ -195,6 +200,8 @@ quarto_publish_site <- function(input = getwd(),
                                 render = c("local", "server", "none"),
                                 metadata = list(),
                                 ...) {
+
+  validate_rsconnect()
 
   # resolve render
   render <- match.arg(render)
@@ -286,6 +293,7 @@ is_shiny_prerendered <- function(runtime, server = NULL) {
 
 
 rpubs_publish_destination <- function(doc, server) {
+  validate_rsconnect()
   if (identical(server, "rpubs.com")) {
     deployments <- rsconnect::deployments(doc, serverFilter = "rpubs.com")
     if (nrow(deployments) > 0) {
@@ -305,7 +313,6 @@ rpubs_publish_destination <- function(doc, server) {
 
 resolve_destination <- function(server, account, allowShinyapps) {
 
-  # validate we have the right version of rsconnect
   validate_rsconnect()
 
   # check for  accounts
@@ -380,20 +387,9 @@ resolve_destination <- function(server, account, allowShinyapps) {
 }
 
 
-validate_rsconnect <- function() {
+validate_rsconnect <- function(reason = "for publishing using quarto R package.") {
 
-  # confirm that we have rsconnect
-  if (!requireNamespace("rsconnect", quietly = FALSE)) {
-    stop("The rsconnect package is required for publishing. ",
-         "Please install rsconnect with:\n  remotes::install_github(\"rstudio/rsconnect\")")
-  }
-
-  # confirm we have a recent enough version
-  rsc_version <- "0.8.24"
-  if (utils::packageVersion("rsconnect") < rsc_version) {
-    stop("Version ", rsc_version, " or greater of the rsconnect package is required ",
-         "for publishing. Please install with:\n  remotes::install_github(\"rstudio/rsconnect\")")
-  }
+  rlang::check_installed("rsconnect", version = "0.8.26", reason = reason)
 }
 
 quarto_rsc_metadata <- function(inspect) {
