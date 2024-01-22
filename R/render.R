@@ -10,6 +10,9 @@
 #'   `"all"` will render all formats defined within the file or project.
 #' @param output_file The name of the output file. If using `NULL` then the
 #'   output filename will be based on filename for the input file.
+#' @param output_dir The output directory, this is necessary to set in order
+#'   to fix a rendering issue with .html files, where formating and
+#'   images were missing. Additionally a subdirectory of the yaml output directory can be detailed.
 #' @param execute Whether to execute embedded code chunks.
 #' @param execute_params A list of named parameters that override custom params
 #'   specified within the YAML front-matter.
@@ -66,6 +69,7 @@
 quarto_render <- function(input = NULL,
                           output_format = NULL,
                           output_file = NULL,
+                          output_dir = NULL,
                           execute = TRUE,
                           execute_params = NULL,
                           execute_dir = NULL,
@@ -122,6 +126,9 @@ quarto_render <- function(input = NULL,
   }
   if (!missing(output_file)) {
     args <- c(args, "--output", output_file)
+  }
+  if (!missing(output_dir)) {
+    args <- c(args, "--output-dir", output_dir)
   }
   if (!missing(execute)) {
     args <- c(args, ifelse(isTRUE(execute), "--execute", "--no-execute"))
