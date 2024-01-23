@@ -1,8 +1,8 @@
 # quarto (development version)
 
-- Error message now advice to re-run with `quiet = FALSE` as `quarto_render(quiet = TRUE)` will make `quarto render` run in quiet mode (thanks, @gadenbuie, #126, @wlandau, #16).
+- Error message now advises to re-run with `quiet = FALSE` because `quarto_render(quiet = TRUE)` will run `quarto render` in quiet mode (thanks to @gadenbuie, #126, @wlandau, #16).
 
-- **rsconnect** R package dependency has been moved to Suggest to reduce this package's overall number of dependencies. **rsconnect** package is only required for publishing using `quarto_publish_*()` functions. If not installed, users will be prompted to install (when in interactive mode).
+- **rsconnect** R package dependency has been moved to Suggest to reduce this package's overall number of dependencies. **rsconnect** package is only required for publishing using `quarto_publish_*()` functions. Users will be prompted to install (when in interactive mode) if not installed.
 
 - Add `quarto_add_extension()` and `quarto_use_template()` to deal with Quarto extensions for a Quarto project. (thanks, @mcanouil, #45, @remlapmot, #42).
 
