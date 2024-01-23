@@ -42,7 +42,12 @@ quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FA
   res <- tryCatch({
     processx::run(quarto_bin, args = args, echo = FALSE, error_on_status = TRUE, echo_cmd = echo_cmd, ...)
   },
-    error = function(e) rlang::abort(c("Error running quarto cli:", x = e$stderr), call = .call, parent = e)
+    error = function(e) {
+      msg <- c("Error running quarto cli:")
+      if (nzchar(e$stderr)) msg <- c(msg, "x" = e$stderr)
+      if ("--quiet" %in% args) msg <- c(msg, "i" = "Rerun with `quiet = FALSE` to see the full error message.")
+      rlang::abort(msg, call = .call, parent = e)
+    }
   )
   invisible(res)
 }
