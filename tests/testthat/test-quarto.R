@@ -5,5 +5,9 @@ test_that("quarto_version returns a numeric version", {
 
 test_that("quarto_run gives guidance in error", {
   skip_if_no_quarto()
-  expect_snapshot(quarto_run(c("rend", "--quiet")), error = TRUE)
+  expect_snapshot(
+    error = TRUE,
+    quarto_run(c("rend", "--quiet")),
+    transform = transform_quarto_cli_in_output
+    )
 })

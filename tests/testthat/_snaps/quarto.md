@@ -7,5 +7,5 @@
       ! Error running quarto cli:
       i Rerun with `quiet = FALSE` to see the full error message.
       Caused by error:
-      ! System command 'quarto.exe' failed
+      ! System command 'quarto' failed
 

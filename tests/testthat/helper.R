@@ -55,3 +55,9 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 
   expect_snapshot_file(output_file, name)
 }
+
+
+transform_quarto_cli_in_output <- function(lines) {
+  # it will be quarto.exe only on windows
+  gsub("quarto.exe", "quarto", lines)
+}
