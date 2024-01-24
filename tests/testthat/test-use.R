@@ -32,11 +32,11 @@ test_that("quarto_use_binder works", {
       "hist(rnorm(100))",
       "```")
   )
+  withr::local_dir(project)
   expect_snapshot(
     error = TRUE,
     quarto_use_binder(no_prompt = FALSE)
   )
-  withr::local_dir(project)
   skip_if_no_quarto(ver = "1.5")
   quarto_use_binder(no_prompt = TRUE)
 })
