@@ -11,6 +11,8 @@
 #' the function will ask for explicit approval when used interactively, or
 #' disallow installation.
 #'
+#' @inheritParams quarto_render
+#'
 #' @param extension The extension to install, either an archive or a GitHub
 #'   repository as described in the documentation
 #'   <https://quarto.org/docs/extensions/managing.html>.
@@ -31,7 +33,7 @@
 #' @importFrom rlang is_interactive
 #' @importFrom cli cli_abort
 #' @export
-quarto_add_extension <- function(extension = NULL, no_prompt = FALSE, quarto_args = NULL) {
+quarto_add_extension <- function(extension = NULL, no_prompt = FALSE, quiet = FALSE, quarto_args = NULL) {
   rlang::check_required(extension)
 
   quarto_bin <- find_quarto()
@@ -39,7 +41,7 @@ quarto_add_extension <- function(extension = NULL, no_prompt = FALSE, quarto_arg
   # This will ask for approval or stop installation
   check_extension_approval(no_prompt, "Quarto extensions", "https://quarto.org/docs/extensions/managing.html")
 
-  args <- c(extension,"--no-prompt", quarto_args)
+  args <- c(extension,"--no-prompt", if (quiet) cli_arg_quiet(), quarto_args)
 
   quarto_add(args, quarto_bin = quarto_bin, echo = TRUE)
 

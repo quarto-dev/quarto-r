@@ -45,7 +45,7 @@ quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FA
     error = function(e) {
       msg <- c("Error running quarto cli:")
       if (nzchar(e$stderr)) msg <- c(msg, "x" = e$stderr)
-      if ("--quiet" %in% args) msg <- c(msg, "i" = "Rerun with `quiet = FALSE` to see the full error message.")
+      if (cli_arg_quiet() %in% args) msg <- c(msg, "i" = "Rerun with `quiet = FALSE` to see the full error message.")
       rlang::abort(msg, call = .call, parent = e)
     }
   )

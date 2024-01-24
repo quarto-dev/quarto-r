@@ -30,6 +30,7 @@
 #' @export
 quarto_inspect <- function(input = ".",
                            profile = NULL,
+                           quiet = FALSE,
                            quarto_args = NULL) {
 
   quarto_bin <- find_quarto()
@@ -40,7 +41,10 @@ quarto_inspect <- function(input = ".",
     args <- c(args, c("--profile", paste0(profile, collapse = ",")))
   }
 
+  if (isTRUE(quiet)) args <- cli_arg_quiet(args)
+
   args <- c(args, quarto_args)
+
   res <- quarto_run(args, quarto_bin = quarto_bin)
 
   fromJSON(res$stdout)

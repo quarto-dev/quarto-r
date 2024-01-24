@@ -4,13 +4,15 @@
 \alias{quarto_inspect}
 \title{Inspect Quarto Input File or Project}
 \usage{
-quarto_inspect(input = ".", profile = NULL, quarto_args = NULL)
+quarto_inspect(input = ".", profile = NULL, quiet = FALSE, quarto_args = NULL)
 }
 \arguments{
 \item{input}{The input file or project directory to inspect.}
 
 \item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
 a character vector of profile names or \code{NULL} to use the default profile.}
+
+\item{quiet}{Suppress warning and other messages.}
 
 \item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the command.}
 }

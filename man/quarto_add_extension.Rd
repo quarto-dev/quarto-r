@@ -4,7 +4,12 @@
 \alias{quarto_add_extension}
 \title{Install a Quarto extensions}
 \usage{
-quarto_add_extension(extension = NULL, no_prompt = FALSE, quarto_args = NULL)
+quarto_add_extension(
+  extension = NULL,
+  no_prompt = FALSE,
+  quiet = FALSE,
+  quarto_args = NULL
+)
 }
 \arguments{
 \item{extension}{The extension to install, either an archive or a GitHub
@@ -12,6 +17,8 @@ repository as described in the documentation
 \url{https://quarto.org/docs/extensions/managing.html}.}
 
 \item{no_prompt}{Do not prompt to confirm approval to download external extension.}
+
+\item{quiet}{Suppress warning and other messages.}
 
 \item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the command.}
 }

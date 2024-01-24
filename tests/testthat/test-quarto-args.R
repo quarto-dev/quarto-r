@@ -11,3 +11,8 @@ test_that("create profile arg", {
   expect_identical(cli_arg_profile(c("a", "b")), c("--profile", "a,b"))
   expect_identical(cli_arg_profile(c("a", "b"), "input.qmd"), c("input.qmd", "--profile", "a,b"))
 })
+
+test_that("create quiete arg", {
+  expect_identical(cli_arg_quiet(), c("--quiet"))
+  expect_identical(cli_arg_quiet("input.qmd"), c("input.qmd", "--quiet"))
+})

@@ -171,7 +171,7 @@ quarto_render <- function(input = NULL,
     args <- c(args, "--debug")
   }
   if (isTRUE(quiet)) {
-    args <- c(args, "--quiet")
+    args <- cli_arg_quiet(args)
   }
   if (!is.null(profile)) {
     args <- cli_arg_profile(profile, args)
