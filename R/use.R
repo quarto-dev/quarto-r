@@ -8,6 +8,7 @@
 #'   repository as described in the documentation
 #'   <https://quarto.org/docs/extensions/formats.html>.
 #'
+#'
 #' @examples
 #' \dontrun{
 #' # Install a template and set up a draft document from a GitHub repository
@@ -18,7 +19,7 @@
 #' }
 #'
 #' @export
-quarto_use_template <- function(template, no_prompt = FALSE) {
+quarto_use_template <- function(template, no_prompt = FALSE, quarto_args = NULL) {
   rlang::check_required(template)
 
   quarto_bin <- find_quarto()
@@ -26,7 +27,7 @@ quarto_use_template <- function(template, no_prompt = FALSE) {
     # This will ask for approval or stop installation
   check_extension_approval(no_prompt, "Quarto templates", "https://quarto.org/docs/extensions/formats.html#distributing-formats")
 
-  args <- c("template", template, "--no-prompt")
+  args <- c("template", template, "--no-prompt", quarto_args)
 
   quarto_use(args, quarto_bin = quarto_bin, echo = TRUE)
 

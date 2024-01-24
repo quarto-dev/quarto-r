@@ -17,6 +17,8 @@
 #'
 #' @param no_prompt Do not prompt to confirm approval to download external extension.
 #'
+#' @param quarto_args Character vector of other `quarto` CLI flag pass to the command.
+#'
 #' @examples
 #' \dontrun{
 #' # Install a template and set up a draft document from a GitHub repository
@@ -29,7 +31,7 @@
 #' @importFrom rlang is_interactive
 #' @importFrom cli cli_abort
 #' @export
-quarto_add_extension <- function(extension = NULL, no_prompt = FALSE) {
+quarto_add_extension <- function(extension = NULL, no_prompt = FALSE, quarto_args = NULL) {
   rlang::check_required(extension)
 
   quarto_bin <- find_quarto()
@@ -37,7 +39,7 @@ quarto_add_extension <- function(extension = NULL, no_prompt = FALSE) {
   # This will ask for approval or stop installation
   check_extension_approval(no_prompt, "Quarto extensions", "https://quarto.org/docs/extensions/managing.html")
 
-  args <- c(extension,"--no-prompt")
+  args <- c(extension,"--no-prompt", quarto_args)
 
   quarto_add(args, quarto_bin = quarto_bin, echo = TRUE)
 

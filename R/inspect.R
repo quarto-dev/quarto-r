@@ -5,6 +5,7 @@
 #' and dependent resources.
 #'
 #' @inheritParams quarto_render
+#' @inheritParams quarto_add_extension
 #' @param input The input file or project directory to inspect.
 #'
 #' @return Named list. For input files, the list contains the elements
@@ -28,14 +29,15 @@
 #' @importFrom jsonlite fromJSON
 #' @export
 quarto_inspect <- function(input = ".",
-                           profile = NULL) {
+                           profile = NULL,
+                           quarto_args = NULL) {
 
   quarto_bin <- find_quarto()
 
   args <- c("inspect", path.expand(input))
 
   if (!is.null(profile)) {
-    args <- c(args, c("--profile", paste0(profile, collapse = ",")))
+    args <- c(args, c("--profile", paste0(profile, collapse = ",")), quarto_args)
   }
 
   res <- quarto_run(args, quarto_bin = quarto_bin)

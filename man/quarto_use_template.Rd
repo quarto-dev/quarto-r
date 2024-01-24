@@ -4,7 +4,7 @@
 \alias{quarto_use_template}
 \title{Use a custom format extension template}
 \usage{
-quarto_use_template(template, no_prompt = FALSE)
+quarto_use_template(template, no_prompt = FALSE, quarto_args = NULL)
 }
 \arguments{
 \item{template}{The template to install, either an archive or a GitHub
@@ -12,6 +12,8 @@ repository as described in the documentation
 \url{https://quarto.org/docs/extensions/formats.html}.}
 
 \item{no_prompt}{Do not prompt to confirm approval to download external extension.}
+
+\item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the command.}
 }
 \description{
 Install and use a template for Quarto using \verb{quarto use}.
