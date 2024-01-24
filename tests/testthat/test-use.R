@@ -10,7 +10,7 @@ test_that("Installing an extension", {
 })
 
 test_that("quarto_use_binder errors < 1.4", {
-  skip_if_quarto(ver = 1.4)
+  skip_if_quarto(ver = "1.4")
   expect_snapshot(
     error = TRUE,
     quarto_use_binder(),
@@ -21,7 +21,8 @@ test_that("quarto_use_binder errors < 1.4", {
 
 test_that("quarto_use_binder works", {
   skip_on_cran()
-  skip_if_no_quarto(ver = 1.4)
+  skip_if_no_quarto(ver = "1.4")
+
   project <- local_quarto_project(
     c("---",
       "title: Histogram",
@@ -31,6 +32,11 @@ test_that("quarto_use_binder works", {
       "hist(rnorm(100))",
       "```")
   )
+  expect_snapshot(
+    error = TRUE,
+    quarto_use_binder(no_prompt = FALSE)
+  )
   withr::local_dir(project)
+  skip_if_no_quarto(ver = "1.5")
   quarto_use_binder(no_prompt = TRUE)
 })
