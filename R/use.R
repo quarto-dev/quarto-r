@@ -23,7 +23,7 @@ quarto_use_template <- function(template, no_prompt = FALSE) {
 
   quarto_bin <- find_quarto()
 
-    # This will ask for approval or stop installation
+  # This will ask for approval or stop installation
   check_extension_approval(no_prompt, "Quarto templates", "https://quarto.org/docs/extensions/formats.html#distributing-formats")
 
   args <- c("template", template, "--no-prompt")
@@ -41,9 +41,29 @@ quarto_use_binder <- function(no_prompt = FALSE) {
     )
   }
 
+  if (!no_prompt) {
+    if (!rlang::is_interactive()) {
+      cli::cli_abort(c(
+        "{.code quarto use binder} requires explicit approval as it will write some configurations files to your project.",
+        '>' = "Set {.arg no_prompt = TRUE} if you agree.",
+         i  = "See more at {.url https://quarto.org/docs/projects/binder.html}")
+      )
+    } else {
+      cli::cli_inform(c(
+        "{.code quarto use binder} will write some configurations files to your project.",
+        '*' = "If you are not sure what it will do, we recommend consulting documentation at {.url https://quarto.org/docs/projects/binder.html}"
+      ))
+      prompt_value <- tolower(readline("Do you want to continue ?(Y/n)? "))
+      if (!prompt_value %in% "y") {
+        cli::cli_inform("Aborting")
+        return(invisible(FALSE))
+      }
+    }
+  }
+
   quarto_bin <- find_quarto()
 
-  args <- c("binder", if (no_prompt) "--no-prompt")
+  args <- c("binder", "--no-prompt")
 
   quarto_use(args, quarto_bin = quarto_bin, echo = TRUE)
 
