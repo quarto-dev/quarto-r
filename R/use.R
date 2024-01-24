@@ -33,6 +33,22 @@ quarto_use_template <- function(template, no_prompt = FALSE) {
   invisible()
 }
 
+quarto_use_binder <- function(no_prompt = FALSE) {
+  if (quarto_version() < 1.4) {
+    cli::cli_abort(c(
+      "{.code quarto use binder} has been added in Quarto 1.4. See {.url https://quarto.org/docs/projects/binder.html}.",
+      i = "You are using {.strong {quarto_version()}} from {.file {quarto_path()}}.")
+    )
+  }
+
+  quarto_bin <- find_quarto()
+
+  args <- c("binder", if (no_prompt) "--no-prompt")
+
+  quarto_use(args, quarto_bin = quarto_bin, echo = TRUE)
+
+}
+
 quarto_use <- function(args = character(), ...) {
   quarto_run_what("use", args = args, ...)
 }

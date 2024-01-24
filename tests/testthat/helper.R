@@ -30,6 +30,17 @@ local_qmd_file <- function(..., .env = parent.frame()) {
   path
 }
 
+local_quarto_project <- function(..., yml = list(project = list(type = "default")), .env = parent.frame()) {
+  skip_if_not_installed("withr")
+  skip_if_not_installed("yaml")
+  # Create a directory and a .qmd file
+  path <- local_qmd_file(..., .env = .env)
+  withr::local_dir(project <- dirname(path))
+  write_yaml(yml, "_quarto.yml")
+  # return the project dir
+  project
+}
+
 .render <- function(input, output_file = NULL, ..., .env = parent.frame()) {
   skip_if_no_quarto()
   skip_if_not_installed("withr")
@@ -70,7 +81,15 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 }
 
 
-transform_quarto_cli_in_output <- function(lines) {
-  # it will be quarto.exe only on windows
-  gsub("quarto.exe", "quarto", lines)
+transform_quarto_cli_in_output <- function(full_path = FALSE) {
+  return(
+    function(lines) {
+      if (full_path) {
+        gsub(find_quarto(), "<quarto full path>", lines, fixed = TRUE)
+      } else {
+        # it will be quarto.exe only on windows
+        gsub("quarto.exe", "quarto", lines)
+      }
+    }
+  )
 }
