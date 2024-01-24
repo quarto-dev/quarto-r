@@ -1,9 +1,22 @@
-skip_if_no_quarto <- function() {
-  skip_if(is.null(quarto_path()))
+# Use to test quarto availability or version lower than
+skip_if_no_quarto <- function(ver = NULL) {
+  skip_if(is.null(quarto_path()), message = "Quarto is not available")
+  skip_if(
+    quarto_version() < ver,
+    message = sprintf("Version of quarto is lower than %s.", ver)
+  )
 }
 
-skip_if_quarto <- function() {
-  skip_if(!is.null(quarto_path()))
+# Use to test quarto  greater than
+skip_if_quarto <- function(ver = NULL) {
+  if (is.null(ver)) {
+    skip_if(!is.null(quarto_path()), message = "Quarto is available")
+  } else {
+    skip_if(
+      quarto_version() >= ver,
+      message = sprintf("Version of quarto is greater than or equal %s.", ver)
+    )
+  }
 }
 
 local_qmd_file <- function(..., .env = parent.frame()) {
@@ -15,6 +28,17 @@ local_qmd_file <- function(..., .env = parent.frame()) {
   path <- withr::local_tempfile(tmpdir = dir, fileext = ".qmd", .local_envir = .env)
   xfun::write_utf8(c(...), path)
   path
+}
+
+local_quarto_project <- function(..., yml = list(project = list(type = "default")), .env = parent.frame()) {
+  skip_if_not_installed("withr")
+  skip_if_not_installed("yaml")
+  # Create a directory and a .qmd file
+  path <- local_qmd_file(..., .env = .env)
+  withr::local_dir(project <- dirname(path))
+  write_yaml(yml, "_quarto.yml")
+  # return the project dir
+  project
 }
 
 .render <- function(input, output_file = NULL, ..., .env = parent.frame()) {
@@ -57,7 +81,15 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 }
 
 
-transform_quarto_cli_in_output <- function(lines) {
-  # it will be quarto.exe only on windows
-  gsub("quarto.exe", "quarto", lines)
+transform_quarto_cli_in_output <- function(full_path = FALSE) {
+  return(
+    function(lines) {
+      if (full_path) {
+        gsub(find_quarto(), "<quarto full path>", lines, fixed = TRUE)
+      } else {
+        # it will be quarto.exe only on windows
+        gsub("quarto.exe", "quarto", lines)
+      }
+    }
+  )
 }
