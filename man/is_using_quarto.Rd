@@ -23,4 +23,5 @@ dir.create(tmpdir <- tempfile())
 is_using_quarto(tmpdir)
 file.create(file.path(tmpdir, "_quarto.yml"))
 is_using_quarto(tmpdir)
+unlink(tmpdir, recursive = TRUE)
 }

@@ -70,6 +70,7 @@ quarto_run_what <- function(what = character(), args = character(), quarto_bin =
 #' is_using_quarto(tmpdir)
 #' file.create(file.path(tmpdir, "_quarto.yml"))
 #' is_using_quarto(tmpdir)
+#' unlink(tmpdir, recursive = TRUE)
 #' @export
 is_using_quarto <- function(dir = ".", verbose = FALSE) {
   has_quarto_yml <- length(list.files(dir, pattern = "_quarto\\.yml$", full.names = TRUE)) > 0
