@@ -61,11 +61,14 @@ transform_quarto_cli_in_output <- function(full_path = FALSE) {
   return(
     function(lines) {
       if (full_path) {
-        gsub(find_quarto(), "<quarto full path>", lines, fixed = TRUE)
-      } else {
-        # it will be quarto.exe only on windows
-        gsub("quarto\\.(exe|cmd)", "quarto", lines)
+        lines <- gsub(find_quarto(), "<quarto full path>", lines, fixed = TRUE)
+        # seems like there are quotes around path in CI windows
+        lines <- gsub("\"<quarto full path>\"", "<quarto full path>", lines, fixed = TRUE)
+        return(lines)
       }
+
+      # it will be quarto.exe only on windows
+      gsub("quarto\\.(exe|cmd)", "quarto", lines)
     }
   )
 }
