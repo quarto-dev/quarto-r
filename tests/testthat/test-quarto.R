@@ -8,6 +8,6 @@ test_that("quarto_run gives guidance in error", {
   expect_snapshot(
     error = TRUE,
     quarto_run(c("rend", "--quiet")),
-    transform = transform_quarto_cli_in_output
+    transform = transform_quarto_cli_in_output()
     )
 })

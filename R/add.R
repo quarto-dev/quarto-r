@@ -19,8 +19,6 @@
 #'
 #' @param no_prompt Do not prompt to confirm approval to download external extension.
 #'
-#' @param quarto_args Character vector of other `quarto` CLI flag pass to the command.
-#'
 #' @examples
 #' \dontrun{
 #' # Install a template and set up a draft document from a GitHub repository

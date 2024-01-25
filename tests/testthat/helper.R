@@ -57,7 +57,15 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 }
 
 
-transform_quarto_cli_in_output <- function(lines) {
-  # it will be quarto.exe only on windows
-  gsub("quarto\\.(exe|cmd)", "quarto", lines)
+transform_quarto_cli_in_output <- function(full_path = FALSE) {
+  return(
+    function(lines) {
+      if (full_path) {
+        gsub(find_quarto(), "<quarto full path>", lines, fixed = TRUE)
+      } else {
+        # it will be quarto.exe only on windows
+        gsub("quarto\\.(exe|cmd)", "quarto", lines)
+      }
+    }
+  )
 }

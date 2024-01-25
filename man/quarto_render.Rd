@@ -22,6 +22,7 @@ quarto_render(
   debug = FALSE,
   quiet = FALSE,
   profile = NULL,
+  quarto_args = NULL,
   pandoc_args = NULL,
   as_job = getOption("quarto.render_as_job", "auto")
 )
@@ -79,6 +80,10 @@ specified, with low precedence on \code{metadata} options.}
 
 \item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
 a character vector of profile names or \code{NULL} to use the default profile.}
+
+\item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the
+command. This is mainly for advanced usage, e.g it can be useful for new
+options added to quarto CLI and not yet supported as function argument.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc.}
 

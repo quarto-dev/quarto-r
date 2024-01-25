@@ -45,3 +45,16 @@ test_that("metadata-file and metadata are merged in quarto_render", {
     metadata_file = yaml, metadata = list(title = "test2")
   )
 })
+
+test_that("quarto_args in quarto_render", {
+  skip_if_no_quarto()
+  qmd <- local_qmd_file(c("content"))
+  withr::local_options(quarto.echo_cmd = TRUE)
+  withr::local_dir(dirname(qmd))
+  file.rename(basename(qmd), "input.qmd")
+  # metadata
+  expect_snapshot(
+    quarto_render("input.qmd", quiet = TRUE, quarto_args = c("--to", "native")),
+    transform = transform_quarto_cli_in_output(full_path = TRUE)
+  )
+})

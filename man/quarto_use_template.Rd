@@ -13,7 +13,9 @@ repository as described in the documentation
 
 \item{no_prompt}{Do not prompt to confirm approval to download external extension.}
 
-\item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the command.}
+\item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the
+command. This is mainly for advanced usage, e.g it can be useful for new
+options added to quarto CLI and not yet supported as function argument.}
 }
 \description{
 Install and use a template for Quarto using \verb{quarto use}.

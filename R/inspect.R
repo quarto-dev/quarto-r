@@ -5,7 +5,7 @@
 #' and dependent resources.
 #'
 #' @inheritParams quarto_render
-#' @inheritParams quarto_add_extension
+#'
 #' @param input The input file or project directory to inspect.
 #'
 #' @return Named list. For input files, the list contains the elements

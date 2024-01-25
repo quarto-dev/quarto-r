@@ -2,6 +2,7 @@
 #'
 #' Install and use a template for Quarto using `quarto use`.
 #'
+#' @inheritParams quarto_render
 #' @inheritParams quarto_add_extension
 #'
 #' @param template The template to install, either an archive or a GitHub

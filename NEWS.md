@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Add `quarto_args` to `quarto_render()` and other commands to pass additional arguments to `quarto` CLI commands. This is for advanced usage e.g. when new options are added to Quarto CLI that would not be user-facing in this package's functions (thanks, @gadenbuie, #125).
+
 - Add `quiet` argument to pass `--quiet` to `quarto` CLI commands
 
 - Error message now advises to re-run with `quiet = FALSE` because `quarto_render(quiet = TRUE)` will run `quarto render` in quiet mode (thanks to @gadenbuie, #126, @wlandau, #16).
