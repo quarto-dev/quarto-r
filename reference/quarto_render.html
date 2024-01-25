@@ -14,7 +14,7 @@ computations are performed before rendering."><!-- mathjax --><script src="https
     
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.7</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,6 +69,7 @@ computations are performed before rendering.</p>
 <span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  profile <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  quarto_args <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  pandoc_args <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  as_job <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"quarto.render_as_job"</span>, <span class="st">"auto"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -161,6 +162,12 @@ specified, with low precedence on <code>metadata</code> options.</p></dd>
 <dt>profile</dt>
 <dd><p><a href="https://quarto.org/docs/projects/profiles.html" class="external-link">Quarto project profile(s)</a> to use. Either
 a character vector of profile names or <code>NULL</code> to use the default profile.</p></dd>
+
+
+<dt>quarto_args</dt>
+<dd><p>Character vector of other <code>quarto</code> CLI flag pass to the
+command. This is mainly for advanced usage, e.g it can be useful for new
+options added to quarto CLI and not yet supported as function argument.</p></dd>
 
 
 <dt>pandoc_args</dt>
