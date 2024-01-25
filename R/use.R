@@ -34,9 +34,9 @@ quarto_use_template <- function(template, no_prompt = FALSE) {
 }
 
 quarto_use_binder <- function(no_prompt = FALSE) {
-  if (quarto_version() < 1.4) {
+  if (quarto_version() < "1.5") {
     cli::cli_abort(c(
-      "{.code quarto use binder} has been added in Quarto 1.4. See {.url https://quarto.org/docs/projects/binder.html}.",
+      "Binder feature for Quarto requires 1.5. See {.url https://quarto.org/docs/projects/binder.html}.",
       i = "You are using {.strong {quarto_version()}} from {.file {quarto_path()}}.")
     )
   }

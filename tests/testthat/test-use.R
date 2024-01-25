@@ -9,19 +9,19 @@ test_that("Installing an extension", {
   expect_length(list.files(pattern = "[.]qmd$"), 1)
 })
 
-test_that("quarto_use_binder errors < 1.4", {
-  skip_if_quarto(ver = "1.4")
+test_that("quarto_use_binder errors < 1.5", {
+  skip_if_quarto(ver = "1.5")
   expect_snapshot(
     error = TRUE,
     quarto_use_binder(),
     transform = transform_quarto_cli_in_output(full_path = TRUE),
-    variant = "quarto-before-1.4"
+    variant = "quarto-before-1.5"
   )
 })
 
 test_that("quarto_use_binder works", {
   skip_on_cran()
-  skip_if_no_quarto(ver = "1.4")
+  skip_if_no_quarto(ver = "1.5")
 
   project <- local_quarto_project(
     c("---",
@@ -37,6 +37,5 @@ test_that("quarto_use_binder works", {
     error = TRUE,
     quarto_use_binder(no_prompt = FALSE)
   )
-  skip_if_no_quarto(ver = "1.5")
   quarto_use_binder(no_prompt = TRUE)
 })
