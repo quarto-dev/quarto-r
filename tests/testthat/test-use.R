@@ -4,7 +4,7 @@ test_that("Installing an extension", {
   dir <- withr::local_tempdir()
   withr::local_dir(dir)
   expect_error(quarto_use_template("quarto-journals/jss"), "explicit approval")
-  quarto_use_template("quarto-journals/jss", no_prompt = TRUE)
+  quarto_use_template("quarto-journals/jss", no_prompt = TRUE, quiet = TRUE)
   expect_true(dir.exists("_extensions/quarto-journals/jss"))
   expect_length(list.files(pattern = "[.]qmd$"), 1)
 })
