@@ -8,6 +8,8 @@ is_using_quarto(dir = ".", verbose = FALSE)
 }
 \arguments{
 \item{dir}{The directory to check}
+
+\item{verbose}{print message about the result of the check}
 }
 \description{
 This function will check if a directory is using quarto by looking for

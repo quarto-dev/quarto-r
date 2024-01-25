@@ -64,6 +64,7 @@ quarto_run_what <- function(what = character(), args = character(), quarto_bin =
 #' - at least one `.qmd` file in the directory
 #'
 #' @param dir The directory to check
+#' @param verbose print message about the result of the check
 #' @examples
 #' dir.create(tmpdir <- tempfile())
 #' is_using_quarto(tmpdir)
