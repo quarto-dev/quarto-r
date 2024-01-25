@@ -4,6 +4,6 @@ test_that("Installing an extension", {
   qmd <- local_qmd_file(c("content"))
   withr::local_dir(dirname(qmd))
   expect_error(quarto_add_extension("quarto-ext/fontawesome"), "explicit approval")
-  quarto_add_extension("quarto-ext/fontawesome", no_prompt = TRUE)
+  quarto_add_extension("quarto-ext/fontawesome", no_prompt = TRUE, quiet = TRUE)
   expect_true(dir.exists("_extensions/quarto-ext/fontawesome"))
 })
