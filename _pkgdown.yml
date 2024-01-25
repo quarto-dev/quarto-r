@@ -45,4 +45,5 @@ reference:
   - quarto_inspect
   - quarto_path
   - quarto_version
+  - is_using_quarto
 

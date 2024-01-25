@@ -56,3 +56,33 @@ quarto_run_what <- function(what = character(), args = character(), quarto_bin =
   res <- quarto_run(quarto_bin, args = c(what, args), echo = echo, ..., .call = .call)
   invisible(res)
 }
+
+#' Check is a directory is using quarto
+#'
+#' This function will check if a directory is using quarto by looking for
+#' - `_quarto.yml` at its root
+#' - at least one `.qmd` file in the directory
+#'
+#' @param dir The directory to check
+#' @examples
+#' dir.create(tmpdir <- tempfile())
+#' is_using_quarto(tmpdir)
+#' file.create(file.path(tmpdir, "_quarto.yml"))
+#' is_using_quarto(tmpdir)
+#' @export
+is_using_quarto <- function(dir = ".", verbose = FALSE) {
+  has_quarto_yml <- length(list.files(dir, pattern = "_quarto\\.yml$", full.names = TRUE)) > 0
+  has_qmd <- length(list.files(dir, pattern = "\\.qmd$", full.names = TRUE)) > 0
+  if (has_quarto_yml) {
+    if (verbose) cli::cli_inform("A {.file _quarto.yml} has been found.")
+    return(TRUE)
+  } else if (has_qmd) {
+    if (verbose) cli::cli_inform("At least one file {.code *.qmd} has been found.")
+    return(TRUE)
+  }
+  # not a directory using Quarto
+  if (verbose) cli::cli_inform("No {.file _quarto.yml} or {.code *.qmd} has been found.")
+  return(FALSE)
+}
+
+
