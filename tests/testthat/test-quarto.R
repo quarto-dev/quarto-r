@@ -5,6 +5,7 @@ test_that("quarto_version returns a numeric version", {
 
 test_that("quarto_run gives guidance in error", {
   skip_if_no_quarto()
+  local_reproducible_output(width = 1000)
   expect_snapshot(
     error = TRUE,
     quarto_run(c("rend", "--quiet")),

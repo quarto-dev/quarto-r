@@ -52,6 +52,7 @@ test_that("quarto_args in quarto_render", {
   withr::local_options(quarto.echo_cmd = TRUE)
   withr::local_dir(dirname(qmd))
   file.rename(basename(qmd), "input.qmd")
+  local_reproducible_output(width = 1000)
   # metadata
   expect_snapshot(
     quarto_render("input.qmd", quiet = TRUE, quarto_args = c("--to", "native")),
