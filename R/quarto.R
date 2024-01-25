@@ -95,3 +95,46 @@ check_quarto_version <- function(ver, what, url) {
     )
   }
 }
+
+quarto_bin_sitrep <- function() {
+  cli::cli_h1("Quarto binary found")
+  cli::cli_h2("This R package configuration")
+  if (nzchar(quarto_path())) {
+    cli::cli_inform("Functions in this package will use {.path {quarto_path()}}")
+  } else {
+    cli::cli_alert_danger("No {.strong quarto} binary found.")
+  }
+  cli::cli_h2("RStudio IDE configuration with RSTUDIO_QUARTO environment variable.")
+  rstudio_env <- Sys.getenv("RSTUDIO_QUARTO", unset = "")
+  if (nzchar(rstudio_env)) {
+    cli::cli_inform(c(
+      "{.envvar RSTUDIO_QUARTO} environment variable is set.",
+      "RStudio is configured to use {.path {rstudio_env}}"
+    ))
+  } else {
+    cli::cli_inform(c(
+      "{.envvar RSTUDIO_QUARTO} environment variable is not set.",
+      "RStudio IDE should use the {.strong quarto} binary found in the {.emph PATH} environment variable."
+    ))
+  }
+  cli::cli_h2("quarto R package configuration with {.envvar QUARTO_PATH} environment variable.")
+  quarto_r_env <- Sys.getenv("QUARTO_PATH", unset = "")
+  if (nzchar(quarto_r_env)) {
+    cli::cli_inform(c(
+      "{.envvar QUARTO_PATH} environment variable is set.",
+      "{.pkg quarto} R package is configured to use {.path {quarto_r_env}}"
+    ))
+  } else {
+    cli::cli_inform(c(
+      "{.envvar QUARTO_PATH} environment variable is not set.",
+      "{.pkg quarto} R package should use the {.strong quarto} binary found in the {.emph PATH} environment variable."
+    ))
+  }
+  cli::cli_h2("Configuration from {.envvar PATH} environment variable.")
+  path_quarto <- Sys.which("quarto")
+  if (nzchar(path_quarto)) {
+    cli::cli_inform("The {.strong quarto} binary found in the {.envvar PATH} environment variable is {.path {path_quarto}}")
+  } else {
+    cli::cli_inform("No {.strong quarto} binary found in the {.envvar PATH} environment variable is not found.")
+  }
+}
