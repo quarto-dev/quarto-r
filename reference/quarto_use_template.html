@@ -45,7 +45,12 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">quarto_use_template</span><span class="op">(</span><span class="va">template</span>, no_prompt <span class="op">=</span> <span class="cn">FALSE</span>, quarto_args <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">quarto_use_template</span><span class="op">(</span></span>
+<span>  <span class="va">template</span>,</span>
+<span>  no_prompt <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  quarto_args <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -58,6 +63,10 @@ repository as described in the documentation
 
 <dt>no_prompt</dt>
 <dd><p>Do not prompt to confirm approval to download external extension.</p></dd>
+
+
+<dt>quiet</dt>
+<dd><p>Suppress warnings and messages.</p></dd>
 
 
 <dt>quarto_args</dt>
