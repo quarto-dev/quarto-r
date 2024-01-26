@@ -7,8 +7,11 @@ skip_if_no_quarto <- function(ver = NULL) {
   )
 }
 
-# Use to test quarto  greater than
+# Use to test quarto greater than
 skip_if_quarto <- function(ver = NULL) {
+  # Skip if no quarto available
+  skip_if_no_quarto()
+  # Then skip if available or if version is greater than
   if (is.null(ver)) {
     skip_if(!is.null(quarto_path()), message = "Quarto is available")
   } else {
