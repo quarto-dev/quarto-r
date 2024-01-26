@@ -27,7 +27,7 @@ quarto_use_template <- function(template, no_prompt = FALSE, quiet = FALSE, quar
 
   quarto_bin <- find_quarto()
 
-    # This will ask for approval or stop installation
+  # This will ask for approval or stop installation
   check_extension_approval(no_prompt, "Quarto templates", "https://quarto.org/docs/extensions/formats.html#distributing-formats")
 
   # quarto use template does not support `--quiet` so we mimic it by suppressing `echo` in processx

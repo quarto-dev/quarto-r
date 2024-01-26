@@ -87,4 +87,11 @@ is_using_quarto <- function(dir = ".", verbose = FALSE) {
   return(FALSE)
 }
 
-
+check_quarto_version <- function(ver, what, url) {
+  if (quarto_version() < ver) {
+    cli::cli_abort(c(
+      "{.code {what}} has been added in Quarto {ver}. See {.url {url}}.",
+      i = "You are using {.strong {quarto_version()}} from {.file {quarto_path()}}.")
+    )
+  }
+}
