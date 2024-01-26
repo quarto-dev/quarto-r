@@ -53,7 +53,7 @@ test_that("quarto CLI sitrep", {
       quarto_bin_sitrep(debug = TRUE),
       transform = function(lines) {
         lines <- gsub(dummy_quarto_path, "<RSTUDIO_QUARTO path>", lines, fixed = TRUE)
-        transform_quarto_cli_in_output(full_path = TRUE)(lines)
+        transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)(lines)
       }
     )
   )
@@ -62,7 +62,7 @@ test_that("quarto CLI sitrep", {
     list(QUARTO_PATH = NA, RSTUDIO_QUARTO = NA),
     expect_snapshot(
       quarto_bin_sitrep(debug = TRUE),
-      transform = transform_quarto_cli_in_output(full_path = TRUE)
+      transform = transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)
     )
   )
 })
