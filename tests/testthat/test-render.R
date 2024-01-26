@@ -49,7 +49,7 @@ test_that("metadata-file and metadata are merged in quarto_render", {
 test_that("quarto_args in quarto_render", {
   skip_if_no_quarto()
   qmd <- local_qmd_file(c("content"))
-  withr::local_options(quarto.echo_cmd = TRUE)
+  local_quarto_run_echo_cmd()
   withr::local_dir(dirname(qmd))
   file.rename(basename(qmd), "input.qmd")
   local_reproducible_output(width = 1000)

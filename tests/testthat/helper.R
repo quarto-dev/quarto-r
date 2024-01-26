@@ -88,3 +88,11 @@ transform_quarto_cli_in_output <- function(full_path = FALSE) {
     }
   )
 }
+
+
+local_quarto_run_echo_cmd <- function(.env = parent.frame()) {
+  if (rlang::is_installed("withr")) {
+    withr::local_options(quarto.echo_cmd = TRUE, .local_envir = .env)
+  }
+}
+
