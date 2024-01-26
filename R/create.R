@@ -17,6 +17,7 @@
 #' @seealso Quarto documentation on [Quarto projects](https://quarto.org/docs/projects/quarto-projects.html)
 #'
 #' @inheritParams quarto_render
+#' @export
 quarto_create_project <- function(name, type = "default", dir = ".", no_prompt = FALSE, quiet = FALSE, quarto_args = NULL) {
 
   check_quarto_version("1.4", "quarto create project", "https://quarto.org/docs/projects/quarto-projects.html")

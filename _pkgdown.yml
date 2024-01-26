@@ -37,6 +37,13 @@ reference:
   - starts_with("quarto_add")
   - starts_with("quarto_use")
 
+- title: "Projects"
+  desc: >
+    This functions enable you to work with projects.
+    More about Quarto extensions at <https://quarto.org/docs/projects/quarto-projects.html>
+  contents:
+  - quarto_create_project
+
 - title: "Configuration"
   desc: >
     These functions enable you to inspect the Quarto installation as well as the metadata

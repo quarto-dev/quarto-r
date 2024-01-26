@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Add `quarto_create_project()` function that calls `quarto create project <type> <name>` (thanks, @maelle, #87).
+
 - Add `is_using_quarto()` to check if a directory requires using Quarto (i.e. it has a `_quarto.yml` or at least one `*.qmd` file) (thanks, @hadley, #103).
 
 - Add `quarto_args` to `quarto_render()` and other commands to pass additional arguments to `quarto` CLI commands. This is for advanced usage e.g. when new options are added to Quarto CLI that would not be user-facing in this package's functions (thanks, @gadenbuie, #125).
