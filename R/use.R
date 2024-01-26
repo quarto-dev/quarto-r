@@ -33,6 +33,11 @@ quarto_use_template <- function(template, no_prompt = FALSE, quiet = FALSE, quar
   # quarto use template does not support `--quiet` so we mimic it by suppressing `echo` in processx
   # TODO: Change if / when https://github.com/quarto-dev/quarto-cli/issues/8438
   args <- c("template", template, "--no-prompt", quarto_args)
+
+  if (quarto_version( ) > "1.5.4" & isTRUE(quiet)) {
+    args <- cli_arg_quiet(args)
+  }
+
   quarto_use(args, quarto_bin = quarto_bin, echo = !quiet)
 
   invisible()
