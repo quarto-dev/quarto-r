@@ -17,6 +17,8 @@
 #' @seealso Quarto documentation on [Quarto projects](https://quarto.org/docs/projects/quarto-projects.html)
 #'
 #' @inheritParams quarto_render
+#' @inheritParams quarto_add_extension
+#'
 #' @export
 quarto_create_project <- function(name, type = "default", dir = ".", no_prompt = FALSE, quiet = FALSE, quarto_args = NULL) {
 
