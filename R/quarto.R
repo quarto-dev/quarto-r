@@ -7,7 +7,7 @@
 #'
 #' @export
 quarto_path <- function() {
-  path_env <- Sys.getenv("QUARTO_PATH", unset = NA)
+  path_env <- get_quarto_path_env()
   if (is.na(path_env)) {
     path <- unname(Sys.which("quarto"))
     if (nzchar(path)) path else NULL
@@ -16,10 +16,19 @@ quarto_path <- function() {
   }
 }
 
+get_quarto_path_env <- function() {
+  Sys.getenv("QUARTO_PATH", unset = NA_character_)
+}
+
+quarto_not_found_msg <- c(
+  "Quarto command-line tools path not found! ",
+  "Please make sure you have installed and added Quarto to your PATH or set the QUARTO_PATH environment variable."
+)
+
 find_quarto <- function() {
   path <- quarto_path()
   if (is.null(path)) {
-     stop("Quarto command-line tools path not found! Please make sure you have installed and added Quarto to your PATH or set the QUARTO_PATH environment variable.")
+     cli::cli_abort(quarto_not_found_msg)
   } else {
     return(path)
   }
@@ -96,45 +105,82 @@ check_quarto_version <- function(ver, what, url) {
   }
 }
 
-quarto_bin_sitrep <- function() {
-  cli::cli_h1("Quarto binary found")
-  cli::cli_h2("This R package configuration")
-  if (nzchar(quarto_path())) {
-    cli::cli_inform("Functions in this package will use {.path {quarto_path()}}")
-  } else {
-    cli::cli_alert_danger("No {.strong quarto} binary found.")
+#' Check configurations for quarto binary used
+#'
+#' This function check the configuration for the quarto package R package to
+#' detect a possible difference with version used by RStudio IDE.
+#'
+#' @param verbose if `FALSE`, only return the result of the check.
+#' @param debug if `TRUE`, print more information about value set in configurations.
+#'
+#' @returns `TRUE` if this package should be using the same quarto binary as the
+#'   RStudio IDE. `FALSE` otherwise if a difference is detected or quarto is not
+#'   found. Use `verbose = TRUE` or`debug = TRUE` to get detailed information.
+#' @examples
+#' quarto_bin_sitrep(verbose = FALSE)
+#' quarto_bin_sitrep(verbose = TRUE)
+#' quarto_bin_sitrep(debug = TRUE)
+#'
+#' @export
+quarto_bin_sitrep <- function(verbose = TRUE, debug = FALSE) {
+
+  quarto_found <- normalizePath(quarto_path(), mustWork = FALSE)
+  if (is.null(quarto_found)) {
+    if (verbose) {
+      cli::cli_alert_danger(quarto_not_found_msg)
+    }
+    return(FALSE)
   }
-  cli::cli_h2("RStudio IDE configuration with RSTUDIO_QUARTO environment variable.")
-  rstudio_env <- Sys.getenv("RSTUDIO_QUARTO", unset = "")
-  if (nzchar(rstudio_env)) {
-    cli::cli_inform(c(
-      "{.envvar RSTUDIO_QUARTO} environment variable is set.",
-      "RStudio is configured to use {.path {rstudio_env}}"
-    ))
-  } else {
-    cli::cli_inform(c(
-      "{.envvar RSTUDIO_QUARTO} environment variable is not set.",
-      "RStudio IDE should use the {.strong quarto} binary found in the {.emph PATH} environment variable."
-    ))
+
+  same_config <- TRUE
+  if (debug) verbose <- TRUE
+
+
+  # Quarto R package situation ----
+  if (verbose) {
+    cli::cli_alert_success(c("i" = "quarto R package will use {.path {quarto_found}}"))
   }
-  cli::cli_h2("quarto R package configuration with {.envvar QUARTO_PATH} environment variable.")
-  quarto_r_env <- Sys.getenv("QUARTO_PATH", unset = "")
-  if (nzchar(quarto_r_env)) {
-    cli::cli_inform(c(
-      "{.envvar QUARTO_PATH} environment variable is set.",
-      "{.pkg quarto} R package is configured to use {.path {quarto_r_env}}"
-    ))
-  } else {
-    cli::cli_inform(c(
-      "{.envvar QUARTO_PATH} environment variable is not set.",
-      "{.pkg quarto} R package should use the {.strong quarto} binary found in the {.emph PATH} environment variable."
-    ))
+
+  quarto_r_env <- normalizePath(get_quarto_path_env(), mustWork = FALSE)
+  quarto_system <- normalizePath(unname(Sys.which("quarto")), mustWork = FALSE)
+  # quarto R package will use QUARTO_PATH env var with higher priority than latest version on path $PATH
+  # and RStudio IDE does not use this environment variable
+  if (!is.na(quarto_r_env) && identical(quarto_r_env, quarto_found)) {
+    same_config <- FALSE
+    if (verbose) {
+      cli::cli_alert_warning(c(
+        "It is configured through {.envvar QUARTO_PATH} environment variable. ",
+        "RStudio IDE will likely use another binary."
+      ))
+    }
+  } else if (nzchar(quarto_system) && identical(quarto_system, quarto_found)) {
+    if (debug) {
+      cli::cli_alert_info(c(
+        "    It is configured to use the latest version found in the {.emph PATH} environment variable."
+      ))
+    }
   }
-  cli::cli_h2("Configuration from {.envvar PATH} environment variable.")
-  path_quarto <- Sys.which("quarto")
-  if (nzchar(path_quarto)) {
-    cli::cli_inform("The {.strong quarto} binary found in the {.envvar PATH} environment variable is {.path {path_quarto}}")
-  } else {
-    cli::cli_inform("No {.strong quarto} binary found in the {.envvar PATH} environment variable is not found.")
+
+  # RStudio IDE known situation ----
+
+  # RStudio IDE > Render button will use RSTUDIO_QUARTO env var with higher priority than latest version on path $PATH
+  rstudio_env <- Sys.getenv("RSTUDIO_QUARTO", unset = NA)
+  if (!is.na(rstudio_env)) {
+    rstudio_env <- normalizePath(rstudio_env, mustWork = FALSE)
+    if (!identical(rstudio_env, quarto_found)) {
+      same_config <- FALSE
+      if (verbose) {
+        cli::cli_alert_danger(c(
+          "RStudio IDE render button seems configured to use {.path {rstudio_env}}."
+        ))
+        if (debug) {
+          cli::cli_alert_warning(c(
+            "    It is configured through {.envvar RSTUDIO_QUARTO} environment variable."
+          ))
+        }
+      }
+    }
   }
+
+  return(same_config)
 }

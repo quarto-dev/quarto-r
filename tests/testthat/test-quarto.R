@@ -34,3 +34,35 @@ test_that("is_using_quarto correctly check directory", {
   withr::local_dir(dirname(qmd))
   withr::local_file("test.txt")
 })
+
+test_that("quarto CLI sitrep", {
+  skip_if_no_quarto()
+  skip_on_cran()
+  local_reproducible_output(width = 1000)
+  dummy_quarto_path <- normalizePath("dummy", mustWork = FALSE)
+  withr::with_envvar(
+    list(QUARTO_PATH = dummy_quarto_path, RSTUDIO_QUARTO = NA),
+    expect_snapshot(
+      quarto_bin_sitrep(debug = TRUE),
+      transform = function(lines) gsub(dummy_quarto_path, "<QUARTO_PATH path>", lines, fixed = TRUE)
+    )
+  )
+  withr::with_envvar(
+    list(QUARTO_PATH = NA, RSTUDIO_QUARTO = dummy_quarto_path),
+    expect_snapshot(
+      quarto_bin_sitrep(debug = TRUE),
+      transform = function(lines) {
+        lines <- gsub(dummy_quarto_path, "<RSTUDIO_QUARTO path>", lines, fixed = TRUE)
+        transform_quarto_cli_in_output(full_path = TRUE)(lines)
+      }
+    )
+  )
+
+  withr::with_envvar(
+    list(QUARTO_PATH = NA, RSTUDIO_QUARTO = NA),
+    expect_snapshot(
+      quarto_bin_sitrep(debug = TRUE),
+      transform = transform_quarto_cli_in_output(full_path = TRUE)
+    )
+  )
+})
