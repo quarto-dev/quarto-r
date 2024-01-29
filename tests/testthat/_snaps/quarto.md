@@ -45,3 +45,35 @@
     Output
       [1] FALSE
 
+# quarto CLI sitrep
+
+    Code
+      quarto_binary_sitrep(debug = TRUE)
+    Message
+      v quarto R package will use '<QUARTO_PATH path>'
+      ! It is configured through `QUARTO_PATH` environment variable. RStudio IDE will likely use another binary.
+    Output
+      [1] FALSE
+
+---
+
+    Code
+      quarto_binary_sitrep(debug = TRUE)
+    Message
+      v quarto R package will use '<quarto full path>'
+      i     It is configured to use the latest version found in the PATH environment variable.
+      x RStudio IDE render button seems configured to use '<RSTUDIO_QUARTO path>'.
+      !     It is configured through `RSTUDIO_QUARTO` environment variable.
+    Output
+      [1] FALSE
+
+---
+
+    Code
+      quarto_binary_sitrep(debug = TRUE)
+    Message
+      v quarto R package will use '<quarto full path>'
+      i     It is configured to use the latest version found in the PATH environment variable.
+    Output
+      [1] TRUE
+
