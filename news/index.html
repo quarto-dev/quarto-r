@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.10</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.11</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="quarto-development-version">quarto (development version)<a class="anchor" aria-label="anchor" href="#quarto-development-version"></a></h2>
-<ul><li><p>Add <code><a href="../reference/quarto_create_project.html">quarto_create_project()</a></code> function that calls <code>quarto create project &lt;type&gt; &lt;name&gt;</code> (thanks, <a href="https://github.com/maelle" class="external-link">@maelle</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/87" class="external-link">#87</a>).</p></li>
+<ul><li><p>Add <code><a href="../reference/quarto_binary_sitrep.html">quarto_binary_sitrep()</a></code> to check possible difference in Quarto binary used by this package, and the one used by RStudio IDE (thanks, <a href="https://github.com/jthomasmock" class="external-link">@jthomasmock</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/12" class="external-link">#12</a>).</p></li>
+<li><p>Add <code><a href="../reference/quarto_create_project.html">quarto_create_project()</a></code> function that calls <code>quarto create project &lt;type&gt; &lt;name&gt;</code> (thanks, <a href="https://github.com/maelle" class="external-link">@maelle</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/87" class="external-link">#87</a>).</p></li>
 <li><p>Add <code><a href="../reference/is_using_quarto.html">is_using_quarto()</a></code> to check if a directory requires using Quarto (i.e. it has a <code>_quarto.yml</code> or at least one <code>*.qmd</code> file) (thanks, <a href="https://github.com/hadley" class="external-link">@hadley</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/103" class="external-link">#103</a>).</p></li>
 <li><p>Add <code>quarto_args</code> to <code><a href="../reference/quarto_render.html">quarto_render()</a></code> and other commands to pass additional arguments to <code>quarto</code> CLI commands. This is for advanced usage e.g. when new options are added to Quarto CLI that would not be user-facing in this package’s functions (thanks, <a href="https://github.com/gadenbuie" class="external-link">@gadenbuie</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/125" class="external-link">#125</a>).</p></li>
 <li><p>Add <code>quiet</code> argument in most functions to remove warnings and messages. It default to <code>FALSE</code> in most function to match with <code>quarto</code> CLI default.</p></li>
