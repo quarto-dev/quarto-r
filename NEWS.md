@@ -1,6 +1,6 @@
 # quarto (development version)
 
-- Add `quarto_bin_sitrep()` to check possible difference in Quarto binary used by this package, and the one used by RStudio IDE (thanks, @jthomasmock, #12).
+- Add `quarto_binary_sitrep()` to check possible difference in Quarto binary used by this package, and the one used by RStudio IDE (thanks, @jthomasmock, #12).
 
 - Add `quarto_create_project()` function that calls `quarto create project <type> <name>` (thanks, @maelle, #87).
 

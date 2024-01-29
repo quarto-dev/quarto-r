@@ -43,14 +43,14 @@ test_that("quarto CLI sitrep", {
   withr::with_envvar(
     list(QUARTO_PATH = dummy_quarto_path, RSTUDIO_QUARTO = NA),
     expect_snapshot(
-      quarto_bin_sitrep(debug = TRUE),
+      quarto_binary_sitrep(debug = TRUE),
       transform = function(lines) gsub(dummy_quarto_path, "<QUARTO_PATH path>", lines, fixed = TRUE)
     )
   )
   withr::with_envvar(
     list(QUARTO_PATH = NA, RSTUDIO_QUARTO = dummy_quarto_path),
     expect_snapshot(
-      quarto_bin_sitrep(debug = TRUE),
+      quarto_binary_sitrep(debug = TRUE),
       transform = function(lines) {
         lines <- gsub(dummy_quarto_path, "<RSTUDIO_QUARTO path>", lines, fixed = TRUE)
         transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)(lines)
@@ -61,7 +61,7 @@ test_that("quarto CLI sitrep", {
   withr::with_envvar(
     list(QUARTO_PATH = NA, RSTUDIO_QUARTO = NA),
     expect_snapshot(
-      quarto_bin_sitrep(debug = TRUE),
+      quarto_binary_sitrep(debug = TRUE),
       transform = transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)
     )
   )

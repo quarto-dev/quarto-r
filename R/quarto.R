@@ -117,12 +117,12 @@ check_quarto_version <- function(ver, what, url) {
 #'   RStudio IDE. `FALSE` otherwise if a difference is detected or quarto is not
 #'   found. Use `verbose = TRUE` or`debug = TRUE` to get detailed information.
 #' @examples
-#' quarto_bin_sitrep(verbose = FALSE)
-#' quarto_bin_sitrep(verbose = TRUE)
-#' quarto_bin_sitrep(debug = TRUE)
+#' quarto_binary_sitrep(verbose = FALSE)
+#' quarto_binary_sitrep(verbose = TRUE)
+#' quarto_binary_sitrep(debug = TRUE)
 #'
 #' @export
-quarto_bin_sitrep <- function(verbose = TRUE, debug = FALSE) {
+quarto_binary_sitrep <- function(verbose = TRUE, debug = FALSE) {
 
   quarto_found <- normalizePath(quarto_path(), mustWork = FALSE)
   if (is.null(quarto_found)) {

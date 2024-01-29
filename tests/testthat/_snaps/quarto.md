@@ -48,7 +48,7 @@
 # quarto CLI sitrep
 
     Code
-      quarto_bin_sitrep(debug = TRUE)
+      quarto_binary_sitrep(debug = TRUE)
     Message
       v quarto R package will use '<QUARTO_PATH path>'
       ! It is configured through `QUARTO_PATH` environment variable. RStudio IDE will likely use another binary.
@@ -58,7 +58,7 @@
 ---
 
     Code
-      quarto_bin_sitrep(debug = TRUE)
+      quarto_binary_sitrep(debug = TRUE)
     Message
       v quarto R package will use '<quarto full path>'
       i     It is configured to use the latest version found in the PATH environment variable.
@@ -70,7 +70,7 @@
 ---
 
     Code
-      quarto_bin_sitrep(debug = TRUE)
+      quarto_binary_sitrep(debug = TRUE)
     Message
       v quarto R package will use '<quarto full path>'
       i     It is configured to use the latest version found in the PATH environment variable.
