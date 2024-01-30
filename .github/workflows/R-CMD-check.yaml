@@ -50,6 +50,8 @@ jobs:
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: ${{ matrix.config.quarto || 'release' }}
+          tinytex: true
+
 
       # replace with setting up QUARTO Pandoc for rmarkdown
       - uses: r-lib/actions/setup-pandoc@v2
