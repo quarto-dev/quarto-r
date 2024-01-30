@@ -61,4 +61,9 @@ This is one limitation of the current implementation of the vignette engine. Thi
 
 The other limitation concerns the interactive rendering. If you render your vignette `.qmd` file using `quarto render` or any other function, the output will be based on default HTML format from Quarto and not the vignette engine one. Only building the vignette will produce the real results. More about building vignette in the [R Packages (2e)](https://r-pkgs.org/vignettes.html#sec-vignettes-how-built-checked) book.
 
+Intermediates resources that would be created by an authoring workflow that would `quarto render` with default `format: html` should be ignored in package sources. 
+
+- Added to `.Rbuildignore` (e.g `usethis::use_build_ignore("vignettes/*_files")`)
+- Added to `.gitignore` (e.g. `usethis::use_git_ignore("*_files", "vignettes")`)
+
 
