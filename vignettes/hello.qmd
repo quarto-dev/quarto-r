@@ -1,10 +1,10 @@
 ---
-title: "Quarto Vignettes"
+title: "Quarto HTML Vignettes"
 format:
   html:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Quarto Vignettes}
+  %\VignetteIndexEntry{Quarto HTML Vignettes}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---

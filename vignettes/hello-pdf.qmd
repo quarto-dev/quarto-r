@@ -1,11 +1,11 @@
 ---
-title: "Quarto Vignettes"
+title: "Quarto PDF Vignettes"
 format:
   pdf:
     toc: false
 vignette: >
-  %\VignetteIndexEntry{Quarto Vignettes}
-  %\VignetteEngine{quarto::html}
+  %\VignetteIndexEntry{Quarto PDF Vignettes}
+  %\VignetteEngine{quarto::pdf}
   %\VignetteEncoding{UTF-8}
 ---
 
