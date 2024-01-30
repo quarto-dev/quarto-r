@@ -24,6 +24,7 @@ vweave_quarto <- function(format) {
 }
 
 get_meta <- function(format) {
+  if (is.null(format)) return(NULL)
   if (format == "html") {
     return(get_meta_for_html())
   }
