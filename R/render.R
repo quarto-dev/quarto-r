@@ -34,7 +34,7 @@
 #'   This will be merged over `metadata-file` options if both are
 #'   specified.
 #' @param metadata_file A yaml file passed to `--metadata-file` CLI flags to
-#'   overrite metadata. This will be merged with `metadata` if both are
+#'   override metadata. This will be merged with `metadata` if both are
 #'   specified, with low precedence on `metadata` options.
 #' @param debug Leave intermediate files in place after render.
 #' @param quiet Suppress warning and other messages.
