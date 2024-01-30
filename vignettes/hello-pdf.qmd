@@ -28,7 +28,6 @@ vignette: >
   %\VignetteIndexEntry{Vignette's Title}
   %\VignetteEngine{quarto::pdf}
   %\VignetteEncoding{UTF-8}
----
 ```
 
 the vignette built will be a PDF vignette using Quarto's defaults for `format: pdf` format, with only Table Of Content opted-out. This format will be using LaTeX to build the PDF, and so you will need to take precaution for a CRAN vignette. Refers to [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Non_002dSweave-vignettes) manual and CRAN policy.
