@@ -77,3 +77,12 @@
     Output
       [1] TRUE
 
+---
+
+    Code
+      quarto_binary_sitrep(debug = TRUE)
+    Message
+      x Quarto command-line tools path not found! Please make sure you have installed and added Quarto to your PATH or set the QUARTO_PATH environment variable.
+    Output
+      [1] FALSE
+
