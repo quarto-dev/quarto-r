@@ -31,7 +31,7 @@ get_meta <- function(format) {
 
 get_meta_for_html <- function() {
 
-  css <- system_file("rmarkdown", "template", "quarto_vignette" ,"resources",
+  css <- system_file("rmarkdown", "template", "quarto_vignette", "resources",
                       "vignette.css", package = "quarto")
   meta <- list()
   meta$format$html <-
