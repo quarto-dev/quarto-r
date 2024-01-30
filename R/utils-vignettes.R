@@ -1,6 +1,7 @@
 register_vignette_engines <- function(pkg) {
   vig_engine("html", quarto_format = "html")
   vig_engine("pdf", quarto_format = "pdf")
+  vig_engine("format", quarto_format = NULL)
 }
 
 
