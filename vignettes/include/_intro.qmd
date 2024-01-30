@@ -1,0 +1,10 @@
+This is an example Quarto vignette, demonstrating how the **quarto** package can let you write R package vignettes with Quarto (<https://quarto.org>).
+
+## Quarto as vignette builder
+
+Add this to your `DESCRIPTION` file:
+
+```dcf
+VignetteBuilder: 
+    quarto
+```

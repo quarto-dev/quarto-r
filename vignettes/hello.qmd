@@ -1,15 +1,12 @@
 ---
 title: "Quarto HTML Vignettes"
-format:
-  html:
-    toc: true
 vignette: >
   %\VignetteIndexEntry{Quarto HTML Vignettes}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
-This is an example Quarto vignette, demonstrating how the **quarto** package can let you write R package vignettes with Quarto (<https://quarto.org>).
+{{< include include/_intro.qmd >}}
 
 ## HTML Vignette Engines
 
