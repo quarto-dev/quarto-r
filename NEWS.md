@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Add registration of vignette engine to use `quarto` as a vignette builder, and use `.qmd` file as vignette. See `vignette("hello", package = "quarto")`. (thanks, @dcnorris, #57).
+
 - Add `quarto_binary_sitrep()` to check possible difference in Quarto binary used by this package, and the one used by RStudio IDE (thanks, @jthomasmock, #12).
 
 - Add `quarto_create_project()` function that calls `quarto create project <type> <name>` (thanks, @maelle, #87).
