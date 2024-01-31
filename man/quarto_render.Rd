@@ -71,7 +71,7 @@ This will be merged over \code{metadata-file} options if both are
 specified.}
 
 \item{metadata_file}{A yaml file passed to \code{--metadata-file} CLI flags to
-overrite metadata. This will be merged with \code{metadata} if both are
+override metadata. This will be merged with \code{metadata} if both are
 specified, with low precedence on \code{metadata} options.}
 
 \item{debug}{Leave intermediate files in place after render.}

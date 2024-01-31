@@ -6,3 +6,7 @@
 ^\.github$
 ^\.vscode$
 ^\.quarto$
+^doc$
+^Meta$
+
+^vignettes/*_files$

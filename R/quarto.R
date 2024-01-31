@@ -124,13 +124,15 @@ check_quarto_version <- function(ver, what, url) {
 #' @export
 quarto_binary_sitrep <- function(verbose = TRUE, debug = FALSE) {
 
-  quarto_found <- normalizePath(quarto_path(), mustWork = FALSE)
+  quarto_found <- quarto_path()
   if (is.null(quarto_found)) {
     if (verbose) {
       cli::cli_alert_danger(quarto_not_found_msg)
     }
     return(FALSE)
   }
+
+  quarto_found <- normalizePath(quarto_found, mustWork = FALSE)
 
   same_config <- TRUE
   if (debug) verbose <- TRUE

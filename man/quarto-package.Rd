@@ -18,11 +18,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: JJ Allaire \email{jj@rstudio.com} (\href{https://orcid.org/0000-0003-0174-9868}{ORCID})
+\strong{Maintainer}: Christophe Dervieux \email{cderv@posit.co} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID})
 
 Authors:
 \itemize{
-  \item Christophe Dervieux \email{cderv@posit.co} (\href{https://orcid.org/0000-0003-4474-2498}{ORCID})
+  \item JJ Allaire \email{jj@posit.co} (\href{https://orcid.org/0000-0003-0174-9868}{ORCID})
 }
 
 }

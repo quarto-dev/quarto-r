@@ -65,4 +65,12 @@ test_that("quarto CLI sitrep", {
       transform = transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)
     )
   )
+
+  # Mock no quarto found
+  with_mocked_bindings(
+    quarto_path = function(...) NULL,
+    expect_snapshot(
+      quarto_binary_sitrep(debug = TRUE)
+    )
+  )
 })
