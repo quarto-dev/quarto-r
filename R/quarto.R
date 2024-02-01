@@ -49,20 +49,14 @@ quarto_version <- function() {
 #' @importFrom processx run
 quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FALSE, echo_cmd = getOption("quarto.echo_cmd", FALSE), ..., .call = rlang::caller_env()) {
   res <- tryCatch({
-    processx::run(quarto_bin, args = args, echo = FALSE, error_on_status = TRUE, echo_cmd = echo_cmd, ...)
+    processx::run(quarto_bin, args = args, echo = echo, error_on_status = TRUE, echo_cmd = echo_cmd, ...)
   },
     error = function(e) {
-      msg <- c("Error running quarto cli:")
-      if (nzchar(e$stderr)) msg <- c(msg, "x" = e$stderr)
+      msg <- c(x = "Error running quarto cli.")
       if (cli_arg_quiet() %in% args) msg <- c(msg, "i" = "Rerun with `quiet = FALSE` to see the full error message.")
-      rlang::abort(msg, call = .call, parent = e)
+      cli::cli_abort(msg, call = .call, parent = e)
     }
   )
-  # quarto outputs any message into stderr as stdout is reserved
-  # for regular rendered output (that we don't support in this package yet)
-  if (echo && nzchar(res$stderr)) {
-    cli::cat_line(res$stderr)
-  }
   invisible(res)
 }
 
