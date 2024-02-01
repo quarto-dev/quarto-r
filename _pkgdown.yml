@@ -6,7 +6,7 @@ template:
 navbar:
   structure:
      left: [publishing, reference]
-     right: [search]
+     right: [news, search]
   components:
      publishing:
       text: Publishing
