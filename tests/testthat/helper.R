@@ -73,7 +73,7 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 }
 
 
-transform_quarto_cli_in_output <- function(full_path = FALSE, normalize_path = FALSE) {
+transform_quarto_cli_in_output <- function(full_path = FALSE, normalize_path = FALSE, version = FALSE) {
   return(
     function(lines) {
       if (full_path) {
@@ -82,11 +82,14 @@ transform_quarto_cli_in_output <- function(full_path = FALSE, normalize_path = F
         lines <- gsub(quarto_found, "<quarto full path>", lines, fixed = TRUE)
         # seems like there are quotes around path in CI windows
         lines <- gsub("\"<quarto full path>\"", "<quarto full path>", lines, fixed = TRUE)
-        return(lines)
+      } else {
+        # it will be quarto.exe only on windows
+        lines <- gsub("quarto\\.(exe|cmd)", "quarto", lines)
       }
-
-      # it will be quarto.exe only on windows
-      gsub("quarto\\.(exe|cmd)", "quarto", lines)
+      if (version) {
+        lines <- gsub(quarto_version(), "<quarto version>", lines, fixed = TRUE)
+      }
+      return(lines)
     }
   )
 }

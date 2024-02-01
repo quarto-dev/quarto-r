@@ -25,7 +25,7 @@ test_that("create project only available for 1.4", {
   expect_snapshot(
     error = TRUE,
     quarto_create_project(name = "test"),
-    transform = transform_quarto_cli_in_output(full_path = TRUE),
+    transform = transform_quarto_cli_in_output(full_path = TRUE, version = TRUE),
     variant = "before-1-4"
   )
 })

@@ -5,5 +5,5 @@
     Condition
       Error in `check_quarto_version()`:
       ! `quarto create project` has been added in Quarto 1.4. See <https://quarto.org/docs/projects/quarto-projects.html>.
-      i You are using 1.3.433 from '<quarto full path>'.
+      i You are using <quarto version> from '<quarto full path>'.
 
