@@ -19,23 +19,22 @@ vig_engine <- function(..., quarto_format) {
 
 vweave_quarto <- function(format) {
   # protect if Quarto is not installed
-  if (is.null(quarto_path())) {
-    msg <- c(
-      x = "Quarto binary is required to build Quarto vignettes but is not available.",
-      i = "Please make sure it is installed and found by {.code find_quarto()}."
-    )
-    if (is_R_CMD_check()) {
-      cli::cli_inform(msg)
-    } else {
-      cli::cli_abort(msg, call = NULL)
-    }
-    return(vweave_empty)
-  }
   meta <- get_meta(format)
-  vweave_quarto_ <- function(file, driver, syntax, encoding, quiet = FALSE, ...) {
+  function(file, driver, syntax, encoding, quiet = FALSE, ...) {
+    if (is.null(quarto_path())) {
+      msg <- c(
+        "Quarto binary is required to build Quarto vignettes but is not available.",
+        i = "Please make sure it is installed and found by {.code find_quarto()}."
+      )
+      if (is_R_CMD_check()) {
+        cli::cli_inform(msg)
+      } else {
+        cli::cli_abort(msg, call = NULL)
+      }
+      return(vweave_empty(file))
+    }
     quarto_render(file, ..., output_format = format, metadata = meta)
   }
-  return(vweave_quarto_)
 }
 
 get_meta <- function(format) {
