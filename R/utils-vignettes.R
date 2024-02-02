@@ -18,9 +18,9 @@ vig_engine <- function(..., quarto_format) {
 }
 
 vweave_quarto <- function(format) {
-  # protect if Quarto is not installed
   meta <- get_meta(format)
   function(file, driver, syntax, encoding, quiet = FALSE, ...) {
+    # protect if Quarto is not installed
     if (is.null(quarto_path())) {
       msg <- c(
         "Quarto binary is required to build Quarto vignettes but is not available.",
