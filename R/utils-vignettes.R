@@ -43,6 +43,18 @@ get_meta <- function(format) {
   if (format == "html") {
     return(get_meta_for_html())
   }
+  if (format == "pdf") {
+    return(get_meta_for_pdf())
+  }
+}
+
+get_meta_for_pdf <- function() {
+  meta <- list()
+  meta$format$pdf <- list(
+    # don't try to install CTAN package on CRAN environment
+    `latex-auto-install` = !is_cran_check()
+  )
+  meta
 }
 
 get_meta_for_html <- function() {
@@ -71,7 +83,7 @@ is_cran_check <- function() {
 }
 
 is_cran = function() {
-  !interactive() && !isTRUE(as.logical(Sys.getenv("NOT_CRAN", "false")))
+  !rlang::is_interactive() && !isTRUE(as.logical(Sys.getenv("NOT_CRAN", "false")))
 }
 
 # trick from knitr to avoid problem on R CMD check (e.g. when no Quarto available)
