@@ -1,4 +1,4 @@
-# <img src="man/figures/quarto.png" />
+# quarto <a href="https://quarto-dev.github.io/quarto-r/"><img src="man/figures/logo.png" align="right" height="138" alt="quarto website" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/quarto)](https://CRAN.R-project.org/package=quarto)
