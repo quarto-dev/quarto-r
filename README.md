@@ -11,38 +11,7 @@ The **quarto** package provides an R interface to frequently used operations in 
 
 Before using the Quarto R package, you should install the Quarto CLI from <https://quarto.org/docs/get-started/>.
 
-### Render and Preview
-
-The following functions enable you to render and preview Quarto documents and projects:
-
-|                                                          |                                |
-|---------------------------|------------------------------------|
-| [`quarto_render()`](https://quarto-dev.github.io/quarto-r/reference/quarto_render.html)        | Render a file or project       |
-| [`quarto_preview()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html)      | Live preview a file or project |
-| [`quarto_preview_stop()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html) | Stop live previewing           |
-| [`quarto_serve()`](https://quarto-dev.github.io/quarto-r/reference/quarto_serve.html)          | Server interactive document    |
-
-### Publishing
-
-These functions enable you to publish static and interactive documents, websites, and books to [Posit Connect](https://posit.co/products/enterprise/connect/) and [shinyapps.io](https://www.shinyapps.io/):
-
-|                                                              |                                        |
-|---------------------------|------------------------------------|
-| [`quarto_publish_doc()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document or presentation                |
-| [`quarto_publish_site()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html) | Publish a website                                 |
-| [`quarto_publish_app()`](https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html)  | Publish a document with Shiny application runtime |
-
-### Configuration
-
-These functions enable you to inspect the Quarto installation as well as the metadata for Quarto documents and projects:
-
-|                                                     |                                        |
-|---------------------------|------------------------------------|
-| [`quarto_path()`](https://quarto-dev.github.io/quarto-r/reference/quarto_path.html)       | Path to the Quarto binary              |
-| [`quarto_version()`](https://quarto-dev.github.io/quarto-r/reference/quarto_version.html) | Current version of Quarto              |
-| [`quarto_inspect()`](https://quarto-dev.github.io/quarto-r/reference/quarto_inspect.html) | Inspect metadata for a file or project |
-
-### Installing the package 
+## Installing the package 
 
 Latest released version from CRAN
 
@@ -63,3 +32,5 @@ or Latest build of dev version from r-universe
 ```r
 install.packages('quarto', repos = c('https://quarto-dev.r-universe.dev', 'https://cloud.r-project.org'))
 ```
+
+Look at the [Functions Reference page](https://quarto-dev.github.io/quarto-r/reference/index.html) to see the list of functions available in the package.
