@@ -88,7 +88,6 @@ quarto_render <- function(input = NULL,
                           quarto_args = NULL,
                           pandoc_args = NULL,
                           as_job = getOption("quarto.render_as_job", "auto")) {
-
   # get quarto binary
   quarto_bin <- find_quarto()
 

@@ -28,7 +28,7 @@ quarto_not_found_msg <- c(
 find_quarto <- function() {
   path <- quarto_path()
   if (is.null(path)) {
-     cli::cli_abort(quarto_not_found_msg)
+    cli::cli_abort(quarto_not_found_msg)
   } else {
     return(path)
   }
@@ -48,9 +48,10 @@ quarto_version <- function() {
 
 #' @importFrom processx run
 quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FALSE, echo_cmd = getOption("quarto.echo_cmd", FALSE), ..., .call = rlang::caller_env()) {
-  res <- tryCatch({
-    processx::run(quarto_bin, args = args, echo = echo, error_on_status = TRUE, echo_cmd = echo_cmd, ...)
-  },
+  res <- tryCatch(
+    {
+      processx::run(quarto_bin, args = args, echo = echo, error_on_status = TRUE, echo_cmd = echo_cmd, ...)
+    },
     error = function(e) {
       msg <- c(x = "Error running quarto cli.")
       if (cli_arg_quiet() %in% args) msg <- c(msg, "i" = "Rerun with `quiet = FALSE` to see the full error message.")
@@ -99,8 +100,8 @@ check_quarto_version <- function(ver, what, url) {
   if (quarto_version() < ver) {
     cli::cli_abort(c(
       "{.code {what}} has been added in Quarto {ver}. See {.url {url}}.",
-      i = "You are using {.strong {quarto_version()}} from {.file {quarto_path()}}.")
-    )
+      i = "You are using {.strong {quarto_version()}} from {.file {quarto_path()}}."
+    ))
   }
 }
 
@@ -122,7 +123,6 @@ check_quarto_version <- function(ver, what, url) {
 #'
 #' @export
 quarto_binary_sitrep <- function(verbose = TRUE, debug = FALSE) {
-
   quarto_found <- quarto_path()
   if (is.null(quarto_found)) {
     if (verbose) {

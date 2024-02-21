@@ -34,7 +34,7 @@ quarto_use_template <- function(template, no_prompt = FALSE, quiet = FALSE, quar
   # TODO: Change if / when https://github.com/quarto-dev/quarto-cli/issues/8438
   args <- c("template", template, "--no-prompt", quarto_args)
 
-  if (quarto_version( ) > "1.5.4" & isTRUE(quiet)) {
+  if (quarto_version() > "1.5.4" & isTRUE(quiet)) {
     args <- cli_arg_quiet(args)
   }
 

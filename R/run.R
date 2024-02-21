@@ -16,7 +16,6 @@ quarto_serve <- function(input,
                          port = getOption("shiny.port"),
                          host = getOption("shiny.host", "127.0.0.1"),
                          browse = TRUE) {
-
   # render if requested
   if (render) {
     quarto_render(input)
@@ -40,5 +39,3 @@ quarto_serve <- function(input,
   # run the doc
   rmarkdown::run(input, shiny_args = shiny_args)
 }
-
-

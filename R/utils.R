@@ -1,4 +1,3 @@
-
 relative_to_wd <- function(path) {
   relative_to(getwd(), path)
 }
@@ -9,9 +8,10 @@ write_yaml <- function(x, file) {
     # Handle yes/no from 1.1 to 1.2
     # https://github.com/vubiostat/r-yaml/issues/131
     logical = function(x) {
-    value <- ifelse(x, "true", "false")
-    structure(value, class = "verbatim")
-  })
+      value <- ifelse(x, "true", "false")
+      structure(value, class = "verbatim")
+    }
+  )
   yaml::write_yaml(x, file, handlers = handlers)
 }
 

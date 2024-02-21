@@ -78,7 +78,9 @@ transform_quarto_cli_in_output <- function(full_path = FALSE, normalize_path = F
     function(lines) {
       if (full_path) {
         quarto_found <- find_quarto()
-        if (normalize_path) {quarto_found <- normalizePath(quarto_found, mustWork = FALSE)}
+        if (normalize_path) {
+          quarto_found <- normalizePath(quarto_found, mustWork = FALSE)
+        }
         lines <- gsub(quarto_found, "<quarto full path>", lines, fixed = TRUE)
         # seems like there are quotes around path in CI windows
         lines <- gsub("\"<quarto full path>\"", "<quarto full path>", lines, fixed = TRUE)
@@ -100,4 +102,3 @@ local_quarto_run_echo_cmd <- function(.env = parent.frame()) {
     withr::local_options(quarto.echo_cmd = TRUE, .local_envir = .env)
   }
 }
-

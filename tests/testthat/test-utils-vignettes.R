@@ -5,7 +5,8 @@ test_that("don't auto install CTAN package on CRAN", {
     # simulate non CRAN
     "NOT_CRAN" = "false",
     # simulate R CMD check
-    "_R_CHECK_LICENSE_" = "true"), {
+    "_R_CHECK_LICENSE_" = "true"
+  ), {
     expect_false(get_meta_for_pdf()$format$pdf$`latex-auto-install`)
   })
   withr::with_envvar(list(

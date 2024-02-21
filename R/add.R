@@ -39,7 +39,7 @@ quarto_add_extension <- function(extension = NULL, no_prompt = FALSE, quiet = FA
   # This will ask for approval or stop installation
   check_extension_approval(no_prompt, "Quarto extensions", "https://quarto.org/docs/extensions/managing.html")
 
-  args <- c(extension,"--no-prompt", if (quiet) cli_arg_quiet(), quarto_args)
+  args <- c(extension, "--no-prompt", if (quiet) cli_arg_quiet(), quarto_args)
 
   quarto_add(args, quarto_bin = quarto_bin, echo = TRUE)
 

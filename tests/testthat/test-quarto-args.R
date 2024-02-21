@@ -3,7 +3,7 @@ test_that("append to existing", {
   expect_identical(append_cli_args(c("a", "b")), c("a", "b"))
   expect_identical(append_cli_args("c", c("a", "b")), c("a", "b", "c"))
   expect_identical(append_cli_args("b", c("a", "c"), 1), c("a", "b", "c"))
-  expect_identical(append_cli_args(c("b","c"), c("a", "d"), 1), c("a", "b", "c", "d"))
+  expect_identical(append_cli_args(c("b", "c"), c("a", "d"), 1), c("a", "b", "c", "d"))
 })
 
 test_that("create profile arg", {

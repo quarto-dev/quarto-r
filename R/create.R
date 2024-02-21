@@ -21,7 +21,6 @@
 #'
 #' @export
 quarto_create_project <- function(name, type = "default", dir = ".", no_prompt = FALSE, quiet = FALSE, quarto_args = NULL) {
-
   check_quarto_version("1.4", "quarto create project", "https://quarto.org/docs/projects/quarto-projects.html")
 
   if (rlang::is_missing(name)) {
@@ -45,7 +44,6 @@ quarto_create_project <- function(name, type = "default", dir = ".", no_prompt =
   owd <- setwd(dir)
   on.exit(setwd(owd), add = TRUE, after = FALSE)
   quarto_create(args, quarto_bin = quarto_bin, echo = TRUE)
-
 }
 
 quarto_create <- function(args = character(), ...) {

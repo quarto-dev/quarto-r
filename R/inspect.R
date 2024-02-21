@@ -25,14 +25,14 @@
 #' quarto_inspect(
 #'   input = "myproject",
 #'   profile = "advanced"
-#' )}
+#' )
+#' }
 #' @importFrom jsonlite fromJSON
 #' @export
 quarto_inspect <- function(input = ".",
                            profile = NULL,
                            quiet = FALSE,
                            quarto_args = NULL) {
-
   quarto_bin <- find_quarto()
 
   args <- c("inspect", path.expand(input))

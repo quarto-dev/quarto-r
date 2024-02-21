@@ -10,7 +10,7 @@ test_that("quarto_run gives guidance in error", {
     error = TRUE,
     quarto_run(c("rend", "--quiet")),
     transform = transform_quarto_cli_in_output()
-    )
+  )
 })
 
 test_that("is_using_quarto correctly check directory", {
