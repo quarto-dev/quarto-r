@@ -10,3 +10,4 @@
 ^Meta$
 
 ^vignettes/*_files$
+^revdep$
