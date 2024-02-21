@@ -1,6 +1,6 @@
-# quarto (development version)
+# quarto 1.4
 
-- This version is now adapted to Quarto 1.4 latest stable release
+- This version is now adapted to Quarto 1.4 latest stable release.
 
 - Add registration of vignette engine to use `quarto` as a vignette builder, and use `.qmd` file as vignette. See `vignette("hello", package = "quarto")`. (thanks, @dcnorris, #57).
 
