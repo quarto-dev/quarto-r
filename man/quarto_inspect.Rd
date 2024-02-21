@@ -41,5 +41,6 @@ quarto_inspect("myproject")
 quarto_inspect(
   input = "myproject",
   profile = "advanced"
-)}
+)
+}
 }

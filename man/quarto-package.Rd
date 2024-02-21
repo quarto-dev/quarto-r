@@ -6,6 +6,8 @@
 \alias{quarto-package}
 \title{quarto: R Interface to 'Quarto' Markdown Publishing System}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Convert R Markdown documents and 'Jupyter' notebooks to a variety of output formats using 'Quarto'.
 }
 \seealso{
@@ -23,6 +25,11 @@ Useful links:
 Authors:
 \itemize{
   \item JJ Allaire \email{jj@posit.co} (\href{https://orcid.org/0000-0003-0174-9868}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Posit Software, PBC [copyright holder, funder]
 }
 
 }
