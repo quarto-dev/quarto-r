@@ -11,3 +11,4 @@
 
 ^vignettes/*_files$
 ^revdep$
+^cran-comments\.md$
