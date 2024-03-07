@@ -17,8 +17,12 @@ quarto_render(
   use_freezer = FALSE,
   cache = NULL,
   cache_refresh = FALSE,
+  metadata = NULL,
+  metadata_file = NULL,
   debug = FALSE,
   quiet = FALSE,
+  profile = NULL,
+  quarto_args = NULL,
   pandoc_args = NULL,
   as_job = getOption("quarto.render_as_job", "auto")
 )
@@ -30,8 +34,10 @@ to rendering the project in the current working directory).}
 \item{output_format}{Target output format (defaults to "html"). The option
 \code{"all"} will render all formats defined within the file or project.}
 
-\item{output_file}{The name of the output file. If using \code{NULL} then the
-output filename will be based on filename for the input file.}
+\item{output_file}{The name of the output file. If using \code{NULL}, the output
+filename will be based on the filename for the input file. \code{output_file} is
+mapped to the \code{--output} option flag of the \code{quarto} CLI. It is expected to
+be a filename only, not a path, relative or absolute.}
 
 \item{execute}{Whether to execute embedded code chunks.}
 
@@ -59,9 +65,25 @@ respectively for Rmd and Jupyter input files).}
 
 \item{cache_refresh}{Force refresh of execution cache.}
 
+\item{metadata}{An optional named list used to override YAML
+metadata. It will be passed as a YAML file to \code{--metadata-file} CLI flag.
+This will be merged over \code{metadata-file} options if both are
+specified.}
+
+\item{metadata_file}{A yaml file passed to \code{--metadata-file} CLI flags to
+override metadata. This will be merged with \code{metadata} if both are
+specified, with low precedence on \code{metadata} options.}
+
 \item{debug}{Leave intermediate files in place after render.}
 
 \item{quiet}{Suppress warning and other messages.}
+
+\item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
+a character vector of profile names or \code{NULL} to use the default profile.}
+
+\item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the
+command. This is mainly for advanced usage, e.g it can be useful for new
+options added to quarto CLI and not yet supported as function argument.}
 
 \item{pandoc_args}{Additional command line options to pass to pandoc.}
 
@@ -86,5 +108,8 @@ quarto_render("notebook.ipynb")
 
 # Render Jupyter Markdown
 quarto_render("notebook.md")
+
+# Override metadata
+quarto_render("notebook.Rmd", override = list(lang = "fr", echo = "false"))
 }
 }

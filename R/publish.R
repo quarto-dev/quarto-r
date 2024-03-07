@@ -1,4 +1,3 @@
-
 #' Publish Quarto Documents
 #'
 #' Publish Quarto documents to Posit Connect, ShinyApps, and RPubs
@@ -34,6 +33,7 @@ quarto_publish_doc <- function(input,
                                render = c("local", "server", "none"),
                                metadata = list(),
                                ...) {
+  validate_rsconnect()
   # resolve render
   render <- match.arg(render)
 
@@ -51,8 +51,10 @@ quarto_publish_doc <- function(input,
   # render if requested (always render self-contained locally for rpubs)
   if (!is.null(rpubs_destination)) {
     render <- "local"
-    quarto_render(input, output_format = format,
-                  pandoc_args = "--self-contained")
+    quarto_render(input,
+      output_format = format,
+      pandoc_args = "--self-contained"
+    )
   } else if (render == "local") {
     quarto_render(input, output_format = format)
   }
@@ -61,8 +63,10 @@ quarto_publish_doc <- function(input,
   if (render == "server") {
     doc <- input
   } else {
-    doc <- file.path(dirname(normalizePath(input)),
-                     input_formats[[format]]$pandoc[["output-file"]])
+    doc <- file.path(
+      dirname(normalizePath(input)),
+      input_formats[[format]]$pandoc[["output-file"]]
+    )
   }
 
   # determine title
@@ -72,17 +76,16 @@ quarto_publish_doc <- function(input,
 
   # special case for rpubs
   if (!is.null(rpubs_destination)) {
-
     id <- rpubs_destination[["bundleId"]]
     if (!is.null(id)) {
       message("Updating document on rpubs.com...")
     }
     result <- rsconnect::rpubsUpload(title, doc, input, id)
-    if (!is.null(result$continueUrl))
+    if (!is.null(result$continueUrl)) {
       utils::browseURL(result$continueUrl)
-    else
+    } else {
       stop(result$error)
-
+    }
   } else {
     # resolve server/account
     destination <- resolve_destination(server, account, FALSE)
@@ -90,19 +93,21 @@ quarto_publish_doc <- function(input,
     # determine app_files
     app_files <- c(basename(doc))
     deploy_frame <- NULL
-    tryCatch({
-      # this operation can be expensive and could also throw if e.g. the
-      # document fails to parse or render
-      deploy_frame <- rmarkdown::find_external_resources(doc)
-    },
-    error = function(e) {
-      # errors are not fatal here; we just might miss some resources, which
-      # the user will have to add manually
-      message(
-        "Auto detection of external ressources with `rmarkdown::find_external_resources()` has failed. ",
-        "Adding them manually may be needed (or fixing the doc for auto detection)."
-      )
-    })
+    tryCatch(
+      {
+        # this operation can be expensive and could also throw if e.g. the
+        # document fails to parse or render
+        deploy_frame <- rmarkdown::find_external_resources(doc)
+      },
+      error = function(e) {
+        # errors are not fatal here; we just might miss some resources, which
+        # the user will have to add manually
+        message(
+          "Auto detection of external ressources with `rmarkdown::find_external_resources()` has failed. ",
+          "Adding them manually may be needed (or fixing the doc for auto detection)."
+        )
+      }
+    )
     if (!is.null(deploy_frame)) {
       app_files <- c(app_files, deploy_frame$path)
     }
@@ -129,8 +134,6 @@ quarto_publish_doc <- function(input,
       ...
     )
   }
-
-
 }
 
 
@@ -144,6 +147,8 @@ quarto_publish_app <- function(input = getwd(),
                                render = c("local", "server", "none"),
                                metadata = list(),
                                ...) {
+  validate_rsconnect()
+
   # resolve render
   render <- match.arg(render)
 
@@ -173,15 +178,17 @@ quarto_publish_app <- function(input = getwd(),
   metadata$quarto_version <- rsc_metadata$version
   metadata$quarto_engines <- rsc_metadata$engines
   metadata$serverRender <- render == "server"
-  rsconnect::deployApp(appDir = app_dir,
-                       appPrimaryDoc = app_primary_doc,
-                       appSourceDoc = file.path(app_dir, app_primary_doc),
-                       appName = name,
-                       appTitle = title,
-                       server = destination$server,
-                       account = destination$account,
-                       metadata = metadata,
-                       ...)
+  rsconnect::deployApp(
+    appDir = app_dir,
+    appPrimaryDoc = app_primary_doc,
+    appSourceDoc = file.path(app_dir, app_primary_doc),
+    appName = name,
+    appTitle = title,
+    server = destination$server,
+    account = destination$account,
+    metadata = metadata,
+    ...
+  )
 }
 
 
@@ -195,6 +202,7 @@ quarto_publish_site <- function(input = getwd(),
                                 render = c("local", "server", "none"),
                                 metadata = list(),
                                 ...) {
+  validate_rsconnect()
 
   # resolve render
   render <- match.arg(render)
@@ -218,10 +226,11 @@ quarto_publish_site <- function(input = getwd(),
   # output-dir
   output_dir <- config$project[["output-dir"]]
 
-  if (render != "server" && !is.null(output_dir))
+  if (render != "server" && !is.null(output_dir)) {
     app_dir <- output_dir
-  else
+  } else {
     app_dir <- input
+  }
 
   # resolve server/account
   destination <- resolve_destination(server, account, FALSE)
@@ -243,13 +252,14 @@ quarto_publish_site <- function(input = getwd(),
     contentCategory = "site",
     ...
   )
-
 }
 
 
 find_app_primary_doc <- function(dir) {
-  preferred <- c("index.Rmd", "index.rmd", "index.qmd",
-                 "ui.Rmd", "ui.rmd", "ui.qmd")
+  preferred <- c(
+    "index.Rmd", "index.rmd", "index.qmd",
+    "ui.Rmd", "ui.rmd", "ui.qmd"
+  )
   preferred <- preferred[file.exists(file.path(dir, preferred))]
   if (length(preferred) > 0) {
     return(preferred[[1]])
@@ -286,10 +296,11 @@ is_shiny_prerendered <- function(runtime, server = NULL) {
 
 
 rpubs_publish_destination <- function(doc, server) {
+  validate_rsconnect()
   if (identical(server, "rpubs.com")) {
     deployments <- rsconnect::deployments(doc, serverFilter = "rpubs.com")
     if (nrow(deployments) > 0) {
-      as.list(deployments[1,])
+      as.list(deployments[1, ])
     } else {
       list()
     }
@@ -304,21 +315,20 @@ rpubs_publish_destination <- function(doc, server) {
 }
 
 resolve_destination <- function(server, account, allowShinyapps) {
-
-  # validate we have the right version of rsconnect
   validate_rsconnect()
 
   # check for  accounts
   accounts <- rsconnect::accounts()
-  if (!allowShinyapps)
+  if (!allowShinyapps) {
     accounts <- subset(accounts, server != "shinyapps.io")
+  }
 
   # if there is no server or account specified then see if we
   # can default the account
   if (is.null(server) && is.null(account)) {
-    if (is.null(accounts) || nrow(accounts) == 0)
+    if (is.null(accounts) || nrow(accounts) == 0) {
       stop("You must specify a server to publish the website to")
-    else if (nrow(accounts) == 1) {
+    } else if (nrow(accounts) == 1) {
       account <- accounts$name
       server <- accounts$server
     }
@@ -326,12 +336,12 @@ resolve_destination <- function(server, account, allowShinyapps) {
 
   # handle server
   if (!is.null(server) && is.null(account)) {
-
     # get a version of the server with the protocol (strip trailing slash)
-    if (!grepl("^https?://", server))
+    if (!grepl("^https?://", server)) {
       server_with_protocol <- paste0("https://", server)
-    else
+    } else {
       server_with_protocol <- server
+    }
     server_with_protocol <- sub("/+$", "", server_with_protocol)
 
     # now strip the protocol if it's there
@@ -342,34 +352,31 @@ resolve_destination <- function(server, account, allowShinyapps) {
     accounts <- rsconnect::accounts()
     accounts <- subset(accounts, server == server_name)
     if (is.null(accounts) || nrow(accounts) == 0) {
-
       # prompt
-      message(sprintf("You do not currently have a %s publishing account ", server),
-              "configured on this system.")
-      result = readline("Would you like to configure one now? [Y/n]: ")
-      if (tolower(result) == "n")
+      message(
+        sprintf("You do not currently have a %s publishing account ", server),
+        "configured on this system."
+      )
+      result <- readline("Would you like to configure one now? [Y/n]: ")
+      if (tolower(result) == "n") {
         return(invisible())
+      }
 
       # create server if we need to
       servers <- rsconnect::servers()
       if (nrow(subset(servers, servers$name == server)) == 0) {
-
         rsconnect::addServer(sprintf("%s/__api__", server_with_protocol), server)
       }
 
       # connect user
       rsconnect::connectUser(server = server)
-
-    }
-    else if (nrow(accounts) == 1) {
-
+    } else if (nrow(accounts) == 1) {
       account <- accounts$name
-
     } else {
-
-      stop("There is more than one account registered for ", server,
-           "\nPlease specify which account you want to publish to.")
-
+      stop(
+        "There is more than one account registered for ", server,
+        "\nPlease specify which account you want to publish to."
+      )
     }
   }
 
@@ -380,20 +387,8 @@ resolve_destination <- function(server, account, allowShinyapps) {
 }
 
 
-validate_rsconnect <- function() {
-
-  # confirm that we have rsconnect
-  if (!requireNamespace("rsconnect", quietly = FALSE)) {
-    stop("The rsconnect package is required for publishing. ",
-         "Please install rsconnect with:\n  remotes::install_github(\"rstudio/rsconnect\")")
-  }
-
-  # confirm we have a recent enough version
-  rsc_version <- "0.8.24"
-  if (utils::packageVersion("rsconnect") < rsc_version) {
-    stop("Version ", rsc_version, " or greater of the rsconnect package is required ",
-         "for publishing. Please install with:\n  remotes::install_github(\"rstudio/rsconnect\")")
-  }
+validate_rsconnect <- function(reason = "for publishing using quarto R package.") {
+  rlang::check_installed("rsconnect", version = "0.8.26", reason = reason)
 }
 
 quarto_rsc_metadata <- function(inspect) {
@@ -402,4 +397,3 @@ quarto_rsc_metadata <- function(inspect) {
     engines = I(inspect[["engines"]])
   )
 }
-

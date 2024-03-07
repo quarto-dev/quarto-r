@@ -52,10 +52,9 @@ quarto_preview <- function(file = NULL,
                            browse = TRUE,
                            watch = TRUE,
                            navigate = TRUE) {
-
   # default for file
   if (is.null(file)) {
-    file = getwd()
+    file <- getwd()
   }
 
   # handle extra_args
@@ -68,14 +67,16 @@ quarto_preview <- function(file = NULL,
   }
 
   # serve
-  run_serve_daemon("preview",
-                   file,
-                   NULL,
-                   args,
-                   render,
-                   port,
-                   host,
-                   browse)
+  run_serve_daemon(
+    "preview",
+    file,
+    NULL,
+    args,
+    render,
+    port,
+    host,
+    browse
+  )
 }
 
 #' @rdname quarto_preview
@@ -83,4 +84,3 @@ quarto_preview <- function(file = NULL,
 quarto_preview_stop <- function() {
   stop_serve_daemon("preview")
 }
-

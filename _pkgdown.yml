@@ -6,7 +6,7 @@ template:
 navbar:
   structure:
      left: [publishing, reference]
-     right: [search]
+     right: [news, search]
   components:
      publishing:
       text: Publishing
@@ -29,6 +29,21 @@ reference:
   contents:
   - quarto_publish_doc
 
+- title: "Extensions"
+  desc: >
+    This functions enable you to install extensions and use template from extensions in your folder and projects.
+    More about Quarto extensions at <https://quarto.org/docs/extensions/>
+  contents:
+  - starts_with("quarto_add")
+  - starts_with("quarto_use")
+
+- title: "Projects"
+  desc: >
+    This functions enable you to work with projects.
+    More about Quarto extensions at <https://quarto.org/docs/projects/quarto-projects.html>
+  contents:
+  - quarto_create_project
+
 - title: "Configuration"
   desc: >
     These functions enable you to inspect the Quarto installation as well as the metadata
@@ -37,4 +52,6 @@ reference:
   - quarto_inspect
   - quarto_path
   - quarto_version
+  - is_using_quarto
+  - quarto_binary_sitrep
 

@@ -4,3 +4,13 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^\.vscode$
+^\.quarto$
+^doc$
+^Meta$
+
+^vignettes/*_files$
+^revdep$
+^cran-comments\.md$
+^codecov\.yml$
+^CRAN-SUBMISSION$

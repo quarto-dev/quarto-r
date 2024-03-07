@@ -1,6 +1,4 @@
-
 run_serve_daemon <- function(command, target, wd, extra_args, render, port, host, browse) {
-
   # resolve target if provided
   if (!is.null(target)) {
     target <- path.expand(target)
@@ -78,7 +76,7 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
 
   # wait for port to be bound to
   init <- ""
-  while(!port_active(port)) {
+  while (!port_active(port)) {
     quarto[[ps_key]]$poll_io(50)
     cat(quarto[[ps_key]]$read_output())
     if (!quarto[[ps_key]]$is_alive()) {
@@ -114,8 +112,9 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   if (!isFALSE(browse)) {
     if (!is.function(browse)) {
       browse <- ifelse(rstudioapi::isAvailable(),
-                       rstudioapi::viewer,
-                       utils::browseURL)
+        rstudioapi::viewer,
+        utils::browseURL
+      )
     }
     serve_url <- paste0("http://localhost:", port)
     browse(serve_url)
@@ -144,10 +143,11 @@ stop_serve_daemon <- function(command) {
 find_port <- function(port) {
   for (i in 1:20) {
     # determine the port (exclude those considered unsafe by Chrome)
-    while(TRUE) {
+    while (TRUE) {
       port <- 3000 + sample(5000, 1)
-      if (!port %in% c(3659, 4045, 6000, 6665:6669,6697))
+      if (!port %in% c(3659, 4045, 6000, 6665:6669, 6697)) {
         break
+      }
     }
     # see if it's active
     if (!port_active(port)) {
@@ -158,10 +158,12 @@ find_port <- function(port) {
 }
 
 port_active <- function(port) {
-  tryCatch({
-    suppressWarnings(con <- socketConnection("127.0.0.1", port, timeout = 1))
-    close(con)
-    TRUE
-  }, error = function(e) FALSE)
+  tryCatch(
+    {
+      suppressWarnings(con <- socketConnection("127.0.0.1", port, timeout = 1))
+      close(con)
+      TRUE
+    },
+    error = function(e) FALSE
+  )
 }
-

@@ -1,4 +1,9 @@
+#' @keywords internal
+"_PACKAGE"
 
-#' Internal package state
-#' @noRd
-quarto <- new.env(parent = emptyenv())
+## usethis namespace: start
+#' @import rlang
+#' @importFrom cli cli_inform
+#' @importFrom tools vignetteEngine
+## usethis namespace: end
+NULL

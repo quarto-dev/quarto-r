@@ -8,8 +8,10 @@
 #'   to rendering the project in the current working directory).
 #' @param output_format Target output format (defaults to "html"). The option
 #'   `"all"` will render all formats defined within the file or project.
-#' @param output_file The name of the output file. If using `NULL` then the
-#'   output filename will be based on filename for the input file.
+#' @param output_file The name of the output file. If using `NULL`, the output
+#'   filename will be based on the filename for the input file. `output_file` is
+#'   mapped to the `--output` option flag of the `quarto` CLI. It is expected to
+#'   be a filename only, not a path, relative or absolute.
 #' @param execute Whether to execute embedded code chunks.
 #' @param execute_params A list of named parameters that override custom params
 #'   specified within the YAML front-matter.
@@ -25,10 +27,23 @@
 #' @param use_freezer Force use of frozen computations for an incremental
 #'  file render.
 #' @param cache Cache execution output (uses knitr cache and jupyter-cache
-#'   respectively for Rmd and Jupyter input files).
+#'  respectively for Rmd and Jupyter input files).
 #' @param cache_refresh Force refresh of execution cache.
+#' @param metadata An optional named list used to override YAML
+#'   metadata. It will be passed as a YAML file to `--metadata-file` CLI flag.
+#'   This will be merged over `metadata-file` options if both are
+#'   specified.
+#' @param metadata_file A yaml file passed to `--metadata-file` CLI flags to
+#'   override metadata. This will be merged with `metadata` if both are
+#'   specified, with low precedence on `metadata` options.
 #' @param debug Leave intermediate files in place after render.
 #' @param quiet Suppress warning and other messages.
+#' @param profile [Quarto project
+#'   profile(s)](https://quarto.org/docs/projects/profiles.html) to use. Either
+#'   a character vector of profile names or `NULL` to use the default profile.
+#' @param quarto_args Character vector of other `quarto` CLI flag pass to the
+#'   command. This is mainly for advanced usage, e.g it can be useful for new
+#'   options added to quarto CLI and not yet supported as function argument.
 #' @param pandoc_args Additional command line options to pass to pandoc.
 #' @param as_job Render as an RStudio background job. Default is "auto",
 #'   which will render individual documents normally and projects as
@@ -36,7 +51,6 @@
 #'   the default globally.
 #'
 #' @importFrom rmarkdown relative_to
-#' @importFrom yaml write_yaml
 #'
 #' @examples
 #' \dontrun{
@@ -49,6 +63,9 @@
 #'
 #' # Render Jupyter Markdown
 #' quarto_render("notebook.md")
+#'
+#' # Override metadata
+#' quarto_render("notebook.Rmd", override = list(lang = "fr", echo = "false"))
 #' }
 #' @export
 quarto_render <- function(input = NULL,
@@ -63,19 +80,22 @@ quarto_render <- function(input = NULL,
                           use_freezer = FALSE,
                           cache = NULL,
                           cache_refresh = FALSE,
+                          metadata = NULL,
+                          metadata_file = NULL,
                           debug = FALSE,
                           quiet = FALSE,
+                          profile = NULL,
+                          quarto_args = NULL,
                           pandoc_args = NULL,
                           as_job = getOption("quarto.render_as_job", "auto")) {
+  # get quarto binary
+  quarto_bin <- find_quarto()
 
   # provide default for input
   if (is.null(input)) {
     input <- getwd()
   }
   input <- path.expand(input)
-
-  # get quarto binary
-  quarto_bin <- find_quarto()
 
   # see if we need to render as a job
   if (identical(as_job, "auto")) {
@@ -146,25 +166,38 @@ quarto_render <- function(input = NULL,
   if (isTRUE(cache_refresh)) {
     args <- c(args, "--cache-refresh")
   }
+  # metadata to pass to quarto render
+  if (!missing(metadata)) {
+    # We merge meta if there is metadata_file passed
+    if (!missing(metadata_file)) {
+      metadata <- merge_list(yaml::read_yaml(metadata_file, eval.expr = FALSE), metadata)
+    }
+    meta_file <- tempfile(pattern = "quarto-meta", fileext = ".yml")
+    on.exit(unlink(meta_file), add = TRUE)
+    write_yaml(metadata, meta_file)
+    args <- c(args, "--metadata-file", meta_file)
+  } else if (!missing(metadata_file)) {
+    args <- c(args, "--metadata-file", metadata_file)
+  }
   if (isTRUE(debug)) {
     args <- c(args, "--debug")
   }
   if (isTRUE(quiet)) {
-    args <- c(args, "--quiet")
+    args <- cli_arg_quiet(args)
+  }
+  if (!is.null(profile)) {
+    args <- cli_arg_profile(profile, args)
+  }
+  if (!is.null(quarto_args)) {
+    args <- c(args, quarto_args)
   }
   if (!is.null(pandoc_args)) {
     args <- c(args, pandoc_args)
   }
 
   # run quarto
-  processx::run(quarto_bin, args, echo = TRUE)
+  quarto_run(args, echo = TRUE, quarto_bin = quarto_bin)
 
   # no return value
   invisible(NULL)
 }
-
-
-
-
-
-
