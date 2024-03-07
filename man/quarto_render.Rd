@@ -81,15 +81,16 @@ specified, with low precedence on \code{metadata} options.}
 \item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
 a character vector of profile names or \code{NULL} to use the default profile.}
 
-\item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the
-command. This is mainly for advanced usage, e.g it can be useful for new
-options added to quarto CLI and not yet supported as function argument.}
+\item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
+to the Quarto command executed by this function. This is mainly intended for
+advanced usage and useful for CLI arguments which are not yet mirrored in a
+dedicated parameter of this \R function.}
 
-\item{pandoc_args}{Additional command line options to pass to pandoc.}
+\item{pandoc_args}{Additional command line arguments to pass on to Pandoc.}
 
 \item{as_job}{Render as an RStudio background job. Default is "auto",
 which will render individual documents normally and projects as
-background jobs. Use the \code{quarto.render_as_job} R option to control
+background jobs. Use the \code{quarto.render_as_job} \R option to control
 the default globally.}
 }
 \description{
