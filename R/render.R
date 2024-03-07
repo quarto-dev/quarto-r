@@ -66,7 +66,7 @@
 #' quarto_render("notebook.md")
 #'
 #' # Override metadata
-#' quarto_render("notebook.Rmd", override = list(lang = "fr", echo = "false"))
+#' quarto_render("notebook.Rmd", metadata = list(lang = "fr", execute = list(echo = FALSE)))
 #' }
 #' @export
 quarto_render <- function(input = NULL,
