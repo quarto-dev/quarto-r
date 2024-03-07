@@ -168,19 +168,20 @@ a character vector of profile names or <code>NULL</code> to use the default prof
 
 
 <dt>quarto_args</dt>
-<dd><p>Character vector of other <code>quarto</code> CLI flag pass to the
-command. This is mainly for advanced usage, e.g it can be useful for new
-options added to quarto CLI and not yet supported as function argument.</p></dd>
+<dd><p>Character vector of other <code>quarto</code> CLI arguments to append
+to the Quarto command executed by this function. This is mainly intended for
+advanced usage and useful for CLI arguments which are not yet mirrored in a
+dedicated parameter of this <span style="R">R</span> function.</p></dd>
 
 
 <dt>pandoc_args</dt>
-<dd><p>Additional command line options to pass to pandoc.</p></dd>
+<dd><p>Additional command line arguments to pass on to Pandoc.</p></dd>
 
 
 <dt>as_job</dt>
 <dd><p>Render as an RStudio background job. Default is "auto",
 which will render individual documents normally and projects as
-background jobs. Use the <code>quarto.render_as_job</code> R option to control
+background jobs. Use the <code>quarto.render_as_job</code> <span style="R">R</span> option to control
 the default globally.</p></dd>
 
 </dl></div>
