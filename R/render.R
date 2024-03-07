@@ -41,13 +41,14 @@
 #' @param profile [Quarto project
 #'   profile(s)](https://quarto.org/docs/projects/profiles.html) to use. Either
 #'   a character vector of profile names or `NULL` to use the default profile.
-#' @param quarto_args Character vector of other `quarto` CLI flag pass to the
-#'   command. This is mainly for advanced usage, e.g it can be useful for new
-#'   options added to quarto CLI and not yet supported as function argument.
-#' @param pandoc_args Additional command line options to pass to pandoc.
+#' @param quarto_args Character vector of other `quarto` CLI arguments to append
+#'   to the Quarto command executed by this function. This is mainly intended for
+#'   advanced usage and useful for CLI arguments which are not yet mirrored in a
+#'   dedicated parameter of this \R function.
+#' @param pandoc_args Additional command line arguments to pass on to Pandoc.
 #' @param as_job Render as an RStudio background job. Default is "auto",
 #'   which will render individual documents normally and projects as
-#'   background jobs. Use the `quarto.render_as_job` R option to control
+#'   background jobs. Use the `quarto.render_as_job` \R option to control
 #'   the default globally.
 #'
 #' @importFrom rmarkdown relative_to
