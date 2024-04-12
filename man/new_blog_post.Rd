@@ -31,7 +31,7 @@ default, the title is adapted as the directory name.}
 The path to the index file.
 }
 \description{
-Create a new blog post
+Creates (and potentially opens) the \code{index.qmd} file for a new blog post.
 }
 \examples{
 \dontrun{

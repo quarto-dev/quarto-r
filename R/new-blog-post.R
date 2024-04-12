@@ -1,5 +1,7 @@
 #' Create a new blog post
 #'
+#' Creates (and potentially opens) the `index.qmd` file for a new blog post.
+#'
 #' @param title A character string for the title of the post. It is converted
 #' to title case via [tools::toTitleCase()].
 #' @param dest A character string (or NULL) for the path within `posts`. By
@@ -30,7 +32,7 @@ new_blog_post <- function(title, dest = NULL, open = rlang::is_interactive(),
   post_yaml <- make_post_yaml(title, ...)
   qmd_path <- write_post_yaml(post_yaml, dest_path, call)
   if (open) {
-    file.edit(qmd_path)
+    utils::file.edit(qmd_path)
   }
   invisible(qmd_path)
 }
