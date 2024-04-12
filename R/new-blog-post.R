@@ -43,7 +43,7 @@ make_post_dir <- function(dest, call) {
   post_path <- fs::path(working, "posts", dest)
 
   if (fs::dir_exists(post_path)) {
-    cli::cli_abort("There is already a {.code {path}} directory in 'posts/'",
+    cli::cli_abort("There is already a {.code {dest}} directory in 'posts/'",
                    call = call)
   } else {
     ret <- fs::dir_create(post_path)
