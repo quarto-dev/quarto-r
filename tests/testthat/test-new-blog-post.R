@@ -1,10 +1,18 @@
 test_that("Create a blog post", {
   skip_if_no_quarto("1.4")
 
-  tempdir <- withr::local_tempdir()
-  withr::local_dir(tempdir)
+  current_dir <- getwd()
+
+  temp_dir <- withr::local_tempdir()
+  dir_path <- fs::path(temp_dir, "test-blog-project")
+
+  withr::defer(fs::dir_delete(dir_path), envir = rlang::current_env())
+
   quarto_create_project(name = "test-blog-project", type = "blog",
-                        dir = tempdir(), quiet = TRUE)
+                        dir = temp_dir, quiet = TRUE)
+
+  setwd(dir_path)
+  withr::defer(setwd(current_dir), envir = rlang::current_env())
 
   # ------------------------------------------------------------------------------
 
@@ -38,6 +46,7 @@ test_that("Create a blog post", {
       "Intro to Felt Surrogacy",
       dest = "The Science of Illusion",
       author = "Annie Edison",
+      date = '2024-04-12',
       categories = c("shenanigans", "security"),
       open = FALSE)
 
