@@ -14,6 +14,8 @@ test_that("Create a blog post", {
   setwd(dir_path)
   withr::defer(setwd(current_dir), envir = rlang::current_env())
 
+  Sys.setenv(FULLNAME="Max Kuhn")
+
   # ------------------------------------------------------------------------------
 
   post_1 <- new_blog_post("Intro to Felt Surrogacy", date = "March 25, 2010",
