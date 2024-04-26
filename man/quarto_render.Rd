@@ -84,7 +84,7 @@ a character vector of profile names or \code{NULL} to use the default profile.}
 \item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
 to the Quarto command executed by this function. This is mainly intended for
 advanced usage and useful for CLI arguments which are not yet mirrored in a
-dedicated parameter of this \R function.}
+dedicated parameter of this \R function. See \verb{quarto render --help} for options.}
 
 \item{pandoc_args}{Additional command line arguments to pass on to Pandoc.}
 

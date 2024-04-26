@@ -28,7 +28,7 @@ quarto_create_project(
 \item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
 to the Quarto command executed by this function. This is mainly intended for
 advanced usage and useful for CLI arguments which are not yet mirrored in a
-dedicated parameter of this \R function.}
+dedicated parameter of this \R function. See \verb{quarto render --help} for options.}
 }
 \description{
 This function calls \verb{quarto create project <type> <name>}. It will create a
