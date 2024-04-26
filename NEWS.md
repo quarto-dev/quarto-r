@@ -2,6 +2,8 @@
 
 - Added a `new_blog_post()` function (#22). 
 
+- Approval check in `quarto_add_extension()` and `quarto_use_template()` now works correctly (thanks, @eveyp, #172).
+
 # quarto 1.4
 
 - This version is now adapted to Quarto 1.4 latest stable release.

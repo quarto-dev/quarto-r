@@ -44,7 +44,7 @@
 #' @param quarto_args Character vector of other `quarto` CLI arguments to append
 #'   to the Quarto command executed by this function. This is mainly intended for
 #'   advanced usage and useful for CLI arguments which are not yet mirrored in a
-#'   dedicated parameter of this \R function.
+#'   dedicated parameter of this \R function. See `quarto render --help` for options.
 #' @param pandoc_args Additional command line arguments to pass on to Pandoc.
 #' @param as_job Render as an RStudio background job. Default is "auto",
 #'   which will render individual documents normally and projects as
