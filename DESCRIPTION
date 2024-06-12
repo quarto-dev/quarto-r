@@ -18,6 +18,7 @@ Depends:
     R (>= 3.6)
 Imports: 
     cli,
+    fs,
     jsonlite,
     later,
     processx,
@@ -26,6 +27,7 @@ Imports:
     rstudioapi,
     tools,
     utils,
+    whoami,
     yaml
 Suggests: 
     curl,
