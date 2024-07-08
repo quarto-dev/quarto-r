@@ -1,7 +1,7 @@
 check_extension_approval <- function(no_prompt = FALSE, what = "Something", see_more_at = NULL) {
   if (no_prompt) return(TRUE)
 
-  if (!rlang::is_interactive()) {
+  if (!is_interactive()) {
     cli::cli_abort(c(
       "{ what } requires explicit approval.",
       ">" = "Set {.arg no_prompt = TRUE} if you agree.",
@@ -19,5 +19,13 @@ check_extension_approval <- function(no_prompt = FALSE, what = "Something", see_
       cli::cli_inform("{what} not installed.")
       return(invisible(FALSE))
     }
+    return(invisible(TRUE))
   }
+}
+
+# Add binding to base R function for testthat mocking
+readline <- NULL
+# Add binding to function from other package for mocking later on
+is_interactive <- function(...) {
+  rlang::is_interactive(...)
 }
