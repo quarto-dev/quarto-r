@@ -23,7 +23,7 @@
 #' \dontrun{
 #' # Remove an already installed extension
 #' quarto_remove_extension("quarto-ext/fontawesome")
-#'
+#' }
 #' @importFrom rlang is_interactive
 #' @importFrom cli cli_abort
 #' @export

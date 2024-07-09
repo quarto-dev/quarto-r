@@ -12,6 +12,7 @@
 #'
 #' @importFrom rlang is_interactive
 #' @importFrom cli cli_abort
+#' @importFrom utils read.table
 #' @export
 quarto_list_extensions <- function(quiet = FALSE, quarto_args = NULL){
   quarto_bin <- find_quarto()
@@ -23,7 +24,7 @@ quarto_list_extensions <- function(quiet = FALSE, quarto_args = NULL){
   if (grepl("No extensions are installed", stderr_cleaned)) {
     invisible()
   } else{
-    invisible(read.table(text = stderr_cleaned, header = TRUE, fill = TRUE, sep = "", stringsAsFactors = FALSE))
+    invisible(utils::read.table(text = stderr_cleaned, header = TRUE, fill = TRUE, sep = "", stringsAsFactors = FALSE))
   }
 }
 
