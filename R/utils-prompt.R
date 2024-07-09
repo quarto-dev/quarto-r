@@ -23,6 +23,26 @@ check_extension_approval <- function(no_prompt = FALSE, what = "Something", see_
   }
 }
 
+check_removal_approval <- function(no_prompt = FALSE, what = "Something", see_more_at = NULL) {
+  if (no_prompt) return(TRUE)
+
+  if (!is_interactive()) {
+    cli::cli_abort(c(
+      "{ what } requires explicit approval.",
+      ">" = "Set {.arg no_prompt = TRUE} if you agree.",
+      if (!is.null(see_more_at)) {
+        c(i = "See more at {.url {see_more_at}}")
+      }
+    ))
+  } else {
+    prompt_value <- tolower(readline(sprintf("? Are you sure you'd like to remove %s (Y/n)? ", what)))
+    if (!prompt_value %in% "y") {
+      return(invisible(FALSE))
+    }
+    return(invisible(TRUE))
+  }
+}
+
 # Add binding to base R function for testthat mocking
 readline <- NULL
 # Add binding to function from other package for mocking later on
