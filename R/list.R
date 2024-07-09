@@ -2,12 +2,6 @@
 #'
 #' List Quarto Extensions in this folder or project by running `quarto list`
 #'
-#' # Extension Trust
-#'
-#' Quarto extensions may execute code when documents are rendered. Therefore, if
-#' you do not trust the author of an extension, we recommend that you do not
-#' install or use the extension.
-#'
 #' @inheritParams quarto_render
 #'
 #' @examples

@@ -13,7 +13,7 @@
 #'
 #' @inheritParams quarto_render
 #'
-#' @param extension The extension to install, either an archive or a GitHub
+#' @param extension The extension to update, either an archive or a GitHub
 #'   repository as described in the documentation
 #'   <https://quarto.org/docs/extensions/managing.html>.
 #'
