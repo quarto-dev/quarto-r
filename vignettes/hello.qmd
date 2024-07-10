@@ -42,21 +42,22 @@ format:
     css: custom.css
 ```
 
-All those configurations are set in way that they can't be override by YAML header in the vignette source file. Only new configuration can be set, e.g adding a Table Of Content: 
+All those configurations are set in way that they can't be overriden by the YAML header in the vignette source file and only new configurations can be set. Typical examples for such configurations are adding a [table of contents](https://quarto.org/docs/reference/formats/html.html#table-of-contents) or enabling the rendering of mathematical notation in the [format options](https://quarto.org/docs/reference/formats/html.html#format-options), e.g., by MathJax. Specifically, these two options can be set in the following way:
 
 ````yaml
 format: 
   html:
     toc: true
+    html-math-method: mathjax
 vignette: >
   %\VignetteIndexEntry{Vignette's Title}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ````
 
-This is one limitation of the current implementation of the vignette engine. This is to insure HTML vignette produced are reasonable in size and can be published on CRAN without problem.
+The minimal default format is a deliberate limitation of the current implementation of the vignette engine. It ensures that the HTML vignettes produced are reasonable in size and can be published on CRAN without problems.
 
-The other limitation concerns the interactive rendering. If you render your vignette `.qmd` file using `quarto render` or any other function, the output will be based on default HTML format from Quarto and not the vignette engine one. Only building the vignette will produce the real results. More about building vignette in the [R Packages (2e)](https://r-pkgs.org/vignettes.html#sec-vignettes-how-built-checked) book.
+Another limitation concerns the interactive rendering. If you render your vignette `.qmd` file using `quarto render` or any other function, the output will be based on the default HTML format from Quarto and not the vignette engine one. Only building the vignette will produce the real results. More details about building vignettes are available in the [R Packages (2e)](https://r-pkgs.org/vignettes.html#sec-vignettes-how-built-checked) book.
 
 Intermediates resources that would be created by an authoring workflow that would `quarto render` with default `format: html` should be ignored in package sources. 
 
