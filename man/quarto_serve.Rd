@@ -13,7 +13,7 @@ quarto_serve(
 )
 }
 \arguments{
-\item{input}{The input file to run Should be a file with
+\item{input}{The input file to run. Should be a file with
 a \code{server: shiny} entry in its YAML front-matter.}
 
 \item{render}{Render the document before serving it.}
@@ -29,5 +29,5 @@ RStudio Viewer when running within RStudio.Pass a function (e.g.
 \description{
 Serve a Shiny interactive document. By default, the document will
 be rendered first and then served If you have previously rendered
-the document, pass \code{render - FALSE} to skip rendering.
+the document, pass \code{render = FALSE} to skip rendering.
 }
