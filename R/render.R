@@ -6,7 +6,7 @@
 #'
 #' @param input The input file or project directory to be rendered (defaults
 #'   to rendering the project in the current working directory).
-#' @param output_format Target output format (defaults to "html"). The option
+#' @param output_format Target output format (defaults to `"html"`). The option
 #'   `"all"` will render all formats defined within the file or project.
 #' @param output_file The name of the output file. If using `NULL`, the output
 #'   filename will be based on the filename for the input file. `output_file` is
@@ -46,7 +46,7 @@
 #'   advanced usage and useful for CLI arguments which are not yet mirrored in a
 #'   dedicated parameter of this \R function. See `quarto render --help` for options.
 #' @param pandoc_args Additional command line arguments to pass on to Pandoc.
-#' @param as_job Render as an RStudio background job. Default is "auto",
+#' @param as_job Render as an RStudio background job. Default is `"auto"`,
 #'   which will render individual documents normally and projects as
 #'   background jobs. Use the `quarto.render_as_job` \R option to control
 #'   the default globally.
