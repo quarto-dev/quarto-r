@@ -23,6 +23,7 @@
 #'
 new_blog_post <- function(title, dest = NULL, open = rlang::is_interactive(),
                           call = rlang::current_env(), ...) {
+  rlang::check_installed("whoami")
 
   if (is.null(dest)) {
     # Scrub title to make directory name

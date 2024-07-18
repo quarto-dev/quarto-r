@@ -1,5 +1,6 @@
 test_that("Create a blog post", {
   skip_if_no_quarto("1.4")
+  skip_if_not_installed("whoami")
 
   current_dir <- getwd()
 

@@ -27,7 +27,6 @@ Imports:
     rstudioapi,
     tools,
     utils,
-    whoami,
     yaml
 Suggests: 
     curl,
@@ -35,6 +34,7 @@ Suggests:
     rsconnect (>= 0.8.26),
     testthat (>= 3.1.7),
     withr,
+    whoami,
     xfun
 VignetteBuilder: 
     quarto
