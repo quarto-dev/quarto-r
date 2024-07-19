@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- This package now uses the x.y.z.dev versionning scheme to indicate development, patch, minor and major versions. This follows [Tidyverse package version conventions](https://r-pkgs.org/lifecycle.html#sec-lifecycle-version-number-tidyverse).
+
 - Adapt tests for CRAN checks issues due to Quarto v1.5.54 regression, fixed in Quarto v1.5.55.
 
 - Approval check in `quarto_add_extension()` and `quarto_use_template()` now works correctly (thanks, @eveyp, #172).
