@@ -9,6 +9,7 @@
 ^doc$
 ^Meta$
 
+^vignettes/.quarto$
 ^vignettes/*_files$
 ^revdep$
 ^cran-comments\.md$
