@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- `quarto_preview()` now looks at `quarto preview` log to browse to the correct url when inside RStudio viewer (thanks, @aronatkins, #167).
+
 - This package now uses the x.y.z.dev versionning scheme to indicate development, patch, minor and major versions. This follows [Tidyverse package version conventions](https://r-pkgs.org/lifecycle.html#sec-lifecycle-version-number-tidyverse).
 
 - Adapt tests for CRAN checks issues due to Quarto v1.5.54 regression, fixed in Quarto v1.5.55.
@@ -13,7 +15,7 @@
 - Add registration of vignette engine to use `quarto` as a vignette builder, and use `.qmd` file as vignette. See `vignette("hello", package = "quarto")`. (thanks, @dcnorris, #57).
 
 - New `quarto_binary_sitrep()` checks possible difference in Quarto binary used by this package, and the one used by RStudio IDE (thanks, @jthomasmock, #12).
-
+  
 - New `is_using_quarto()` to check if a directory requires using Quarto (i.e. it has a `_quarto.yml` or at least one `*.qmd` file) (thanks, @hadley, #103).
 
 - New `quarto_create_project()` calls `quarto create project <type> <name>` (thanks, @maelle, #87).
