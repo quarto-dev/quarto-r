@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Adapt tests for CRAN checks issues due to Quarto v1.5.54 regression, fixed in Quarto v1.5.55.
+
 - Approval check in `quarto_add_extension()` and `quarto_use_template()` now works correctly (thanks, @eveyp, #172).
 
 # quarto 1.4
