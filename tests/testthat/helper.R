@@ -22,6 +22,16 @@ skip_if_quarto <- function(ver = NULL) {
   }
 }
 
+skip_if_quarto_between <- function(min, max) {
+  # Skip if no quarto available
+  skip_if_no_quarto()
+  # Then skip if available or if version is greater than
+  skip_if(
+    quarto_version() >= min && quarto_version() <= max,
+    message = sprintf("Version of quarto is between %s and %s.", min, max)
+  )
+}
+
 local_qmd_file <- function(..., .env = parent.frame()) {
   skip_if_not_installed("xfun")
   skip_if_not_installed("withr")
