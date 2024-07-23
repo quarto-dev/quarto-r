@@ -75,3 +75,19 @@ test_that("quarto CLI sitrep", {
     )
   )
 })
+
+test_that("quiet is handled in quarto run directly", {
+  skip_if_no_quarto()
+  skip_on_cran()
+  qmd <- local_qmd_file("content")
+  expect_output(quarto_run(c("render", qmd), echo = TRUE, quiet = TRUE), regexp = NA)
+  expect_output(quarto_run(c("render", qmd, "--quiet"), echo = TRUE), regexp = NA)
+})
+
+test_that("quarto.quiet options controls echo and overwrite function argument", {
+  skip_if_no_quarto()
+  skip_on_cran()
+  qmd <- local_qmd_file("content")
+  withr::local_options(list(quarto.quiet = TRUE))
+  expect_output(quarto_render(qmd, quiet = FALSE), regexp = NA)
+})

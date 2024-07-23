@@ -76,7 +76,9 @@ specified, with low precedence on \code{metadata} options.}
 
 \item{debug}{Leave intermediate files in place after render.}
 
-\item{quiet}{Suppress warning and other messages.}
+\item{quiet}{Suppress warning and other messages. \code{quarto.quiet} R options
+will take precedence in any rendering, which is useful to have verbose
+logging in pkgdown for example.}
 
 \item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
 a character vector of profile names or \code{NULL} to use the default profile.}

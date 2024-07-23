@@ -41,11 +41,9 @@ quarto_inspect <- function(input = ".",
     args <- c(args, c("--profile", paste0(profile, collapse = ",")))
   }
 
-  if (isTRUE(quiet)) args <- cli_arg_quiet(args)
-
   args <- c(args, quarto_args)
 
-  res <- quarto_run(args, quarto_bin = quarto_bin)
+  res <- quarto_run(args, quiet = isTRUE(quiet), quarto_bin = quarto_bin)
 
   fromJSON(res$stdout)
 }
