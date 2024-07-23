@@ -1,5 +1,9 @@
 # quarto (development version)
 
+- Add `quarto.quiet` options to allow more verbose error message when `quarto_*` function are used inside other package. 
+  For example, inside **pkgdown** for building Quarto vignettes. **pkgdown** sets `quiet = TRUE` internally for its call to `quarto_render()`, 
+  and setting `options(quarto.quiet = TRUE)` allows to overwrite this.
+
 # quarto 1.4.4
 
 - `quarto_preview()` now looks at `quarto preview` log to browse to the correct url when inside RStudio viewer (thanks, @aronatkins, #167).
