@@ -5,7 +5,6 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="quarto">
 <title>Publishing • quarto</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
@@ -15,177 +14,226 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.11/clipboard.min.js" integrity="sha512-7O5pXpc0oCRrxk8RUfDYFgn0nO1t+jLuIOQdOMRp4APB7uZ4vSjspzp5y6YDtDs4VzUSTbWzBFZ/LKJhnyFOKw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Publishing">
-<meta property="og:description" content="quarto">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="publishing_files/libs/quarto-html/popper.min.js"></script><script src="publishing_files/libs/quarto-html/tippy.umd.min.js"></script><link href="publishing_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="publishing_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Publishing">
 <meta property="og:image" content="https://quarto-dev.github.io/quarto-r/logo.png">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
-    
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light" data-bs-theme="light"><div class="container">
-    
+
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9000</small>
 
-    
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="active nav-item">
-  <a class="nav-link" href="../articles/publishing.html">Publishing</a>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="../articles/hello-pdf.pdf">Quarto PDF Vignettes (PDF)</a></li>
+    <li><a class="dropdown-item" href="../articles/hello.html">Quarto HTML Vignettes</a></li>
+    <li><a class="dropdown-item" href="../articles/publishing.html">Publishing</a></li>
+  </ul>
 </li>
-<li class="nav-item">
-  <a class="nav-link" href="../reference/index.html">Reference</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="../news/index.html">Changelog</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<form class="form-inline my-2 my-lg-0" role="search">
-        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
-</form>
-
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/quarto-dev/quarto-r/" aria-label="github">
-    <span class="fab fa fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/quarto-dev/quarto-r/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
-    
+
   </div>
-</nav><div class="container template-article">
-
-
-
-
+</nav><div class="container template-quarto">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Publishing</h1>
-            
-      
-      <small class="dont-index">Source: <a href="https://github.com/quarto-dev/quarto-r/blob/HEAD/vignettes/publishing.qmd" class="external-link"><code>vignettes/publishing.qmd</code></a></small>
-      <div class="d-none name"><code>publishing.qmd</code></div>
+
+
+
+
+      <small class="dont-index">Source: <a href="https://github.com/quarto-dev/quarto-r/blob/main/vignettes/publishing.qmd" class="external-link"><code>vignettes/publishing.qmd</code></a></small>
+      <div class="d-none name"><code></code></div>
     </div>
 
-    
-    
-<div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+
+
+
+
+
+    <section class="level2"><h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>The <strong>quarto</strong> package includes several functions that
-enable you to publish static and interactive documents, websites, and
-books to <a href="https://posit.co/products/enterprise/connect/" class="external-link">Posit
-Connect</a> and <a href="https://www.shinyapps.io/" class="external-link">shinyapps.io</a>.
-When publishing to Posit Connect, both simple content publishing (local
-rendering) as well as code publishing (rendering on Connect) are
-supported.</p>
-</div>
-<div class="section level2">
-<h2 id="accounts">Accounts<a class="anchor" aria-label="anchor" href="#accounts"></a>
+<p>The <strong>quarto</strong> package includes several functions that enable you to publish static and interactive documents, websites, and books to <a href="https://posit.co/products/enterprise/connect/" class="external-link">Posit Connect</a> and <a href="https://www.shinyapps.io/" class="external-link">shinyapps.io</a>. When publishing to Posit Connect, both simple content publishing (local rendering) as well as code publishing (rendering on Connect) are supported.</p>
+</section><section class="level2"><h2 id="accounts">Accounts<a class="anchor" aria-label="anchor" href="#accounts"></a>
 </h2>
-<p>Before publishing to Posit Connect or shinyapps.io you should ensure
-that you have an account configured for publishing.</p>
-<p>For Posit Connect, use the <code><a href="https://rstudio.github.io/rsconnect/reference/connectApiUser.html" class="external-link">rsconnect::connectUser()</a></code>
-function for the server you are publishing to. For example:</p>
+<p>Before publishing to Posit Connect or shinyapps.io you should ensure that you have an account configured for publishing.</p>
+<p>For Posit Connect, use the <code><a href="https://rstudio.github.io/rsconnect/reference/connectApiUser.html" class="external-link">rsconnect::connectUser()</a></code> function for the server you are publishing to. For example:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rsconnect</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/rsconnect/reference/connectApiUser.html" class="external-link">connectUser</a></span><span class="op">(</span>server <span class="op">=</span> <span class="st">"rsc.example.com"</span><span class="op">)</span></span></code></pre></div>
 <p>You’ll be prompted to authoring your account in a web browser.</p>
-<p>For shinyapps.io, use the <code><a href="https://rstudio.github.io/rsconnect/reference/setAccountInfo.html" class="external-link">rsconnect::setAccountInfo()</a></code>
-function. For example:</p>
+<p>For shinyapps.io, use the <code><a href="https://rstudio.github.io/rsconnect/reference/setAccountInfo.html" class="external-link">rsconnect::setAccountInfo()</a></code> function. For example:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">rsconnect</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/rsconnect/reference/setAccountInfo.html" class="external-link">setAccountInfo</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'norahjones'</span>, token <span class="op">=</span> <span class="st">'AB6783FD23'</span>, secret <span class="op">=</span> <span class="st">'36x+k0bBy6W'</span><span class="op">)</span></span></code></pre></div>
-<p>Note that you can copy and paste this code from the <a href="https://www.shinyapps.io/admin/#/tokens" class="external-link">Tokens</a> page of your
-shinyapps.io admin panel.</p>
-</div>
-<div class="section level2">
-<h2 id="documents">Documents<a class="anchor" aria-label="anchor" href="#documents"></a>
+<p>Note that you can copy and paste this code from the <a href="https://www.shinyapps.io/admin/#/tokens" class="external-link">Tokens</a> page of your shinyapps.io admin panel.</p>
+</section><section class="level2"><h2 id="documents">Documents<a class="anchor" aria-label="anchor" href="#documents"></a>
 </h2>
-<p>Use the <code><a href="../reference/quarto_publish_doc.html">quarto_publish_doc()</a></code> function to publish a
-single document to Posit Connect. Note that the very <em>first time</em>
-that you publish you should specify both the <code>server</code> and
-<code>account</code> that you want to use for publishing. For
-example:</p>
+<p>Use the <code><a href="../reference/quarto_publish_doc.html">quarto_publish_doc()</a></code> function to publish a single document to Posit Connect. Note that the very <em>first time</em> that you publish you should specify both the <code>server</code> and <code>account</code> that you want to use for publishing. For example:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_doc</a></span><span class="op">(</span><span class="st">"document.qmd"</span>, server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span><span class="op">)</span></span></code></pre></div>
-<p>Subsequent updates to the same document don’t need to specify the
-<code>server</code> and <code>account</code>:</p>
+<p>Subsequent updates to the same document don’t need to specify the <code>server</code> and <code>account</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_doc</a></span><span class="op">(</span><span class="st">"document.qmd"</span><span class="op">)</span></span></code></pre></div>
-<p>The example above renders content locally and publishes just the
-content to the server. You can also render on the server (uploading the
-source code required to render). You might want to do this in order to
-create scheduled versions of a report that update automatically when the
-underlying data changes. To do this, add the
-<code>render = "server"</code> argument:</p>
+<p>The example above renders content locally and publishes just the content to the server. You can also render on the server (uploading the source code required to render). You might want to do this in order to create scheduled versions of a report that update automatically when the underlying data changes. To do this, add the <code>render = "server"</code> argument:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_doc</a></span><span class="op">(</span><span class="st">"document.qmd"</span>, </span>
 <span>                   server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span>,</span>
 <span>                   render <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="websites">Websites<a class="anchor" aria-label="anchor" href="#websites"></a>
+</section><section class="level2"><h2 id="websites">Websites<a class="anchor" aria-label="anchor" href="#websites"></a>
 </h2>
-<p>Use the <code><a href="../reference/quarto_publish_doc.html">quarto_publish_site()</a></code> function to publish a <a href="https://quarto.org/docs/websites/" class="external-link">website</a> or <a href="https://quarto.org/docs/books/" class="external-link">book</a> to Posit Connect. Note
-that the very <em>first time</em> that you publish you should specify
-both the <code>server</code> and <code>account</code> that you want to
-use for publishing. For example:</p>
+<p>Use the <code><a href="../reference/quarto_publish_doc.html">quarto_publish_site()</a></code> function to publish a <a href="https://quarto.org/docs/websites/" class="external-link">website</a> or <a href="https://quarto.org/docs/books/" class="external-link">book</a> to Posit Connect. Note that the very <em>first time</em> that you publish you should specify both the <code>server</code> and <code>account</code> that you want to use for publishing. For example:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_site</a></span><span class="op">(</span>server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span><span class="op">)</span></span></code></pre></div>
-<p>Subsequent updates to the same site don’t need to specify the
-<code>server</code> and <code>account</code>:</p>
+<p>Subsequent updates to the same site don’t need to specify the <code>server</code> and <code>account</code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_site</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>The example above renders content locally and publishes just the
-content to the server. You can also render on the server (uploading the
-source code required to render). You might want to do this in order to
-create scheduled versions of a website that update automatically when
-the underlying data changes. To do this, add the
-<code>render = "server"</code> argument:</p>
+<p>The example above renders content locally and publishes just the content to the server. You can also render on the server (uploading the source code required to render). You might want to do this in order to create scheduled versions of a website that update automatically when the underlying data changes. To do this, add the <code>render = "server"</code> argument:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_site</a></span><span class="op">(</span>server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span>,</span>
 <span>                    render <span class="op">=</span> <span class="st">"server"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="interactive-docs">Interactive Docs<a class="anchor" aria-label="anchor" href="#interactive-docs"></a>
+</section><section class="level2"><h2 id="interactive-docs">Interactive Docs<a class="anchor" aria-label="anchor" href="#interactive-docs"></a>
 </h2>
-<p>You can publish Shiny <a href="https://quarto.org/docs/interactive/shiny/" class="external-link">interactive
-documents</a> to either Posit Connect or shinyapps.io.</p>
-<p>To publish to Posit Connect, specify both the <code>server</code> and
-<code>account</code> that you want to use for publishing (this is
-required for the first publish only). For example:</p>
+<p>You can publish Shiny <a href="https://quarto.org/docs/interactive/shiny/" class="external-link">interactive documents</a> to either Posit Connect or shinyapps.io.</p>
+<p>To publish to Posit Connect, specify both the <code>server</code> and <code>account</code> that you want to use for publishing (this is required for the first publish only). For example:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/quarto-dev/quarto-r" class="external-link">quarto</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_app</a></span><span class="op">(</span><span class="st">"shiny.qmd"</span>, server <span class="op">=</span> <span class="st">"rsc.example.com"</span>, account <span class="op">=</span> <span class="st">"njones"</span><span class="op">)</span></span></code></pre></div>
-<p>To publish to shinyapps.io, use
-<code>server = "shinyapps.io"</code>:</p>
+<p>To publish to shinyapps.io, use <code>server = "shinyapps.io"</code>:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_app</a></span><span class="op">(</span><span class="st">"shiny.qmd"</span>, server <span class="op">=</span> <span class="st">"shinyapps.io"</span><span class="op">)</span></span></code></pre></div>
-<p>For both services, subsequent publishes need not provide the
-<code>server</code> or <code>account</code>:</p>
+<p>For both services, subsequent publishes need not provide the <code>server</code> or <code>account</code>:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/quarto_publish_doc.html">quarto_publish_app</a></span><span class="op">(</span><span class="st">"shiny.qmd"</span><span class="op">)</span></span></code></pre></div>
-</div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+</section><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'light-border',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config);
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script></main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
-
 
 
     <footer><div class="pkgdown-footer-left">
@@ -193,15 +241,15 @@ required for the first publish only). For example:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
     </footer>
 </div>
 
-  
 
-  
+
+
 
   </body>
 </html>
