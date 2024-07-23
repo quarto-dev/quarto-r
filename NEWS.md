@@ -1,3 +1,5 @@
+# quarto (development version)
+
 # quarto 1.4.4
 
 - `quarto_preview()` now looks at `quarto preview` log to browse to the correct url when inside RStudio viewer (thanks, @aronatkins, #167).
