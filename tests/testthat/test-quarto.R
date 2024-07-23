@@ -88,6 +88,10 @@ test_that("quarto.quiet options controls echo and overwrite function argument", 
   skip_if_no_quarto()
   skip_on_cran()
   qmd <- local_qmd_file("content")
-  withr::local_options(list(quarto.quiet = TRUE))
-  expect_output(quarto_render(qmd, quiet = FALSE), regexp = NA)
+  withr::with_options(list(quarto.quiet = TRUE), {
+    expect_output(quarto_render(qmd, quiet = FALSE), regexp = NA)
+  })
+  withr::with_options(list(quarto.quiet = FALSE), {
+    expect_output(quarto_render(qmd, quiet = TRUE))
+  })
 })
