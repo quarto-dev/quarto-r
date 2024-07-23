@@ -37,9 +37,7 @@
 #'   override metadata. This will be merged with `metadata` if both are
 #'   specified, with low precedence on `metadata` options.
 #' @param debug Leave intermediate files in place after render.
-#' @param quiet Suppress warning and other messages. `quarto.quiet` R options
-#'   will take precedence in any rendering, which is useful to have verbose
-#'   logging in pkgdown for example.
+#' @param quiet Suppress warning and other messages.
 #' @param profile [Quarto project
 #'   profile(s)](https://quarto.org/docs/projects/profiles.html) to use. Either
 #'   a character vector of profile names or `NULL` to use the default profile.
@@ -176,6 +174,9 @@ quarto_render <- function(input = NULL,
   if (isTRUE(debug)) {
     args <- c(args, "--debug")
   }
+  if (is_quiet(quiet)) {
+    args <- cli_arg_quiet(args)
+  }
   if (!is.null(profile)) {
     args <- cli_arg_profile(profile, args)
   }
@@ -187,7 +188,7 @@ quarto_render <- function(input = NULL,
   }
 
   # run quarto
-  quarto_run(args, echo = TRUE, quiet = isTRUE(quiet), quarto_bin = quarto_bin)
+  quarto_run(args, echo = TRUE, quarto_bin = quarto_bin)
 
   # no return value
   invisible(NULL)

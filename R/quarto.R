@@ -47,13 +47,7 @@ quarto_version <- function() {
 }
 
 #' @importFrom processx run
-quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FALSE, echo_cmd = getOption("quarto.echo_cmd", FALSE), quiet = FALSE, ..., .call = rlang::caller_env()) {
-  # this option takes precedence
-  if (!is.na(getOption("quarto.quiet", NA))) quiet <- getOption("quarto.quiet", NA)
-  # if quiet, add the flag to quarto call
-  if (quiet) {
-    if (!cli_arg_quiet() %in% args) args <- cli_arg_quiet(args)
-  }
+quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FALSE, echo_cmd = getOption("quarto.echo_cmd", FALSE), ..., .call = rlang::caller_env()) {
   res <- tryCatch(
     {
       processx::run(quarto_bin, args = args, echo = echo, error_on_status = TRUE, echo_cmd = echo_cmd, ...)
@@ -67,8 +61,8 @@ quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FA
   invisible(res)
 }
 
-quarto_run_what <- function(what = character(), args = character(), quarto_bin = find_quarto(), echo = FALSE, quiet = FALSE, ..., .call = rlang::caller_env()) {
-  res <- quarto_run(quarto_bin, args = c(what, args), echo = echo, quiet = quiet, ..., .call = .call)
+quarto_run_what <- function(what = character(), args = character(), quarto_bin = find_quarto(), echo = FALSE, ..., .call = rlang::caller_env()) {
+  res <- quarto_run(quarto_bin, args = c(what, args), echo = echo, ..., .call = .call)
   invisible(res)
 }
 

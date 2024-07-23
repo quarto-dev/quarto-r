@@ -3,6 +3,13 @@ cli_arg_profile <- function(profile, ...) {
   append_cli_args(arg, ...)
 }
 
+is_quiet <- function(quiet) {
+  # this option takes precedence
+  quiet_options <- getOption("quarto.quiet", NA)
+  if (!is.na(quiet_options)) return(quiet_options)
+  isTRUE(quiet)
+}
+
 cli_arg_quiet <- function(...) {
   append_cli_args("--quiet", ...)
 }

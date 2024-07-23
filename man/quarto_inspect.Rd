@@ -12,9 +12,7 @@ quarto_inspect(input = ".", profile = NULL, quiet = FALSE, quarto_args = NULL)
 \item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
 a character vector of profile names or \code{NULL} to use the default profile.}
 
-\item{quiet}{Suppress warning and other messages. \code{quarto.quiet} R options
-will take precedence in any rendering, which is useful to have verbose
-logging in pkgdown for example.}
+\item{quiet}{Suppress warning and other messages.}
 
 \item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
 to the Quarto command executed by this function. This is mainly intended for

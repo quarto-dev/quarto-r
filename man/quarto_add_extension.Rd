@@ -18,9 +18,7 @@ repository as described in the documentation
 
 \item{no_prompt}{Do not prompt to confirm approval to download external extension.}
 
-\item{quiet}{Suppress warning and other messages. \code{quarto.quiet} R options
-will take precedence in any rendering, which is useful to have verbose
-logging in pkgdown for example.}
+\item{quiet}{Suppress warning and other messages.}
 
 \item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
 to the Quarto command executed by this function. This is mainly intended for
