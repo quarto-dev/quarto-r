@@ -40,7 +40,7 @@ quarto_create_project <- function(name, type = "default", dir = ".", no_prompt =
       "This will create a new Quarto {.emph {type}} project as a folder named {.strong {name}} in {.path {xfun::normalize_path(dir)}}."
     ))
     prompt_value <- tolower(readline(sprintf("Do you want to proceed (Y/n)? ")))
-    if (!prompt_value %in% "y") {
+    if (!prompt_value %in% c("", "y")) {
       cli::cli_abort("Operation aborted.")
     }
   }
