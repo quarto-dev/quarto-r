@@ -8,12 +8,13 @@
 #' @export
 quarto_path <- function() {
   path_env <- get_quarto_path_env()
-  if (is.na(path_env)) {
+  quarto_path <- if (is.na(path_env)) {
     path <- unname(Sys.which("quarto"))
     if (nzchar(path)) path else NULL
   } else {
     path_env
   }
+  normalizePath(quarto_path, winslash = "/", mustWork = FALSE)
 }
 
 get_quarto_path_env <- function() {
