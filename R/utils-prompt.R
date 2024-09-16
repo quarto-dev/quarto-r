@@ -18,6 +18,8 @@ check_extension_approval <- function(no_prompt = FALSE, what = "Something", see_
     if (!prompt_value %in% "y") {
       cli::cli_inform("{what} not installed.")
       return(invisible(FALSE))
+    } else {
+      return(invisible(TRUE))
     }
   }
 }

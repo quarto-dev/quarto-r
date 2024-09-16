@@ -6,6 +6,8 @@
   
 - `quarto_path()` now returns a normalized path with potential symlink resolved, for less confusion with `quarto_binary_sitrep()` (thanks, @jennybc).
 
+- Fix an error with interactive prompt for extension approval (thanks, @wjschne, #212).
+
 # quarto 1.4.4
 
 - `quarto_preview()` now looks at `quarto preview` log to browse to the correct url when inside RStudio viewer (thanks, @aronatkins, #167).
