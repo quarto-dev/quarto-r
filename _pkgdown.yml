@@ -3,16 +3,6 @@ url: https://quarto-dev.github.io/quarto-r/
 template:
   bootstrap: 5
 
-navbar:
-  structure:
-     left: [publishing, reference]
-     right: [news, search]
-  components:
-     publishing:
-      text: Publishing
-      href: articles/publishing.html
-
-
 reference:
 - title: "Render and Preview"
   desc: >

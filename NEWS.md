@@ -1,5 +1,23 @@
 # quarto (development version)
 
+- Add `quarto.quiet` options to allow more verbose error message when `quarto_*` function are used inside other package. 
+  For example, inside **pkgdown** for building Quarto vignettes. **pkgdown** sets `quiet = TRUE` internally for its call to `quarto_render()`, 
+  and setting `options(quarto.quiet = TRUE)` allows to overwrite this.
+  
+- `quarto_path()` now returns a normalized path with potential symlink resolved, for less confusion with `quarto_binary_sitrep()` (thanks, @jennybc).
+
+- Fix an error with interactive prompt for extension approval (thanks, @wjschne, #212).
+
+# quarto 1.4.4
+
+- `quarto_preview()` now looks at `quarto preview` log to browse to the correct url when inside RStudio viewer (thanks, @aronatkins, #167).
+
+- This package now uses the x.y.z.dev versionning scheme to indicate development, patch, minor and major versions. This follows [Tidyverse package version conventions](https://r-pkgs.org/lifecycle.html#sec-lifecycle-version-number-tidyverse).
+
+- Adapt tests for CRAN checks issues due to Quarto v1.5.54 regression (though it is fixed upstream).
+
+- Approval check in `quarto_add_extension()` and `quarto_use_template()` now works correctly (thanks, @eveyp, #172).
+
 # quarto 1.4
 
 - This version is now adapted to Quarto 1.4 latest stable release.
@@ -7,7 +25,7 @@
 - Add registration of vignette engine to use `quarto` as a vignette builder, and use `.qmd` file as vignette. See `vignette("hello", package = "quarto")`. (thanks, @dcnorris, #57).
 
 - New `quarto_binary_sitrep()` checks possible difference in Quarto binary used by this package, and the one used by RStudio IDE (thanks, @jthomasmock, #12).
-
+  
 - New `is_using_quarto()` to check if a directory requires using Quarto (i.e. it has a `_quarto.yml` or at least one `*.qmd` file) (thanks, @hadley, #103).
 
 - New `quarto_create_project()` calls `quarto create project <type> <name>` (thanks, @maelle, #87).

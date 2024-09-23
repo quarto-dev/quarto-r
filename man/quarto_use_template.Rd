@@ -20,9 +20,10 @@ repository as described in the documentation
 
 \item{quiet}{Suppress warnings and messages.}
 
-\item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the
-command. This is mainly for advanced usage, e.g it can be useful for new
-options added to quarto CLI and not yet supported as function argument.}
+\item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
+to the Quarto command executed by this function. This is mainly intended for
+advanced usage and useful for CLI arguments which are not yet mirrored in a
+dedicated parameter of this \R function. See \verb{quarto render --help} for options.}
 }
 \description{
 Install and use a template for Quarto using \verb{quarto use}.

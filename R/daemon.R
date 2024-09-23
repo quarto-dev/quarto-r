@@ -13,9 +13,14 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   # calculate keys
   ps_key <- paste0(command, "_ps")
   port_key <- paste0(command, "_port")
+  url_key <- paste0(command, "_url")
+  # We don't need to keep previous url
+  quarto[[url_key]] <- NULL
 
   # manage existing server instances
   stop_serve_daemon(command)
+  # we don't need to keep previous url
+  quarto[[url_key]] <- NULL
 
   # if the last server had a port then re-use it for "auto"
   if (port == "auto") {
@@ -86,12 +91,20 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   }
   quarto[[port_key]] <- port
 
+
+
   # monitor the process for abnormal exit
   poll_process <- function() {
     if (is.null(quarto[[ps_key]])) {
       return()
     }
-    cat(quarto[[ps_key]]$read_output())
+    ro <- quarto[[ps_key]]$read_output()
+    cat(ro)
+    # Look at url to browse too in `quarto preview log`
+    if (!isFALSE(browse) && is.null(quarto[[url_key]]) && grepl("Browse at https?://", ro)) {
+      m <- regexec("Browse at (https?://[^ ]+)\n", ro)
+      quarto[[url_key]] <- regmatches(ro, m)[[1]][2]
+    }
     if (!quarto[[ps_key]]$is_alive()) {
       status <- quarto[[ps_key]]$get_exit_status()
       quarto[[ps_key]] <- NULL
@@ -116,7 +129,7 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
         utils::browseURL
       )
     }
-    serve_url <- paste0("http://localhost:", port)
+    serve_url <- quarto[[url_key]] %||% paste0("http://localhost:", port)
     browse(serve_url)
   }
 

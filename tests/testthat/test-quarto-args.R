@@ -16,3 +16,19 @@ test_that("create quiete arg", {
   expect_identical(cli_arg_quiet(), c("--quiet"))
   expect_identical(cli_arg_quiet("input.qmd"), c("input.qmd", "--quiet"))
 })
+
+test_that("quarto.quiet options takes over", {
+  expect_identical(is_quiet(TRUE), TRUE)
+  expect_identical(is_quiet(FALSE), FALSE)
+  expect_identical(is_quiet(NA), FALSE)
+  withr::with_options(list(quarto.quiet = TRUE), {
+    expect_identical(is_quiet(TRUE), TRUE)
+    expect_identical(is_quiet(FALSE), TRUE)
+    expect_identical(is_quiet(NA), TRUE)
+  })
+  withr::with_options(list(quarto.quiet = FALSE), {
+    expect_identical(is_quiet(TRUE), FALSE)
+    expect_identical(is_quiet(FALSE), FALSE)
+    expect_identical(is_quiet(NA), FALSE)
+  })
+})

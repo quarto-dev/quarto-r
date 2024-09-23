@@ -21,3 +21,7 @@ merge_list <- function(x, y) {
   x[names(y)] <- y
   x
 }
+
+`%||%` <- function(x, y) {
+  if (is_null(x)) y else x
+}

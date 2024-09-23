@@ -31,7 +31,7 @@ quarto_render(
 \item{input}{The input file or project directory to be rendered (defaults
 to rendering the project in the current working directory).}
 
-\item{output_format}{Target output format (defaults to "html"). The option
+\item{output_format}{Target output format (defaults to \code{"html"}). The option
 \code{"all"} will render all formats defined within the file or project.}
 
 \item{output_file}{The name of the output file. If using \code{NULL}, the output
@@ -81,15 +81,16 @@ specified, with low precedence on \code{metadata} options.}
 \item{profile}{\href{https://quarto.org/docs/projects/profiles.html}{Quarto project profile(s)} to use. Either
 a character vector of profile names or \code{NULL} to use the default profile.}
 
-\item{quarto_args}{Character vector of other \code{quarto} CLI flag pass to the
-command. This is mainly for advanced usage, e.g it can be useful for new
-options added to quarto CLI and not yet supported as function argument.}
+\item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
+to the Quarto command executed by this function. This is mainly intended for
+advanced usage and useful for CLI arguments which are not yet mirrored in a
+dedicated parameter of this \R function. See \verb{quarto render --help} for options.}
 
-\item{pandoc_args}{Additional command line options to pass to pandoc.}
+\item{pandoc_args}{Additional command line arguments to pass on to Pandoc.}
 
-\item{as_job}{Render as an RStudio background job. Default is "auto",
+\item{as_job}{Render as an RStudio background job. Default is \code{"auto"},
 which will render individual documents normally and projects as
-background jobs. Use the \code{quarto.render_as_job} R option to control
+background jobs. Use the \code{quarto.render_as_job} \R option to control
 the default globally.}
 }
 \description{
@@ -110,6 +111,6 @@ quarto_render("notebook.ipynb")
 quarto_render("notebook.md")
 
 # Override metadata
-quarto_render("notebook.Rmd", override = list(lang = "fr", echo = "false"))
+quarto_render("notebook.Rmd", metadata = list(lang = "fr", execute = list(echo = FALSE)))
 }
 }

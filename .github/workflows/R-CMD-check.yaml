@@ -5,12 +5,15 @@
 # check-standard.yaml is likely a better choice.
 # usethis::use_github_action("check-standard") will install it.
 on:
+  workflow_dispatch:
   push:
     branches: [main, master]
   pull_request:
     branches: [main, master]
 
 name: R-CMD-check
+
+permissions: read-all
 
 jobs:
   R-CMD-check:
@@ -27,8 +30,6 @@ jobs:
 
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: 'release', quarto: 'pre-release'}
-          # Use 3.6 to trigger usage of RTools35
-          - {os: windows-latest, r: '3.6'}
           # use 4.1 to check with rtools40's older compiler
           - {os: windows-latest, r: '4.1'}
 
@@ -48,6 +49,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: quarto-dev/quarto-actions/setup@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           version: ${{ matrix.config.quarto || 'release' }}
           tinytex: true
@@ -71,3 +74,4 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'

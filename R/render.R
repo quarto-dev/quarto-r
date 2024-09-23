@@ -6,7 +6,7 @@
 #'
 #' @param input The input file or project directory to be rendered (defaults
 #'   to rendering the project in the current working directory).
-#' @param output_format Target output format (defaults to "html"). The option
+#' @param output_format Target output format (defaults to `"html"`). The option
 #'   `"all"` will render all formats defined within the file or project.
 #' @param output_file The name of the output file. If using `NULL`, the output
 #'   filename will be based on the filename for the input file. `output_file` is
@@ -41,13 +41,14 @@
 #' @param profile [Quarto project
 #'   profile(s)](https://quarto.org/docs/projects/profiles.html) to use. Either
 #'   a character vector of profile names or `NULL` to use the default profile.
-#' @param quarto_args Character vector of other `quarto` CLI flag pass to the
-#'   command. This is mainly for advanced usage, e.g it can be useful for new
-#'   options added to quarto CLI and not yet supported as function argument.
-#' @param pandoc_args Additional command line options to pass to pandoc.
-#' @param as_job Render as an RStudio background job. Default is "auto",
+#' @param quarto_args Character vector of other `quarto` CLI arguments to append
+#'   to the Quarto command executed by this function. This is mainly intended for
+#'   advanced usage and useful for CLI arguments which are not yet mirrored in a
+#'   dedicated parameter of this \R function. See `quarto render --help` for options.
+#' @param pandoc_args Additional command line arguments to pass on to Pandoc.
+#' @param as_job Render as an RStudio background job. Default is `"auto"`,
 #'   which will render individual documents normally and projects as
-#'   background jobs. Use the `quarto.render_as_job` R option to control
+#'   background jobs. Use the `quarto.render_as_job` \R option to control
 #'   the default globally.
 #'
 #' @importFrom rmarkdown relative_to
@@ -65,7 +66,7 @@
 #' quarto_render("notebook.md")
 #'
 #' # Override metadata
-#' quarto_render("notebook.Rmd", override = list(lang = "fr", echo = "false"))
+#' quarto_render("notebook.Rmd", metadata = list(lang = "fr", execute = list(echo = FALSE)))
 #' }
 #' @export
 quarto_render <- function(input = NULL,
@@ -182,7 +183,7 @@ quarto_render <- function(input = NULL,
   if (isTRUE(debug)) {
     args <- c(args, "--debug")
   }
-  if (isTRUE(quiet)) {
+  if (is_quiet(quiet)) {
     args <- cli_arg_quiet(args)
   }
   if (!is.null(profile)) {

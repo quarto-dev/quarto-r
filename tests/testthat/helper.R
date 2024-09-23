@@ -3,7 +3,7 @@ skip_if_no_quarto <- function(ver = NULL) {
   skip_if(is.null(quarto_path()), message = "Quarto is not available")
   skip_if(
     quarto_version() < ver,
-    message = sprintf("Version of quarto is lower than %s.", ver)
+    message = sprintf("Version of quarto is lower than %s: %s.", ver,  quarto_version())
   )
 }
 
@@ -13,13 +13,23 @@ skip_if_quarto <- function(ver = NULL) {
   skip_if_no_quarto()
   # Then skip if available or if version is greater than
   if (is.null(ver)) {
-    skip_if(!is.null(quarto_path()), message = "Quarto is available")
+    skip_if(!is.null(quarto_path()), message = sprintf("Quarto is available: %s.", quarto_version()))
   } else {
     skip_if(
       quarto_version() >= ver,
-      message = sprintf("Version of quarto is greater than or equal %s.", ver)
+      message = sprintf("Version of quarto is greater than or equal %s: %s.", ver,  quarto_version())
     )
   }
+}
+
+skip_if_quarto_between <- function(min, max) {
+  # Skip if no quarto available
+  skip_if_no_quarto()
+  # Then skip if available or if version is greater than
+  skip_if(
+    quarto_version() >= min && quarto_version() <= max,
+    message = sprintf("Version of quarto is between %s and %s: %s", min, max, quarto_version())
+  )
 }
 
 local_qmd_file <- function(..., .env = parent.frame()) {
