@@ -8,6 +8,8 @@
 
 - Fix an error with interactive prompt for extension approval (thanks, @wjschne, #212).
 
+- `quarto_path()` now correctly return `NULL` when no quarto is found in the PATH (thanks, @jeroen, #220, #221).
+
 # quarto 1.4.4
 
 - `quarto_preview()` now looks at `quarto preview` log to browse to the correct url when inside RStudio viewer (thanks, @aronatkins, #167).
@@ -29,7 +31,7 @@
 - New `is_using_quarto()` to check if a directory requires using Quarto (i.e. it has a `_quarto.yml` or at least one `*.qmd` file) (thanks, @hadley, #103).
 
 - New `quarto_create_project()` calls `quarto create project <type> <name>` (thanks, @maelle, #87).
-
+DESC
 - New `quarto_add_extension()` and `quarto_use_template()` to deal with Quarto extensions for a Quarto project. (thanks, @mcanouil, #45, @remlapmot, #42).
 
 - `quarto_render()` and `quarto_inspect()` gains a `profile` argument (thanks, @andrewheiss, #95, @salim-b, #123).
