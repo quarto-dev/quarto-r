@@ -1,11 +1,11 @@
 pandoc: 3.1.11
-pkgdown: 2.1.0
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   hello-pdf: hello-pdf.pdf
   hello: hello.html
   publishing: publishing.html
-last_built: 2024-09-16T15:10Z
+last_built: 2025-01-06T13:07Z
 urls:
   reference: https://quarto-dev.github.io/quarto-r/reference
   article: https://quarto-dev.github.io/quarto-r/articles
