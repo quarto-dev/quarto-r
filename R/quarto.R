@@ -10,7 +10,7 @@ quarto_path <- function() {
   path_env <- get_quarto_path_env()
   quarto_path <- if (is.na(path_env)) {
     path <- unname(Sys.which("quarto"))
-    if (nzchar(path)) path else NULL
+    if (nzchar(path)) path else return(NULL)
   } else {
     path_env
   }
