@@ -1,9 +1,17 @@
 # quarto (development version)
 
+## BREAKING CHANGES
+
+- In `quarto_inspect()`, JSON array xith JSON object are not coerced to data.frame anymore. This ensure list is returned for all elements of `fileInformation` object.
+
+## NEW FEATURES
+
 - Add `quarto.quiet` options to allow more verbose error message when `quarto_*` function are used inside other package. 
   For example, inside **pkgdown** for building Quarto vignettes. **pkgdown** sets `quiet = TRUE` internally for its call to `quarto_render()`, 
   and setting `options(quarto.quiet = TRUE)` allows to overwrite this.
   
+## MINOR CHANGES
+
 - `quarto_path()` now returns a normalized path with potential symlink resolved, for less confusion with `quarto_binary_sitrep()` (thanks, @jennybc).
 
 - Fix an error with interactive prompt for extension approval (thanks, @wjschne, #212).

@@ -9,7 +9,7 @@
 #' @param input The input file or project directory to inspect.
 #'
 #' @return Named list. For input files, the list contains the elements
-#'   `quarto`, `engines`, `formats`, `resources`, plus `project` if the file is
+#'   `quarto`, `engines`, `formats`, `resources`, `fileInformation` plus `project` if the file is
 #'   part of a Quarto project. For projects, the list contains the elements
 #'   `quarto`, `dir`, `engines`, `config` and `files`.
 #'
@@ -47,5 +47,5 @@ quarto_inspect <- function(input = ".",
 
   res <- quarto_run(args, quarto_bin = quarto_bin)
 
-  fromJSON(res$stdout)
+  jsonlite::fromJSON(res$stdout, simplifyDataFrame = FALSE)
 }
