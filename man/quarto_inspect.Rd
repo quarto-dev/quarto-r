@@ -21,7 +21,7 @@ dedicated parameter of this \R function. See \verb{quarto render --help} for opt
 }
 \value{
 Named list. For input files, the list contains the elements
-\code{quarto}, \code{engines}, \code{formats}, \code{resources}, \code{fileInformation} plus \code{project} if the file is
+\code{quarto}, \code{engines}, \code{formats}, \code{resources}, plus \code{project} if the file is
 part of a Quarto project. For projects, the list contains the elements
 \code{quarto}, \code{dir}, \code{engines}, \code{config} and \code{files}.
 }

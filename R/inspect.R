@@ -47,5 +47,5 @@ quarto_inspect <- function(input = ".",
 
   res <- quarto_run(args, quarto_bin = quarto_bin)
 
-  jsonlite::fromJSON(res$stdout, simplifyDataFrame = FALSE)
+  fromJSON(res$stdout)
 }
