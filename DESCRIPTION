@@ -26,13 +26,13 @@ Imports:
     rstudioapi,
     tools,
     utils,
+    withr,
     yaml
 Suggests: 
     curl,
     knitr,
     rsconnect (>= 0.8.26),
     testthat (>= 3.1.7),
-    withr,
     xfun
 VignetteBuilder: 
     quarto
