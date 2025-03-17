@@ -157,3 +157,26 @@ test_that("quarto_available()", {
     regexp = "Minimum version expected is 1.9.5"
   )
 })
+
+test_that("quarto sees same libpaths as main process", {
+  skip_if_no_quarto()
+  skip_on_cran()
+  qmd <- local_qmd_file(c("```{r}", "#| echo: false", ".libPaths()", "```"))
+  tmp_lib <-  withr::local_tempdir("tmp_libpath")
+  withr::local_libpaths(tmp_lib, action = "prefix")
+  withr::local_dir(dirname(qmd))
+  out <- "out.md"
+  # .libPaths() is known in Quarto render
+  quarto_render(qmd, output_format = "gfm", output_file = out, quiet = TRUE)
+  expect_match(readLines(out), basename(tmp_lib), all = FALSE, fixed = TRUE)
+  # Opting-out globally
+  withr::with_options(
+    list(quarto.use_libpaths = FALSE), 
+    quarto_render(qmd, output_format = "gfm", output_file = out, quiet = TRUE)
+  )
+  expect_no_match(readLines(out), basename(tmp_lib), fixed = TRUE)
+  # Opting-out at command
+  quarto_render(qmd, output_format = "gfm", output_file = out, quiet = TRUE, libpaths = NULL)
+  expect_no_match(readLines(out), basename(tmp_lib), fixed = TRUE)
+
+})

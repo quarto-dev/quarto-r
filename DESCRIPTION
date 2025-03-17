@@ -30,6 +30,7 @@ Imports:
     rstudioapi,
     tools,
     utils,
+    withr,
     xfun,
     yaml (>= 2.3.10)
 Suggests: 
@@ -53,8 +54,7 @@ Suggests:
     thematic,
     tidyverse,
     tinytable,
-    whoami,
-    withr
+    whoami
 VignetteBuilder: 
     quarto
 Config/testthat/edition: 3

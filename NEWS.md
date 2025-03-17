@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- `.libPaths()` from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with **pkgdown** or when building vignettes (thanks, )
+
 # quarto 1.5.1
 
 - Make sure tests pass on CRAN checks even when Quarto is not installed by adding a gihub action to test when no quarto is available. Also fix tests that were

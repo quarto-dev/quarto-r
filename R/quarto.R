@@ -128,6 +128,7 @@ quarto_run <- function(
   args = character(),
   quarto_bin = find_quarto(),
   echo = FALSE,
+  libpaths = .libPaths(),
   echo_cmd = getOption("quarto.echo_cmd", FALSE),
   ...,
   .call = rlang::caller_env()
@@ -137,6 +138,12 @@ quarto_run <- function(
   custom_env <- NULL
   if (!quarto_available(min = "1.8.13")) {
     custom_env <- c("current", QUARTO_R = R.home("bin"))
+  }
+  opt_in_libpath <- getOption("quarto.use_libpaths", TRUE)
+  if (isTRUE(opt_in_libpath) && !is.null(libpaths)) {
+    withr::local_envvar(list(
+      R_LIBS = paste(libpaths, collapse = .Platform$path.sep)
+    ))
   }
   res <- withCallingHandlers(
     processx::run(
