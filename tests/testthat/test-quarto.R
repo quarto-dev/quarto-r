@@ -167,16 +167,16 @@ test_that("quarto sees same libpaths as main process", {
   withr::local_dir(dirname(qmd))
   out <- "out.md"
   # .libPaths() is known in Quarto render
-  quarto_render(qmd, output_format = "gfm", output_file = out, quiet = TRUE)
-  expect_match(readLines(out), basename(tmp_lib), all = FALSE, fixed = TRUE)
+  out <- .render_and_read(qmd, output_format = "gfm")
+  expect_match(out, basename(tmp_lib), all = FALSE, fixed = TRUE)
   # Opting-out globally
   withr::with_options(
     list(quarto.use_libpaths = FALSE), 
-    quarto_render(qmd, output_format = "gfm", output_file = out, quiet = TRUE)
+    out <- .render_and_read(qmd, output_format = "gfm")
   )
-  expect_no_match(readLines(out), basename(tmp_lib), fixed = TRUE)
+  expect_no_match(out, basename(tmp_lib), fixed = TRUE)
   # Opting-out at command
-  quarto_render(qmd, output_format = "gfm", output_file = out, quiet = TRUE, libpaths = NULL)
-  expect_no_match(readLines(out), basename(tmp_lib), fixed = TRUE)
+  out <- .render_and_read(qmd, output_format = "gfm", libpaths = NULL)
+  expect_no_match(out, basename(tmp_lib), fixed = TRUE)
 
 })
