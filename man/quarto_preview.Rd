@@ -12,7 +12,8 @@ quarto_preview(
   host = "127.0.0.1",
   browse = TRUE,
   watch = TRUE,
-  navigate = TRUE
+  navigate = TRUE,
+  quiet = FALSE
 )
 
 quarto_preview_stop()
@@ -40,6 +41,8 @@ RStudio Viewer when running within RStudio.Pass a function (e.g.
 
 \item{navigate}{Automatically navigate the preview browser to the most
 recently rendered document.}
+
+\item{quiet}{Suppress warning and other messages.}
 }
 \description{
 Render and preview a Quarto document or website project.
