@@ -1,0 +1,107 @@
+---
+title: "knitr dark mode - thematic"
+brand:
+  light: united-brand.yml
+  dark: slate-brand.yml
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| echo: false
+#| warning: false
+library(ggplot2)
+library(quarto)
+
+united_thematic = theme_brand_thematic('united-brand.yml')
+slate_thematic = theme_brand_thematic('slate-brand.yml')
+```
+
+
+### no crossref, no caption
+
+```{r}
+#| renderings: [light, dark]
+penguins <- ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=bill_depth_mm)) + geom_point()
+united_thematic()
+penguins
+
+slate_thematic()
+penguins
+```
+
+## ggplot
+### with crossref but no caption
+
+::: {#fig-thematic-ggplot}
+```{r}
+#| renderings:
+#|   - dark
+#|   - light
+penguins2 <- ggplot(palmerpenguins::penguins, aes(x=bill_length_mm, y=flipper_length_mm)) + geom_point()
+
+slate_thematic()
+penguins2
+
+united_thematic()
+penguins2
+```
+:::
+
+## base R graphics
+### with caption but no crossref
+
+::: {}
+```{r}
+#| renderings: [light, dark]
+united_thematic()
+plot(
+    palmerpenguins::penguins$flipper_length_mm,
+    palmerpenguins::penguins$body_mass_g,
+)
+slate_thematic()
+plot(
+    palmerpenguins::penguins$flipper_length_mm,
+    palmerpenguins::penguins$body_mass_g,
+)
+```
+
+thematic - base r graphics
+
+:::
+
+## patchwork
+### with crossref and caption
+
+::: {#fig-thematic-patchwork}
+```{r}
+#| renderings: [light, dark]
+library(ggplot2)
+library(patchwork)
+
+#generate three scatterplots
+plot1 <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
+
+plot2 <- ggplot(mtcars, aes(mpg, disp)) +
+  geom_point()
+
+plot3 <- ggplot(mtcars, aes(mpg, hp)) +
+  geom_point()
+
+#display all three scatterplots in same graphic
+united_thematic()
+plot1 + plot2 + plot3
+
+slate_thematic()
+plot1 + plot2 + plot3
+
+```
+thematic - patchwork
+:::
+
+
+Here's a [link](https://example.com).
+
+{{< lipsum 3 >}}

@@ -45,3 +45,10 @@ reference:
   - is_using_quarto
   - quarto_binary_sitrep
 
+- title: "Theme Helpers"
+  desc: >
+    These simple helper functions adapt plotting and table packages to use background and
+    foreground colors, or brand.yml colors.
+  contents:
+    - starts_with("theme_colors")
+    - starts_with("theme_brand")

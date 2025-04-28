@@ -29,9 +29,19 @@ Imports:
     yaml
 Suggests: 
     curl,
+    flextable,
+    ggiraph,
+    ggplot2,
+    gt,
+    heatmaply,
     knitr,
+    palmerpenguins,
+    patchwork,
+    plotly,
     rsconnect (>= 0.8.26),
     testthat (>= 3.1.7),
+    thematic,
+    tidyverse,
     withr,
     xfun
 VignetteBuilder: 
