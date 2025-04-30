@@ -69,26 +69,28 @@
 #' quarto_render("notebook.Rmd", metadata = list(lang = "fr", execute = list(echo = FALSE)))
 #' }
 #' @export
-quarto_render <- function(input = NULL,
-                          output_format = NULL,
-                          output_file = NULL,
-                          execute = TRUE,
-                          execute_params = NULL,
-                          execute_dir = NULL,
-                          execute_daemon = NULL,
-                          execute_daemon_restart = FALSE,
-                          execute_debug = FALSE,
-                          use_freezer = FALSE,
-                          cache = NULL,
-                          cache_refresh = FALSE,
-                          metadata = NULL,
-                          metadata_file = NULL,
-                          debug = FALSE,
-                          quiet = FALSE,
-                          profile = NULL,
-                          quarto_args = NULL,
-                          pandoc_args = NULL,
-                          as_job = getOption("quarto.render_as_job", "auto")) {
+quarto_render <- function(
+  input = NULL,
+  output_format = NULL,
+  output_file = NULL,
+  execute = TRUE,
+  execute_params = NULL,
+  execute_dir = NULL,
+  execute_daemon = NULL,
+  execute_daemon_restart = FALSE,
+  execute_debug = FALSE,
+  use_freezer = FALSE,
+  cache = NULL,
+  cache_refresh = FALSE,
+  metadata = NULL,
+  metadata_file = NULL,
+  debug = FALSE,
+  quiet = FALSE,
+  profile = NULL,
+  quarto_args = NULL,
+  pandoc_args = NULL,
+  as_job = getOption("quarto.render_as_job", "auto")
+) {
   # get quarto binary
   quarto_bin <- find_quarto()
 
@@ -105,7 +107,9 @@ quarto_render <- function(input = NULL,
 
   # render as job if requested and running within rstudio
   if (as_job && rstudioapi::isAvailable()) {
-    message("Rendering project as background job (use as_job = FALSE to override)")
+    message(
+      "Rendering project as background job (use as_job = FALSE to override)"
+    )
     script <- tempfile(fileext = ".R")
     writeLines(
       c("library(quarto)", deparse(sys.call())),
@@ -119,7 +123,6 @@ quarto_render <- function(input = NULL,
     )
     return(invisible(NULL))
   }
-
 
   # build args
   args <- c("render", input)
@@ -162,7 +165,10 @@ quarto_render <- function(input = NULL,
   if (!missing(metadata)) {
     # We merge meta if there is metadata_file passed
     if (!missing(metadata_file)) {
-      metadata <- merge_list(yaml::read_yaml(metadata_file, eval.expr = FALSE), metadata)
+      metadata <- merge_list(
+        yaml::read_yaml(metadata_file, eval.expr = FALSE),
+        metadata
+      )
     }
     meta_file <- tempfile(pattern = "quarto-meta", fileext = ".yml")
     on.exit(unlink(meta_file), add = TRUE)

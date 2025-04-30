@@ -59,7 +59,11 @@ get_meta_for_pdf <- function() {
 }
 
 get_meta_for_html <- function() {
-  css <- system.file("rmarkdown", "template", "quarto_vignette", "resources",
+  css <- system.file(
+    "rmarkdown",
+    "template",
+    "quarto_vignette",
+    "resources",
     "vignette.css",
     package = "quarto"
   )
@@ -85,13 +89,20 @@ is_cran_check <- function() {
 }
 
 is_cran <- function() {
-  !rlang::is_interactive() && !isTRUE(as.logical(Sys.getenv("NOT_CRAN", "false")))
+  !rlang::is_interactive() &&
+    !isTRUE(as.logical(Sys.getenv("NOT_CRAN", "false")))
 }
 
 # trick from knitr to avoid problem on R CMD check (e.g. when no Quarto available)
 # It will silently skip the vignette
 vweave_empty <- function(file, ..., .reason = "Quarto") {
   out <- sprintf("%s.html", tools::file_path_sans_ext(basename(file)))
-  writeLines(sprintf("The vignette could not be built because %s is not available.", .reason), out)
+  writeLines(
+    sprintf(
+      "The vignette could not be built because %s is not available.",
+      .reason
+    ),
+    out
+  )
   out
 }

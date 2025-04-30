@@ -20,7 +20,10 @@ test_that("is_using_quarto correctly check directory", {
   expect_true(is_using_quarto(dirname(qmd)))
   expect_snapshot(is_using_quarto(dirname(qmd), verbose = TRUE))
   # qmd and _quarto.yml
-  write_yaml(list(project = list(type = "default")), file = file.path(dirname(qmd), "_quarto.yml"))
+  write_yaml(
+    list(project = list(type = "default")),
+    file = file.path(dirname(qmd), "_quarto.yml")
+  )
   expect_true(is_using_quarto(dirname(qmd)))
   expect_snapshot(is_using_quarto(dirname(qmd), verbose = TRUE))
   # Only _quarto.yml
@@ -45,7 +48,8 @@ test_that("quarto CLI sitrep", {
     list(QUARTO_PATH = dummy_quarto_path, RSTUDIO_QUARTO = NA),
     expect_snapshot(
       quarto_binary_sitrep(debug = TRUE),
-      transform = function(lines) gsub(dummy_quarto_path, "<QUARTO_PATH path>", lines, fixed = TRUE)
+      transform = function(lines)
+        gsub(dummy_quarto_path, "<QUARTO_PATH path>", lines, fixed = TRUE)
     )
   )
   withr::with_envvar(
@@ -53,8 +57,15 @@ test_that("quarto CLI sitrep", {
     expect_snapshot(
       quarto_binary_sitrep(debug = TRUE),
       transform = function(lines) {
-        lines <- gsub(dummy_quarto_path, "<RSTUDIO_QUARTO path>", lines, fixed = TRUE)
-        transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)(lines)
+        lines <- gsub(
+          dummy_quarto_path,
+          "<RSTUDIO_QUARTO path>",
+          lines,
+          fixed = TRUE
+        )
+        transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)(
+          lines
+        )
       }
     )
   )
@@ -63,7 +74,10 @@ test_that("quarto CLI sitrep", {
     list(QUARTO_PATH = NA, RSTUDIO_QUARTO = NA),
     expect_snapshot(
       quarto_binary_sitrep(debug = TRUE),
-      transform = transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)
+      transform = transform_quarto_cli_in_output(
+        full_path = TRUE,
+        normalize_path = TRUE
+      )
     )
   )
 
