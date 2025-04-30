@@ -3,7 +3,11 @@ skip_if_no_quarto <- function(ver = NULL) {
   skip_if(is.null(quarto_path()), message = "Quarto is not available")
   skip_if(
     quarto_version() < ver,
-    message = sprintf("Version of quarto is lower than %s: %s.", ver,  quarto_version())
+    message = sprintf(
+      "Version of quarto is lower than %s: %s.",
+      ver,
+      quarto_version()
+    )
   )
 }
 
@@ -13,11 +17,18 @@ skip_if_quarto <- function(ver = NULL) {
   skip_if_no_quarto()
   # Then skip if available or if version is greater than
   if (is.null(ver)) {
-    skip_if(!is.null(quarto_path()), message = sprintf("Quarto is available: %s.", quarto_version()))
+    skip_if(
+      !is.null(quarto_path()),
+      message = sprintf("Quarto is available: %s.", quarto_version())
+    )
   } else {
     skip_if(
       quarto_version() >= ver,
-      message = sprintf("Version of quarto is greater than or equal %s: %s.", ver,  quarto_version())
+      message = sprintf(
+        "Version of quarto is greater than or equal %s: %s.",
+        ver,
+        quarto_version()
+      )
     )
   }
 }
@@ -28,7 +39,12 @@ skip_if_quarto_between <- function(min, max) {
   # Then skip if available or if version is greater than
   skip_if(
     quarto_version() >= min && quarto_version() <= max,
-    message = sprintf("Version of quarto is between %s and %s: %s", min, max, quarto_version())
+    message = sprintf(
+      "Version of quarto is between %s and %s: %s",
+      min,
+      max,
+      quarto_version()
+    )
   )
 }
 
@@ -38,7 +54,11 @@ local_qmd_file <- function(..., .env = parent.frame()) {
   # create a directory to delete for correct cleaning
   dir <- withr::local_tempdir("quarto-test", .local_envir = .env)
   # create a file in this directory
-  path <- withr::local_tempfile(tmpdir = dir, fileext = ".qmd", .local_envir = .env)
+  path <- withr::local_tempfile(
+    tmpdir = dir,
+    fileext = ".qmd",
+    .local_envir = .env
+  )
   xfun::write_utf8(c(...), path)
   path
 }
@@ -83,7 +103,11 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 }
 
 
-transform_quarto_cli_in_output <- function(full_path = FALSE, normalize_path = FALSE, version = FALSE) {
+transform_quarto_cli_in_output <- function(
+  full_path = FALSE,
+  normalize_path = FALSE,
+  version = FALSE
+) {
   return(
     function(lines) {
       if (full_path) {
@@ -93,7 +117,12 @@ transform_quarto_cli_in_output <- function(full_path = FALSE, normalize_path = F
         }
         lines <- gsub(quarto_found, "<quarto full path>", lines, fixed = TRUE)
         # seems like there are quotes around path in CI windows
-        lines <- gsub("\"<quarto full path>\"", "<quarto full path>", lines, fixed = TRUE)
+        lines <- gsub(
+          "\"<quarto full path>\"",
+          "<quarto full path>",
+          lines,
+          fixed = TRUE
+        )
       } else {
         # it will be quarto.exe only on windows
         lines <- gsub("quarto\\.(exe|cmd)", "quarto", lines)
