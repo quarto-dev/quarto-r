@@ -63,6 +63,34 @@ local_qmd_file <- function(..., .env = parent.frame()) {
   path
 }
 
+local_quarto_project <- function(
+  name = "test-project",
+  type,
+  ...,
+  .env = parent.frame()
+) {
+  skip_if_no_quarto()
+  path_tmp <- withr::local_tempdir(
+    pattern = "quarto-tests-project-",
+    .local_envir = .env
+  )
+  tryCatch(
+    quarto_create_project(
+      name = name,
+      type = type,
+      dir = path_tmp,
+      no_prompt = TRUE,
+      quiet = TRUE,
+      ...
+    ),
+    error = function(e) {
+      stop("Creating temp project for tests failed", call. = FALSE)
+    }
+  )
+  # return the path to the created project
+  return(file.path(path_tmp, name))
+}
+
 .render <- function(input, output_file = NULL, ..., .env = parent.frame()) {
   skip_if_no_quarto()
   skip_if_not_installed("withr")
@@ -105,23 +133,33 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 
 transform_quarto_cli_in_output <- function(
   full_path = FALSE,
-  normalize_path = FALSE,
   version = FALSE
 ) {
+  hide_path <- function(lines, real_path) {
+    gsub(
+      real_path,
+      "<quarto full path>",
+      lines,
+      fixed = TRUE
+    )
+  }
+
   return(
     function(lines) {
       if (full_path) {
         quarto_found <- find_quarto()
-        if (normalize_path) {
-          quarto_found <- normalizePath(quarto_found, mustWork = FALSE)
-        }
-        lines <- gsub(quarto_found, "<quarto full path>", lines, fixed = TRUE)
+        quarto_found <- dirname(quarto_found)
+        quarto_found_normalized <- normalizePath(quarto_found, mustWork = FALSE)
+        # look for non-normalized path
+        lines <- hide_path(lines, quarto_found)
+        # look for normalized path
+        lines <- hide_path(lines, quarto_found_normalized)
+
         # seems like there are quotes around path in CI windows
         lines <- gsub(
-          "\"<quarto full path>\"",
-          "<quarto full path>",
-          lines,
-          fixed = TRUE
+          "\"<quarto full path>([^\"]*)\"",
+          "<quarto full path>\\1",
+          lines
         )
       } else {
         # it will be quarto.exe only on windows
