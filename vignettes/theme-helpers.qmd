@@ -95,6 +95,7 @@ Demonstrates a gt table with light green background and black foreground.
 #| warning: false
 library(gt)
 library(quarto)
+library(dplyr)
 
 green_black_theme <- theme_colors_gt('#a5f7d6', '#020202')
 
