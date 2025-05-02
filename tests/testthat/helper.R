@@ -133,7 +133,8 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 
 transform_quarto_cli_in_output <- function(
   full_path = FALSE,
-  version = FALSE
+  version = FALSE,
+  dir_only = FALSE
 ) {
   hide_path <- function(lines, real_path) {
     gsub(
@@ -148,7 +149,9 @@ transform_quarto_cli_in_output <- function(
     function(lines) {
       if (full_path) {
         quarto_found <- find_quarto()
-        quarto_found <- dirname(quarto_found)
+        if (dir_only) {
+          quarto_found <- dirname(quarto_found)
+        }
         quarto_found_normalized <- normalizePath(quarto_found, mustWork = FALSE)
         # look for non-normalized path
         lines <- hide_path(lines, quarto_found)

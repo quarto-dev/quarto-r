@@ -85,7 +85,7 @@
     Code
       quarto_binary_sitrep(debug = TRUE)
     Message
-      v quarto R package will use '<quarto full path>\quarto.exe'
+      v quarto R package will use '<quarto full path>'
       i     It is configured to use the latest version found in the PATH environment variable.
       x RStudio IDE render button seems configured to use '<RSTUDIO_QUARTO path>'.
       !     It is configured through `RSTUDIO_QUARTO` environment variable.
@@ -97,7 +97,7 @@
     Code
       quarto_binary_sitrep(debug = TRUE)
     Message
-      v quarto R package will use '<quarto full path>\quarto.exe'
+      v quarto R package will use '<quarto full path>'
       i     It is configured to use the latest version found in the PATH environment variable.
     Output
       [1] TRUE
