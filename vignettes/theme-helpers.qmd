@@ -29,7 +29,7 @@ Demonstrates a flextable with green foreground and yellow background.
 library(flextable)
 library(quarto)
 
-yellow_green_theme <- theme_colors_flextable('#e3e5a9', '#165b26')
+yellow_green_theme <- theme_colors_flextable("#e3e5a9", "#165b26")
 
 ft <- flextable(airquality[ sample.int(10),])
 ft <- add_header_row(ft,
@@ -56,7 +56,7 @@ library(quarto)
 library(ggplot2)
 library(ggiraph)
 
-blue_mauve_theme = theme_colors_ggplot('#111038', '#E0B0FF')
+blue_mauve_theme = theme_colors_ggplot("#111038", "#E0B0FF")
 
 cars <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point_interactive(aes(colour = factor(cyl), tooltip = rownames(mtcars))) +
@@ -76,7 +76,7 @@ Demonstrates a ggplot2 plot with near-black background and green-grey foreground
 library(quarto)
 library(ggplot2)
 
-black_greyn <- theme_colors_ggplot('#050411', '#8faf8e')
+black_greyn <- theme_colors_ggplot("#050411", "#8faf8e")
 
 cars <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl))) +
@@ -97,7 +97,7 @@ library(gt)
 library(quarto)
 library(dplyr)
 
-green_black_theme <- theme_colors_gt('#a5f7d6', '#020202')
+green_black_theme <- theme_colors_gt("#a5f7d6", "#020202")
 
 islands_tbl <-
   tibble(
@@ -106,7 +106,7 @@ islands_tbl <-
   ) |>
   slice_max(size, n = 10)
 
-islands_tbl |> green_black_theme()
+gt(islands_tbl) |> green_black_theme()
 ```
 
 
@@ -122,7 +122,7 @@ Demonstrates a heatmaply interactive heatmap with an off-white background and bl
 library(heatmaply)
 library(quarto)
 
-offwhite_blue_theme <- theme_colors_plotly('#f4f4f7', '#2063b5')
+offwhite_blue_theme <- theme_colors_plotly("#f4f4f7", "#2063b5")
 
 fig <- heatmaply(mtcars, k_row = 3, k_col = 2)
 
@@ -140,12 +140,12 @@ Demonstrates a heatmaply interactive heatmap with a dark green background backgr
 library(quarto)
 library(plotly)
 
-green_blue_theme <- theme_colors_plotly('#293a0a', '#a5eff7')
+green_blue_theme <- theme_colors_plotly("#293a0a", "#a5eff7")
 
-fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = 'violin',
+fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = "violin",
                box = list(visible = TRUE),
                meanline = list(visible = TRUE),
-               points = 'all')
+               points = "all")
 
 fig |> green_blue_theme()
 ```
@@ -162,7 +162,7 @@ library(ggplot2)
 library(quarto)
 library(patchwork)
 
-darkred_grey_theme <- theme_colors_thematic('#560115', '#ddeeee');
+darkred_grey_theme <- theme_colors_thematic("#560115", "#ddeeee");
 
 #generate three scatterplots
 plot1 <- ggplot(mtcars, aes(mpg, wt)) +
