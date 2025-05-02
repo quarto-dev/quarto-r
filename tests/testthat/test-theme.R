@@ -31,14 +31,6 @@ test_that("render gt", {
 })
 
 
-test_that("render heatmaply", {
-  skip_if_no_quarto()
-  quarto_render("theme/heatmaply.qmd", quiet = TRUE)
-  expect_true(file.exists("theme/heatmaply.html"))
-  unlink("theme/heatmaply.html")
-})
-
-
 test_that("render plotly-r", {
   skip_if_no_quarto()
   quarto_render("theme/plotly-r.qmd", quiet = TRUE)

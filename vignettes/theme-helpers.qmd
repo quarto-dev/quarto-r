@@ -110,26 +110,6 @@ gt(islands_tbl) |> green_black_theme()
 ```
 
 
-## heatmaply
-
-Demonstrates a heatmaply interactive heatmap with an off-white background and blue foreground.
-
-
-
-```{r}
-#| echo: false
-#| warning: false
-library(heatmaply)
-library(quarto)
-
-offwhite_blue_theme <- theme_colors_plotly("#f4f4f7", "#2063b5")
-
-fig <- heatmaply(mtcars, k_row = 3, k_col = 2)
-
-fig |> offwhite_blue_theme()
-```
-
-
 ## plotly
 
 Demonstrates a heatmaply interactive heatmap with a dark green background background and light blue foreground.
