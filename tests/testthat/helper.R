@@ -165,20 +165,13 @@ transform_quarto_cli_in_output <- function(
           lines
         )
 
-        # Remove any file:/// (in stackstrace outputs)
-        lines <- gsub(
-          "file:[/]{2,3}(<quarto full path>)",
-          "file://<quarto full path>",
-          lines
-        )
-
         # Handle quarto.js in stackstrace outputs
         lines <- gsub(
-          "<quarto full path>/quarto.js",
-          "<quarto full path>\\quarto.js",
-          lines,
-          fixed = TRUE,
+          "file:[/]{2,3}<quarto full path>[/\\]quarto.js:\\d+:\\d+",
+          "<quarto.js full path with location>",
+          lines
         )
+        # fixup location differrence
       } else {
         # it will be quarto.exe only on windows
         lines <- gsub("quarto\\.(exe|cmd)", "quarto", lines)
