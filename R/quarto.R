@@ -72,10 +72,11 @@ quarto_run <- function(
       # if there is an error message from quarto CLI, add it to the message
       if (e$stderr != "") {
         quarto_error_msg <- xfun::split_lines(e$stderr)
+        names(quarto_error_msg) <- rep(" ", length(quarto_error_msg))
         msg <- c(
           msg,
           " " = paste0(rep("-", nchar(msg)), collapse = ""),
-          setNames(quarto_error_msg, rep(" ", length(quarto_error_msg)))
+          quarto_error_msg
         )
       }
 
