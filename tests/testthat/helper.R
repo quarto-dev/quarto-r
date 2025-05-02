@@ -173,7 +173,7 @@ transform_quarto_cli_in_output <- function(
         )
         # fixup binary name difference it exists in the output
         # windows is quarto.exe while quarto on other OS
-        lines <- gsub("quarto.exe", "<quarto binary>", lines)
+        lines <- gsub("quarto.exe", "quarto", lines, fixed = TRUE)
       } else {
         # it will be quarto.exe only on windows
         lines <- gsub("quarto\\.(exe|cmd)", "quarto", lines)
