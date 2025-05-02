@@ -25,21 +25,21 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # - {os: macos-latest,   r: 'release'}
-          # - {os: macos-latest,   r: 'release', quarto: 'pre-release'}
+          - {os: macos-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release', quarto: 'pre-release'}
 
           - {os: windows-latest, r: 'release'}
-          # - {os: windows-latest, r: 'release', quarto: 'pre-release'}
+          - {os: windows-latest, r: 'release', quarto: 'pre-release'}
           # use 4.1 to check with rtools40's older compiler
-          # - {os: windows-latest, r: '4.1'}
+          - {os: windows-latest, r: '4.1'}
 
-          # - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
-          # - {os: ubuntu-latest,  r: 'release'}
-          # - {os: ubuntu-latest,  r: 'release', quarto: 'pre-release'}
-          # - {os: ubuntu-latest,  r: 'oldrel-1'}
-          # - {os: ubuntu-latest,  r: 'oldrel-2'}
-          # - {os: ubuntu-latest,  r: 'oldrel-3'}
-          # - {os: ubuntu-latest,  r: 'oldrel-4'}
+          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,  r: 'release'}
+          - {os: ubuntu-latest,  r: 'release', quarto: 'pre-release'}
+          - {os: ubuntu-latest,  r: 'oldrel-1'}
+          - {os: ubuntu-latest,  r: 'oldrel-2'}
+          - {os: ubuntu-latest,  r: 'oldrel-3'}
+          - {os: ubuntu-latest,  r: 'oldrel-4'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -70,9 +70,6 @@ jobs:
           # install the package itself as we register vignette engine
           extra-packages: any::rcmdcheck, local::.
           needs: check
-
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
 
       - uses: r-lib/actions/check-r-package@v2
         with:
