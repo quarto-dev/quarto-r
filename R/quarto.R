@@ -3,16 +3,21 @@
 #' Determine the path to the quarto binary. Uses `QUARTO_PATH` environment
 #' variable if defined, otherwise uses `Sys.which()`.
 #'
+#' @param normalize If `TRUE` (default), normalize the path using [base::normalizePath()].
+#'
 #' @return Path to quarto binary (or `NULL` if not found)
 #'
 #' @export
-quarto_path <- function() {
+quarto_path <- function(normalize = TRUE) {
   path_env <- get_quarto_path_env()
   quarto_path <- if (is.na(path_env)) {
     path <- unname(Sys.which("quarto"))
     if (nzchar(path)) path else return(NULL)
   } else {
     path_env
+  }
+  if (!normalize) {
+    return(quarto_path)
   }
   normalizePath(quarto_path, winslash = "/", mustWork = FALSE)
 }

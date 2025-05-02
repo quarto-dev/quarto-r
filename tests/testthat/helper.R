@@ -158,6 +158,12 @@ transform_quarto_cli_in_output <- function(
         # look for normalized path
         lines <- hide_path(lines, quarto_found_normalized)
 
+        # look for specific non-symlink path from Quarto CLI output
+        non_normalized_path <- quarto_path(normalize = FALSE)
+        non_normalized_path_slash <- gsub("\\\\", "/", non_normalized_path)
+        lines <- hide_path(lines, non_normalized_path)
+        lines <- hide_path(lines, non_normalized_path_slash)
+
         # seems like there are quotes around path in CI windows
         lines <- gsub(
           "\"<quarto full path>([^\"]*)\"",

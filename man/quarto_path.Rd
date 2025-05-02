@@ -4,7 +4,10 @@
 \alias{quarto_path}
 \title{Path to the quarto binary}
 \usage{
-quarto_path()
+quarto_path(normalize = TRUE)
+}
+\arguments{
+\item{normalize}{If \code{TRUE} (default), normalize the path using \code{\link[base:normalizePath]{base::normalizePath()}}.}
 }
 \value{
 Path to quarto binary (or \code{NULL} if not found)
