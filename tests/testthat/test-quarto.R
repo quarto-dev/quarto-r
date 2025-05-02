@@ -14,6 +14,26 @@ test_that("quarto_run gives guidance in error", {
   )
 })
 
+test_that("quarto_run report full quarto cli error message", {
+  skip_if_no_quarto()
+  local_reproducible_output(width = 1000)
+  # Ensure we don't have colors in the output for quarto-cli error
+  withr::local_envvar(list(NO_COLOR = 1L))
+  # https://github.com/quarto-dev/quarto-r/issues/235
+  tmp_proj <- local_quarto_project(type = "book")
+  withr::local_dir(tmp_proj)
+  # simulate an error by renaming the intro.qmd
+  file.rename(from = "intro.qmd", to = "no_intro.qmd")
+  expect_snapshot(
+    error = TRUE,
+    quarto_inspect(),
+    transform = transform_quarto_cli_in_output(
+      full_path = TRUE,
+      dir_only = TRUE
+    )
+  )
+})
+
 test_that("is_using_quarto correctly check directory", {
   qmd <- local_qmd_file(c("content"))
   # Only qmd
@@ -63,7 +83,7 @@ test_that("quarto CLI sitrep", {
           lines,
           fixed = TRUE
         )
-        transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)(
+        transform_quarto_cli_in_output(full_path = TRUE)(
           lines
         )
       }
@@ -75,8 +95,7 @@ test_that("quarto CLI sitrep", {
     expect_snapshot(
       quarto_binary_sitrep(debug = TRUE),
       transform = transform_quarto_cli_in_output(
-        full_path = TRUE,
-        normalize_path = TRUE
+        full_path = TRUE
       )
     )
   )

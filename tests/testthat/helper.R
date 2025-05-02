@@ -63,6 +63,34 @@ local_qmd_file <- function(..., .env = parent.frame()) {
   path
 }
 
+local_quarto_project <- function(
+  name = "test-project",
+  type,
+  ...,
+  .env = parent.frame()
+) {
+  skip_if_no_quarto()
+  path_tmp <- withr::local_tempdir(
+    pattern = "quarto-tests-project-",
+    .local_envir = .env
+  )
+  tryCatch(
+    quarto_create_project(
+      name = name,
+      type = type,
+      dir = path_tmp,
+      no_prompt = TRUE,
+      quiet = TRUE,
+      ...
+    ),
+    error = function(e) {
+      stop("Creating temp project for tests failed", call. = FALSE)
+    }
+  )
+  # return the path to the created project
+  return(file.path(path_tmp, name))
+}
+
 .render <- function(input, output_file = NULL, ..., .env = parent.frame()) {
   skip_if_no_quarto()
   skip_if_not_installed("withr")
@@ -105,28 +133,66 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 
 transform_quarto_cli_in_output <- function(
   full_path = FALSE,
-  normalize_path = FALSE,
-  version = FALSE
+  version = FALSE,
+  dir_only = FALSE
 ) {
+  hide_path <- function(lines, real_path) {
+    gsub(
+      real_path,
+      "<quarto full path>",
+      lines,
+      fixed = TRUE
+    )
+  }
+
   return(
     function(lines) {
       if (full_path) {
         quarto_found <- find_quarto()
-        if (normalize_path) {
-          quarto_found <- normalizePath(quarto_found, mustWork = FALSE)
+        if (dir_only) {
+          quarto_found <- dirname(quarto_found)
         }
-        lines <- gsub(quarto_found, "<quarto full path>", lines, fixed = TRUE)
+        quarto_found_normalized <- normalizePath(quarto_found, mustWork = FALSE)
+        # look for non-normalized path
+        lines <- hide_path(lines, quarto_found)
+        # look for normalized path
+        lines <- hide_path(lines, quarto_found_normalized)
+
+        non_normalized_path <- quarto_path(normalize = FALSE)
+        non_normalized_path_slash <- gsub("\\\\", "/", non_normalized_path)
+        lines <- hide_path(lines, non_normalized_path)
+        lines <- hide_path(lines, non_normalized_path_slash)
+
         # seems like there are quotes around path in CI windows
         lines <- gsub(
-          "\"<quarto full path>\"",
-          "<quarto full path>",
-          lines,
-          fixed = TRUE
+          "\"<quarto full path>([^\"]*)\"",
+          "<quarto full path>\\1",
+          lines
         )
+
+        # Handle quarto.js in stackstrace outputs
+        lines <- gsub(
+          "file:[/]{2,3}<quarto full path>[/\\]quarto.js:\\d+:\\d+",
+          "<quarto.js full path with location>",
+          lines
+        )
+        # fixup binary name difference it exists in the output
+        # windows is quarto.exe while quarto on other OS
+        lines <- gsub("quarto.exe", "quarto", lines, fixed = TRUE)
       } else {
         # it will be quarto.exe only on windows
         lines <- gsub("quarto\\.(exe|cmd)", "quarto", lines)
       }
+
+      # fallback: Above can fail on some windows situation, so try a regex match
+      # it should only match windows path with Drive letters
+      lines <- gsub(
+        "file:[/]{2,3}[A-Za-z]:[\\\\/](?:[^:\\n]+[\\\\/])*bin[\\\\/]quarto\\.js:\\d+:\\d+",
+        "<quarto.js full path with location>",
+        lines,
+        perl = TRUE
+      )
+
       if (version) {
         lines <- gsub(quarto_version(), "<quarto version>", lines, fixed = TRUE)
       }
