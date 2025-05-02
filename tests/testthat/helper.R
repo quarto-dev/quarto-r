@@ -158,7 +158,6 @@ transform_quarto_cli_in_output <- function(
         # look for normalized path
         lines <- hide_path(lines, quarto_found_normalized)
 
-        # look for specific non-symlink path from Quarto CLI output
         non_normalized_path <- quarto_path(normalize = FALSE)
         non_normalized_path_slash <- gsub("\\\\", "/", non_normalized_path)
         lines <- hide_path(lines, non_normalized_path)
@@ -184,6 +183,16 @@ transform_quarto_cli_in_output <- function(
         # it will be quarto.exe only on windows
         lines <- gsub("quarto\\.(exe|cmd)", "quarto", lines)
       }
+
+      # fallback: Above can fail on some windows situation, so try a regex match
+      # it should only match windows path with Drive letters
+      lines <- gsub(
+        "file:[/]{2,3}[A-Za-z]:[\\\\/](?:[^:\\n]+[\\\\/])*bin[\\\\/]quarto\\.js:\\d+:\\d+",
+        "<quarto.js full path with location>",
+        lines,
+        perl = TRUE
+      )
+
       if (version) {
         lines <- gsub(quarto_version(), "<quarto version>", lines, fixed = TRUE)
       }
