@@ -171,7 +171,9 @@ transform_quarto_cli_in_output <- function(
           "<quarto.js full path with location>",
           lines
         )
-        # fixup location differrence
+        # fixup binary name difference it exists in the output
+        # windows is quarto.exe while quarto on other OS
+        lines <- gsub("quarto.exe", "<quarto binary>", lines)
       } else {
         # it will be quarto.exe only on windows
         lines <- gsub("quarto\\.(exe|cmd)", "quarto", lines)

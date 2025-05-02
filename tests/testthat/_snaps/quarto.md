@@ -32,7 +32,7 @@
         at async Command.execute (<quarto.js full path with location>)
         
       Caused by error:
-      ! System command 'quarto.exe' failed
+      ! System command '<quarto binary>' failed
 
 # is_using_quarto correctly check directory
 
