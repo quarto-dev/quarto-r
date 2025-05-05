@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Add some helpers function `theme_brand_*` and `theme_colors_*` to help theme with dark and light brand using some common graph and table packages (thanks,  @gordonwoodhull, [#234](https://github.com/quarto-dev/quarto-r/issues/234)).
+
 - Add `quarto.quiet` options to allow more verbose error message when `quarto_*` function are used inside other package. 
   For example, inside **pkgdown** for building Quarto vignettes. **pkgdown** sets `quiet = TRUE` internally for its call to `quarto_render()`, 
   and setting `options(quarto.quiet = TRUE)` allows to overwrite this.
