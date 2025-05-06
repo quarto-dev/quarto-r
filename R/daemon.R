@@ -6,7 +6,8 @@ run_serve_daemon <- function(
   render,
   port,
   host,
-  browse
+  browse,
+  quiet = FALSE
 ) {
   # resolve target if provided
   if (!is.null(target)) {
@@ -75,6 +76,13 @@ run_serve_daemon <- function(
   # no browse (we'll use browseURL)
   args <- c(args, "--no-browse")
 
+  # quiet mode
+  quiet_msg_suffix <- NULL
+  if (is_quiet(quiet)) {
+    args <- cli_arg_quiet(args)
+    quiet_msg_suffix <- " Set `quiet = FALSE` to have more information from quarto CLI output."
+  }
+
   # add extra args
   args <- c(args, extra_args)
 
@@ -92,10 +100,12 @@ run_serve_daemon <- function(
   init <- ""
   while (!port_active(port)) {
     quarto[[ps_key]]$poll_io(50)
-    cat(quarto[[ps_key]]$read_output())
+    if (isFALSE(quiet)) {
+      cat(quarto[[ps_key]]$read_output())
+    }
     if (!quarto[[ps_key]]$is_alive()) {
       stop_serve_daemon(command)
-      stop("Error starting quarto")
+      stop("Error starting quarto.", quiet_msg_suffix)
     }
   }
   quarto[[port_key]] <- port
@@ -105,22 +115,25 @@ run_serve_daemon <- function(
     if (is.null(quarto[[ps_key]])) {
       return()
     }
-    ro <- quarto[[ps_key]]$read_output()
-    cat(ro)
-    # Look at url to browse too in `quarto preview log`
-    if (
-      !isFALSE(browse) &&
-        is.null(quarto[[url_key]]) &&
-        grepl("Browse at https?://", ro)
-    ) {
-      m <- regexec("Browse at (https?://[^ ]+)\n", ro)
-      quarto[[url_key]] <- regmatches(ro, m)[[1]][2]
+    # No output to read url from if quiet
+    if (isFALSE(quiet)) {
+      ro <- quarto[[ps_key]]$read_output()
+      cat(ro)
+      # Look at url to browse too in `quarto preview log`
+      if (
+        !isFALSE(browse) &&
+          is.null(quarto[[url_key]]) &&
+          grepl("Browse at https?://", ro)
+      ) {
+        m <- regexec("Browse at (https?://[^ ]+)\n", ro)
+        quarto[[url_key]] <- regmatches(ro, m)[[1]][2]
+      }
     }
     if (!quarto[[ps_key]]$is_alive()) {
       status <- quarto[[ps_key]]$get_exit_status()
       quarto[[ps_key]] <- NULL
       if (status != 0) {
-        stop("Error running quarto ", command)
+        stop("Error running quarto ", command, quiet_msg_suffix)
       }
       return()
     }
@@ -129,7 +142,9 @@ run_serve_daemon <- function(
   poll_process()
 
   # indicate server is running
-  cat(paste0("Stop the preview with quarto_", command, "_stop()"))
+  if (isFALSE(quiet)) {
+    cat(paste0("Stop the preview with quarto_", command, "_stop()"))
+  }
 
   # run the preview browser
   if (!isFALSE(browse)) {

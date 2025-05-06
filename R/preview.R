@@ -69,9 +69,6 @@ quarto_preview <- function(
   if (isFALSE(navigate)) {
     args <- c("--no-navigate")
   }
-  if (is_quiet(quiet)) {
-    args <- cli_arg_quiet(args)
-  }
 
   # serve
   run_serve_daemon(
@@ -82,7 +79,8 @@ quarto_preview <- function(
     render,
     port,
     host,
-    browse
+    browse,
+    quiet = quiet
   )
 }
 
