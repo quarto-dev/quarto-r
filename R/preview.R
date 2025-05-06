@@ -21,7 +21,8 @@
 #' @param watch Watch for changes and automatically reload browser.
 #' @param navigate Automatically navigate the preview browser to the most
 #'   recently rendered document.
-#' @param quiet Suppress warning and other messages.
+#' @param quiet Suppress warning and other messages, from R and also Quarto CLI
+#'   (i.e `--quiet` is passed as command line)
 #'
 #' @importFrom processx process
 #' @importFrom rstudioapi isAvailable
