@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,8 @@
 <span>  host <span class="op">=</span> <span class="st">"127.0.0.1"</span>,</span>
 <span>  browse <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  watch <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  navigate <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  navigate <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">quarto_preview_stop</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -97,6 +98,11 @@ RStudio Viewer when running within RStudio.Pass a function (e.g.
 <dt id="arg-navigate">navigate<a class="anchor" aria-label="anchor" href="#arg-navigate"></a></dt>
 <dd><p>Automatically navigate the preview browser to the most
 recently rendered document.</p></dd>
+
+
+<dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
+<dd><p>Suppress warning and other messages, from R and also Quarto CLI
+(i.e <code>--quiet</code> is passed as command line)</p></dd>
 
 </dl></div>
     <div class="section level2">
