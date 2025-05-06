@@ -21,6 +21,8 @@
 #' @param watch Watch for changes and automatically reload browser.
 #' @param navigate Automatically navigate the preview browser to the most
 #'   recently rendered document.
+#' @param quiet Suppress warning and other messages, from R and also Quarto CLI
+#'   (i.e `--quiet` is passed as command line)
 #'
 #' @importFrom processx process
 #' @importFrom rstudioapi isAvailable
@@ -52,7 +54,8 @@ quarto_preview <- function(
   host = "127.0.0.1",
   browse = TRUE,
   watch = TRUE,
-  navigate = TRUE
+  navigate = TRUE,
+  quiet = FALSE
 ) {
   # default for file
   if (is.null(file)) {
@@ -77,7 +80,8 @@ quarto_preview <- function(
     render,
     port,
     host,
-    browse
+    browse,
+    quiet = quiet
   )
 }
 
