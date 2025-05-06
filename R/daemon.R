@@ -7,7 +7,8 @@ run_serve_daemon <- function(
   port,
   host,
   browse,
-  quiet = FALSE
+  quiet = FALSE,
+  .call = rlang::caller_env()
 ) {
   # resolve target if provided
   if (!is.null(target)) {
@@ -40,14 +41,14 @@ run_serve_daemon <- function(
     } else {
       port <- find_port()
       if (is.null(port)) {
-        stop("Unable to find port to start server on")
+        cli::cli_abort("Unable to find port to start server on.", call = .call)
       }
     }
   }
 
   # check for port availability
   if (port_active(port)) {
-    stop("Server port ", port, " already in use.")
+    cli::cli_abort("Server port {port} already in use.", call = .call)
   }
 
   # command and target
@@ -80,7 +81,7 @@ run_serve_daemon <- function(
   quiet_msg_suffix <- NULL
   if (is_quiet(quiet)) {
     args <- cli_arg_quiet(args)
-    quiet_msg_suffix <- " Set `quiet = FALSE` to have more information from quarto CLI output."
+    quiet_msg_suffix <- " Set {.code quiet = FALSE} to have more information from quarto CLI output."
   }
 
   # add extra args
@@ -105,7 +106,7 @@ run_serve_daemon <- function(
     }
     if (!quarto[[ps_key]]$is_alive()) {
       stop_serve_daemon(command)
-      stop("Error starting quarto.", quiet_msg_suffix)
+      cli::cli_abort(c(x = "Error starting quarto.", quiet_msg_suffix))
     }
   }
   quarto[[port_key]] <- port
@@ -133,7 +134,10 @@ run_serve_daemon <- function(
       status <- quarto[[ps_key]]$get_exit_status()
       quarto[[ps_key]] <- NULL
       if (status != 0) {
-        stop("Error running quarto ", command, quiet_msg_suffix)
+        cli::cli_abort(c(
+          x = "Error running {.code quarto {command}}.",
+          quiet_msg_suffix
+        ))
       }
       return()
     }
@@ -143,7 +147,11 @@ run_serve_daemon <- function(
 
   # indicate server is running
   if (isFALSE(quiet)) {
-    cat(paste0("Stop the preview with quarto_", command, "_stop()"))
+    cli::cli
+    cli::cli_inform(c(
+      "",
+      i = "Stop the preview with {.code quarto_{command}_stop()}"
+    ))
   }
 
   # run the preview browser
