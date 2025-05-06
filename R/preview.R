@@ -46,14 +46,16 @@
 #' }
 #'
 #' @export
-quarto_preview <- function(file = NULL,
-                           render = "auto",
-                           port = "auto",
-                           host = "127.0.0.1",
-                           browse = TRUE,
-                           watch = TRUE,
-                           navigate = TRUE,
-                           quiet = FALSE) {
+quarto_preview <- function(
+  file = NULL,
+  render = "auto",
+  port = "auto",
+  host = "127.0.0.1",
+  browse = TRUE,
+  watch = TRUE,
+  navigate = TRUE,
+  quiet = FALSE
+) {
   # default for file
   if (is.null(file)) {
     file <- getwd()

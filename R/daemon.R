@@ -1,4 +1,13 @@
-run_serve_daemon <- function(command, target, wd, extra_args, render, port, host, browse) {
+run_serve_daemon <- function(
+  command,
+  target,
+  wd,
+  extra_args,
+  render,
+  port,
+  host,
+  browse
+) {
   # resolve target if provided
   if (!is.null(target)) {
     target <- path.expand(target)
@@ -91,8 +100,6 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   }
   quarto[[port_key]] <- port
 
-
-
   # monitor the process for abnormal exit
   poll_process <- function() {
     if (is.null(quarto[[ps_key]])) {
@@ -101,7 +108,11 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
     ro <- quarto[[ps_key]]$read_output()
     cat(ro)
     # Look at url to browse too in `quarto preview log`
-    if (!isFALSE(browse) && is.null(quarto[[url_key]]) && grepl("Browse at https?://", ro)) {
+    if (
+      !isFALSE(browse) &&
+        is.null(quarto[[url_key]]) &&
+        grepl("Browse at https?://", ro)
+    ) {
       m <- regexec("Browse at (https?://[^ ]+)\n", ro)
       quarto[[url_key]] <- regmatches(ro, m)[[1]][2]
     }
@@ -117,14 +128,14 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   }
   poll_process()
 
-
   # indicate server is running
   cat(paste0("Stop the preview with quarto_", command, "_stop()"))
 
   # run the preview browser
   if (!isFALSE(browse)) {
     if (!is.function(browse)) {
-      browse <- ifelse(rstudioapi::isAvailable(),
+      browse <- ifelse(
+        rstudioapi::isAvailable(),
         rstudioapi::viewer,
         utils::browseURL
       )

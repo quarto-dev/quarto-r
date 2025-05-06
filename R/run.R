@@ -11,11 +11,13 @@
 #' @inheritParams quarto_preview
 #'
 #' @export
-quarto_serve <- function(input,
-                         render = TRUE,
-                         port = getOption("shiny.port"),
-                         host = getOption("shiny.host", "127.0.0.1"),
-                         browse = TRUE) {
+quarto_serve <- function(
+  input,
+  render = TRUE,
+  port = getOption("shiny.port"),
+  host = getOption("shiny.host", "127.0.0.1"),
+  browse = TRUE
+) {
   # render if requested
   if (render) {
     quarto_render(input)

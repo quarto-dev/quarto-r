@@ -15,7 +15,12 @@ test_that("metadata argument works in quarto_render", {
   skip_if_no_quarto()
   qmd <- local_qmd_file(c("content"))
   # metadata
-  expect_snapshot_qmd_output(name = "metadata", input = qmd, output_format = "native", metadata = list(title = "test"))
+  expect_snapshot_qmd_output(
+    name = "metadata",
+    input = qmd,
+    output_format = "native",
+    metadata = list(title = "test")
+  )
 })
 
 test_that("metadata-file argument works in quarto_render", {
@@ -42,7 +47,8 @@ test_that("metadata-file and metadata are merged in quarto_render", {
     name = "metadata-merged",
     input = qmd,
     output_format = "native",
-    metadata_file = yaml, metadata = list(title = "test2")
+    metadata_file = yaml,
+    metadata = list(title = "test2")
   )
 })
 
