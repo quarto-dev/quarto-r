@@ -1,5 +1,8 @@
 # quarto (development version)
 
+- Add several new wrapper function: 
+  - `quarto_list_extensions()` to list installed extensions using `quarto list extensions`
+
 - `quarto_preview()` gains a `quiet` argument to suppress any output from R or Quarto CLI (thanks, @cwickham, #232.)
 
 - Add some helpers function `theme_brand_*` and `theme_colors_*` to help theme with dark and light brand using some common graph and table packages (thanks,  @gordonwoodhull, [#234](https://github.com/quarto-dev/quarto-r/issues/234)).

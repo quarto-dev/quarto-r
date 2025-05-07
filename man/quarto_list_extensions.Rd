@@ -4,15 +4,10 @@
 \alias{quarto_list_extensions}
 \title{List Installed Quarto extensions}
 \usage{
-quarto_list_extensions(quiet = FALSE, quarto_args = NULL)
+quarto_list_extensions()
 }
-\arguments{
-\item{quiet}{Suppress warning and other messages.}
-
-\item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
-to the Quarto command executed by this function. This is mainly intended for
-advanced usage and useful for CLI arguments which are not yet mirrored in a
-dedicated parameter of this \R function. See \verb{quarto render --help} for options.}
+\value{
+A data frame with the installed extensions or NULL (invisibly) if no extensions are installed.
 }
 \description{
 List Quarto Extensions in this folder or project by running \verb{quarto list}
