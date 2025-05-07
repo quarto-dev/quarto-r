@@ -4,12 +4,33 @@ test_that("quarto_version returns a numeric version", {
 })
 
 test_that("quarto_run gives guidance in error", {
-  skip_if_no_quarto()
+  # we need to skip previous versions because 1.5.41 introduced an issue solved completely in 1.5.56
+  skip_if_quarto_between("1.5.41", "1.5.55")
   local_reproducible_output(width = 1000)
   expect_snapshot(
     error = TRUE,
     quarto_run(c("rend", "--quiet")),
     transform = transform_quarto_cli_in_output()
+  )
+})
+
+test_that("quarto_run report full quarto cli error message", {
+  skip_if_no_quarto()
+  local_reproducible_output(width = 1000)
+  # Ensure we don't have colors in the output for quarto-cli error
+  withr::local_envvar(list(NO_COLOR = 1L))
+  # https://github.com/quarto-dev/quarto-r/issues/235
+  tmp_proj <- local_quarto_project(type = "book")
+  withr::local_dir(tmp_proj)
+  # simulate an error by renaming the intro.qmd
+  file.rename(from = "intro.qmd", to = "no_intro.qmd")
+  expect_snapshot(
+    error = TRUE,
+    quarto_inspect(),
+    transform = transform_quarto_cli_in_output(
+      full_path = TRUE,
+      dir_only = TRUE
+    )
   )
 })
 
@@ -19,7 +40,10 @@ test_that("is_using_quarto correctly check directory", {
   expect_true(is_using_quarto(dirname(qmd)))
   expect_snapshot(is_using_quarto(dirname(qmd), verbose = TRUE))
   # qmd and _quarto.yml
-  write_yaml(list(project = list(type = "default")), file = file.path(dirname(qmd), "_quarto.yml"))
+  write_yaml(
+    list(project = list(type = "default")),
+    file = file.path(dirname(qmd), "_quarto.yml")
+  )
   expect_true(is_using_quarto(dirname(qmd)))
   expect_snapshot(is_using_quarto(dirname(qmd), verbose = TRUE))
   # Only _quarto.yml
@@ -44,7 +68,8 @@ test_that("quarto CLI sitrep", {
     list(QUARTO_PATH = dummy_quarto_path, RSTUDIO_QUARTO = NA),
     expect_snapshot(
       quarto_binary_sitrep(debug = TRUE),
-      transform = function(lines) gsub(dummy_quarto_path, "<QUARTO_PATH path>", lines, fixed = TRUE)
+      transform = function(lines)
+        gsub(dummy_quarto_path, "<QUARTO_PATH path>", lines, fixed = TRUE)
     )
   )
   withr::with_envvar(
@@ -52,8 +77,15 @@ test_that("quarto CLI sitrep", {
     expect_snapshot(
       quarto_binary_sitrep(debug = TRUE),
       transform = function(lines) {
-        lines <- gsub(dummy_quarto_path, "<RSTUDIO_QUARTO path>", lines, fixed = TRUE)
-        transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)(lines)
+        lines <- gsub(
+          dummy_quarto_path,
+          "<RSTUDIO_QUARTO path>",
+          lines,
+          fixed = TRUE
+        )
+        transform_quarto_cli_in_output(full_path = TRUE)(
+          lines
+        )
       }
     )
   )
@@ -62,7 +94,9 @@ test_that("quarto CLI sitrep", {
     list(QUARTO_PATH = NA, RSTUDIO_QUARTO = NA),
     expect_snapshot(
       quarto_binary_sitrep(debug = TRUE),
-      transform = transform_quarto_cli_in_output(full_path = TRUE, normalize_path = TRUE)
+      transform = transform_quarto_cli_in_output(
+        full_path = TRUE
+      )
     )
   )
 
@@ -73,4 +107,17 @@ test_that("quarto CLI sitrep", {
       quarto_binary_sitrep(debug = TRUE)
     )
   )
+})
+
+
+test_that("quarto.quiet options controls echo and overwrite function argument", {
+  skip_if_no_quarto()
+  skip_on_cran()
+  qmd <- local_qmd_file("content")
+  withr::with_options(list(quarto.quiet = TRUE), {
+    expect_output(quarto_render(qmd, quiet = FALSE), regexp = NA)
+  })
+  withr::with_options(list(quarto.quiet = FALSE), {
+    expect_output(quarto_render(qmd, quiet = TRUE))
+  })
 })

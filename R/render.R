@@ -6,7 +6,7 @@
 #'
 #' @param input The input file or project directory to be rendered (defaults
 #'   to rendering the project in the current working directory).
-#' @param output_format Target output format (defaults to "html"). The option
+#' @param output_format Target output format (defaults to `"html"`). The option
 #'   `"all"` will render all formats defined within the file or project.
 #' @param output_file The name of the output file. If using `NULL`, the output
 #'   filename will be based on the filename for the input file. `output_file` is
@@ -46,7 +46,7 @@
 #'   advanced usage and useful for CLI arguments which are not yet mirrored in a
 #'   dedicated parameter of this \R function. See `quarto render --help` for options.
 #' @param pandoc_args Additional command line arguments to pass on to Pandoc.
-#' @param as_job Render as an RStudio background job. Default is "auto",
+#' @param as_job Render as an RStudio background job. Default is `"auto"`,
 #'   which will render individual documents normally and projects as
 #'   background jobs. Use the `quarto.render_as_job` \R option to control
 #'   the default globally.
@@ -69,26 +69,28 @@
 #' quarto_render("notebook.Rmd", metadata = list(lang = "fr", execute = list(echo = FALSE)))
 #' }
 #' @export
-quarto_render <- function(input = NULL,
-                          output_format = NULL,
-                          output_file = NULL,
-                          execute = TRUE,
-                          execute_params = NULL,
-                          execute_dir = NULL,
-                          execute_daemon = NULL,
-                          execute_daemon_restart = FALSE,
-                          execute_debug = FALSE,
-                          use_freezer = FALSE,
-                          cache = NULL,
-                          cache_refresh = FALSE,
-                          metadata = NULL,
-                          metadata_file = NULL,
-                          debug = FALSE,
-                          quiet = FALSE,
-                          profile = NULL,
-                          quarto_args = NULL,
-                          pandoc_args = NULL,
-                          as_job = getOption("quarto.render_as_job", "auto")) {
+quarto_render <- function(
+  input = NULL,
+  output_format = NULL,
+  output_file = NULL,
+  execute = TRUE,
+  execute_params = NULL,
+  execute_dir = NULL,
+  execute_daemon = NULL,
+  execute_daemon_restart = FALSE,
+  execute_debug = FALSE,
+  use_freezer = FALSE,
+  cache = NULL,
+  cache_refresh = FALSE,
+  metadata = NULL,
+  metadata_file = NULL,
+  debug = FALSE,
+  quiet = FALSE,
+  profile = NULL,
+  quarto_args = NULL,
+  pandoc_args = NULL,
+  as_job = getOption("quarto.render_as_job", "auto")
+) {
   # get quarto binary
   quarto_bin <- find_quarto()
 
@@ -105,7 +107,9 @@ quarto_render <- function(input = NULL,
 
   # render as job if requested and running within rstudio
   if (as_job && rstudioapi::isAvailable()) {
-    message("Rendering project as background job (use as_job = FALSE to override)")
+    message(
+      "Rendering project as background job (use as_job = FALSE to override)"
+    )
     script <- tempfile(fileext = ".R")
     writeLines(
       c("library(quarto)", deparse(sys.call())),
@@ -119,7 +123,6 @@ quarto_render <- function(input = NULL,
     )
     return(invisible(NULL))
   }
-
 
   # build args
   args <- c("render", input)
@@ -162,7 +165,10 @@ quarto_render <- function(input = NULL,
   if (!missing(metadata)) {
     # We merge meta if there is metadata_file passed
     if (!missing(metadata_file)) {
-      metadata <- merge_list(yaml::read_yaml(metadata_file, eval.expr = FALSE), metadata)
+      metadata <- merge_list(
+        yaml::read_yaml(metadata_file, eval.expr = FALSE),
+        metadata
+      )
     }
     meta_file <- tempfile(pattern = "quarto-meta", fileext = ".yml")
     on.exit(unlink(meta_file), add = TRUE)
@@ -174,7 +180,7 @@ quarto_render <- function(input = NULL,
   if (isTRUE(debug)) {
     args <- c(args, "--debug")
   }
-  if (isTRUE(quiet)) {
+  if (is_quiet(quiet)) {
     args <- cli_arg_quiet(args)
   }
   if (!is.null(profile)) {
