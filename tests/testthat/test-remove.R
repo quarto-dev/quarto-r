@@ -3,17 +3,15 @@ test_that("Removing an extension", {
   skip_if_offline("github.com")
   qmd <- local_qmd_file(c("content"))
   withr::local_dir(dirname(qmd))
-  expect_null(quarto_remove_extension(
+  expect_snapshot(expect_false(quarto_remove_extension(
     "quarto-ext/fontawesome",
-    no_prompt = TRUE,
-    quiet = TRUE
-  ))
+    no_prompt = TRUE
+  )))
   quarto_add_extension("quarto-ext/fontawesome", no_prompt = TRUE, quiet = TRUE)
   expect_true(dir.exists("_extensions/quarto-ext/fontawesome"))
-  quarto_remove_extension(
+  expect_snapshot(expect_true(quarto_remove_extension(
     "quarto-ext/fontawesome",
-    no_prompt = TRUE,
-    quiet = TRUE
-  )
-  expect_true(!dir.exists("_extensions/quarto-ext/fontawesome"))
+    no_prompt = TRUE
+  )))
+  expect_false(dir.exists("_extensions"))
 })

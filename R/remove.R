@@ -2,38 +2,38 @@
 #'
 #' Remove an extension in this folder or project by running `quarto remove`
 #'
-#' # Extension Trust
-#'
-#' Quarto extensions may execute code when documents are rendered. Therefore, if
-#' you do not trust the author of an extension, we recommend that you do not
-#' install or use the extension.
-#' By default `no_prompt = FALSE` which means that
-#' the function will ask for explicit approval when used interactively, or
-#' disallow installation.
-#'
 #' @inheritParams quarto_render
 #'
-#' @param extension The extension to remove, either an archive or a GitHub
-#'   repository as described in the documentation
-#'   <https://quarto.org/docs/extensions/managing.html>.
+#' @param extension The extension name to remove, as in `quarto remove <extension-name>`.
 #'
 #' @param no_prompt Do not prompt to confirm approval to download external extension.
+#'
+#'
+#' @return Returns invisibly `TRUE` if the extension was removed, `FALSE` otherwise.
+#'
+#' @seealso `quarto_add_extension()` and [Quarto Website](https://quarto.org/docs/extensions/managing.html).
 #'
 #' @examples
 #' \dontrun{
 #' # Remove an already installed extension
-#' quarto_remove_extension("quarto-ext/fontawesome")
+#' quarto_remove_extensions("quarto-ext/fontawesome")
 #' }
-#' @importFrom rlang is_interactive
-#' @importFrom cli cli_abort
 #' @export
-quarto_remove_extension <- function(
+quarto_remove_extensions <- function(
   extension = NULL,
   no_prompt = FALSE,
   quiet = FALSE,
   quarto_args = NULL
 ) {
   rlang::check_required(extension)
+
+  installed_extensions <- quarto_list_extensions()
+  if (is.null(installed_extensions)) {
+    if (!quiet) {
+      cli::cli_alert_warning("No extensions installed.")
+    }
+    return(invisible(FALSE))
+  }
 
   quarto_bin <- find_quarto()
 
@@ -46,10 +46,15 @@ quarto_remove_extension <- function(
 
   if (approval) {
     args <- c(extension, "--no-prompt", if (quiet) cli_arg_quiet(), quarto_args)
-    quarto_remove(args, quarto_bin = quarto_bin, echo = TRUE)
+    quarto_remove(args, quarto_bin = quarto_bin, echo = FALSE)
+    if (!quiet) {
+      cli::cli_alert_success(
+        "Extension {.code {extension}} successfully removed."
+      )
+    }
   }
 
-  invisible()
+  invisible(TRUE)
 }
 
 quarto_remove <- function(args = character(), ...) {
