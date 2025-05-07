@@ -10,7 +10,6 @@
 #' @param fg The foreground color
 #' @param brand_yml The path to a brand.yml file
 
-
 #' @rdname theme_helpers
 #'
 #' @export
@@ -41,7 +40,8 @@ theme_colors_ggplot <- function(bg, fg) {
   if (!requireNamespace("ggplot2", quietly = TRUE)) {
     return(NULL)
   }
-  ggplot2::`%+%`(ggplot2::theme_minimal(base_size = 11),
+  ggplot2::`%+%`(
+    ggplot2::theme_minimal(base_size = 11),
     ggplot2::theme(
       panel.border = ggplot2::element_blank(),
       panel.grid.major.y = ggplot2::element_blank(),
@@ -54,7 +54,8 @@ theme_colors_ggplot <- function(bg, fg) {
       plot.background = ggplot2::element_rect(fill = bg, colour = NA),
       axis.line = ggplot2::element_line(colour = fg),
       axis.ticks = ggplot2::element_line(colour = fg)
-    ))
+    )
+  )
 }
 
 #' @rdname theme_helpers
@@ -92,10 +93,12 @@ theme_brand_gt <- function(brand_yml) {
 #' @export
 theme_colors_plotly <- function(bg, fg) {
   (function(plot) {
-    plot |> plotly::layout(paper_bgcolor = bg,
-      plot_bgcolor = bg,
-      font = list(color = fg)
-    )
+    plot |>
+      plotly::layout(
+        paper_bgcolor = bg,
+        plot_bgcolor = bg,
+        font = list(color = fg)
+      )
   })
 }
 
@@ -116,7 +119,8 @@ theme_colors_thematic <- function(bg, fg) {
     thematic::thematic_rmd(
       bg = bg,
       fg = fg,
-  )})
+    )
+  })
 }
 
 #' @rdname theme_helpers

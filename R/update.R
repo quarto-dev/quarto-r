@@ -31,13 +31,22 @@
 #' @importFrom rlang is_interactive
 #' @importFrom cli cli_abort
 #' @export
-quarto_update_extension <- function(extension = NULL, no_prompt = FALSE, quiet = FALSE, quarto_args = NULL) {
+quarto_update_extension <- function(
+  extension = NULL,
+  no_prompt = FALSE,
+  quiet = FALSE,
+  quarto_args = NULL
+) {
   rlang::check_required(extension)
 
   quarto_bin <- find_quarto()
 
   # This will ask for approval or stop installation
-  approval <- check_extension_approval(no_prompt, "Quarto extensions", "https://quarto.org/docs/extensions/managing.html")
+  approval <- check_extension_approval(
+    no_prompt,
+    "Quarto extensions",
+    "https://quarto.org/docs/extensions/managing.html"
+  )
 
   if (approval) {
     args <- c(extension, "--no-prompt", if (quiet) cli_arg_quiet(), quarto_args)

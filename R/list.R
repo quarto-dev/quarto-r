@@ -14,7 +14,7 @@
 #' @importFrom cli cli_abort
 #' @importFrom utils read.table
 #' @export
-quarto_list_extensions <- function(quiet = FALSE, quarto_args = NULL){
+quarto_list_extensions <- function(quiet = FALSE, quarto_args = NULL) {
   quarto_bin <- find_quarto()
 
   args <- c("extensions", if (quiet) cli_arg_quiet(), quarto_args)
@@ -23,11 +23,17 @@ quarto_list_extensions <- function(quiet = FALSE, quarto_args = NULL){
   stderr_cleaned <- gsub("\\s+$", "", x$stderr)
   if (grepl("No extensions are installed", stderr_cleaned)) {
     invisible()
-  } else{
-    invisible(utils::read.table(text = stderr_cleaned, header = TRUE, fill = TRUE, sep = "", stringsAsFactors = FALSE))
+  } else {
+    invisible(utils::read.table(
+      text = stderr_cleaned,
+      header = TRUE,
+      fill = TRUE,
+      sep = "",
+      stringsAsFactors = FALSE
+    ))
   }
 }
 
-quarto_list <- function(args = character(), ...){
+quarto_list <- function(args = character(), ...) {
   quarto_run_what("list", args = args, ...)
 }

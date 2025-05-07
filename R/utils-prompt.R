@@ -32,7 +32,11 @@ check_extension_approval <- function(
   }
 }
 
-check_removal_approval <- function(no_prompt = FALSE, what = "Something", see_more_at = NULL) {
+check_removal_approval <- function(
+  no_prompt = FALSE,
+  what = "Something",
+  see_more_at = NULL
+) {
   if (no_prompt) return(TRUE)
 
   if (!is_interactive()) {
@@ -44,7 +48,10 @@ check_removal_approval <- function(no_prompt = FALSE, what = "Something", see_mo
       }
     ))
   } else {
-    prompt_value <- tolower(readline(sprintf("? Are you sure you'd like to remove %s (Y/n)? ", what)))
+    prompt_value <- tolower(readline(sprintf(
+      "? Are you sure you'd like to remove %s (Y/n)? ",
+      what
+    )))
     if (!prompt_value %in% "y") {
       return(invisible(FALSE))
     }

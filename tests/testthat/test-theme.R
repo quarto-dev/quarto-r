@@ -1,4 +1,3 @@
-
 test_that("render flextable", {
   skip_if_no_quarto()
   quarto_render("theme/flextable.qmd", quiet = TRUE)
@@ -45,4 +44,3 @@ test_that("render thematic", {
   expect_true(file.exists("theme/thematic.html"))
   unlink("theme/thematic.html")
 })
-
