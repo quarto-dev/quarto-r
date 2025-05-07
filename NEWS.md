@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- `quarto_create_project()` offers better user experience now (thanks, @jennybc, #206, #153).
+
 - `quarto_preview()` gains a `quiet` argument to suppress any output from R or Quarto CLI (thanks, @cwickham, #232.)
 
 - Add some helpers function `theme_brand_*` and `theme_colors_*` to help theme with dark and light brand using some common graph and table packages (thanks,  @gordonwoodhull, [#234](https://github.com/quarto-dev/quarto-r/issues/234)).

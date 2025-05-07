@@ -1,23 +1,31 @@
 #' Create a quarto project
 #'
-#' This function calls `quarto create project <type> <name>`. It will create a
-#' new directory with the project name and add some skeletons files for the
-#' project type chosen.
+#' This function calls `quarto create project <type> <name>`. It creates a new
+#' directory with the project name, inside the requested parent directory, and
+#' adds some starter files that are appropriate to the project type.
 #'
 #' # Quarto version required
 #'
-#' This function require Quarto 1.4 or higher. Use [`quarto_version()`]to check
-#' the version of Quarto detected.
+#' This function requires Quarto 1.4 or higher. Use [quarto_version()] to see
+#' your current Quarto version.
 #'
-#' @param type The type of project to create. As of 1.4, it can be one of
+#' @param type The type of project to create. As of Quarto 1.4, it can be one of
 #'   `r paste0("\\code{", paste(quarto_project_type, collapse = "}, \\code{"),"}")`.
 #' @param name The name of the project and the directory that will be created.
-#' @param dir  The directory where to create the new Quarto project.
+#' @param dir The directory in which to create the new Quarto project, i.e. the
+#'   parent directory.
 #'
 #' @seealso Quarto documentation on [Quarto projects](https://quarto.org/docs/projects/quarto-projects.html)
 #'
 #' @inheritParams quarto_render
-#' @inheritParams quarto_add_extension
+#' @param no_prompt Do not prompt to approve the creation of the new project
+#'   folder.
+#'
+#' @examples
+#' \dontrun{
+#' quarto_create_project("my-first-quarto-project", dir = "~/tmp")
+#' }
+#'
 #'
 #' @export
 quarto_create_project <- function(
@@ -43,7 +51,7 @@ quarto_create_project <- function(
       "This will create a new Quarto {.emph {type}} project as a folder named {.strong {name}} in {.path {xfun::normalize_path(dir)}}."
     ))
     prompt_value <- tolower(readline(sprintf("Do you want to proceed (Y/n)? ")))
-    if (!prompt_value %in% "y") {
+    if (!prompt_value %in% c("", "y")) {
       cli::cli_abort("Operation aborted.")
     }
   }
@@ -53,6 +61,7 @@ quarto_create_project <- function(
   args <- c(
     "project",
     type,
+    name,
     name,
     "--no-prompt",
     "--no-open",
