@@ -28,8 +28,19 @@
 #'
 #'
 #' @export
-quarto_create_project <- function(name, type = "default", dir = ".", no_prompt = FALSE, quiet = FALSE, quarto_args = NULL) {
-  check_quarto_version("1.4", "quarto create project", "https://quarto.org/docs/projects/quarto-projects.html")
+quarto_create_project <- function(
+  name,
+  type = "default",
+  dir = ".",
+  no_prompt = FALSE,
+  quiet = FALSE,
+  quarto_args = NULL
+) {
+  check_quarto_version(
+    "1.4",
+    "quarto create project",
+    "https://quarto.org/docs/projects/quarto-projects.html"
+  )
 
   if (rlang::is_missing(name)) {
     cli::cli_abort("You need to provide {.arg name} for the new project.")
@@ -47,7 +58,16 @@ quarto_create_project <- function(name, type = "default", dir = ".", no_prompt =
 
   quarto_bin <- find_quarto()
 
-  args <- c("project", type, name, name, "--no-prompt", "--no-open", if (is_quiet(quiet)) cli_arg_quiet(), quarto_args = NULL)
+  args <- c(
+    "project",
+    type,
+    name,
+    name,
+    "--no-prompt",
+    "--no-open",
+    if (is_quiet(quiet)) cli_arg_quiet(),
+    quarto_args = NULL
+  )
 
   owd <- setwd(dir)
   on.exit(setwd(owd), add = TRUE, after = FALSE)

@@ -3,17 +3,23 @@
 #' Determine the path to the quarto binary. Uses `QUARTO_PATH` environment
 #' variable if defined, otherwise uses `Sys.which()`.
 #'
+#' @param normalize If `TRUE` (default), normalize the path using [base::normalizePath()].
+#'
 #' @return Path to quarto binary (or `NULL` if not found)
 #'
 #' @export
-quarto_path <- function() {
+quarto_path <- function(normalize = TRUE) {
   path_env <- get_quarto_path_env()
-  if (is.na(path_env)) {
+  quarto_path <- if (is.na(path_env)) {
     path <- unname(Sys.which("quarto"))
-    if (nzchar(path)) path else NULL
+    if (nzchar(path)) path else return(NULL)
   } else {
     path_env
   }
+  if (!normalize) {
+    return(quarto_path)
+  }
+  normalizePath(quarto_path, winslash = "/", mustWork = FALSE)
 }
 
 get_quarto_path_env <- function() {
@@ -47,22 +53,67 @@ quarto_version <- function() {
 }
 
 #' @importFrom processx run
-quarto_run <- function(args = character(), quarto_bin = find_quarto(), echo = FALSE, echo_cmd = getOption("quarto.echo_cmd", FALSE), ..., .call = rlang::caller_env()) {
+quarto_run <- function(
+  args = character(),
+  quarto_bin = find_quarto(),
+  echo = FALSE,
+  echo_cmd = getOption("quarto.echo_cmd", FALSE),
+  ...,
+  .call = rlang::caller_env()
+) {
   res <- tryCatch(
     {
-      processx::run(quarto_bin, args = args, echo = echo, error_on_status = TRUE, echo_cmd = echo_cmd, ...)
+      processx::run(
+        quarto_bin,
+        args = args,
+        echo = echo,
+        error_on_status = TRUE,
+        echo_cmd = echo_cmd,
+        ...
+      )
     },
     error = function(e) {
       msg <- c(x = "Error running quarto cli.")
-      if (cli_arg_quiet() %in% args) msg <- c(msg, "i" = "Rerun with `quiet = FALSE` to see the full error message.")
+      # if there is an error message from quarto CLI, add it to the message
+      if (e$stderr != "") {
+        quarto_error_msg <- xfun::split_lines(e$stderr)
+        names(quarto_error_msg) <- rep(" ", length(quarto_error_msg))
+        msg <- c(
+          msg,
+          " " = paste0(rep("-", nchar(msg)), collapse = ""),
+          quarto_error_msg
+        )
+      }
+
+      # if `--quiet` has been set, quarto CLI won't report any error (e$stderr will be empty)
+      # So remind user to run without `--quiet` to see the full error message
+      if (cli_arg_quiet() %in% args)
+        msg <- c(
+          msg,
+          "i" = "Rerun with `quiet = FALSE` to see the full error message."
+        )
+
       cli::cli_abort(msg, call = .call, parent = e)
     }
   )
   invisible(res)
 }
 
-quarto_run_what <- function(what = character(), args = character(), quarto_bin = find_quarto(), echo = FALSE, ..., .call = rlang::caller_env()) {
-  res <- quarto_run(quarto_bin, args = c(what, args), echo = echo, ..., .call = .call)
+quarto_run_what <- function(
+  what = character(),
+  args = character(),
+  quarto_bin = find_quarto(),
+  echo = FALSE,
+  ...,
+  .call = rlang::caller_env()
+) {
+  res <- quarto_run(
+    quarto_bin,
+    args = c(what, args),
+    echo = echo,
+    ...,
+    .call = .call
+  )
   invisible(res)
 }
 
@@ -82,17 +133,24 @@ quarto_run_what <- function(what = character(), args = character(), quarto_bin =
 #' unlink(tmpdir, recursive = TRUE)
 #' @export
 is_using_quarto <- function(dir = ".", verbose = FALSE) {
-  has_quarto_yml <- length(list.files(dir, pattern = "_quarto\\.yml$", full.names = TRUE)) > 0
+  has_quarto_yml <- length(list.files(
+    dir,
+    pattern = "_quarto\\.yml$",
+    full.names = TRUE
+  )) >
+    0
   has_qmd <- length(list.files(dir, pattern = "\\.qmd$", full.names = TRUE)) > 0
   if (has_quarto_yml) {
     if (verbose) cli::cli_inform("A {.file _quarto.yml} has been found.")
     return(TRUE)
   } else if (has_qmd) {
-    if (verbose) cli::cli_inform("At least one file {.code *.qmd} has been found.")
+    if (verbose)
+      cli::cli_inform("At least one file {.code *.qmd} has been found.")
     return(TRUE)
   }
   # not a directory using Quarto
-  if (verbose) cli::cli_inform("No {.file _quarto.yml} or {.code *.qmd} has been found.")
+  if (verbose)
+    cli::cli_inform("No {.file _quarto.yml} or {.code *.qmd} has been found.")
   return(FALSE)
 }
 
@@ -136,10 +194,11 @@ quarto_binary_sitrep <- function(verbose = TRUE, debug = FALSE) {
   same_config <- TRUE
   if (debug) verbose <- TRUE
 
-
   # Quarto R package situation ----
   if (verbose) {
-    cli::cli_alert_success(c("i" = "quarto R package will use {.path {quarto_found}}"))
+    cli::cli_alert_success(c(
+      "i" = "quarto R package will use {.path {quarto_found}}"
+    ))
   }
 
   quarto_r_env <- normalizePath(get_quarto_path_env(), mustWork = FALSE)

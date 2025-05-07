@@ -1,4 +1,8 @@
-check_extension_approval <- function(no_prompt = FALSE, what = "Something", see_more_at = NULL) {
+check_extension_approval <- function(
+  no_prompt = FALSE,
+  what = "Something",
+  see_more_at = NULL
+) {
   if (no_prompt) return(TRUE)
 
   if (!rlang::is_interactive()) {
@@ -14,10 +18,15 @@ check_extension_approval <- function(no_prompt = FALSE, what = "Something", see_
       "{what} may execute code when documents are rendered. ",
       "*" = "If you do not trust the author(s) of this {what}, we recommend that you do not install or use this {what}."
     ))
-    prompt_value <- tolower(readline(sprintf("Do you trust the authors of this %s (Y/n)? ", what)))
+    prompt_value <- tolower(readline(sprintf(
+      "Do you trust the authors of this %s (Y/n)? ",
+      what
+    )))
     if (!prompt_value %in% "y") {
       cli::cli_inform("{what} not installed.")
       return(invisible(FALSE))
+    } else {
+      return(invisible(TRUE))
     }
   }
 }
