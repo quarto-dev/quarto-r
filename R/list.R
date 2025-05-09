@@ -22,13 +22,14 @@ quarto_list_extensions <- function() {
   if (grepl("No extensions are installed", stderr_cleaned)) {
     invisible()
   } else {
-    utils::read.table(
+    df <- utils::read.table(
       text = stderr_cleaned,
       header = TRUE,
       fill = TRUE,
       sep = "",
       stringsAsFactors = FALSE
     )
+    df[order(df$Id), ]
   }
 }
 
