@@ -220,6 +220,7 @@ local_quarto_run_echo_cmd <- function(.env = parent.frame()) {
 }
 
 quick_install <- function(package, lib, quiet = TRUE) {
+  skip_if_not_installed("callr")
   opts <- c(
     "--data-compress=none",
     "--no-byte-compile",
@@ -239,6 +240,7 @@ quick_install <- function(package, lib, quiet = TRUE) {
 install_dev_package <- function(.local_envir = parent.frame()) {
   # if not inside of R CMD check, install dev version into temp directory
   if (Sys.getenv("_R_CHECK_TIMINGS_") == "") {
+    skip_if_not_installed("pkgload")
     withr::local_temp_libpaths(.local_envir = .local_envir)
     quick_install(pkgload::pkg_path("."), lib = .libPaths()[1])
     withr::local_envvar(
