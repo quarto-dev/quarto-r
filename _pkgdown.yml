@@ -21,11 +21,12 @@ reference:
 
 - title: "Extensions"
   desc: >
-    This functions enable you to install extensions and use template from extensions in your folder and projects.
+    These functions enable you to manage Quarto extensions and use template from extensions in your folder and projects.
     More about Quarto extensions at <https://quarto.org/docs/extensions/>
   contents:
-  - starts_with("quarto_add")
-  - starts_with("quarto_use")
+  - ends_with("_extension")
+  - ends_with("_extensions")
+  - quarto_use_template
 
 - title: "Projects"
   desc: >
