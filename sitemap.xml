@@ -16,11 +16,14 @@
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_binary_sitrep.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_create_project.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_inspect.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_list_extensions.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_path.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_preview.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_publish_doc.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_remove_extension.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_render.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_serve.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_update_extension.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_use_template.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_version.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/theme_helpers.html</loc></url>
