@@ -50,11 +50,12 @@ Defaults to the name of the \code{input}.}
 supplied, will often be displayed in favor of the name. When deploying a new
 document, you may supply only the title to receive an auto-generated name}
 
-\item{account, server}{Uniquely identify a remote server with either your
-user \code{account}, the \code{server} name, or both. If neither are supplied, and
-there are multiple options, you'll be prompted to pick one.
+\item{server}{Server name. Required only if you use the same account name on
+multiple servers.}
 
-Use \code{\link[rsconnect:accounts]{accounts()}} to see the full list of available options.}
+\item{account}{Account to deploy application to. This parameter is only
+required for the initial deployment of an application when there are
+multiple accounts configured on the system (see \link[rsconnect]{accounts}).}
 
 \item{render}{\code{local} to render locally before publishing; \code{server} to
 render on the server; \code{none} to use whatever rendered content currently
@@ -62,10 +63,7 @@ exists locally. (defaults to \code{local})}
 
 \item{metadata}{Additional metadata fields to save with the deployment
 record. These fields will be returned on subsequent calls to
-\code{\link[rsconnect:deployments]{deployments()}}.
-
-Multi-value fields are recorded as comma-separated values and returned in
-that form. Custom value serialization is the responsibility of the caller.}
+\code{\link[rsconnect:deployments]{deployments()}}.}
 
 \item{...}{Named parameters to pass along to \code{rsconnect::deployApp()}}
 }
