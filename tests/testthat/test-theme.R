@@ -1,48 +1,31 @@
+# don't run on CRAN - this require installed Quarto version with the right version of the quarto package.
+skip_on_cran()
+skip_if_no_quarto()
+skip_if_not_installed("withr")
+
+# We need to install the package in a temporary library when we are in dev mode
+install_dev_package()
 
 test_that("render flextable", {
-  skip_if_no_quarto()
-  quarto_render("theme/flextable.qmd", quiet = TRUE)
-  expect_true(file.exists("theme/flextable.html"))
-  unlink("theme/flextable.html")
+  .render(test_path("theme/flextable.qmd"))
 })
-
 
 test_that("render ggiraph", {
-  skip_if_no_quarto()
-  quarto_render("theme/ggiraph.qmd", quiet = TRUE)
-  expect_true(file.exists("theme/ggiraph.html"))
-  unlink("theme/ggiraph.html")
+  .render(test_path("theme/ggiraph.qmd"))
 })
-
 
 test_that("render ggplot", {
-  skip_if_no_quarto()
-  quarto_render("theme/ggplot.qmd", quiet = TRUE)
-  expect_true(file.exists("theme/ggplot.html"))
-  unlink("theme/ggplot.html")
+  .render(test_path("theme/ggplot.qmd"))
 })
-
 
 test_that("render gt", {
-  skip_if_no_quarto()
-  quarto_render("theme/gt.qmd", quiet = TRUE)
-  expect_true(file.exists("theme/gt.html"))
-  unlink("theme/gt.html")
+  .render(test_path("theme/gt.qmd"))
 })
-
 
 test_that("render plotly-r", {
-  skip_if_no_quarto()
-  quarto_render("theme/plotly-r.qmd", quiet = TRUE)
-  expect_true(file.exists("theme/plotly-r.html"))
-  unlink("theme/plotly-r.html")
+  .render(test_path("theme/plotly-r.qmd"))
 })
-
 
 test_that("render thematic", {
-  skip_if_no_quarto()
-  quarto_render("theme/thematic.qmd", quiet = TRUE)
-  expect_true(file.exists("theme/thematic.html"))
-  unlink("theme/thematic.html")
+  .render(test_path("theme/thematic.qmd"))
 })
-

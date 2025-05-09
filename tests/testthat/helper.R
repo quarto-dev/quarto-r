@@ -91,7 +91,13 @@ local_quarto_project <- function(
   return(file.path(path_tmp, name))
 }
 
-.render <- function(input, output_file = NULL, ..., .env = parent.frame()) {
+.render <- function(
+  input,
+  output_file = NULL,
+  ...,
+  .quiet = TRUE,
+  .env = parent.frame()
+) {
   skip_if_no_quarto()
   skip_if_not_installed("withr")
   # work inside input directory
@@ -102,7 +108,12 @@ local_quarto_project <- function(
       .local_envir = .env
     ))
   }
-  quarto_render(basename(input), output_file = output_file, quiet = TRUE, ...)
+  expect_no_error(quarto_render(
+    basename(input),
+    output_file = output_file,
+    quiet = .quiet,
+    ...
+  ))
   expect_true(file.exists(output_file))
   normalizePath(output_file)
 }
@@ -205,5 +216,34 @@ transform_quarto_cli_in_output <- function(
 local_quarto_run_echo_cmd <- function(.env = parent.frame()) {
   if (rlang::is_installed("withr")) {
     withr::local_options(quarto.echo_cmd = TRUE, .local_envir = .env)
+  }
+}
+
+quick_install <- function(package, lib, quiet = TRUE) {
+  opts <- c(
+    "--data-compress=none",
+    "--no-byte-compile",
+    "--no-data",
+    "--no-demo",
+    "--no-docs",
+    "--no-help",
+    "--no-html",
+    "--no-libs",
+    "--use-vanilla",
+    sprintf("--library=%s", lib),
+    package
+  )
+  invisible(callr::rcmd("INSTALL", opts, show = !quiet, fail_on_status = TRUE))
+}
+
+install_dev_package <- function(.local_envir = parent.frame()) {
+  # if not inside of R CMD check, install dev version into temp directory
+  if (Sys.getenv("_R_CHECK_TIMINGS_") == "") {
+    withr::local_temp_libpaths(.local_envir = .local_envir)
+    quick_install(pkgload::pkg_path("."), lib = .libPaths()[1])
+    withr::local_envvar(
+      R_LIBS = paste0(.libPaths(), collapse = .Platform$path.sep),
+      .local_envir = .local_envir
+    )
   }
 }
