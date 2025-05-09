@@ -33,6 +33,11 @@ vweave_quarto <- function(format) {
       }
       return(vweave_empty(file))
     }
+
+    cat("R_LIBS:", Sys.getenv("R_LIBS"), "\n", sep = "", file = "~/desktop/log.txt", append = TRUE)
+    cat(".libPaths(): ", paste0(.libPaths(), collapse = ":"), "\n", sep = "", file = "~/desktop/log.txt", append = TRUE)
+    cat("Packages:", paste0(dir(.libPaths()[1]), collapse = ","), "\n", sep = "", file = "~/desktop/log.txt", append = TRUE)
+
     quarto_render(file, ..., output_format = format, metadata = meta)
   }
 }
