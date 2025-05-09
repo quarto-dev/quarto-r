@@ -91,7 +91,13 @@ local_quarto_project <- function(
   return(file.path(path_tmp, name))
 }
 
-.render <- function(input, output_file = NULL, ..., .env = parent.frame()) {
+.render <- function(
+  input,
+  output_file = NULL,
+  ...,
+  .quiet = TRUE,
+  .env = parent.frame()
+) {
   skip_if_no_quarto()
   skip_if_not_installed("withr")
   # work inside input directory
@@ -102,7 +108,12 @@ local_quarto_project <- function(
       .local_envir = .env
     ))
   }
-  quarto_render(basename(input), output_file = output_file, quiet = TRUE, ...)
+  expect_no_error(quarto_render(
+    basename(input),
+    output_file = output_file,
+    quiet = .quiet,
+    ...
+  ))
   expect_true(file.exists(output_file))
   normalizePath(output_file)
 }
@@ -134,7 +145,8 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 transform_quarto_cli_in_output <- function(
   full_path = FALSE,
   version = FALSE,
-  dir_only = FALSE
+  dir_only = FALSE,
+  hide_stack = FALSE
 ) {
   hide_path <- function(lines, real_path) {
     gsub(
@@ -147,6 +159,38 @@ transform_quarto_cli_in_output <- function(
 
   return(
     function(lines) {
+      if (hide_stack) {
+        # Hide possible stack first
+        stack_trace_index <- which(grepl("\\s*Stack trace\\:", lines))
+        if (
+          length(stack_trace_index) > 0 && stack_trace_index < length(lines)
+        ) {
+          at_lines_indices <- which(grepl("^\\s*at ", lines))
+          at_lines_after_stack <- at_lines_indices[
+            at_lines_indices > stack_trace_index
+          ]
+          if (length(at_lines_after_stack) > 0) {
+            # Find the continuous sequence (no gaps)
+            gaps <- diff(at_lines_after_stack) > 1
+            end_pos <- if (any(gaps)) which(gaps)[1] else
+              length(at_lines_after_stack)
+            consecutive_indices <- at_lines_after_stack[1:end_pos]
+
+            stack_line <- lines[stack_trace_index]
+            indentation <- regmatches(stack_line, regexpr("^\\s*", stack_line))
+            lines[consecutive_indices[1]] <- paste0(
+              indentation,
+              "<stack trace>"
+            )
+            if (length(consecutive_indices) > 1) {
+              lines <- lines[
+                -consecutive_indices[2:length(consecutive_indices)]
+              ]
+            }
+          }
+        }
+      }
+
       if (full_path) {
         quarto_found <- find_quarto()
         if (dir_only) {
@@ -205,5 +249,36 @@ transform_quarto_cli_in_output <- function(
 local_quarto_run_echo_cmd <- function(.env = parent.frame()) {
   if (rlang::is_installed("withr")) {
     withr::local_options(quarto.echo_cmd = TRUE, .local_envir = .env)
+  }
+}
+
+quick_install <- function(package, lib, quiet = TRUE) {
+  skip_if_not_installed("callr")
+  opts <- c(
+    "--data-compress=none",
+    "--no-byte-compile",
+    "--no-data",
+    "--no-demo",
+    "--no-docs",
+    "--no-help",
+    "--no-html",
+    "--no-libs",
+    "--use-vanilla",
+    sprintf("--library=%s", lib),
+    package
+  )
+  invisible(callr::rcmd("INSTALL", opts, show = !quiet, fail_on_status = TRUE))
+}
+
+install_dev_package <- function(.local_envir = parent.frame()) {
+  # if not inside of R CMD check, install dev version into temp directory
+  if (Sys.getenv("_R_CHECK_TIMINGS_") == "") {
+    skip_if_not_installed("pkgload")
+    withr::local_temp_libpaths(.local_envir = .local_envir)
+    quick_install(pkgload::pkg_path("."), lib = .libPaths()[1])
+    withr::local_envvar(
+      R_LIBS = paste0(.libPaths(), collapse = .Platform$path.sep),
+      .local_envir = .local_envir
+    )
   }
 }

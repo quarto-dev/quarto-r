@@ -20,16 +20,7 @@
         ERROR: Book chapter 'intro.qmd' not found
         
         Stack trace:
-        at throwInputNotFound (<quarto.js full path with location>)
-        at findInputs (<quarto.js full path with location>)
-        at eventLoopTick (ext:core/01_core.js:175:7)
-        at async findChapters (<quarto.js full path with location>)
-        at async bookRenderItems (<quarto.js full path with location>)
-        at async Object.bookProjectConfig [as config] (<quarto.js full path with location>)
-        at async projectContext (<quarto.js full path with location>)
-        at async inspectConfig (<quarto.js full path with location>)
-        at async Command.actionHandler (<quarto.js full path with location>)
-        at async Command.execute (<quarto.js full path with location>)
+        <stack trace>
         
       Caused by error:
       ! System command 'quarto' failed

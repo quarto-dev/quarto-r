@@ -29,7 +29,8 @@ test_that("quarto_run report full quarto cli error message", {
     quarto_inspect(),
     transform = transform_quarto_cli_in_output(
       full_path = TRUE,
-      dir_only = TRUE
+      dir_only = TRUE,
+      hide_stack = TRUE
     )
   )
 })
