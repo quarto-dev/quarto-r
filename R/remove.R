@@ -16,10 +16,10 @@
 #' @examples
 #' \dontrun{
 #' # Remove an already installed extension
-#' quarto_remove_extensions("quarto-ext/fontawesome")
+#' quarto_remove_extension("quarto-ext/fontawesome")
 #' }
 #' @export
-quarto_remove_extensions <- function(
+quarto_remove_extension <- function(
   extension = NULL,
   no_prompt = FALSE,
   quiet = FALSE,

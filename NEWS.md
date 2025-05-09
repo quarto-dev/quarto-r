@@ -2,7 +2,8 @@
 
 - Add several new wrapper function: 
   - `quarto_list_extensions()` to list installed extensions using `quarto list extensions`
-  - `quarto_remove_extensions()` to remove an installed extension using `quarto remove extensions`
+  - `quarto_remove_extension()` to remove an installed extension using `quarto remove extensions`
+  - `quarto_update_extension()` to update an installed extension using `quarto update extensions`
 
 - `quarto_preview()` gains a `quiet` argument to suppress any output from R or Quarto CLI (thanks, @cwickham, #232.)
 

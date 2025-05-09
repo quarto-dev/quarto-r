@@ -3,6 +3,7 @@ test_that("Installing an extension", {
   skip_if_offline("github.com")
   qmd <- local_qmd_file(c("content"))
   withr::local_dir(dirname(qmd))
+  rlang::local_interactive(FALSE)
   expect_error(
     quarto_add_extension("quarto-ext/fontawesome"),
     "explicit approval"

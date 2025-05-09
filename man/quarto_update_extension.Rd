@@ -12,11 +12,9 @@ quarto_update_extension(
 )
 }
 \arguments{
-\item{extension}{The extension to update, either an archive or a GitHub
-repository as described in the documentation
-\url{https://quarto.org/docs/extensions/managing.html}.}
+\item{extension}{The extension to update, either by its name (i.e \verb{ quarto update extension <gh-org>/<gh-repo>}), an archive (\verb{ quarto update extension <path-to-zip>}) or a url (\verb{quarto update extension <url>}).}
 
-\item{no_prompt}{Do not prompt to confirm approval to download external extension.}
+\item{no_prompt}{Do not prompt to confirm approval to download external extension. Setting \code{no_prompt = FALSE} means \href{#extension-trust}{Extension Trust} is accepted.}
 
 \item{quiet}{Suppress warning and other messages.}
 
@@ -24,6 +22,9 @@ repository as described in the documentation
 to the Quarto command executed by this function. This is mainly intended for
 advanced usage and useful for CLI arguments which are not yet mirrored in a
 dedicated parameter of this \R function. See \verb{quarto render --help} for options.}
+}
+\value{
+Returns invisibly \code{TRUE} if the extension was updated, \code{FALSE} otherwise.
 }
 \description{
 Update an extension to this folder or project by running \verb{quarto update}
@@ -45,5 +46,7 @@ quarto_update_extension("quarto-ext/fontawesome")
 # Update a template and set up a draft document from a ZIP archive
 quarto_update_extension("https://github.com/quarto-ext/fontawesome/archive/refs/heads/main.zip")
 }
-
+}
+\seealso{
+\code{\link[=quarto_add_extension]{quarto_add_extension()}}, \code{\link[=quarto_remove_extension]{quarto_remove_extension()}}, and \href{https://quarto.org/docs/extensions/managing.html}{Quarto website}.
 }
