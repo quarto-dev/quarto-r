@@ -70,3 +70,6 @@ check_removal_approval <- function(
     interactive_info = NULL
   )
 }
+
+# Needed for testthat to mock base function
+readline <- NULL
