@@ -134,7 +134,8 @@ expect_snapshot_qmd_output <- function(name, input, output_file = NULL, ...) {
 transform_quarto_cli_in_output <- function(
   full_path = FALSE,
   version = FALSE,
-  dir_only = FALSE
+  dir_only = FALSE,
+  hide_stack = FALSE
 ) {
   hide_path <- function(lines, real_path) {
     gsub(
@@ -147,6 +148,38 @@ transform_quarto_cli_in_output <- function(
 
   return(
     function(lines) {
+      if (hide_stack) {
+        # Hide possible stack first
+        stack_trace_index <- which(grepl("\\s*Stack trace\\:", lines))
+        if (
+          length(stack_trace_index) > 0 && stack_trace_index < length(lines)
+        ) {
+          at_lines_indices <- which(grepl("^\\s*at ", lines))
+          at_lines_after_stack <- at_lines_indices[
+            at_lines_indices > stack_trace_index
+          ]
+          if (length(at_lines_after_stack) > 0) {
+            # Find the continuous sequence (no gaps)
+            gaps <- diff(at_lines_after_stack) > 1
+            end_pos <- if (any(gaps)) which(gaps)[1] else
+              length(at_lines_after_stack)
+            consecutive_indices <- at_lines_after_stack[1:end_pos]
+
+            stack_line <- lines[stack_trace_index]
+            indentation <- regmatches(stack_line, regexpr("^\\s*", stack_line))
+            lines[consecutive_indices[1]] <- paste0(
+              indentation,
+              "<stack trace>"
+            )
+            if (length(consecutive_indices) > 1) {
+              lines <- lines[
+                -consecutive_indices[2:length(consecutive_indices)]
+              ]
+            }
+          }
+        }
+      }
+
       if (full_path) {
         quarto_found <- find_quarto()
         if (dir_only) {
