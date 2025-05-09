@@ -8,8 +8,14 @@ test_that("Listing extensions", {
   expect_null(quarto_list_extensions())
   quarto_add_extension("quarto-ext/fontawesome", no_prompt = TRUE, quiet = TRUE)
   expect_true(dir.exists("_extensions/quarto-ext/fontawesome"))
-  expect_snapshot(quarto_list_extensions())
+  expect_identical(
+    quarto_list_extensions()$Id,
+    c("quarto-ext/fontawesome")
+  )
   quarto_add_extension("quarto-ext/lightbox", no_prompt = TRUE, quiet = TRUE)
   expect_true(dir.exists("_extensions/quarto-ext/lightbox"))
-  expect_snapshot(quarto_list_extensions())
+  expect_identical(
+    quarto_list_extensions()$Id,
+    c("quarto-ext/fontawesome", "quarto-ext/lightbox")
+  )
 })
