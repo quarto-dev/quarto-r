@@ -28,7 +28,7 @@ theme_colors_flextable <- function(bg, fg) {
 #'
 #' @export
 theme_brand_flextable <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  brand <- attr(bslib::bs_theme(brand=brand_yml), "brand")
   theme_colors_flextable(brand$color$background, brand$color$foreground)
 }
 
@@ -62,7 +62,7 @@ theme_colors_ggplot <- function(bg, fg) {
 #'
 #' @export
 theme_brand_ggplot <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  brand <- attr(bslib::bs_theme(brand=brand_yml), "brand")
   theme_colors_ggplot(brand$color$background, brand$color$foreground)
 }
 
@@ -84,7 +84,7 @@ theme_colors_gt <- function(bg, fg) {
 #'
 #' @export
 theme_brand_gt <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  brand <- attr(bslib::bs_theme(brand=brand_yml), "brand")
   theme_colors_gt(brand$color$background, brand$color$foreground)
 }
 
@@ -106,7 +106,7 @@ theme_colors_plotly <- function(bg, fg) {
 #'
 #' @export
 theme_brand_plotly <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  brand <- attr(bslib::bs_theme(brand=brand_yml), "brand")
   theme_colors_plotly(brand$color$background, brand$color$foreground)
 }
 
@@ -127,6 +127,6 @@ theme_colors_thematic <- function(bg, fg) {
 #'
 #' @export
 theme_brand_thematic <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  brand <- attr(bslib::bs_theme(brand=brand_yml), "brand")
   theme_colors_thematic(brand$color$background, brand$color$foreground)
 }
