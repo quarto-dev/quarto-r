@@ -99,15 +99,11 @@ supplied, will often be displayed in favor of the name. When deploying a new
 document, you may supply only the title to receive an auto-generated name</p></dd>
 
 
-<dt id="arg-server">server<a class="anchor" aria-label="anchor" href="#arg-server"></a></dt>
-<dd><p>Server name. Required only if you use the same account name on
-multiple servers.</p></dd>
-
-
-<dt id="arg-account">account<a class="anchor" aria-label="anchor" href="#arg-account"></a></dt>
-<dd><p>Account to deploy application to. This parameter is only
-required for the initial deployment of an application when there are
-multiple accounts configured on the system (see <a href="https://rstudio.github.io/rsconnect/reference/accounts.html" class="external-link">accounts</a>).</p></dd>
+<dt id="arg-account-server">account, server<a class="anchor" aria-label="anchor" href="#arg-account-server"></a></dt>
+<dd><p>Uniquely identify a remote server with either your
+user <code>account</code>, the <code>server</code> name, or both. If neither are supplied, and
+there are multiple options, you'll be prompted to pick one.</p>
+<p>Use <code><a href="https://rstudio.github.io/rsconnect/reference/accounts.html" class="external-link">accounts()</a></code> to see the full list of available options.</p></dd>
 
 
 <dt id="arg-render">render<a class="anchor" aria-label="anchor" href="#arg-render"></a></dt>
@@ -119,7 +115,9 @@ exists locally. (defaults to <code>local</code>)</p></dd>
 <dt id="arg-metadata">metadata<a class="anchor" aria-label="anchor" href="#arg-metadata"></a></dt>
 <dd><p>Additional metadata fields to save with the deployment
 record. These fields will be returned on subsequent calls to
-<code><a href="https://rstudio.github.io/rsconnect/reference/deployments.html" class="external-link">deployments()</a></code>.</p></dd>
+<code><a href="https://rstudio.github.io/rsconnect/reference/deployments.html" class="external-link">deployments()</a></code>.</p>
+<p>Multi-value fields are recorded as comma-separated values and returned in
+that form. Custom value serialization is the responsibility of the caller.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

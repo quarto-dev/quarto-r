@@ -6,7 +6,7 @@ articles:
   hello: hello.html
   publishing: publishing.html
   theme-helpers: theme-helpers.html
-last_built: 2025-05-09T17:10Z
+last_built: 2025-05-19T21:50Z
 urls:
   reference: https://quarto-dev.github.io/quarto-r/reference
   article: https://quarto-dev.github.io/quarto-r/articles
