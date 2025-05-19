@@ -18,7 +18,6 @@ BugReports: https://github.com/quarto-dev/quarto-r/issues
 Depends: 
     R (>= 3.6)
 Imports:
-    bslib,
     cli,
     jsonlite,
     later,
@@ -30,6 +29,7 @@ Imports:
     utils,
     yaml
 Suggests: 
+    bslib,
     callr,
     curl,
     dplyr,

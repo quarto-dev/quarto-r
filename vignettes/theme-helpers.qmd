@@ -56,7 +56,7 @@ library(quarto)
 library(ggplot2)
 library(ggiraph)
 
-blue_mauve_theme = theme_colors_ggplot("#111038", "#E0B0FF")
+blue_mauve_theme = theme_colors_ggplot2("#111038", "#E0B0FF")
 
 cars <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point_interactive(aes(colour = factor(cyl), tooltip = rownames(mtcars))) +
@@ -76,7 +76,7 @@ Demonstrates a ggplot2 plot with near-black background and green-grey foreground
 library(quarto)
 library(ggplot2)
 
-black_greyn <- theme_colors_ggplot("#050411", "#8faf8e")
+black_greyn <- theme_colors_ggplot2("#050411", "#8faf8e")
 
 cars <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl))) +
