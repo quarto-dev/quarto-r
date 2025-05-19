@@ -14,6 +14,10 @@
 #'
 #' @export
 theme_colors_flextable <- function(bg, fg) {
+  rlang::check_installed(
+    "flextable",
+    "flextable is required for theme_colors_flextable"
+  )
   (function(x) {
     if (!inherits(x, "flextable")) {
       stop("theme_colors_flextable only supports flextable objects.")
@@ -28,7 +32,12 @@ theme_colors_flextable <- function(bg, fg) {
 #'
 #' @export
 theme_brand_flextable <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  rlang::check_installed(
+    "bslib",
+    "bslib is required for brand support in R",
+    version = "0.9.0"
+  )
+  brand <- attr(bslib::bs_theme(brand = brand_yml), "brand")
   theme_colors_flextable(brand$color$background, brand$color$foreground)
 }
 
@@ -36,10 +45,11 @@ theme_brand_flextable <- function(brand_yml) {
 #' @rdname theme_helpers
 #'
 #' @export
-theme_colors_ggplot <- function(bg, fg) {
-  if (!requireNamespace("ggplot2", quietly = TRUE)) {
-    return(NULL)
-  }
+theme_colors_ggplot2 <- function(bg, fg) {
+  rlang::check_installed(
+    "ggplot2",
+    "ggplot2 is required for theme_colors_ggplot2"
+  )
   ggplot2::`%+%`(
     ggplot2::theme_minimal(base_size = 11),
     ggplot2::theme(
@@ -61,9 +71,14 @@ theme_colors_ggplot <- function(bg, fg) {
 #' @rdname theme_helpers
 #'
 #' @export
-theme_brand_ggplot <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
-  theme_colors_ggplot(brand$color$background, brand$color$foreground)
+theme_brand_ggplot2 <- function(brand_yml) {
+  rlang::check_installed(
+    "bslib",
+    "bslib is required for brand support in R",
+    version = "0.9.0"
+  )
+  brand <- attr(bslib::bs_theme(brand = brand_yml), "brand")
+  theme_colors_ggplot2(brand$color$background, brand$color$foreground)
 }
 
 
@@ -71,6 +86,10 @@ theme_brand_ggplot <- function(brand_yml) {
 #'
 #' @export
 theme_colors_gt <- function(bg, fg) {
+  rlang::check_installed(
+    "gt",
+    "gt is required for theme_colors_gt"
+  )
   (function(table) {
     table |>
       gt::tab_options(
@@ -84,7 +103,12 @@ theme_colors_gt <- function(bg, fg) {
 #'
 #' @export
 theme_brand_gt <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  rlang::check_installed(
+    "bslib",
+    "bslib is required for brand support in R",
+    version = "0.9.0"
+  )
+  brand <- attr(bslib::bs_theme(brand = brand_yml), "brand")
   theme_colors_gt(brand$color$background, brand$color$foreground)
 }
 
@@ -92,6 +116,10 @@ theme_brand_gt <- function(brand_yml) {
 #'
 #' @export
 theme_colors_plotly <- function(bg, fg) {
+  rlang::check_installed(
+    "plotly",
+    "plotly is required for theme_colors_plotly"
+  )
   (function(plot) {
     plot |>
       plotly::layout(
@@ -106,7 +134,12 @@ theme_colors_plotly <- function(bg, fg) {
 #'
 #' @export
 theme_brand_plotly <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  rlang::check_installed(
+    "bslib",
+    "bslib is required for brand support in R",
+    version = "0.9.0"
+  )
+  brand <- attr(bslib::bs_theme(brand = brand_yml), "brand")
   theme_colors_plotly(brand$color$background, brand$color$foreground)
 }
 
@@ -115,6 +148,10 @@ theme_brand_plotly <- function(brand_yml) {
 #'
 #' @export
 theme_colors_thematic <- function(bg, fg) {
+  rlang::check_installed(
+    "thematic",
+    "thematic is required for theme_colors_thematic"
+  )
   (function() {
     thematic::thematic_rmd(
       bg = bg,
@@ -127,6 +164,11 @@ theme_colors_thematic <- function(bg, fg) {
 #'
 #' @export
 theme_brand_thematic <- function(brand_yml) {
-  brand <- yaml::yaml.load_file(brand_yml)
+  rlang::check_installed(
+    "bslib",
+    "bslib is required for brand support in R",
+    version = "0.9.0"
+  )
+  brand <- attr(bslib::bs_theme(brand = brand_yml), "brand")
   theme_colors_thematic(brand$color$background, brand$color$foreground)
 }

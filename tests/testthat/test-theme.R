@@ -14,8 +14,8 @@ test_that("render ggiraph", {
   .render(test_path("theme/ggiraph.qmd"))
 })
 
-test_that("render ggplot", {
-  .render(test_path("theme/ggplot.qmd"))
+test_that("render ggplot2", {
+  .render(test_path("theme/ggplot2.qmd"))
 })
 
 test_that("render gt", {

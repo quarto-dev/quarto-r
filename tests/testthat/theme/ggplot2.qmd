@@ -12,8 +12,8 @@ brand:
 library(quarto)
 library(ggplot2)
 
-united_theme <- theme_brand_ggplot("united-brand.yml")
-slate_theme <- theme_brand_ggplot("slate-brand.yml")
+united_theme <- theme_brand_ggplot2("united-brand.yml")
+slate_theme <- theme_brand_ggplot2("slate-brand.yml")
 ```
 
 ```{r}
