@@ -3,8 +3,8 @@
 \name{theme_colors_flextable}
 \alias{theme_colors_flextable}
 \alias{theme_brand_flextable}
-\alias{theme_colors_ggplot}
-\alias{theme_brand_ggplot}
+\alias{theme_colors_ggplot2}
+\alias{theme_brand_ggplot2}
 \alias{theme_colors_gt}
 \alias{theme_brand_gt}
 \alias{theme_colors_plotly}
@@ -17,9 +17,9 @@ theme_colors_flextable(bg, fg)
 
 theme_brand_flextable(brand_yml)
 
-theme_colors_ggplot(bg, fg)
+theme_colors_ggplot2(bg, fg)
 
-theme_brand_ggplot(brand_yml)
+theme_brand_ggplot2(brand_yml)
 
 theme_colors_gt(bg, fg)
 
