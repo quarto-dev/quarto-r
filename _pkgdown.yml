@@ -43,6 +43,7 @@ reference:
   - quarto_inspect
   - quarto_path
   - quarto_version
+  - quarto_available
   - is_using_quarto
   - quarto_binary_sitrep
 
