@@ -2,6 +2,7 @@
 
 export(is_using_quarto)
 export(quarto_add_extension)
+export(quarto_available)
 export(quarto_binary_sitrep)
 export(quarto_create_project)
 export(quarto_inspect)
