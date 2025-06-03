@@ -16,3 +16,6 @@ Path to quarto binary (or \code{NULL} if not found)
 Determine the path to the quarto binary. Uses \code{QUARTO_PATH} environment
 variable if defined, otherwise uses \code{Sys.which()}.
 }
+\seealso{
+\code{\link[=quarto_version]{quarto_version()}} to check the version of the binary found, \code{\link[=quarto_available]{quarto_available()}} to check if Quarto CLI is available and meets some requirements.
+}

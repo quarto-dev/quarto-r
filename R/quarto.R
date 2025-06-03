@@ -7,6 +7,8 @@
 #'
 #' @return Path to quarto binary (or `NULL` if not found)
 #'
+#' @seealso [quarto_version()] to check the version of the binary found, [quarto_available()] to check if Quarto CLI is available and meets some requirements.
+#'
 #' @export
 quarto_path <- function(normalize = TRUE) {
   path_env <- get_quarto_path_env()
@@ -46,6 +48,7 @@ find_quarto <- function() {
 #' If it returns `99.9.9` then it means you are using a dev version.
 #'
 #' @return a [`numeric_version`][base::numeric_version] with the quarto version found
+#' @seealso [quarto_available()] to check if the version meets some requirements.
 #' @export
 quarto_version <- function() {
   quarto_bin <- find_quarto()
