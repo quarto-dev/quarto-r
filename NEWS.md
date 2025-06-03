@@ -2,6 +2,8 @@
 
 - Add `quarto_available()` function to check if Quarto CLI is found (thanks, @hadley, #187).
 
+- `quarto_render()` now correctly set `as_job` when not inside RStudio IDE and required **rstudioapi** functions are not available (#203).
+
 - Add several new wrapper function (thanks, @parmsam, #192): 
   - `quarto_list_extensions()` to list installed extensions using `quarto list extensions`
   - `quarto_remove_extension()` to remove an installed extension using `quarto remove extensions`
