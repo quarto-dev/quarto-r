@@ -106,7 +106,12 @@ quarto_render <- function(
   }
 
   # render as job if requested and running within rstudio
-  if (as_job && rstudioapi::isAvailable()) {
+  if (
+    as_job &&
+      rstudioapi::isAvailable() &&
+      rstudioapi::hasFun("jobRunScript") &&
+      in_rstudio()
+  ) {
     message(
       "Rendering project as background job (use as_job = FALSE to override)"
     )
