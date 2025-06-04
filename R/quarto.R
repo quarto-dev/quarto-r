@@ -128,6 +128,12 @@ quarto_run <- function(
   ...,
   .call = rlang::caller_env()
 ) {
+  # This is required due to a bug in QUARTO CLI, fixed only in 1.8+
+  # https://github.com/quarto-dev/quarto-cli/pull/12887
+  custom_env <- NULL
+  if (!quarto_available(min = "1.8.12")) {
+    custom_env <- c("current", QUARTO_R = R.home("bin"))
+  }
   res <- tryCatch(
     {
       processx::run(
@@ -136,6 +142,7 @@ quarto_run <- function(
         echo = echo,
         error_on_status = TRUE,
         echo_cmd = echo_cmd,
+        env = custom_env,
         ...
       )
     },
