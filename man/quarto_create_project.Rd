@@ -25,7 +25,13 @@ parent directory.}
 \item{no_prompt}{Do not prompt to approve the creation of the new project
 folder.}
 
-\item{quiet}{Suppress warning and other messages.}
+\item{quiet}{Suppress warning and other messages, from R and also Quarto CLI
+(i.e \code{--quiet} is passed as command line).
+
+\code{quarto.quiet} \R option or \code{QUARTO_R_QUIET} environment variable can be used to globally override a function call
+(This can be useful to debug tool that calls \verb{quarto_*} functions directly).
+
+On Github Actions, it will always be \code{quiet = FALSE}.}
 
 \item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
 to the Quarto command executed by this function. This is mainly intended for

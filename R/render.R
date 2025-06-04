@@ -37,7 +37,13 @@
 #'   override metadata. This will be merged with `metadata` if both are
 #'   specified, with low precedence on `metadata` options.
 #' @param debug Leave intermediate files in place after render.
-#' @param quiet Suppress warning and other messages.
+#' @param quiet Suppress warning and other messages, from R and also Quarto CLI
+#'   (i.e `--quiet` is passed as command line).
+#'
+#'   `quarto.quiet` \R option or `QUARTO_R_QUIET` environment variable can be used to globally override a function call
+#'   (This can be useful to debug tool that calls `quarto_*` functions directly).
+#'
+#'   On Github Actions, it will always be `quiet=FALSE`.
 #' @param profile [Quarto project
 #'   profile(s)](https://quarto.org/docs/projects/profiles.html) to use. Either
 #'   a character vector of profile names or `NULL` to use the default profile.
