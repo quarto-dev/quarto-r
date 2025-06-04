@@ -43,7 +43,7 @@
 #'   `quarto.quiet` \R option or `QUARTO_R_QUIET` environment variable can be used to globally override a function call
 #'   (This can be useful to debug tool that calls `quarto_*` functions directly).
 #'
-#'   On Github Actions, it will always be `quiet=FALSE`.
+#'   On Github Actions, it will always be `quiet = FALSE`.
 #' @param profile [Quarto project
 #'   profile(s)](https://quarto.org/docs/projects/profiles.html) to use. Either
 #'   a character vector of profile names or `NULL` to use the default profile.
@@ -56,8 +56,6 @@
 #'   which will render individual documents normally and projects as
 #'   background jobs. Use the `quarto.render_as_job` \R option to control
 #'   the default globally.
-#'
-#' @importFrom rmarkdown relative_to
 #'
 #' @examples
 #' \dontrun{
