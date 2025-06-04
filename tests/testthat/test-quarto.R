@@ -122,3 +122,37 @@ test_that("quarto.quiet options controls echo and overwrite function argument", 
     expect_output(quarto_render(qmd, quiet = TRUE))
   })
 })
+
+test_that("quarto_available()", {
+  expect_error(
+    quarto_available("1.5", "1.4"),
+    regexp = "Minimum version .* cannot be greater than maximum version .*"
+  )
+
+  # Mock no quarto found
+  with_mocked_bindings(
+    quarto_version = function(...) NULL,
+    {
+      expect_false(quarto_available())
+      expect_error(quarto_available(error = TRUE))
+    }
+  )
+
+  local_mocked_bindings(
+    quarto_version = function(...) as.numeric_version("1.8.4")
+  )
+
+  expect_true(quarto_available())
+  expect_true(quarto_available("1", "2"))
+  expect_false(quarto_available(max = "1.5"))
+  expect_error(
+    quarto_available(max = "1.6", error = TRUE),
+    regexp = "Maximum version expected is 1.6"
+  )
+  expect_true(quarto_available(min = "1.8.4"))
+  expect_false(quarto_available(min = "1.9.5"))
+  expect_error(
+    quarto_available(min = "1.9.5", error = TRUE),
+    regexp = "Minimum version expected is 1.9.5"
+  )
+})

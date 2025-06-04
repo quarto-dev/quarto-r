@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Add `quarto_available()` function to check if Quarto CLI is found (thanks, @hadley, #187).
+
 - `quarto_render()` now correctly set `as_job` when not inside RStudio IDE and required **rstudioapi** functions are not available (#203).
 
 - Add several new wrapper function (thanks, @parmsam, #192): 

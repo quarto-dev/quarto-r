@@ -7,6 +7,8 @@
 #'
 #' @return Path to quarto binary (or `NULL` if not found)
 #'
+#' @seealso [quarto_version()] to check the version of the binary found, [quarto_available()] to check if Quarto CLI is available and meets some requirements.
+#'
 #' @export
 quarto_path <- function(normalize = TRUE) {
   path_env <- get_quarto_path_env()
@@ -46,10 +48,75 @@ find_quarto <- function() {
 #' If it returns `99.9.9` then it means you are using a dev version.
 #'
 #' @return a [`numeric_version`][base::numeric_version] with the quarto version found
+#' @seealso [quarto_available()] to check if the version meets some requirements.
 #' @export
 quarto_version <- function() {
   quarto_bin <- find_quarto()
   as.numeric_version(system2(quarto_bin, "--version", stdout = TRUE))
+}
+
+
+#' Check if quarto is available and version meet some requirements
+#'
+#' This function allows to test if Quarto is available and meets version requirement, a min, max or
+#' in between requirement.
+#'
+#' If `min` and `max` are provided, this will check if Quarto version is
+#' in-between two versions. If non is provided (keeping the default `NULL` for
+#' both), it will just check for Quarto availability version and return `FALSE` if not found.
+#'
+#' @param min Minimum version expected.
+#' @param max Maximum version expected
+#' @param error If `TRUE`, will throw an error if Quarto is not available or does not meet the requirement. Default is `FALSE`.
+#'
+#' @return logical. `TRUE` if requirement is met, `FALSE` otherwise.
+#'
+#' @examples
+#' # Is there an active version available ?
+#' quarto_available()
+#' # check for a minimum requirement
+#' quarto_available(min = "1.5")
+#' # check for a maximum version
+#' quarto_available(max = "1.6")
+#' # only returns TRUE if Pandoc version is between two bounds
+#' quarto_available(min = "1.4", max = "1.6")
+#'
+#' @export
+quarto_available <- function(min = NULL, max = NULL, error = FALSE) {
+  found <- FALSE
+  is_above <- is_below <- TRUE
+  if (!is.null(min) && !is.null(max)) {
+    if (min > max) {
+      cli::cli_abort(c(
+        "Minimum version {.strong {min}} cannot be greater than maximum version {.strong {max}}."
+      ))
+    }
+  }
+  quarto_version <- tryCatch(
+    quarto_version(),
+    error = function(e) NULL
+  )
+  if (!is.null(quarto_version)) {
+    if (!is.null(min)) is_above <- quarto_version >= min
+    if (!is.null(max)) is_below <- quarto_version <= max
+    found <- is_above && is_below
+  }
+  if (!found && error) {
+    cli::cli_abort(c(
+      if (is.null(min) && is.null(max)) {
+        "Quarto is not available."
+      } else {
+        "Quarto version requirement not met."
+      },
+      "*" = if (!is_above) {
+        paste0(" Minimum version expected is ", min, ".")
+      },
+      "*" = if (!is_below) {
+        paste0(" Maximum version expected is ", max, ".")
+      }
+    ))
+  }
+  return(found)
 }
 
 #' @importFrom processx run
