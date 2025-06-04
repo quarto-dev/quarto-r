@@ -4,7 +4,7 @@
       quarto_run(c("rend", "--quiet"))
     Condition
       Error:
-      x Error running quarto cli.
+      x Error returned by quarto CLI.
       i Rerun with `quiet = FALSE` to see the full error message.
       Caused by error:
       ! System command 'quarto' failed
@@ -15,8 +15,8 @@
       quarto_inspect()
     Condition
       Error in `quarto_inspect()`:
-      x Error running quarto cli.
-        -------------------------
+      x Error returned by quarto CLI.
+        -----------------------------
         ERROR: Book chapter 'intro.qmd' not found
         
         Stack trace:
