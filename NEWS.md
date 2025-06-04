@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Quarto CLI will now correctly use the same R version than the one used to run functions in this package (#204).
+
 - Add `quarto_available()` function to check if Quarto CLI is found (thanks, @hadley, #187).
 
 - `quarto_render()` now correctly set `as_job` when not inside RStudio IDE and required **rstudioapi** functions are not available (#203).
