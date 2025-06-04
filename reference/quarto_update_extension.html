@@ -66,7 +66,11 @@
 
 
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
-<dd><p>Suppress warning and other messages.</p></dd>
+<dd><p>Suppress warning and other messages, from R and also Quarto CLI
+(i.e <code>--quiet</code> is passed as command line).</p>
+<p><code>quarto.quiet</code> <span style="R">R</span> option or <code>QUARTO_R_QUIET</code> environment variable can be used to globally override a function call
+(This can be useful to debug tool that calls <code>quarto_*</code> functions directly).</p>
+<p>On Github Actions, it will always be <code>quiet = FALSE</code>.</p></dd>
 
 
 <dt id="arg-quarto-args">quarto_args<a class="anchor" aria-label="anchor" href="#arg-quarto-args"></a></dt>
