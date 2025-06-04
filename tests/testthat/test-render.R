@@ -6,7 +6,7 @@ test_that("An error is reported when Quarto is not installed", {
 
 test_that("R Markdown documents can be rendered", {
   skip_if_no_quarto()
-  quarto_render("test.Rmd", quiet = TRUE)
+  quarto_render(test_path("test.Rmd"), quiet = TRUE)
   expect_true(file.exists("test.html"))
   unlink("test.html")
 })
