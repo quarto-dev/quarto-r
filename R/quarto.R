@@ -131,7 +131,7 @@ quarto_run <- function(
   # This is required due to a bug in QUARTO CLI, fixed only in 1.8+
   # https://github.com/quarto-dev/quarto-cli/pull/12887
   custom_env <- NULL
-  if (!quarto_available(min = "1.8.12")) {
+  if (!quarto_available(min = "1.8.13")) {
     custom_env <- c("current", QUARTO_R = R.home("bin"))
   }
   res <- tryCatch(
