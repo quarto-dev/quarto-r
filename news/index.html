@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9011</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="quarto-development-version">quarto (development version)<a class="anchor" aria-label="anchor" href="#quarto-development-version"></a></h2>
-<ul><li><p>Add <code><a href="../reference/quarto_available.html">quarto_available()</a></code> function to check if Quarto CLI is found (thanks, <a href="https://github.com/hadley" class="external-link">@hadley</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/187" class="external-link">#187</a>).</p></li>
+<ul><li><p>Quarto CLI will now correctly use the same R version than the one used to run functions in this package (<a href="https://github.com/quarto-dev/quarto-r/issues/204" class="external-link">#204</a>).</p></li>
+<li><p>Add <code><a href="../reference/quarto_available.html">quarto_available()</a></code> function to check if Quarto CLI is found (thanks, <a href="https://github.com/hadley" class="external-link">@hadley</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/187" class="external-link">#187</a>).</p></li>
 <li><p><code><a href="../reference/quarto_render.html">quarto_render()</a></code> now correctly set <code>as_job</code> when not inside RStudio IDE and required <strong>rstudioapi</strong> functions are not available (<a href="https://github.com/quarto-dev/quarto-r/issues/203" class="external-link">#203</a>).</p></li>
 <li>
 <p>Add several new wrapper function (thanks, <a href="https://github.com/parmsam" class="external-link">@parmsam</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/192" class="external-link">#192</a>):</p>
