@@ -30,6 +30,7 @@ Authors:
 Other contributors:
 \itemize{
   \item Posit Software, PBC [copyright holder, funder]
+  \item Gordon Woodhull [contributor]
 }
 
 }

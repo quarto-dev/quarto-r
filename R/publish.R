@@ -25,14 +25,16 @@
 #' }
 #'
 #' @export
-quarto_publish_doc <- function(input,
-                               name = NULL,
-                               title = NULL,
-                               server = NULL,
-                               account = NULL,
-                               render = c("local", "server", "none"),
-                               metadata = list(),
-                               ...) {
+quarto_publish_doc <- function(
+  input,
+  name = NULL,
+  title = NULL,
+  server = NULL,
+  account = NULL,
+  render = c("local", "server", "none"),
+  metadata = list(),
+  ...
+) {
   validate_rsconnect()
   # resolve render
   render <- match.arg(render)
@@ -51,7 +53,8 @@ quarto_publish_doc <- function(input,
   # render if requested (always render self-contained locally for rpubs)
   if (!is.null(rpubs_destination)) {
     render <- "local"
-    quarto_render(input,
+    quarto_render(
+      input,
       output_format = format,
       pandoc_args = "--self-contained"
     )
@@ -139,14 +142,16 @@ quarto_publish_doc <- function(input,
 
 #' @rdname quarto_publish_doc
 #' @export
-quarto_publish_app <- function(input = getwd(),
-                               name = NULL,
-                               title = NULL,
-                               server = NULL,
-                               account = NULL,
-                               render = c("local", "server", "none"),
-                               metadata = list(),
-                               ...) {
+quarto_publish_app <- function(
+  input = getwd(),
+  name = NULL,
+  title = NULL,
+  server = NULL,
+  account = NULL,
+  render = c("local", "server", "none"),
+  metadata = list(),
+  ...
+) {
   validate_rsconnect()
 
   # resolve render
@@ -194,14 +199,16 @@ quarto_publish_app <- function(input = getwd(),
 
 #' @rdname quarto_publish_doc
 #' @export
-quarto_publish_site <- function(input = getwd(),
-                                name = NULL,
-                                title = NULL,
-                                server = NULL,
-                                account = NULL,
-                                render = c("local", "server", "none"),
-                                metadata = list(),
-                                ...) {
+quarto_publish_site <- function(
+  input = getwd(),
+  name = NULL,
+  title = NULL,
+  server = NULL,
+  account = NULL,
+  render = c("local", "server", "none"),
+  metadata = list(),
+  ...
+) {
   validate_rsconnect()
 
   # resolve render
@@ -257,8 +264,12 @@ quarto_publish_site <- function(input = getwd(),
 
 find_app_primary_doc <- function(dir) {
   preferred <- c(
-    "index.Rmd", "index.rmd", "index.qmd",
-    "ui.Rmd", "ui.rmd", "ui.qmd"
+    "index.Rmd",
+    "index.rmd",
+    "index.qmd",
+    "ui.Rmd",
+    "ui.rmd",
+    "ui.qmd"
   )
   preferred <- preferred[file.exists(file.path(dir, preferred))]
   if (length(preferred) > 0) {
@@ -283,7 +294,9 @@ find_app_primary_doc <- function(dir) {
 }
 
 is_shiny_prerendered <- function(runtime, server = NULL) {
-  if (identical(runtime, "shinyrmd") || identical(runtime, "shiny_prerendered")) {
+  if (
+    identical(runtime, "shinyrmd") || identical(runtime, "shiny_prerendered")
+  ) {
     TRUE
   } else if (identical(server, "shiny")) {
     TRUE
@@ -365,7 +378,10 @@ resolve_destination <- function(server, account, allowShinyapps) {
       # create server if we need to
       servers <- rsconnect::servers()
       if (nrow(subset(servers, servers$name == server)) == 0) {
-        rsconnect::addServer(sprintf("%s/__api__", server_with_protocol), server)
+        rsconnect::addServer(
+          sprintf("%s/__api__", server_with_protocol),
+          server
+        )
       }
 
       # connect user
@@ -374,7 +390,8 @@ resolve_destination <- function(server, account, allowShinyapps) {
       account <- accounts$name
     } else {
       stop(
-        "There is more than one account registered for ", server,
+        "There is more than one account registered for ",
+        server,
         "\nPlease specify which account you want to publish to."
       )
     }
@@ -387,7 +404,9 @@ resolve_destination <- function(server, account, allowShinyapps) {
 }
 
 
-validate_rsconnect <- function(reason = "for publishing using quarto R package.") {
+validate_rsconnect <- function(
+  reason = "for publishing using quarto R package."
+) {
   rlang::check_installed("rsconnect", version = "0.8.26", reason = reason)
 }
 

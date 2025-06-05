@@ -4,7 +4,10 @@
 \alias{quarto_path}
 \title{Path to the quarto binary}
 \usage{
-quarto_path()
+quarto_path(normalize = TRUE)
+}
+\arguments{
+\item{normalize}{If \code{TRUE} (default), normalize the path using \code{\link[base:normalizePath]{base::normalizePath()}}.}
 }
 \value{
 Path to quarto binary (or \code{NULL} if not found)
@@ -12,4 +15,7 @@ Path to quarto binary (or \code{NULL} if not found)
 \description{
 Determine the path to the quarto binary. Uses \code{QUARTO_PATH} environment
 variable if defined, otherwise uses \code{Sys.which()}.
+}
+\seealso{
+\code{\link[=quarto_version]{quarto_version()}} to check the version of the binary found, \code{\link[=quarto_available]{quarto_available()}} to check if Quarto CLI is available and meets some requirements.
 }

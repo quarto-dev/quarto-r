@@ -1,0 +1,27 @@
+---
+title: "knitr dark mode - ggplot"
+brand:
+  light: united-brand.yml
+  dark: slate-brand.yml
+---
+``
+
+```{r}
+#| echo: false
+#| warning: false
+library(quarto)
+library(ggplot2)
+
+united_theme <- theme_brand_ggplot2("united-brand.yml")
+slate_theme <- theme_brand_ggplot2("slate-brand.yml")
+```
+
+```{r}
+#| renderings: [light, dark]
+cars <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = factor(cyl))) +
+  scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
+
+cars + united_theme
+cars + slate_theme
+```

@@ -13,3 +13,6 @@ a \code{\link[base:numeric_version]{numeric_version}} with the quarto version fo
 Determine the specific version of quarto binary found by \code{\link[=quarto_path]{quarto_path()}}.
 If it returns \verb{99.9.9} then it means you are using a dev version.
 }
+\seealso{
+\code{\link[=quarto_available]{quarto_available()}} to check if the version meets some requirements.
+}

@@ -1,0 +1,40 @@
+---
+title: "knitr dark mode - flextable"
+brand:
+  light: united-brand.yml
+  dark: slate-brand.yml
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| echo: false
+#| warning: false
+library(flextable)
+library(quarto)
+
+united_theme <- theme_brand_flextable('united-brand.yml')
+slate_theme <- theme_brand_flextable('slate-brand.yml')
+```
+
+```{r}
+#| renderings: [light, dark]
+
+ft <- flextable(airquality[ sample.int(10),])
+ft <- add_header_row(ft,
+  colwidths = c(4, 2),
+  values = c("Air quality", "Time")
+)
+ft <- theme_vanilla(ft)
+ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
+ft <- color(ft, part = "footer", color = "#666666")
+ft <- set_caption(ft, caption = "New York Air Quality Measurements")
+
+ft |> united_theme()
+ft |> slate_theme()
+```
+
+Here's a [link](https://example.com).
+
+{{< lipsum 2 >}}

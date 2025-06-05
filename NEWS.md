@@ -1,5 +1,22 @@
 # quarto (development version)
 
+- Quarto CLI will now correctly use the same R version than the one used to run functions in this package (#204).
+
+- Add `quarto_available()` function to check if Quarto CLI is found (thanks, @hadley, #187).
+
+- `quarto_render()` now correctly set `as_job` when not inside RStudio IDE and required **rstudioapi** functions are not available (#203).
+
+- Add several new wrapper function (thanks, @parmsam, #192): 
+  - `quarto_list_extensions()` to list installed extensions using `quarto list extensions`
+  - `quarto_remove_extension()` to remove an installed extension using `quarto remove extensions`
+  - `quarto_update_extension()` to update an installed extension using `quarto update extensions`
+
+- `quarto_create_project()` offers better user experience now (thanks, @jennybc, #206, #153).
+
+- `quarto_preview()` gains a `quiet` argument to suppress any output from R or Quarto CLI (thanks, @cwickham, #232.)
+
+- Add some helpers function `theme_brand_*` and `theme_colors_*` to help theme with dark and light brand using some common graph and table packages (thanks,  @gordonwoodhull, [#234](https://github.com/quarto-dev/quarto-r/issues/234)).
+
 - Add `quarto.quiet` options to allow more verbose error message when `quarto_*` function are used inside other package. 
   For example, inside **pkgdown** for building Quarto vignettes. **pkgdown** sets `quiet = TRUE` internally for its call to `quarto_render()`, 
   and setting `options(quarto.quiet = TRUE)` allows to overwrite this.
@@ -12,7 +29,9 @@
 
 - `QUARTO_R_QUIET` environment variable can be used to set `quarto.quiet` option, which overrides any `quiet = TRUE` argument passed to `quarto_*` functions. This can be useful to debug Quarto rendering inside other packages, like **pkgdown**. Overrides will also now happens for [GHA debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging).
 
-- `.libPaths()` from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with **pkgdown** or when building vignettes (thanks, )
+- `.libPaths()` from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with **pkgdown** or when building vignettes
+
+- Correctly report Quarto CLI error when background process call to `quarto` fails (thanks, @salim-b, [#235](https://github.com/quarto-dev/quarto-r/issues/235))
 
 # quarto 1.4.4
 

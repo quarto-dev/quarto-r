@@ -16,14 +16,22 @@ quarto_create_project(
 \arguments{
 \item{name}{The name of the project and the directory that will be created.}
 
-\item{type}{The type of project to create. As of 1.4, it can be one of
+\item{type}{The type of project to create. As of Quarto 1.4, it can be one of
 \code{default}, \code{website}, \code{blog}, \code{book}, \code{manuscript}, \code{confluence}.}
 
-\item{dir}{The directory where to create the new Quarto project.}
+\item{dir}{The directory in which to create the new Quarto project, i.e. the
+parent directory.}
 
-\item{no_prompt}{Do not prompt to confirm approval to download external extension.}
+\item{no_prompt}{Do not prompt to approve the creation of the new project
+folder.}
 
-\item{quiet}{Suppress warning and other messages.}
+\item{quiet}{Suppress warning and other messages, from R and also Quarto CLI
+(i.e \code{--quiet} is passed as command line).
+
+\code{quarto.quiet} \R option or \code{QUARTO_R_QUIET} environment variable can be used to globally override a function call
+(This can be useful to debug tool that calls \verb{quarto_*} functions directly).
+
+On Github Actions, it will always be \code{quiet = FALSE}.}
 
 \item{quarto_args}{Character vector of other \code{quarto} CLI arguments to append
 to the Quarto command executed by this function. This is mainly intended for
@@ -31,15 +39,22 @@ advanced usage and useful for CLI arguments which are not yet mirrored in a
 dedicated parameter of this \R function. See \verb{quarto render --help} for options.}
 }
 \description{
-This function calls \verb{quarto create project <type> <name>}. It will create a
-new directory with the project name and add some skeletons files for the
-project type chosen.
+This function calls \verb{quarto create project <type> <name>}. It creates a new
+directory with the project name, inside the requested parent directory, and
+adds some starter files that are appropriate to the project type.
 }
 \section{Quarto version required}{
-This function require Quarto 1.4 or higher. Use \code{\link[=quarto_version]{quarto_version()}}to check
-the version of Quarto detected.
+This function requires Quarto 1.4 or higher. Use \code{\link[=quarto_version]{quarto_version()}} to see
+your current Quarto version.
 }
 
+\examples{
+\dontrun{
+quarto_create_project("my-first-quarto-project", dir = "~/tmp")
+}
+
+
+}
 \seealso{
 Quarto documentation on \href{https://quarto.org/docs/projects/quarto-projects.html}{Quarto projects}
 }
