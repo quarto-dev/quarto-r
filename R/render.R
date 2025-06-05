@@ -97,6 +97,7 @@ quarto_render <- function(
   profile = NULL,
   quarto_args = NULL,
   pandoc_args = NULL,
+  libpaths = .libPaths(),
   as_job = getOption("quarto.render_as_job", "auto")
 ) {
   # get quarto binary
