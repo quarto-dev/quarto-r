@@ -27,7 +27,6 @@ Imports:
     rstudioapi,
     tools,
     utils,
-    withr,
     yaml
 Suggests: 
     bslib,
