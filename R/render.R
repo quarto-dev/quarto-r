@@ -51,9 +51,9 @@
 #'   advanced usage and useful for CLI arguments which are not yet mirrored in a
 #'   dedicated parameter of this \R function. See `quarto render --help` for options.
 #' @param pandoc_args Additional command line arguments to pass on to Pandoc.
-#' @param libpaths A character vector of library paths to use for the R session run by Quarto. 
-#'   If `NULL`, no library paths will be pass to quarto subprocess and defaults R one will be used. 
-#'   Setting `options(quarto.use_libpaths = FALSE)` will disable this behavior and 
+#' @param libpaths A character vector of library paths to use for the R session run by Quarto.
+#'   If `NULL`, no library paths will be pass to quarto subprocess and defaults R one will be used.
+#'   Setting `options(quarto.use_libpaths = FALSE)` will disable this behavior and
 #'   never pass library paths to quarto subprocess.
 #' @param as_job Render as an RStudio background job. Default is `"auto"`,
 #'   which will render individual documents normally and projects as
