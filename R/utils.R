@@ -1,5 +1,6 @@
+#' @importFrom rmarkdown relative_to
 relative_to_wd <- function(path) {
-  relative_to(getwd(), path)
+  rmarkdown::relative_to(getwd(), path)
 }
 
 #' @importFrom yaml write_yaml

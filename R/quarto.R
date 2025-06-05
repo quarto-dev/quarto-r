@@ -128,6 +128,12 @@ quarto_run <- function(
   ...,
   .call = rlang::caller_env()
 ) {
+  # This is required due to a bug in QUARTO CLI, fixed only in 1.8+
+  # https://github.com/quarto-dev/quarto-cli/pull/12887
+  custom_env <- NULL
+  if (!quarto_available(min = "1.8.12")) {
+    custom_env <- c("current", QUARTO_R = R.home("bin"))
+  }
   res <- tryCatch(
     {
       processx::run(
@@ -136,31 +142,40 @@ quarto_run <- function(
         echo = echo,
         error_on_status = TRUE,
         echo_cmd = echo_cmd,
+        env = custom_env,
         ...
       )
     },
     error = function(e) {
-      msg <- c(x = "Error running quarto cli.")
-      # if there is an error message from quarto CLI, add it to the message
-      if (e$stderr != "") {
-        quarto_error_msg <- xfun::split_lines(e$stderr)
-        names(quarto_error_msg) <- rep(" ", length(quarto_error_msg))
-        msg <- c(
-          msg,
-          " " = paste0(rep("-", nchar(msg)), collapse = ""),
-          quarto_error_msg
+      if (!inherits(e, "system_command_status_error")) {
+        cli::cli_abort(
+          c("!" = "Error running quarto CLI from R."),
+          call = .call,
+          parent = e
         )
+      } else {
+        msg <- c(x = "Error returned by quarto CLI.")
+        # if there is an error message from quarto CLI, add it to the message
+        if (e$stderr != "") {
+          quarto_error_msg <- xfun::split_lines(e$stderr)
+          names(quarto_error_msg) <- rep(" ", length(quarto_error_msg))
+          msg <- c(
+            msg,
+            " " = paste0(rep("-", nchar(msg)), collapse = ""),
+            quarto_error_msg
+          )
+        }
+
+        # if `--quiet` has been set, quarto CLI won't report any error (e$stderr will be empty)
+        # So remind user to run without `--quiet` to see the full error message
+        if (cli_arg_quiet() %in% args)
+          msg <- c(
+            msg,
+            "i" = "Rerun with `quiet = FALSE` to see the full error message."
+          )
+
+        cli::cli_abort(msg, call = .call, parent = e)
       }
-
-      # if `--quiet` has been set, quarto CLI won't report any error (e$stderr will be empty)
-      # So remind user to run without `--quiet` to see the full error message
-      if (cli_arg_quiet() %in% args)
-        msg <- c(
-          msg,
-          "i" = "Rerun with `quiet = FALSE` to see the full error message."
-        )
-
-      cli::cli_abort(msg, call = .call, parent = e)
     }
   )
   invisible(res)
