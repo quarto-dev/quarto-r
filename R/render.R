@@ -120,8 +120,18 @@ quarto_render <- function(
       "Rendering project as background job (use as_job = FALSE to override)"
     )
     script <- tempfile(fileext = ".R")
+    render_args <- as.list(sys.call()[-1L])
+    render_args <- mapply(
+      function(arg, arg_name) paste0(
+        arg_name,
+        "="[nchar(arg_name) > 0L],
+        deparse1(eval(arg, envir = parent.frame(n = 3L)))
+      ),
+      render_args,
+      names(render_args)
+    )
     writeLines(
-      c("library(quarto)", deparse(sys.call())),
+      paste0("quarto::quarto_render(", paste0(render_args, collapse = ", "), ")"),
       script
     )
     rstudioapi::jobRunScript(
