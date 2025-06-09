@@ -97,8 +97,12 @@ quarto_available <- function(min = NULL, max = NULL, error = FALSE) {
     error = function(e) NULL
   )
   if (!is.null(quarto_version)) {
-    if (!is.null(min)) is_above <- quarto_version >= min
-    if (!is.null(max)) is_below <- quarto_version <= max
+    if (!is.null(min)) {
+      is_above <- quarto_version >= min
+    }
+    if (!is.null(max)) {
+      is_below <- quarto_version <= max
+    }
     found <- is_above && is_below
   }
   if (!found && error) {
@@ -168,11 +172,12 @@ quarto_run <- function(
 
         # if `--quiet` has been set, quarto CLI won't report any error (e$stderr will be empty)
         # So remind user to run without `--quiet` to see the full error message
-        if (cli_arg_quiet() %in% args)
+        if (cli_arg_quiet() %in% args) {
           msg <- c(
             msg,
             "i" = "Rerun with `quiet = FALSE` to see the full error message."
           )
+        }
 
         cli::cli_abort(msg, call = .call, parent = e)
       }
@@ -223,16 +228,20 @@ is_using_quarto <- function(dir = ".", verbose = FALSE) {
     0
   has_qmd <- length(list.files(dir, pattern = "\\.qmd$", full.names = TRUE)) > 0
   if (has_quarto_yml) {
-    if (verbose) cli::cli_inform("A {.file _quarto.yml} has been found.")
+    if (verbose) {
+      cli::cli_inform("A {.file _quarto.yml} has been found.")
+    }
     return(TRUE)
   } else if (has_qmd) {
-    if (verbose)
+    if (verbose) {
       cli::cli_inform("At least one file {.code *.qmd} has been found.")
+    }
     return(TRUE)
   }
   # not a directory using Quarto
-  if (verbose)
+  if (verbose) {
     cli::cli_inform("No {.file _quarto.yml} or {.code *.qmd} has been found.")
+  }
   return(FALSE)
 }
 
@@ -274,7 +283,9 @@ quarto_binary_sitrep <- function(verbose = TRUE, debug = FALSE) {
   quarto_found <- normalizePath(quarto_found, mustWork = FALSE)
 
   same_config <- TRUE
-  if (debug) verbose <- TRUE
+  if (debug) {
+    verbose <- TRUE
+  }
 
   # Quarto R package situation ----
   if (verbose) {

@@ -69,8 +69,9 @@ test_that("quarto CLI sitrep", {
     list(QUARTO_PATH = dummy_quarto_path, RSTUDIO_QUARTO = NA),
     expect_snapshot(
       quarto_binary_sitrep(debug = TRUE),
-      transform = function(lines)
+      transform = function(lines) {
         gsub(dummy_quarto_path, "<QUARTO_PATH path>", lines, fixed = TRUE)
+      }
     )
   )
   withr::with_envvar(

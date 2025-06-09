@@ -172,8 +172,11 @@ transform_quarto_cli_in_output <- function(
           if (length(at_lines_after_stack) > 0) {
             # Find the continuous sequence (no gaps)
             gaps <- diff(at_lines_after_stack) > 1
-            end_pos <- if (any(gaps)) which(gaps)[1] else
+            end_pos <- if (any(gaps)) {
+              which(gaps)[1]
+            } else {
               length(at_lines_after_stack)
+            }
             consecutive_indices <- at_lines_after_stack[1:end_pos]
 
             stack_line <- lines[stack_trace_index]

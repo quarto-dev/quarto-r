@@ -43,7 +43,9 @@ quarto_inspect <- function(
     args <- c(args, c("--profile", paste0(profile, collapse = ",")))
   }
 
-  if (is_quiet(quiet)) args <- cli_arg_quiet(args)
+  if (is_quiet(quiet)) {
+    args <- cli_arg_quiet(args)
+  }
 
   args <- c(args, quarto_args)
 

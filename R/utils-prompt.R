@@ -7,7 +7,9 @@ check_approval <- function(
   interactive_info = NULL, # could use `{ what }` as used in `cli_inform()`
   .call = rlang::caller_env()
 ) {
-  if (no_prompt) return(TRUE)
+  if (no_prompt) {
+    return(TRUE)
+  }
 
   if (!is_interactive()) {
     cli::cli_abort(
