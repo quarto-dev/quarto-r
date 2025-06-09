@@ -29,6 +29,8 @@
 
 - `QUARTO_R_QUIET` environment variable can be used to set `quarto.quiet` option, which overrides any `quiet = TRUE` argument passed to `quarto_*` functions. This can be useful to debug Quarto rendering inside other packages, like **pkgdown**. Overrides will also now happens for [GHA debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging).
 
+- `.libPaths()` from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with **pkgdown** or when building vignettes
+
 - Correctly report Quarto CLI error when background process call to `quarto` fails (thanks, @salim-b, [#235](https://github.com/quarto-dev/quarto-r/issues/235))
 
 # quarto 1.4.4
