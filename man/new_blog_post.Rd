@@ -28,7 +28,9 @@ mentioned in error messages as the source of the error. See the
 \code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 
 \item{...}{A named list of values to be added to the yaml header, such as
-\code{description}, \code{author}, \code{categories}, etc.}
+\code{date}, \code{author}, \code{categories}, \code{description}, etc.
+If no \code{date} is provided, the current date is used.
+If no \code{author} is provided, \code{whoami::fullname()} is used to get the user's name.}
 }
 \value{
 The path to the index file.

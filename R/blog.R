@@ -10,7 +10,9 @@
 #' @param open A logical: have the default editor open a window to edit the
 #' `index.qmd` file?
 #' @param ... A named list of values to be added to the yaml header, such as
-#' `description`, `author`, `categories`, etc.
+#' `date`, `author`, `categories`, `description`, etc.
+#' If no `date` is provided, the current date is used.
+#' If no `author` is provided, `whoami::fullname()` is used to get the user's name.
 #' @return The path to the index file.
 #' @export
 #' @examples
