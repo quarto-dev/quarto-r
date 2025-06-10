@@ -2,38 +2,35 @@ test_that("Create a blog post", {
   skip_if_no_quarto("1.4")
   skip_if_not_installed("whoami")
 
-  current_dir <- getwd()
+  dir_path <- withr::local_tempdir(pattern = "test-blog-project-")
+  withr::local_dir(dir_path)
 
-  temp_dir <- withr::local_tempdir()
-  dir_path <- fs::path(temp_dir, "test-blog-project")
+  quarto_create_project(
+    name = "test-blog-project",
+    type = "blog",
+    dir = dir_path,
+    quiet = TRUE,
+    no_prompt = TRUE
+  )
 
-  withr::defer(fs::dir_delete(dir_path), envir = rlang::current_env())
-
-  quarto_create_project(name = "test-blog-project", type = "blog",
-                        dir = temp_dir, quiet = TRUE)
-
-  setwd(dir_path)
-  withr::defer(setwd(current_dir), envir = rlang::current_env())
-
-  Sys.setenv(FULLNAME="Max Kuhn")
+  withr::local_envvar(list(FULLNAME = "Max Kuhn"))
 
   # ------------------------------------------------------------------------------
 
-  post_1 <- new_blog_post("Intro to Felt Surrogacy", date = "March 25, 2010",
-                          open = FALSE)
+  post_1 <- new_blog_post(
+    "Intro to Felt Surrogacy",
+    date = "March 25, 2010",
+    open = FALSE
+  )
   expect_true(fs::file_exists(post_1))
   expect_equal(fs::path_file(post_1), "index.qmd")
 
-  post_1_dir <- fs::path_split(post_1)[[1]]
-  post_1_dir <- post_1_dir[length(post_1_dir) - 1]
-  expect_equal(post_1_dir, "intro-to-felt-surrogacy")
+  expect_equal(fs::path_file(fs::path_dir(post_1)), "intro-to-felt-surrogacy")
 
-  post_1_content <- readLines(post_1)
-  post_1_content <- paste0(post_1_content, collapse = "\n")
-  expect_equal(
-    post_1_content,
-    "---\ntitle: Intro to Felt Surrogacy\nauthor: Max Kuhn\ndate: March 25, 2010\n---"
-  )
+  post_1_content <- rmarkdown::yaml_front_matter(post_1)
+  expect_equal(post_1_content$title, "Intro to Felt Surrogacy")
+  expect_equal(post_1_content$author, "Max Kuhn")
+  expect_equal(post_1_content$date, "March 25, 2010")
 
   # ------------------------------------------------------------------------------
 
@@ -51,19 +48,16 @@ test_that("Create a blog post", {
       author = "Annie Edison",
       date = '2024-04-12',
       categories = c("shenanigans", "security"),
-      open = FALSE)
+      open = FALSE
+    )
 
   expect_true(fs::file_exists(post_2))
   expect_equal(fs::path_file(post_2), "index.qmd")
+  expect_equal(fs::path_file(fs::path_dir(post_2)), "The Science of Illusion")
 
-  post_2_dir <- fs::path_split(post_2)[[1]]
-  post_2_dir <- post_2_dir[length(post_2_dir) - 1]
-  expect_equal(post_2_dir, "The Science of Illusion")
-
-  post_2_content <- readLines(post_2)
-  post_2_exp <- c(
-    "---", "title: Intro to Felt Surrogacy", "author: Annie Edison",
-    "date: '2024-04-12'", "categories:", "- shenanigans", "- security", "---")
-  expect_equal(post_2_content, post_2_exp)
+  post_2_content <- rmarkdown::yaml_front_matter(post_2)
+  expect_equal(post_2_content$title, "Intro to Felt Surrogacy")
+  expect_equal(post_2_content$author, "Annie Edison")
+  expect_equal(post_2_content$date, "2024-04-12")
+  expect_equal(post_2_content$categories, c("shenanigans", "security"))
 })
-
