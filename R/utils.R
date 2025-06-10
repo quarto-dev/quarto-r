@@ -49,6 +49,6 @@ in_rstudio <- function() {
 hide_path <- function(path) {
   function(x) {
     x <- gsub(path, "<project directory>", x, fixed = TRUE)
-    gsub(fs::path_norm(path), "<project directory>", x, fixed = TRUE)
+    gsub(fs::path_real(path), "<project directory>", x, fixed = TRUE)
   }
 }

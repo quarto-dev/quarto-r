@@ -5,13 +5,17 @@ test_that("Create a blog post", {
   dir_path <- withr::local_tempdir(pattern = "test-blog-project-")
   withr::local_dir(dir_path)
 
+  proj_name <- "test-blog-project"
+
   quarto_create_project(
-    name = "test-blog-project",
+    name = proj_name,
     type = "blog",
     dir = dir_path,
     quiet = TRUE,
     no_prompt = TRUE
   )
+
+  withr::local_dir(proj_name)
 
   withr::local_envvar(list(FULLNAME = "Max Kuhn"))
 
