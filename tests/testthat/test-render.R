@@ -70,7 +70,12 @@ test_that("`quarto_render(as_job = TRUE)` is wrapable", {
   # this tests background jobs, a feature only available in interactive RStudio IDE sesssions
   skip_on_cran()
   skip_if_no_quarto()
-  skip_if_not(rstudioapi::isAvailable())
+  skip_if_not(
+    rstudioapi::isAvailable() &&
+      rstudioapi::hasFun("runScriptJob") &&
+      in_rstudio(),
+    message = "quarto_render(as_job = TRUE) is only available in RStudio IDE sessions with job support."
+  )
   qmd <- local_qmd_file(c("content"))
   withr::local_dir(dirname(qmd))
   output <- basename(
