@@ -68,6 +68,7 @@ test_that("quarto_args in quarto_render", {
 
 test_that("`quarto_render(as_job = TRUE)` is wrapable", {
   # this tests background jobs, a feature only available in interactive RStudio IDE sesssions
+  # This is here for manual testing. This test should not run otherwise.
   skip_on_cran()
   skip_if_no_quarto()
   skip_if_not(
