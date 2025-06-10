@@ -26,6 +26,7 @@
 new_blog_post <- function(
   title,
   dest = NULL,
+  wd = NULL,
   open = rlang::is_interactive(),
   call = rlang::current_env(),
   ...
@@ -36,7 +37,7 @@ new_blog_post <- function(
     # Scrub title to make directory name
     dest <- gsub("[[:space:]]", "-", tolower(title))
   }
-  dest_path <- make_post_dir(dest, call)
+  dest_path <- make_post_dir(dest, wd, call)
   post_yaml <- make_post_yaml(title, ...)
   qmd_path <- write_post_yaml(post_yaml, dest_path, call)
   if (open) {
@@ -51,13 +52,13 @@ new_blog_post <- function(
   invisible(qmd_path)
 }
 
-make_post_dir <- function(dest, call) {
-  working <- fs::path_wd()
+make_post_dir <- function(dest, wd, call) {
+  working <- if (is.null(wd)) fs::path_wd() else fs::path_abs(wd)
 
   # is this a quarto project for blog ? Expecting _quarto.yml in working dir
   if (!fs::file_exists(fs::path(working, "_quarto.yml"))) {
     cli::cli_abort(
-      "You need to be at root of a Quarto project to create a blog post in the {.file posts/} directory.",
+      "You need to be at root of a Quarto project to create a blog post in the {.file posts/} directory at {.file {working}}.",
       call = call
     )
   }

@@ -62,12 +62,21 @@ test_that("Create a blog post", {
   expect_equal(post_2_content$categories, c("shenanigans", "security"))
 })
 
-test_that("Error if not quarto project", {
+test_that("Error if not a quarto project", {
   dir_path <- withr::local_tempdir(pattern = "test-blog-project-")
   withr::local_dir(dir_path)
 
   expect_snapshot(
     new_blog_post("Intro to Felt Surrogacy", open = FALSE),
+    error = TRUE
+  )
+
+  expect_snapshot(
+    new_blog_post(
+      "Intro to Felt Surrogacy",
+      wd = withr::local_tempdir(pattern = "test-blog-project-2-"),
+      open = FALSE
+    ),
     error = TRUE
   )
 })
