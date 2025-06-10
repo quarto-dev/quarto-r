@@ -113,7 +113,7 @@ quarto_render <- function(
   if (
     as_job &&
       rstudioapi::isAvailable() &&
-      rstudioapi::hasFun("jobRunScript") &&
+      rstudioapi::hasFun("runScriptJob") &&
       in_rstudio()
   ) {
     message(
