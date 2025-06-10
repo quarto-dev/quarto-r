@@ -79,7 +79,7 @@ make_post_yaml <- function(title, ...) {
   if (length(yml_values$categories) == 0) {
     yml_values <- yml_values[names(yml_values) != "categories"]
   }
-  yml_values <- yaml::as.yaml(yml_values)
+  yml_values <- as_yaml(yml_values)
   yml_values <- paste0("---\n", yml_values, "---\n")
   yml_values
 }
@@ -92,7 +92,7 @@ write_post_yaml <- function(x, dest, .call) {
       call = .call
     )
   } else {
-    ret <- cat(x, file = dest_file)
+    ret <- xfun::write_utf8(x, con = dest_file)
   }
   dest_file
 }

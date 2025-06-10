@@ -3,17 +3,25 @@ relative_to_wd <- function(path) {
   rmarkdown::relative_to(getwd(), path)
 }
 
+# Specific YAML handlers
+# as quarto expects YAML 1.2 and yaml R package supports 1.1
+yaml_handlers <- list(
+  # Handle yes/no from 1.1 to 1.2
+  # https://github.com/vubiostat/r-yaml/issues/131
+  logical = function(x) {
+    value <- ifelse(x, "true", "false")
+    structure(value, class = "verbatim")
+  }
+)
+
+#' @importFrom yaml as_yaml
+as_yaml <- function(x) {
+  yaml::as.yaml(x, handlers = yaml_handlers)
+}
+
 #' @importFrom yaml write_yaml
 write_yaml <- function(x, file) {
-  handlers <- list(
-    # Handle yes/no from 1.1 to 1.2
-    # https://github.com/vubiostat/r-yaml/issues/131
-    logical = function(x) {
-      value <- ifelse(x, "true", "false")
-      structure(value, class = "verbatim")
-    }
-  )
-  yaml::write_yaml(x, file, handlers = handlers)
+  yaml::write_yaml(x, file, handlers = yaml_handlers)
 }
 
 
