@@ -65,3 +65,37 @@ test_that("quarto_args in quarto_render", {
     transform = transform_quarto_cli_in_output(full_path = TRUE)
   )
 })
+
+test_that("`quarto_render(as_job = TRUE)` is wrapable", {
+  # this tests background jobs, a feature only available in interactive RStudio IDE sesssions
+  # This is here for manual testing. This test should not run otherwise.
+  skip_on_cran()
+  skip_if_no_quarto()
+  skip_if_not(
+    rstudioapi::isAvailable() &&
+      rstudioapi::hasFun("runScriptJob") &&
+      in_rstudio(),
+    message = "quarto_render(as_job = TRUE) is only available in RStudio IDE sessions with job support."
+  )
+  qmd <- local_qmd_file(c("content"))
+  withr::local_dir(dirname(qmd))
+  output <- basename(
+    withr::local_file(xfun::with_ext(qmd, ".native"))
+  )
+  wrapper <- function(path, out, format) {
+    quarto_render(
+      input = path,
+      output_file = out,
+      output_format = format,
+      quiet = TRUE,
+      as_job = TRUE
+    )
+  }
+  expect_message(
+    wrapper(basename(qmd), output, "native"),
+    "Rendering project as background job"
+  )
+  # wait for background job to finish (10s should be conservative enough)
+  Sys.sleep(10)
+  expect_true(file.exists(output))
+})
