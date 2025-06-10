@@ -2,13 +2,13 @@
 #'
 #' Creates (and potentially opens) the `index.qmd` file for a new blog post.
 #'
+#' @inheritParams rlang::args_error_context
 #' @param title A character string for the title of the post. It is converted
 #' to title case via [tools::toTitleCase()].
 #' @param dest A character string (or NULL) for the path within `posts`. By
 #' default, the title is adapted as the directory name.
 #' @param open A logical: have the default editor open a window to edit the
 #' `index.qmd` file?
-#' @param call A call object for reporting errors.
 #' @param ... A named list of values to be added to the yaml header, such as
 #' `description`, `author`, `categories`, etc.
 #' @return The path to the index file.

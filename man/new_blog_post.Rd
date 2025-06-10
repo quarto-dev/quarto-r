@@ -22,7 +22,10 @@ default, the title is adapted as the directory name.}
 \item{open}{A logical: have the default editor open a window to edit the
 \code{index.qmd} file?}
 
-\item{call}{A call object for reporting errors.}
+\item{call}{The execution environment of a currently
+running function, e.g. \code{caller_env()}. The function will be
+mentioned in error messages as the source of the error. See the
+\code{call} argument of \code{\link[rlang:abort]{abort()}} for more information.}
 
 \item{...}{A named list of values to be added to the yaml header, such as
 \code{description}, \code{author}, \code{categories}, etc.}
