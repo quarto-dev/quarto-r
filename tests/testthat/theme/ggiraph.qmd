@@ -1,0 +1,27 @@
+---
+title: "dark mode - ggiraph"
+brand:
+  light: united-brand.yml
+  dark: slate-brand.yml
+---
+
+```{r}
+#| echo: false
+#| warning: false
+library(quarto)
+library(ggplot2)
+library(ggiraph)
+
+united_theme <- theme_brand_ggplot2("united-brand.yml")
+slate_theme <- theme_brand_ggplot2("slate-brand.yml")
+```
+
+```{r}
+#| renderings: [light, dark]
+cars <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point_interactive(aes(colour = factor(cyl), tooltip = rownames(mtcars))) +
+  scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
+
+girafe(ggobj = cars + united_theme)
+girafe(ggobj = cars + slate_theme)
+```

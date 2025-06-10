@@ -1,5 +1,6 @@
+#' @importFrom rmarkdown relative_to
 relative_to_wd <- function(path) {
-  relative_to(getwd(), path)
+  rmarkdown::relative_to(getwd(), path)
 }
 
 #' @importFrom yaml write_yaml
@@ -24,4 +25,12 @@ merge_list <- function(x, y) {
 
 `%||%` <- function(x, y) {
   if (is_null(x)) y else x
+}
+
+in_positron <- function() {
+  identical(Sys.getenv("POSITRON"), "1")
+}
+
+in_rstudio <- function() {
+  identical(Sys.getenv("RSTUDIO"), "1")
 }

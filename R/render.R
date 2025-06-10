@@ -37,7 +37,13 @@
 #'   override metadata. This will be merged with `metadata` if both are
 #'   specified, with low precedence on `metadata` options.
 #' @param debug Leave intermediate files in place after render.
-#' @param quiet Suppress warning and other messages.
+#' @param quiet Suppress warning and other messages, from R and also Quarto CLI
+#'   (i.e `--quiet` is passed as command line).
+#'
+#'   `quarto.quiet` \R option or `QUARTO_R_QUIET` environment variable can be used to globally override a function call
+#'   (This can be useful to debug tool that calls `quarto_*` functions directly).
+#'
+#'   On Github Actions, it will always be `quiet = FALSE`.
 #' @param profile [Quarto project
 #'   profile(s)](https://quarto.org/docs/projects/profiles.html) to use. Either
 #'   a character vector of profile names or `NULL` to use the default profile.
@@ -50,8 +56,6 @@
 #'   which will render individual documents normally and projects as
 #'   background jobs. Use the `quarto.render_as_job` \R option to control
 #'   the default globally.
-#'
-#' @importFrom rmarkdown relative_to
 #'
 #' @examples
 #' \dontrun{
@@ -69,26 +73,28 @@
 #' quarto_render("notebook.Rmd", metadata = list(lang = "fr", execute = list(echo = FALSE)))
 #' }
 #' @export
-quarto_render <- function(input = NULL,
-                          output_format = NULL,
-                          output_file = NULL,
-                          execute = TRUE,
-                          execute_params = NULL,
-                          execute_dir = NULL,
-                          execute_daemon = NULL,
-                          execute_daemon_restart = FALSE,
-                          execute_debug = FALSE,
-                          use_freezer = FALSE,
-                          cache = NULL,
-                          cache_refresh = FALSE,
-                          metadata = NULL,
-                          metadata_file = NULL,
-                          debug = FALSE,
-                          quiet = FALSE,
-                          profile = NULL,
-                          quarto_args = NULL,
-                          pandoc_args = NULL,
-                          as_job = getOption("quarto.render_as_job", "auto")) {
+quarto_render <- function(
+  input = NULL,
+  output_format = NULL,
+  output_file = NULL,
+  execute = TRUE,
+  execute_params = NULL,
+  execute_dir = NULL,
+  execute_daemon = NULL,
+  execute_daemon_restart = FALSE,
+  execute_debug = FALSE,
+  use_freezer = FALSE,
+  cache = NULL,
+  cache_refresh = FALSE,
+  metadata = NULL,
+  metadata_file = NULL,
+  debug = FALSE,
+  quiet = FALSE,
+  profile = NULL,
+  quarto_args = NULL,
+  pandoc_args = NULL,
+  as_job = getOption("quarto.render_as_job", "auto")
+) {
   # get quarto binary
   quarto_bin <- find_quarto()
 
@@ -104,8 +110,15 @@ quarto_render <- function(input = NULL,
   }
 
   # render as job if requested and running within rstudio
-  if (as_job && rstudioapi::isAvailable()) {
-    message("Rendering project as background job (use as_job = FALSE to override)")
+  if (
+    as_job &&
+      rstudioapi::isAvailable() &&
+      rstudioapi::hasFun("jobRunScript") &&
+      in_rstudio()
+  ) {
+    message(
+      "Rendering project as background job (use as_job = FALSE to override)"
+    )
     script <- tempfile(fileext = ".R")
     render_args <- as.list(sys.call()[-1L])
     render_args <- mapply(
@@ -171,7 +184,10 @@ quarto_render <- function(input = NULL,
   if (!missing(metadata)) {
     # We merge meta if there is metadata_file passed
     if (!missing(metadata_file)) {
-      metadata <- merge_list(yaml::read_yaml(metadata_file, eval.expr = FALSE), metadata)
+      metadata <- merge_list(
+        yaml::read_yaml(metadata_file, eval.expr = FALSE),
+        metadata
+      )
     }
     meta_file <- tempfile(pattern = "quarto-meta", fileext = ".yml")
     on.exit(unlink(meta_file), add = TRUE)

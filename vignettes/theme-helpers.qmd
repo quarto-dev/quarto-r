@@ -1,0 +1,162 @@
+---
+title: "Theme Helpers"
+format: 
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Theme Helpers}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Overview
+
+The **quarto** package includes functions to help you theme plotting and table packages, for example to provide [light and dark renderings](https://quarto.org/docs/computations/execution-options.html#output-options).
+
+The functions return theme objects or functions, which are applied differently depending on the package.
+
+This vignette demonstrates adding background and foreground colors to outputs from each package.
+
+These are very simple helper functions to get you started. If you need to customize them further, these functions can be copied from quarto-r.
+
+## flextable
+
+Demonstrates a flextable with green foreground and yellow background.
+
+```{r}
+#| echo: false
+#| warning: false
+library(flextable)
+library(quarto)
+
+yellow_green_theme <- theme_colors_flextable("#e3e5a9", "#165b26")
+
+ft <- flextable(airquality[ sample.int(10),])
+ft <- add_header_row(ft,
+  colwidths = c(4, 2),
+  values = c("Air quality", "Time")
+)
+ft <- theme_vanilla(ft)
+ft <- add_footer_lines(ft, "Daily air quality measurements in New York, May to September 1973.")
+ft <- color(ft, part = "footer", color = "#666666")
+ft <- set_caption(ft, caption = "New York Air Quality Measurements")
+
+ft |> yellow_green_theme()
+```
+
+## ggiraph
+
+Demonstrates a ggiraph interactive plot with deep blue background and mauve foreground.
+
+
+```{r}
+#| echo: false
+#| warning: false
+library(quarto)
+library(ggplot2)
+library(ggiraph)
+
+blue_mauve_theme = theme_colors_ggplot2("#111038", "#E0B0FF")
+
+cars <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point_interactive(aes(colour = factor(cyl), tooltip = rownames(mtcars))) +
+  scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
+
+girafe(ggobj = cars + blue_mauve_theme)
+```
+
+## ggplot2
+
+Demonstrates a ggplot2 plot with near-black background and green-grey foreground.
+
+
+```{r}
+#| echo: false
+#| warning: false
+library(quarto)
+library(ggplot2)
+
+black_greyn <- theme_colors_ggplot2("#050411", "#8faf8e")
+
+cars <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = factor(cyl))) +
+  scale_colour_manual(values = c("darkorange", "purple", "cyan4"))
+
+cars + black_greyn
+```
+
+## gt
+
+Demonstrates a gt table with light green background and black foreground.
+
+
+```{r}
+#| echo: false
+#| warning: false
+library(gt)
+library(quarto)
+library(dplyr)
+
+green_black_theme <- theme_colors_gt("#a5f7d6", "#020202")
+
+islands_tbl <-
+  tibble(
+    name = names(islands),
+    size = islands
+  ) |>
+  slice_max(size, n = 10)
+
+gt(islands_tbl) |> green_black_theme()
+```
+
+
+## plotly
+
+Demonstrates a heatmaply interactive heatmap with a dark green background background and light blue foreground.
+
+```{r}
+#| echo: false
+#| warning: false
+library(quarto)
+library(plotly)
+
+green_blue_theme <- theme_colors_plotly("#293a0a", "#a5eff7")
+
+fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = "violin",
+               box = list(visible = TRUE),
+               meanline = list(visible = TRUE),
+               points = "all")
+
+fig |> green_blue_theme()
+```
+
+## thematic
+
+Demonstrates a patchwork plot with dark red background and light grey foreground.
+
+
+```{r}
+#| echo: false
+#| warning: false
+library(ggplot2)
+library(quarto)
+library(patchwork)
+
+darkred_grey_theme <- theme_colors_thematic("#560115", "#ddeeee");
+
+#generate three scatterplots
+plot1 <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point()
+
+plot2 <- ggplot(mtcars, aes(mpg, disp)) +
+  geom_point()
+
+plot3 <- ggplot(mtcars, aes(mpg, hp)) +
+  geom_point()
+
+#display all three scatterplots in same graphic
+darkred_grey_theme()
+plot1 + plot2 + plot3
+
+```
+
