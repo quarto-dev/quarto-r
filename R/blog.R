@@ -38,7 +38,13 @@ new_blog_post <- function(
   post_yaml <- make_post_yaml(title, ...)
   qmd_path <- write_post_yaml(post_yaml, dest_path, .call)
   if (open) {
-    utils::file.edit(qmd_path)
+    edit_file <- utils::file.edit
+    if (
+      rlang::is_installed("usethis") && rlang::is_callable(usethis::edit_file)
+    ) {
+      edit_file <- getFromNamespace("edit_file", "usethis")
+    }
+    edit_file(qmd_path)
   }
   invisible(qmd_path)
 }
