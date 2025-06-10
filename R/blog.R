@@ -25,7 +25,7 @@ new_blog_post <- function(
   title,
   dest = NULL,
   open = rlang::is_interactive(),
-  call = rlang::current_env(),
+  .call = rlang::current_env(),
   ...
 ) {
   rlang::check_installed("whoami")
@@ -34,16 +34,16 @@ new_blog_post <- function(
     # Scrub title to make directory name
     dest <- gsub("[[:space:]]", "-", tolower(title))
   }
-  dest_path <- make_post_dir(dest, call)
+  dest_path <- make_post_dir(dest, .call)
   post_yaml <- make_post_yaml(title, ...)
-  qmd_path <- write_post_yaml(post_yaml, dest_path, call)
+  qmd_path <- write_post_yaml(post_yaml, dest_path, .call)
   if (open) {
     utils::file.edit(qmd_path)
   }
   invisible(qmd_path)
 }
 
-make_post_dir <- function(dest, call) {
+make_post_dir <- function(dest, .call) {
   working <- fs::path_wd()
 
   post_path <- fs::path(working, "posts", dest)
@@ -51,7 +51,7 @@ make_post_dir <- function(dest, call) {
   if (fs::dir_exists(post_path)) {
     cli::cli_abort(
       "There is already a {.code {dest}} directory in 'posts/'",
-      call = call
+      call = .call
     )
   } else {
     ret <- fs::dir_create(post_path)
@@ -78,12 +78,12 @@ make_post_yaml <- function(title, ...) {
   yml_values
 }
 
-write_post_yaml <- function(x, dest, call) {
+write_post_yaml <- function(x, dest, .call) {
   dest_file <- fs::path(dest, "index.qmd")
   if (fs::file_exists(dest_file)) {
     cli::cli_abort(
       "There is already am index.qmd file at {.code {path}}",
-      call = call
+      call = .call
     )
   } else {
     ret <- cat(x, file = dest_file)
