@@ -61,3 +61,13 @@ test_that("Create a blog post", {
   expect_equal(post_2_content$date, "2024-04-12")
   expect_equal(post_2_content$categories, c("shenanigans", "security"))
 })
+
+test_that("Error if not quarto project", {
+  dir_path <- withr::local_tempdir(pattern = "test-blog-project-")
+  withr::local_dir(dir_path)
+
+  expect_snapshot(
+    new_blog_post("Intro to Felt Surrogacy", open = FALSE),
+    error = TRUE
+  )
+})

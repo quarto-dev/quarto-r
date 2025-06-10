@@ -54,6 +54,14 @@ new_blog_post <- function(
 make_post_dir <- function(dest, call) {
   working <- fs::path_wd()
 
+  # is this a quarto project for blog ? Expecting _quarto.yml in working dir
+  if (!fs::file_exists(fs::path(working, "_quarto.yml"))) {
+    cli::cli_abort(
+      "You need to be at root of a Quarto project to create a blog post in the {.file posts/} directory.",
+      call = call
+    )
+  }
+
   post_path <- fs::path(working, "posts", dest)
 
   if (fs::dir_exists(post_path)) {
