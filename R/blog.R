@@ -75,7 +75,7 @@ make_post_yaml <- function(title, ...) {
 
   user_values <- list(...)
 
-  yml_values <- utils::modifyList(default_values, user_values)
+  yml_values <- merge_list(default_values, user_values)
   if (length(yml_values$categories) == 0) {
     yml_values <- yml_values[names(yml_values) != "categories"]
   }
