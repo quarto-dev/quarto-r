@@ -42,3 +42,13 @@ in_positron <- function() {
 in_rstudio <- function() {
   identical(Sys.getenv("RSTUDIO"), "1")
 }
+
+
+# for test
+
+hide_path <- function(path) {
+  function(x) {
+    x <- gsub(path, "<project directory>", x, fixed = TRUE)
+    gsub(fs::path_norm(path), "<project directory>", x, fixed = TRUE)
+  }
+}

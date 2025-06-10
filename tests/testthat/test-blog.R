@@ -35,8 +35,8 @@ test_that("Create a blog post", {
   # ------------------------------------------------------------------------------
 
   expect_snapshot(
-    new_blog_post("Intro to Felt Surrogacy", data = "1999-12-31", open = FALSE),
-    error = TRUE
+    error = TRUE,
+    new_blog_post("Intro to Felt Surrogacy", data = "1999-12-31", open = FALSE)
   )
 
   # ------------------------------------------------------------------------------
@@ -67,16 +67,19 @@ test_that("Error if not a quarto project", {
   withr::local_dir(dir_path)
 
   expect_snapshot(
+    error = TRUE,
+    transform = hide_path(dir_path),
     new_blog_post("Intro to Felt Surrogacy", open = FALSE),
-    error = TRUE
   )
 
+  tmp_dir <- withr::local_tempdir(pattern = "test-blog-project-2-")
   expect_snapshot(
+    error = TRUE,
+    transform = hide_path(tmp_dir),
     new_blog_post(
       "Intro to Felt Surrogacy",
-      wd = withr::local_tempdir(pattern = "test-blog-project-2-"),
+      wd = tmp_dir,
       open = FALSE
     ),
-    error = TRUE
   )
 })
