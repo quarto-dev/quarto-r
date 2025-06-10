@@ -21,8 +21,13 @@
 #'  }
 #' }
 #'
-new_blog_post <- function(title, dest = NULL, open = rlang::is_interactive(),
-                          call = rlang::current_env(), ...) {
+new_blog_post <- function(
+  title,
+  dest = NULL,
+  open = rlang::is_interactive(),
+  call = rlang::current_env(),
+  ...
+) {
   rlang::check_installed("whoami")
 
   if (is.null(dest)) {
@@ -44,8 +49,10 @@ make_post_dir <- function(dest, call) {
   post_path <- fs::path(working, "posts", dest)
 
   if (fs::dir_exists(post_path)) {
-    cli::cli_abort("There is already a {.code {dest}} directory in 'posts/'",
-                   call = call)
+    cli::cli_abort(
+      "There is already a {.code {dest}} directory in 'posts/'",
+      call = call
+    )
   } else {
     ret <- fs::dir_create(post_path)
   }
@@ -74,8 +81,10 @@ make_post_yaml <- function(title, ...) {
 write_post_yaml <- function(x, dest, call) {
   dest_file <- fs::path(dest, "index.qmd")
   if (fs::file_exists(dest_file)) {
-    cli::cli_abort("There is already am index.qmd file at {.code {path}}",
-                   call = call)
+    cli::cli_abort(
+      "There is already am index.qmd file at {.code {path}}",
+      call = call
+    )
   } else {
     ret <- cat(x, file = dest_file)
   }
