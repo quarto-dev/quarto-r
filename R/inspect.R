@@ -9,7 +9,7 @@
 #' @param input The input file or project directory to inspect.
 #'
 #' @return Named list. For input files, the list contains the elements
-#'   `quarto`, `engines`, `formats`, `resources`, plus `project` if the file is
+#'   `quarto`, `engines`, `formats`, `resources`, `fileInformation` plus `project` if the file is
 #'   part of a Quarto project. For projects, the list contains the elements
 #'   `quarto`, `dir`, `engines`, `config` and `files`.
 #'
@@ -29,10 +29,12 @@
 #' }
 #' @importFrom jsonlite fromJSON
 #' @export
-quarto_inspect <- function(input = ".",
-                           profile = NULL,
-                           quiet = FALSE,
-                           quarto_args = NULL) {
+quarto_inspect <- function(
+  input = ".",
+  profile = NULL,
+  quiet = FALSE,
+  quarto_args = NULL
+) {
   quarto_bin <- find_quarto()
 
   args <- c("inspect", path.expand(input))
@@ -41,7 +43,9 @@ quarto_inspect <- function(input = ".",
     args <- c(args, c("--profile", paste0(profile, collapse = ",")))
   }
 
-  if (isTRUE(quiet)) args <- cli_arg_quiet(args)
+  if (is_quiet(quiet)) {
+    args <- cli_arg_quiet(args)
+  }
 
   args <- c(args, quarto_args)
 

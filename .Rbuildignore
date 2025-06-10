@@ -9,8 +9,10 @@
 ^doc$
 ^Meta$
 
+^vignettes/.quarto$
 ^vignettes/*_files$
 ^revdep$
 ^cran-comments\.md$
 ^codecov\.yml$
 ^CRAN-SUBMISSION$
+^[\.]?air\.toml$

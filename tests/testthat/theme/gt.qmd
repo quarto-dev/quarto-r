@@ -1,0 +1,95 @@
+---
+title: "knitr dark mode - gt"
+brand:
+  light: united-brand.yml
+  dark: slate-brand.yml
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| echo: false
+#| warning: false
+library(gt)
+library(quarto)
+
+united_theme <- theme_brand_gt('united-brand.yml')
+slate_theme <- theme_brand_gt('slate-brand.yml')
+```
+
+```{r}
+#| renderings: [light, dark]
+library(tidyverse)
+penguins <- palmerpenguins::penguins |> filter(!is.na(sex))
+penguin_counts <- penguins |>
+  mutate(year = as.character(year)) |>
+  group_by(species, island, sex, year) |>
+  summarise(n = n(), .groups = 'drop')
+penguin_counts_wider <- penguin_counts |>
+  pivot_wider(
+    names_from = c(species, sex),
+    values_from = n
+  ) |>
+  # Make missing numbers (NAs) into zero
+  mutate(across(.cols = -(1:2), .fns = ~replace_na(., replace = 0))) |>
+  arrange(island, year)
+
+actual_colnames <- colnames(penguin_counts_wider)
+desired_colnames <- actual_colnames |>
+  str_remove('(Adelie|Gentoo|Chinstrap)_') |>
+  str_to_title()
+names(desired_colnames) <- actual_colnames
+
+
+penguins_table <- penguin_counts_wider |>
+  mutate(across(.cols = -(1:2), ~if_else(. == 0, NA_integer_, .))) |>
+  mutate(
+    island = as.character(island),
+    year = as.numeric(year),
+    island = paste0('Island: ', island)
+  ) |>
+  gt(groupname_col = 'island', rowname_col = 'year') |>
+  cols_label(.list = desired_colnames) |>
+  tab_spanner(
+    label = md('**Adelie**'),
+    columns = 3:4
+  ) |>
+  tab_spanner(
+    label = md('**Chinstrap**'),
+    columns = c('Chinstrap_female', 'Chinstrap_male')
+  ) |>
+  tab_spanner(
+    label =  md('**Gentoo**'),
+    columns = contains('Gentoo')
+  ) |>
+  tab_header(
+    title = 'Penguins in the Palmer Archipelago',
+    subtitle = 'Data is courtesy of the {palmerpenguins} R package'
+  ) |>
+  sub_missing(missing_text = '-') |>
+  summary_rows(
+    groups = TRUE,
+    fns = list(
+      'Maximum' = ~max(.),
+      'Total' = ~sum(.)
+    ),
+    formatter = fmt_number,
+    decimals = 0,
+    missing_text = '-'
+  )  |>
+  tab_options(
+    data_row.padding = px(2),
+    summary_row.padding = px(3), # A bit more padding for summaries
+    row_group.padding = px(4)    # And even more for our groups
+  ) |>
+  opt_stylize(style = 6, color = 'gray')
+
+penguins_table |> united_theme()
+
+penguins_table |> slate_theme()
+```
+
+Here's a [link](https://example.com).
+
+{{< lipsum 3 >}}

@@ -1,0 +1,100 @@
+---
+title: "knitr dark mode - plotly for R"
+brand:
+  light: united-brand.yml
+  dark: slate-brand.yml
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| echo: false
+#| warning: false
+library(quarto)
+library(plotly)
+
+united_theme <- theme_brand_plotly('united-brand.yml')
+slate_theme <- theme_brand_plotly('slate-brand.yml')
+```
+
+### no caption or crossref
+
+```{r}
+#| renderings: [light, dark]
+fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Width, type = 'violin',
+               box = list(visible = TRUE),
+               meanline = list(visible = TRUE),
+               points = 'all')
+
+fig |> united_theme()
+
+fig |> slate_theme()
+```
+
+
+### crossref, no caption
+
+::: {#fig-plotly-sepal-length}
+
+```{r}
+#| renderings: [light, dark]
+
+fig <- plot_ly(iris, x = ~Species, y = ~Sepal.Length, type = 'violin',
+               box = list(visible = TRUE),
+               meanline = list(visible = TRUE),
+               points = 'all')
+
+fig |> united_theme()
+
+fig |> slate_theme()
+```
+
+:::
+
+### caption, no crossref
+
+::: {}
+```{r}
+#| renderings: [light, dark]
+
+# Load the iris dataset
+data("iris")
+
+fig <- plot_ly(iris, x = ~Species, y = ~Petal.Width, type = 'violin',
+               box = list(visible = TRUE),
+               meanline = list(visible = TRUE),
+               points = 'all')
+
+fig |> united_theme()
+
+fig |> slate_theme()
+```
+
+Violin plot of Petal Width by Species
+
+:::
+
+
+### caption and crossref
+
+::: {#fig-plotly-petal-length}
+```{r}
+#| renderings: [light, dark]
+
+# Load the iris dataset
+data("iris")
+
+fig <- plot_ly(iris, x = ~Species, y = ~Petal.Length, type = 'violin',
+               box = list(visible = TRUE),
+               meanline = list(visible = TRUE),
+               points = 'all')
+
+fig |> united_theme()
+
+fig |> slate_theme()
+```
+
+Violin plot of Petal Length by Species
+
+:::

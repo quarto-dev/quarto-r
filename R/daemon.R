@@ -1,4 +1,15 @@
-run_serve_daemon <- function(command, target, wd, extra_args, render, port, host, browse) {
+run_serve_daemon <- function(
+  command,
+  target,
+  wd,
+  extra_args,
+  render,
+  port,
+  host,
+  browse,
+  quiet = FALSE,
+  .call = rlang::caller_env()
+) {
   # resolve target if provided
   if (!is.null(target)) {
     target <- path.expand(target)
@@ -13,9 +24,14 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   # calculate keys
   ps_key <- paste0(command, "_ps")
   port_key <- paste0(command, "_port")
+  url_key <- paste0(command, "_url")
+  # We don't need to keep previous url
+  quarto[[url_key]] <- NULL
 
   # manage existing server instances
   stop_serve_daemon(command)
+  # we don't need to keep previous url
+  quarto[[url_key]] <- NULL
 
   # if the last server had a port then re-use it for "auto"
   if (port == "auto") {
@@ -25,14 +41,14 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
     } else {
       port <- find_port()
       if (is.null(port)) {
-        stop("Unable to find port to start server on")
+        cli::cli_abort("Unable to find port to start server on.", call = .call)
       }
     }
   }
 
   # check for port availability
   if (port_active(port)) {
-    stop("Server port ", port, " already in use.")
+    cli::cli_abort("Server port {port} already in use.", call = .call)
   }
 
   # command and target
@@ -61,6 +77,13 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   # no browse (we'll use browseURL)
   args <- c(args, "--no-browse")
 
+  # quiet mode
+  quiet_msg_suffix <- NULL
+  if (is_quiet(quiet)) {
+    args <- cli_arg_quiet(args)
+    quiet_msg_suffix <- " Set {.code quiet = FALSE} to have more information from quarto CLI output."
+  }
+
   # add extra args
   args <- c(args, extra_args)
 
@@ -78,10 +101,12 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   init <- ""
   while (!port_active(port)) {
     quarto[[ps_key]]$poll_io(50)
-    cat(quarto[[ps_key]]$read_output())
+    if (isFALSE(quiet)) {
+      cat(quarto[[ps_key]]$read_output())
+    }
     if (!quarto[[ps_key]]$is_alive()) {
       stop_serve_daemon(command)
-      stop("Error starting quarto")
+      cli::cli_abort(c(x = "Error starting quarto.", quiet_msg_suffix))
     }
   }
   quarto[[port_key]] <- port
@@ -91,12 +116,28 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
     if (is.null(quarto[[ps_key]])) {
       return()
     }
-    cat(quarto[[ps_key]]$read_output())
+    # No output to read url from if quiet
+    if (isFALSE(quiet)) {
+      ro <- quarto[[ps_key]]$read_output()
+      cat(ro)
+      # Look at url to browse too in `quarto preview log`
+      if (
+        !isFALSE(browse) &&
+          is.null(quarto[[url_key]]) &&
+          grepl("Browse at https?://", ro)
+      ) {
+        m <- regexec("Browse at (https?://[^ ]+)\n", ro)
+        quarto[[url_key]] <- regmatches(ro, m)[[1]][2]
+      }
+    }
     if (!quarto[[ps_key]]$is_alive()) {
       status <- quarto[[ps_key]]$get_exit_status()
       quarto[[ps_key]] <- NULL
       if (status != 0) {
-        stop("Error running quarto ", command)
+        cli::cli_abort(c(
+          x = "Error running {.code quarto {command}}.",
+          quiet_msg_suffix
+        ))
       }
       return()
     }
@@ -104,19 +145,25 @@ run_serve_daemon <- function(command, target, wd, extra_args, render, port, host
   }
   poll_process()
 
-
   # indicate server is running
-  cat(paste0("Stop the preview with quarto_", command, "_stop()"))
+  if (isFALSE(quiet)) {
+    cli::cli
+    cli::cli_inform(c(
+      "",
+      i = "Stop the preview with {.code quarto_{command}_stop()}"
+    ))
+  }
 
   # run the preview browser
   if (!isFALSE(browse)) {
     if (!is.function(browse)) {
-      browse <- ifelse(rstudioapi::isAvailable(),
+      browse <- ifelse(
+        rstudioapi::isAvailable(),
         rstudioapi::viewer,
         utils::browseURL
       )
     }
-    serve_url <- paste0("http://localhost:", port)
+    serve_url <- quarto[[url_key]] %||% paste0("http://localhost:", port)
     browse(serve_url)
   }
 
