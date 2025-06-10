@@ -7,6 +7,7 @@
 new_blog_post(
   title,
   dest = NULL,
+  wd = NULL,
   open = rlang::is_interactive(),
   call = rlang::current_env(),
   ...
@@ -18,6 +19,8 @@ to title case via \code{\link[tools:toTitleCase]{tools::toTitleCase()}}.}
 
 \item{dest}{A character string (or NULL) for the path within \code{posts}. By
 default, the title is adapted as the directory name.}
+
+\item{wd}{An optional working directory. If \code{NULL}, the current working is used.}
 
 \item{open}{A logical: have the default editor open a window to edit the
 \code{index.qmd} file?}

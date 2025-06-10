@@ -7,6 +7,7 @@
 #' to title case via [tools::toTitleCase()].
 #' @param dest A character string (or NULL) for the path within `posts`. By
 #' default, the title is adapted as the directory name.
+#' @param wd An optional working directory. If `NULL`, the current working is used.
 #' @param open A logical: have the default editor open a window to edit the
 #' `index.qmd` file?
 #' @param ... A named list of values to be added to the yaml header, such as
