@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Make `quarto_render(as_job = TRUE)` wrapable (thanks, @salim-b, #105).
+
 - Quarto CLI will now correctly use the same R version than the one used to run functions in this package (#204).
 
 - Add `quarto_available()` function to check if Quarto CLI is found (thanks, @hadley, #187).
