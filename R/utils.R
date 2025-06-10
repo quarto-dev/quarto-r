@@ -14,7 +14,7 @@ yaml_handlers <- list(
   }
 )
 
-#' @importFrom yaml as_yaml
+#' @importFrom yaml as.yaml
 as_yaml <- function(x) {
   yaml::as.yaml(x, handlers = yaml_handlers)
 }
