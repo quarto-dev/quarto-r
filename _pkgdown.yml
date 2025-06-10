@@ -34,6 +34,7 @@ reference:
     More about Quarto extensions at <https://quarto.org/docs/projects/quarto-projects.html>
   contents:
   - quarto_create_project
+  - new_blog_post
 
 - title: "Configuration"
   desc: >
