@@ -44,9 +44,10 @@ new_blog_post <- function(
   if (open) {
     edit_file <- utils::file.edit
     if (
-      rlang::is_installed("usethis") && rlang::is_callable(usethis::edit_file)
+      rlang::is_installed("usethis") &&
+        is.function(asNamespace("usethis")$edit_file)
     ) {
-      edit_file <- getFromNamespace("edit_file", "usethis")
+      edit_file <- utils::getFromNamespace("edit_file", "usethis")
     }
     edit_file(qmd_path)
   }
