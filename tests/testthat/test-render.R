@@ -91,7 +91,10 @@ test_that("`quarto_render(as_job = TRUE)` is wrapable", {
       as_job = TRUE
     )
   }
-  wrapper(basename(qmd), output, "native")
+  expect_message(
+    wrapper(basename(qmd), output, "native"),
+    "Rendering project as background job"
+  )
   # wait for background job to finish (10s should be conservative enough)
   Sys.sleep(10)
   expect_true(file.exists(output))
