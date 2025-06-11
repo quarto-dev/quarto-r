@@ -1,7 +1,6 @@
 test_that("options quarto.log.debug and env var R_QUARTO_LOG_DEBUG", {
   # clean state
-  withr::local_options(quarto.log.debug = NULL)
-  withr::local_envvar(R_QUARTO_LOG_DEBUG = NA)
+  local_clean_state()
   expect_false(is_quarto_r_debug())
   withr::with_envvar(list(R_QUARTO_LOG_DEBUG = TRUE), {
     expect_true(is_quarto_r_debug())
@@ -23,7 +22,7 @@ test_that("options quarto.log.debug and env var R_QUARTO_LOG_DEBUG", {
 })
 
 test_that("quarto_log_level respects Quarto env var", {
-  withr::local_envvar(QUARTO_LOG_LEVEL = NA)
+  local_clean_state()
   expect_true(is.na(quarto_log_level()))
   expect_false(quarto_log_level("DEBUG"))
   withr::with_envvar(list(QUARTO_LOG_LEVEL = "DEBUG"), {
@@ -44,7 +43,7 @@ test_that("quarto_log_level respects Quarto env var", {
 })
 
 test_that("in_debug_mode respects GHA CI env var", {
-  withr::local_envvar(ACTIONS_RUNNER_DEBUG = NA, ACTIONS_STEP_DEBUG = NA)
+  local_clean_state()
   expect_false(in_debug_mode())
 
   withr::with_envvar(list(ACTIONS_RUNNER_DEBUG = "true"), {
@@ -65,8 +64,7 @@ test_that("in_debug_mode respects GHA CI env var", {
 
 test_that("in_debug mode respects quarto_log_level", {
   # clean state
-  withr::local_envvar(ACTIONS_RUNNER_DEBUG = NA, ACTIONS_STEP_DEBUG = NA)
-  withr::local_envvar(QUARTO_LOG_LEVEL = NA)
+  local_clean_state()
   expect_false(in_debug_mode())
 
   withr::with_envvar(list(QUARTO_LOG_LEVEL = "DEBUG"), {
@@ -84,10 +82,7 @@ test_that("in_debug mode respects quarto_log_level", {
 
 test_that("in_debug_mode respects R_QUARTO_LOG_DEBUG and quarto.log.debug", {
   # clean state
-  withr::local_envvar(ACTIONS_RUNNER_DEBUG = NA, ACTIONS_STEP_DEBUG = NA)
-  withr::local_envvar(QUARTO_LOG_LEVEL = NA)
-  withr::local_envvar(R_QUARTO_LOG_DEBUG = NA)
-  withr::local_options(quarto.log.debug = NULL)
+  local_clean_state()
   expect_false(in_debug_mode())
 
   withr::with_envvar(list(R_QUARTO_LOG_DEBUG = TRUE), {
@@ -112,14 +107,9 @@ test_that("in_debug_mode respects R_QUARTO_LOG_DEBUG and quarto.log.debug", {
 })
 
 test_that("quarto_log only logs when in debug mode", {
-  temp_file <- tempfile(fileext = ".log")
-  on.exit(unlink(temp_file))
+  temp_file <- withr::local_tempfile(fileext = ".log")
 
-  # Test with debug mode off
-  withr::local_envvar(ACTIONS_RUNNER_DEBUG = NA, ACTIONS_STEP_DEBUG = NA)
-  withr::local_envvar(QUARTO_LOG_LEVEL = NA)
-  withr::local_envvar(R_QUARTO_LOG_DEBUG = NA)
-  withr::local_options(quarto.log.debug = NULL)
+  local_clean_state()
 
   result <- quarto_log("test message", file = temp_file)
   expect_false(result)
@@ -141,10 +131,10 @@ test_that("quarto_log only logs when in debug mode", {
 })
 
 test_that("quarto_log respects log file configuration", {
-  temp_file <- tempfile(fileext = ".log")
-  on.exit(unlink(temp_file))
+  temp_file <- withr::local_tempfile(fileext = ".log")
 
-  # Enable debug mode
+  local_clean_state()
+
   withr::local_options(quarto.log.debug = TRUE)
 
   # Test with file parameter
@@ -169,13 +159,16 @@ test_that("quarto_log respects log file configuration", {
   })
 
   # Test with no file configured
+  unlink(temp_file)
   result <- quarto_log("no file configured")
   expect_false(result)
+  expect_false(file.exists(temp_file))
 })
 
 test_that("quarto_log handles custom formatting", {
-  temp_file <- tempfile(fileext = ".log")
-  on.exit(unlink(temp_file))
+  temp_file <- withr::local_tempfile(fileext = ".log")
+
+  local_clean_state()
 
   withr::local_options(quarto.log.debug = TRUE)
 

@@ -285,3 +285,22 @@ install_dev_package <- function(.local_envir = parent.frame()) {
     )
   }
 }
+
+local_clean_state <- function(env = parent.frame()) {
+  withr::local_envvar(
+    # gha debug env variables
+    ACTIONS_RUNNER_DEBUG = NA,
+    ACTIONS_STEP_DEBUG = NA,
+    # quarto R env variables
+    R_QUARTO_LOG_DEBUG = NA,
+    R_QUARTO_LOG_FILE = NA,
+    # quarto CLI env variables
+    QUARTO_LOG_LEVEL = NA,
+    .local_envir = env
+  )
+  withr::local_options(
+    quarto.log.debug = NULL,
+    quarto.log.file = NULL,
+    .local_envir = env
+  )
+}
