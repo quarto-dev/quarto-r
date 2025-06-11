@@ -34,22 +34,39 @@ is_quarto_r_debug <- function() {
 # with option 'quarto.log.file' and env var 'R_QUARTO_LOG_FILE'
 #' @importFrom xfun env_option
 get_log_file <- function() {
-  xfun::env_option('quarto.log.file', NULL)
+  xfun::env_option('quarto.log.file', default = "./quarto-r-debug.log")
 }
 
 #' Log debug information to a configurable file
 #'
-#' This function logs messages to a file only when in debug mode.
-#' The log file can be configured via the `R_QUARTO_LOG_FILE` environment variable
-#' or the `quarto.log.file` option.
+#' This function logs messages to a file only when in debug mode to help diagnose
+#' issues with Quarto vignettes in **pkgdown** and other contexts.
+#'
+#' Debug mode will be enabled automatically when debugging Github Actions workflows,
+#' or when Quarto CLI's environment variable `QUARTO_LOG_LEVEL` is set to `DEBUG`.
 #'
 #' @param ... Messages to log (will be concatenated)
 #' @param file Path to log file. If NULL, uses `get_log_file()` to determine the file.
+#'   Default will be `./quarto-r-debug.log` if no configuration is found.
 #' @param append Logical. Should the messages be appended to the file? Default TRUE.
 #' @param timestamp Logical. Should a timestamp be added? Default TRUE.
 #' @param prefix Character. Prefix to add before each log entry. Default "DEBUG: ".
 #'
 #' @return Invisibly returns TRUE if logging occurred, FALSE otherwise
+#' @keywords internal
+#'
+#' @section Configuration:
+#'
+#' **Enable debugging messages:**
+#' - Set `quarto.log.debug = TRUE` (or `R_QUARTO_LOG_DEBUG = TRUE` environment variable)
+#'
+#' **Change log file path:**
+#' - Set `quarto.log.file` to change the file path (or `R_QUARTO_LOG_FILE` environment variable)
+#' - Default will be `./quarto-r-debug.log`
+#'
+#' **Automatic debug mode:**
+#' - Debug mode will be on automatically when debugging Github Actions workflows
+#' - When Quarto CLI's environment variable `QUARTO_LOG_LEVEL` is set to `DEBUG`
 #'
 #' @examples
 #' \dontrun{
@@ -82,10 +99,7 @@ quarto_log <- function(
     file <- get_log_file()
   }
 
-  if (is.null(file)) {
-    # No log file configured, skip logging
-    return(invisible(FALSE))
-  }
+  # get_log_file() now returns the default, so no need for additional fallback
 
   # Construct the message
   msg_parts <- list(...)

@@ -158,11 +158,18 @@ test_that("quarto_log respects log file configuration", {
     expect_true(file.exists(temp_file))
   })
 
-  # Test with no file configured
-  unlink(temp_file)
-  result <- quarto_log("no file configured")
-  expect_false(result)
-  expect_false(file.exists(temp_file))
+  # Test with no file configured - now uses default
+  # Since get_log_file() now has a default, we need to test differently
+  # The function should still return TRUE and use the default file path
+  tempdir <- withr::local_tempdir("quarto-log-test")
+  withr::with_dir(tempdir, {
+    result <- quarto_log("no file configured")
+    expect_true(result)
+    # The default file should be created in the temp directory
+    expect_true(file.exists("./quarto-r-debug.log"))
+    # Clean up the default log file
+    unlink("./quarto-r-debug.log")
+  })
 })
 
 test_that("quarto_log handles custom formatting", {
