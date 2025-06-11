@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9013</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9014</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="quarto-development-version">quarto (development version)<a class="anchor" aria-label="anchor" href="#quarto-development-version"></a></h2>
-<ul><li><p>Added a <code><a href="../reference/new_blog_post.html">new_blog_post()</a></code> function (thanks, <a href="https://github.com/topeto" class="external-link">@topeto</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/22" class="external-link">#22</a>).</p></li>
+<ul><li><p>Added debugging logic for quarto vignette engine to help diagnose issues with Quarto vignettes in <strong>pkgdown</strong> and other context (thanks, <a href="https://github.com/hadley" class="external-link">@hadley</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/185" class="external-link">#185</a>). Set <code>quarto.log.debug = TRUE</code> to enable debugging messages (or <code>R_QUARTO_LOG_DEBUG = TRUE</code> environment variable). Set <code>quarto.log.file</code> to change the file path to write to (or <code>R_QUARTO_LOG_FILE</code> environment variable). Default will be <code>./quarto-r-debug.log</code> Debug mode will be on automatically when debugging Github Actions workflows, or when Quarto CLI’s environment variable <code>QUARTO_LOG_LEVEL</code> is set to <code>DEBUG</code>.</p></li>
+<li><p>Added a <code><a href="../reference/new_blog_post.html">new_blog_post()</a></code> function (thanks, <a href="https://github.com/topeto" class="external-link">@topeto</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/22" class="external-link">#22</a>).</p></li>
 <li><p>Make <code>quarto_render(as_job = TRUE)</code> wrapable (thanks, <a href="https://github.com/salim-b" class="external-link">@salim-b</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/105" class="external-link">#105</a>).</p></li>
 <li><p>Quarto CLI will now correctly use the same R version than the one used to run functions in this package (<a href="https://github.com/quarto-dev/quarto-r/issues/204" class="external-link">#204</a>).</p></li>
 <li><p>Add <code><a href="../reference/quarto_available.html">quarto_available()</a></code> function to check if Quarto CLI is found (thanks, <a href="https://github.com/hadley" class="external-link">@hadley</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/187" class="external-link">#187</a>).</p></li>
