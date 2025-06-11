@@ -5,10 +5,7 @@ cli_arg_profile <- function(profile, ...) {
 
 is_quiet <- function(quiet) {
   # in CI, follow debug mode
-  if (
-    identical(Sys.getenv("ACTIONS_RUNNER_DEBUG", ""), "true") ||
-      identical(Sys.getenv("ACTIONS_STEP_DEBUG", ""), "true")
-  ) {
+  if (in_ci_with_debug()) {
     return(FALSE)
   }
   # these option takes precedence

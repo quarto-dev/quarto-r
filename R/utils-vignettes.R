@@ -33,6 +33,12 @@ vweave_quarto <- function(format) {
       }
       return(vweave_empty(file))
     }
+
+    # Log debug information using the new configurable logging function
+    quarto_log("R_LIBS: ", Sys.getenv("R_LIBS"))
+    quarto_log(".libPaths(): ", paste0(.libPaths(), collapse = ":"))
+    quarto_log("Packages: ", paste0(dir(.libPaths()[1]), collapse = ","))
+
     quarto_render(file, ..., output_format = format, metadata = meta)
   }
 }
