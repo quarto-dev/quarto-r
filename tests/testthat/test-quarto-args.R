@@ -39,49 +39,49 @@ test_that("quarto.quiet options takes over", {
   })
 })
 
-test_that("QUARTO_R_QUIET options takes over", {
-  withr::with_envvar(list(QUARTO_R_QUIET = TRUE), {
+test_that("R_QUARTO_QUIET options takes over", {
+  withr::with_envvar(list(R_QUARTO_QUIET = TRUE), {
     expect_identical(is_quiet(TRUE), TRUE)
     expect_identical(is_quiet(FALSE), TRUE)
     expect_identical(is_quiet(NA), TRUE)
   })
-  withr::with_envvar(list(QUARTO_R_QUIET = FALSE), {
+  withr::with_envvar(list(R_QUARTO_QUIET = FALSE), {
     expect_identical(is_quiet(TRUE), FALSE)
     expect_identical(is_quiet(FALSE), FALSE)
     expect_identical(is_quiet(NA), FALSE)
   })
-  withr::with_envvar(list(QUARTO_R_QUIET = "true"), {
+  withr::with_envvar(list(R_QUARTO_QUIET = "true"), {
     expect_identical(is_quiet(TRUE), TRUE)
     expect_identical(is_quiet(FALSE), TRUE)
     expect_identical(is_quiet(NA), TRUE)
   })
-  withr::with_envvar(list(QUARTO_R_QUIET = "false"), {
+  withr::with_envvar(list(R_QUARTO_QUIET = "false"), {
     expect_identical(is_quiet(TRUE), FALSE)
     expect_identical(is_quiet(FALSE), FALSE)
     expect_identical(is_quiet(NA), FALSE)
   })
 })
 
-test_that("quarto.quiet options takes over QUARTO_R_QUIET", {
+test_that("quarto.quiet options takes over R_QUARTO_QUIET", {
   withr::with_options(list(quarto.quiet = TRUE), {
-    withr::with_envvar(list(QUARTO_R_QUIET = FALSE), {
+    withr::with_envvar(list(R_QUARTO_QUIET = FALSE), {
       expect_identical(is_quiet(TRUE), TRUE)
       expect_identical(is_quiet(FALSE), TRUE)
       expect_identical(is_quiet(NA), TRUE)
     })
-    withr::with_envvar(list(QUARTO_R_QUIET = TRUE), {
+    withr::with_envvar(list(R_QUARTO_QUIET = TRUE), {
       expect_identical(is_quiet(TRUE), TRUE)
       expect_identical(is_quiet(FALSE), TRUE)
       expect_identical(is_quiet(NA), TRUE)
     })
   })
   withr::with_options(list(quarto.quiet = FALSE), {
-    withr::with_envvar(list(QUARTO_R_QUIET = TRUE), {
+    withr::with_envvar(list(R_QUARTO_QUIET = TRUE), {
       expect_identical(is_quiet(TRUE), FALSE)
       expect_identical(is_quiet(FALSE), FALSE)
       expect_identical(is_quiet(NA), FALSE)
     })
-    withr::with_envvar(list(QUARTO_R_QUIET = FALSE), {
+    withr::with_envvar(list(R_QUARTO_QUIET = FALSE), {
       expect_identical(is_quiet(TRUE), FALSE)
       expect_identical(is_quiet(FALSE), FALSE)
       expect_identical(is_quiet(NA), FALSE)

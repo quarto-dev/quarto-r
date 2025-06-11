@@ -40,7 +40,7 @@
 #' @param quiet Suppress warning and other messages, from R and also Quarto CLI
 #'   (i.e `--quiet` is passed as command line).
 #'
-#'   `quarto.quiet` \R option or `QUARTO_R_QUIET` environment variable can be used to globally override a function call
+#'   `quarto.quiet` \R option or `R_QUARTO_QUIET` environment variable can be used to globally override a function call
 #'   (This can be useful to debug tool that calls `quarto_*` functions directly).
 #'
 #'   On Github Actions, it will always be `quiet = FALSE`.
@@ -122,16 +122,22 @@ quarto_render <- function(
     script <- tempfile(fileext = ".R")
     render_args <- as.list(sys.call()[-1L])
     render_args <- mapply(
-      function(arg, arg_name) paste0(
-        arg_name,
-        "="[nchar(arg_name) > 0L],
-        deparse1(eval(arg, envir = parent.frame(n = 3L)))
-      ),
+      function(arg, arg_name) {
+        paste0(
+          arg_name,
+          "="[nchar(arg_name) > 0L],
+          deparse1(eval(arg, envir = parent.frame(n = 3L)))
+        )
+      },
       render_args,
       names(render_args)
     )
     writeLines(
-      paste0("quarto::quarto_render(", paste0(render_args, collapse = ", "), ")"),
+      paste0(
+        "quarto::quarto_render(",
+        paste0(render_args, collapse = ", "),
+        ")"
+      ),
       script
     )
     rstudioapi::jobRunScript(

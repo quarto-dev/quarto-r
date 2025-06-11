@@ -12,7 +12,7 @@ is_quiet <- function(quiet) {
     return(FALSE)
   }
   # these option takes precedence
-  quiet_options <- getOption("quarto.quiet", Sys.getenv("QUARTO_R_QUIET", NA))
+  quiet_options <- xfun::env_option("quarto.quiet", default = NA)
   if (!is.na(quiet_options)) {
     return(isTRUE(as.logical(quiet_options)))
   }

@@ -31,7 +31,7 @@
 
 - `quarto_path()` now correctly return `NULL` when no quarto is found in the PATH (thanks, @jeroen, #220, #221).
 
-- `QUARTO_R_QUIET` environment variable can be used to set `quarto.quiet` option, which overrides any `quiet = TRUE` argument passed to `quarto_*` functions. This can be useful to debug Quarto rendering inside other packages, like **pkgdown**. Overrides will also now happens for [GHA debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging).
+- `R_QUARTO_QUIET` environment variable can be used to set `quarto.quiet` option, which overrides any `quiet = TRUE` argument passed to `quarto_*` functions. This can be useful to debug Quarto rendering inside other packages, like **pkgdown**. Overrides will also now happens for [GHA debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging).
 
 - Correctly report Quarto CLI error when background process call to `quarto` fails (thanks, @salim-b, [#235](https://github.com/quarto-dev/quarto-r/issues/235))
 
