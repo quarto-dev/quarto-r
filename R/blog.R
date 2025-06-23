@@ -17,12 +17,9 @@
 #' @return The path to the index file.
 #' @export
 #' @examples
-#' \dontrun{
-#'  \donttest{
+#' \dontrun{\donttest{
 #' new_blog_post("making quarto blog posts", categories = c("R"))
-#'
-#'  }
-#' }
+#' }}
 #'
 new_blog_post <- function(
   title,
