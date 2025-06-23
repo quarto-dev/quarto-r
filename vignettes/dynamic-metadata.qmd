@@ -93,6 +93,96 @@ Generated at: {{< meta generated_at >}}
 This content would be hidden when debug mode is enabled.
 :::
 
+## Advanced Use Case: Email Variant Testing
+
+One powerful application of dynamic metadata is variant emails using Quarto's email format. This example shows how to randomly select an email variant and conditionally display different content based on that selection:
+
+````markdown
+---
+title: test conditional emails
+format: email
+email-preview: true
+---
+
+Pick variant
+
+```{r}
+variant <- sample(1:3, 1)
+```
+
+```{r}
+#| echo: false
+#| output: asis
+quarto::write_yaml_metadata_block(.list = setNames(list(TRUE), sprintf("is_email_variant_%d", variant)))
+```
+
+::: {.email}
+
+This email was sent from Quarto! With conditional output for condition `r variant`
+
+::: {.content-visible when-meta="is_email_variant_1"}
+
+email body 1
+
+```{r}
+head(mtcars)
+```
+
+::: {.subject}
+subject 1
+:::
+
+:::
+
+::: {.content-visible when-meta="is_email_variant_2"}
+
+email body 2 
+
+```{r}
+head(palmerpenguins::penguins)
+```
+
+::: {.subject}
+subject 2
+:::
+
+:::
+
+::: {.content-visible when-meta="is_email_variant_3"}
+
+email body 3
+
+```{r}
+praise::praise()
+```
+
+::: {.subject}
+subject 3
+:::
+
+:::
+
+::: {.email-scheduled}
+TRUE
+:::
+
+:::
+
+## Logging
+
+Case: `r variant`
+
+Report run: `r Sys.time()`
+````
+
+This example demonstrates several advanced concepts:
+
+1. **Random variant selection**: Using `sample()` to randomly choose one of three email variants
+2. **Dynamic metadata generation**: Creating boolean metadata flags for each variant using `sprintf()` and `setNames()`
+3. **Conditional email content**: Each variant shows different content (different datasets, subjects) based on the selected metadata flag
+4. **Email-specific features**: Using Quarto's email format with `.subject` divs and `.email-scheduled` metadata
+5. **Logging and tracking**: Recording which variant was selected for analysis purposes
+
 ## Technical Details
 
 The `write_yaml_metadata_block()` function generates a YAML metadata block that can be inserted into the document body. It accepts named arguments or a list, which are converted to YAML format. The **yaml** R package is used for YAML serialization: <https://github.com/vubiostat/r-yaml>
