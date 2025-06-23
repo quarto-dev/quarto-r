@@ -55,3 +55,9 @@ reference:
   contents:
     - starts_with("theme_colors")
     - starts_with("theme_brand")
+
+- title: "Miscellaneous"
+  desc: >
+    These functions are used to help with Quarto documents and projects:
+  contents:
+  - write_yaml_metadata_block
