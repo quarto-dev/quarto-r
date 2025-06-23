@@ -27,12 +27,16 @@
 #' If no metadata is provided (empty `...` and `NULL` or empty `.list`),
 #' the function returns `NULL` without generating any output.
 #'
+#' **Important**: When using this function in Quarto documents, you must set
+#' the chunk option `output: asis` (or `#| output: asis`) for the metadata
+#' block to be properly processed by Quarto.
+#'
 #' This addresses the limitation where Quarto metadata must be static and
 #' cannot be set dynamically from R code during document rendering.
 #'
 #' @examples
 #' \dontrun{
-#' # In a Quarto document R chunk:
+#' # In a Quarto document R chunk with `#| output: asis`:
 #' admin <- TRUE
 #' user_level <- "advanced"
 #'
@@ -60,6 +64,21 @@
 #' # Admin-only content here
 #' # :::
 #' }
+#'
+#' @section Quarto Usage:
+#' To use this function in a Quarto document, create an R code chunk with
+#' the `output: asis` option:
+#'
+#' ```
+#' ```{r}
+#' #| output: asis
+#' write_yaml_metadata_block(admin = TRUE, version = "1.0")
+#' ```
+#' ```
+#'
+#' Without the `output: asis` option, the YAML metadata block will be
+#' displayed as text rather than processed as metadata by Quarto.
+#'
 #'
 #' @export
 write_yaml_metadata_block <- function(..., .list = NULL) {

@@ -37,12 +37,33 @@ takes precedence and will override the value from \code{.list}.
 If no metadata is provided (empty \code{...} and \code{NULL} or empty \code{.list}),
 the function returns \code{NULL} without generating any output.
 
+\strong{Important}: When using this function in Quarto documents, you must set
+the chunk option \code{output: asis} (or \verb{#| output: asis}) for the metadata
+block to be properly processed by Quarto.
+
 This addresses the limitation where Quarto metadata must be static and
 cannot be set dynamically from R code during document rendering.
 }
+\section{Quarto Usage}{
+
+To use this function in a Quarto document, create an R code chunk with
+the \code{output: asis} option:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{```\{r\}
+#| output: asis
+write_yaml_metadata_block(admin = TRUE, version = "1.0")
+}\if{html}{\out{</div>}}
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{
+Without the `output: asis` option, the YAML metadata block will be
+displayed as text rather than processed as metadata by Quarto.
+
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 \dontrun{
-# In a Quarto document R chunk:
+# In a Quarto document R chunk with `#| output: asis`:
 admin <- TRUE
 user_level <- "advanced"
 
