@@ -88,7 +88,6 @@ test_that("write_yaml_metadata_block produces valid YAML structure", {
 })
 
 test_that("write_yaml_metadata_block handles special characters in values", {
-  expect_s3_class(result, "knit_asis")
   expect_snapshot(cat(
     write_yaml_metadata_block(
       title = "Test: A Study of R & Quarto",
