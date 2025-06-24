@@ -104,7 +104,7 @@
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">user_level</span><span class="kw">:</span><span class="at"> admin</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">debug_mode</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">app_version</span><span class="kw">:</span><span class="at"> </span><span class="fl">2.1.0</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">generated_at</span><span class="kw">:</span><span class="at"> 2025-06-24T10:19:25+0000</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">generated_at</span><span class="kw">:</span><span class="at"> 2025-06-24T11:53:23+0000</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>Quarto will process this metadata block as an additional metadata block to the frontmatter one. And so, it wll make the metadata available for use throughout the document.</p>
 <p>They can be used in various ways, such as in shortcodes or conditional content.</p>
@@ -123,7 +123,7 @@
 <blockquote>
 <p><strong>Debug Information</strong></p>
 <p>This content is only visible when <code>debug_mode</code> is true. Since we set it to TRUE, this message should be visible.</p>
-<p>Generated at: 2025-06-24T10:19:25+0000</p>
+<p>Generated at: 2025-06-24T11:53:23+0000</p>
 </blockquote>
 </div>
 </section><section class="level2"><h2 id="advanced-use-case-email-variant-testing">Advanced Use Case: Email Variant Testing<a class="anchor" aria-label="anchor" href="#advanced-use-case-email-variant-testing"></a>
@@ -147,12 +147,12 @@
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>---</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>is_email_variant_2: true</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>is_email_variant_3: true</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>::: {.email}</span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>This email was sent from Quarto! With conditional output for condition 2</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>This email was sent from Quarto! With conditional output for condition 3</span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>::: {.content-visible when-meta="is_email_variant_1"}</span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a></span>
@@ -239,7 +239,7 @@
 <span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>::: {.cell-output .cell-output-stdout}</span>
 <span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="in">[1] "You are grand!"</span></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="in">[1] "You are shining!"</span></span>
 <span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a></span>
@@ -261,9 +261,9 @@
 <span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="fu">## Logging</span></span>
 <span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>Case: 2</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>Case: 3</span>
 <span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>Report run: 2025-06-24 10<span class="sc">:19:</span>25.715216</span></code></pre></div>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>Report run: 2025-06-24 11<span class="sc">:53:</span>23.521635</span></code></pre></div>
 <p>This example demonstrates several advanced concepts:</p>
 <ol type="1">
 <li>
