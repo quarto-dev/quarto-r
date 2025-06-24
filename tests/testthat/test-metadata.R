@@ -43,7 +43,7 @@ test_that("write_yaml_metadata_block handles NULL .list", {
 
 test_that("write_yaml_metadata_block handles complex data types", {
   # Test with various R data types
-  current_date <- Sys.Date()
+  current_date <- structure(20262, class = "Date")
   expect_snapshot(cat(write_yaml_metadata_block(
     title = "Complex Test",
     date = current_date,
