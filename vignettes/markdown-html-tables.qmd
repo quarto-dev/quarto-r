@@ -1,0 +1,218 @@
+---
+title: "Using Markdown in HTML Tables"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+keep-md: true
+vignette: >
+  %\VignetteIndexEntry{Using Markdown in HTML Tables}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction
+
+Quarto allows you to include Markdown syntax inside HTML tables, making it possible to add formatting, links, images, and even more complex elements like videos to your table cells. This vignette demonstrates how to use the table helper functions provided by this package to simplify this process.
+
+The main challenge when working with Markdown in HTML tables is that Quarto won't automatically process Markdown content. Quarto addresses this using special `data-qmd` attributes that tell the Quarto processor to interpret the content as Markdown. This package provides helper functions to create these attributes easily. 
+
+See Quarto documentation about HTML tables parsing: <https://quarto.org/docs/authoring/tables.html#html-tables>.
+
+## Basic Usage
+
+The table helper functions create HTML elements (`<span>` or `<div>`) with the appropriate `data-qmd` or `qmd-base64` attributes. There are two main types of functions:
+
+1. Functions for creating `<span>` elements: 
+    - main function is `tbl_qmd_span()`, defaulting to base64 encoding,
+    - Two others are explicit versions: `tbl_qmd_span_base64()`   and `tbl_qmd_span_raw()`
+2. Functions for creating `<div>` elements: 
+    - main function is `tbl_qmd_div()`, defaulting to base64 encoding,
+    - Two others are explicit versions: `tbl_qmd_div_base64()`  and `tbl_qmd_div_raw()`
+
+Base64 encoding is useful when your Markdown content contains special characters or HTML tags, and this is used by default to avoid any escaping problems using this feature.
+
+### Example with a Basic HTML Table
+
+Here's a simple example of creating an HTML table with Markdown content:
+
+```{r}
+library(quarto)
+
+# Create a simple data frame
+data <- data.frame(
+  Column1 = c("Row 1", "Row 2", "Row 3"),
+  Column2 = c("Value 1", "Value 2", "Value 3")
+)
+
+# Function to add Markdown formatting to table cells
+add_markdown <- function(data) {
+  data$Column1 <- sapply(data$Column1, function(x) {
+    tbl_qmd_span(paste0("**", x, "**"))
+  })
+  data$Column2 <- sapply(data$Column2, function(x) {
+    tbl_qmd_span(paste0("*", x, "*"))
+  })
+  return(data)
+}
+
+# Apply Markdown formatting
+data_with_md <- add_markdown(data)
+
+# Display the data frame as an HTML table
+knitr::kable(data_with_md, format = "html", escape = FALSE)
+```
+
+### Using with knitr::kable()
+
+The `knitr::kable()` function is a common way to create tables in R Markdown and Quarto. By setting `escape = FALSE`, we can include HTML in the table cells:
+
+```{r}
+#| label: tbl-kable-equation
+#| tbl-cap: A table with a math equation rendered using Quarto's data-qmd attribute
+library(quarto)
+
+# Create a data frame with math expressions
+tbl <- data.frame(
+  var = c("$a$", "$b$", "$c$"),
+  val = c(1, 2, 3)
+)
+
+# Add data-qmd attributes to the math expressions
+tbl$var <- sapply(tbl$var, tbl_qmd_span)
+
+# Create the table
+knitr::kable(tbl, format = "html", escape = FALSE)
+```
+
+## Advanced Features
+
+### Display Text
+
+Some feature are Quarto features only. If your table can be used in other context than Quarto, you might want to use the `display` argument to provide a text that will be shown in the table instead of the Markdown content, as it won't be processed outside of Quarto documents.
+
+For example, you might want to show a placeholder when using video shortcodes in a table, as the video player won't be rendered outside of Quarto:
+
+```{r}
+#| label: video-placeholder
+# Create a video embed with a display text
+video_embed <- tbl_qmd_span(
+  "{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}",
+  display = "[Video Player]"
+)
+
+# Create a data frame with the video embed
+data <- data.frame(
+  Content = c("Regular text", video_embed),
+  Description = c("Just some text", "A YouTube video")
+)
+
+# Create the table
+knitr::kable(data, format = "html", escape = FALSE)
+```
+
+Behavior when the table is not processed by Quarto is simulated by opting-out html table processing for this specific table. For example, when `html-table-processing: none` cell option is set like in the Quarto computation cell below.
+
+```{r}
+#| label: video-placeholder
+#| echo: fenced
+#| html-table-processing: none
+```
+
+Output above is a HTML table not processed by Quarto, so the video shortcode is not rendered as a video player, but as a regular text.
+
+See more about disabling HTML table processing in the [Quarto documentation](https://quarto.org/docs/authoring/tables.html#disabling-quarto-table-processing).
+
+::: {.callout-important}
+
+## Limitations 
+
+Using `data-qmd` or `data-qmd-base64` attributes is a Quarto-specific feature and it will only be working when Quarto is allowed to process HTML tables. If this is used in an environment or a document that do opt-out Quarto HTML table processing, the content will not be rendered as expected.
+
+:::
+
+## Table package integration
+
+### Using with kableExtra
+
+Here's a more complex example that combines all these features to create a complete HTML table with Markdown content:
+
+```{r}
+library(quarto)
+library(kableExtra)
+
+# Create a data frame with different types of content
+complex_table <- data.frame(
+  Feature = c("Formatting", "Math", "References", "Media"),
+  Example = c(
+    tbl_qmd_span("**Bold**, *italic*, and `code`"),
+    tbl_qmd_span("$\\int_{a}^{b} f(x) \\, dx$"),
+    tbl_qmd_span("See @tbl-kable-equation for example of a table"),
+    tbl_qmd_div(
+      "{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}",
+      display = "[Video Player]"
+    )
+  ),
+  Notes = c(
+    "Basic markdown formatting",
+    "LaTeX math expressions",
+    "Cross-references to other document elements",
+    "Embedded media using shortcodes"
+  )
+)
+
+# Create and style the table
+kbl(complex_table, format = "html", escape = FALSE) %>%
+  kable_classic() %>%
+  column_spec(2, width = "40%") %>%
+  row_spec(0, bold = TRUE, background = "#f8f8f8")
+```
+
+
+### Using with flextable
+
+By design, flextable does not support inserting raw HTML content into its cells. Using the `tbl_qmd_span()` or `tbl_qmd_div()` functions directly in a flextable will not work as expected.
+
+Quarto team will be working with flextable developers to find a way to support this in the future. 
+
+### Using with **gt**
+
+The **gt** package provides a way to create tables with rich formatting. **gt** already has built-in support for rendering Markdown content, so you can use it directly without needing the `tbl_qmd_span()` or `tbl_qmd_div()` functions.
+
+Here is the same example as above, but using **gt** with **quarto** R package functions
+
+```{r}
+library(gt)
+gt(complex_table) |>
+  fmt_passthrough(columns = "Example", escape = FALSE)
+```
+
+Here is the example with built-in support for Markdown content in **gt**:
+
+```{r}
+data.frame(
+  Feature = c("Formatting", "Math", "References", "Media"),
+  Example = c(
+    c("**Bold**, *italic*, and `code`"),
+    "$\\int_{a}^{b} f(x) \\, dx$",
+    "See @tbl-kable-equation for example of a table",
+    "{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}"
+  ),
+  Notes = c(
+    "Basic markdown formatting",
+    "LaTeX math expressions",
+    "Cross-references to other document elements",
+    "Embedded media using shortcodes"
+  )
+) |>
+  gt() |>
+  fmt_markdown(columns = "Example")
+```
+
+`gt::fmt_markdown()` is aware of Quarto context and it will internally use the `data-qmd` attribute to render Markdown content correctly when Quarto processes the document.
+
+## Conclusion
+
+The table helper functions in this package make it easy to include Markdown content in HTML tables when working with Quarto documents. They will be useful to users to get unblocked when using package that provide HTML tables. Hopefully, developers will also find them useful to simplify the process for users of creating tables with rich content.
+
+For more information about tables in Quarto, see the [Quarto documentation on tables](https://quarto.org/docs/authoring/tables.html#html-tables).
