@@ -56,6 +56,12 @@ reference:
     - starts_with("theme_colors")
     - starts_with("theme_brand")
 
+- title: "Table Helpers"
+  desc: >
+    These functions are used to help with tables in Quarto documents:
+  contents:
+  - starts_with("tbl_qmd_")
+
 - title: "Miscellaneous"
   desc: >
     These functions are used to help with Quarto documents and projects:
