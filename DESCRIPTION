@@ -20,6 +20,7 @@ Depends:
 Imports:
     cli,
     fs,
+    htmltools,
     jsonlite,
     later,
     processx,
