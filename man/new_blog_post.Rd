@@ -42,11 +42,8 @@ The path to the index file.
 Creates (and potentially opens) the \code{index.qmd} file for a new blog post.
 }
 \examples{
-\dontrun{
- \donttest{
+\dontrun{\donttest{
 new_blog_post("making quarto blog posts", categories = c("R"))
-
- }
-}
+}}
 
 }

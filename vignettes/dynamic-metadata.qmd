@@ -1,0 +1,194 @@
+---
+title: "Dynamic Metadata in Quarto Documents"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+keep-md: true
+vignette: >
+  %\VignetteIndexEntry{Dynamic Metadata in Quarto Documents}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+library(quarto)
+```
+
+## Introduction
+
+This vignette demonstrates how to use `write_yaml_metadata_block()` to dynamically set metadata in Quarto documents based on R computations. This functionality addresses a key limitation where Quarto metadata must traditionally be static and defined in the document header.
+
+**Important**: To use this function in Quarto documents, you must include the `output: asis` chunk option (or `#| output: asis`) in your R code chunks. Without this option, the YAML metadata will be displayed as text instead of being processed as metadata.
+
+## Basic Usage
+
+Let's start with a basic example where we set some metadata dynamically:
+
+```{r}
+# Simulate some computed values
+user_type <- "admin"
+is_debug <- TRUE
+current_version <- "2.1.0"
+```
+
+Now we can set metadata based on these computed values. **Note the `#| output: asis` chunk option** - this is essential:
+
+```{r}
+#| label: metadata-block
+#| output: asis
+write_yaml_metadata_block(
+  user_level = user_type,
+  debug_mode = is_debug,
+  app_version = "2.1.0",
+  generated_at = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z")
+)
+```
+
+This will generate a YAML metadata block that looks like this in the body of your document:
+
+```{r}
+#| echo: false
+#| output: asis
+xfun::fenced_block(
+  attrs = ".yaml",
+  knitr::knit_child(text = c("```{r metadata-block, echo=FALSE, output='asis'}", "```"), quiet = TRUE)
+) |> gsub(pattern = "^\\s+", replacement = "") |> cat(sep = "\n")
+```
+
+Quarto will process this metadata block as an additional metadata block to the frontmatter one. And so, it wll make the metadata available for use throughout the document.
+
+They can be used in various ways, such as in shortcodes or conditional content.
+
+- Using `{{{< meta key >}}}` shortcodes to access metadata values: <https://quarto.org/docs/authoring/variables.html#meta>
+
+- Using `when-meta` attributes to conditionally show/hide content based on metadata values: <https://quarto.org/docs/authoring/conditional.html#matching-against-metadata>. **The metadata values must be a boolean.**
+
+Each metadata block will be merged with previous metadata blocks, and existing metadata values can be overwritten by subsequent blocks.
+
+## Example: Using Metadata with Conditional Content
+
+Now that we've set the metadata, we can use it with Quarto's conditional content features:
+
+**Current user level:** {{< meta user_level >}}
+
+**App version:** {{< meta app_version >}}
+
+**Debug mode:** {{< meta debug_mode >}}
+
+::: {.content-visible when-meta="debug_mode"}
+
+::: {.callout-important}
+
+## Debug Information
+
+This content is only visible when `debug_mode` is true. Since we set it to `r is_debug`, this message should be visible.
+
+Generated at: {{< meta generated_at >}}
+:::
+
+:::
+
+::: {.content-hidden when-meta="debug_mode"}
+This content would be hidden when debug mode is enabled.
+:::
+
+## Advanced Use Case: Email Variant Testing
+
+One powerful application of dynamic metadata is variant emails using Quarto's email format. This example shows how to randomly select an email variant and conditionally display different content based on that selection:
+
+````markdown
+---
+title: test conditional emails
+format: email
+email-preview: true
+---
+
+Pick variant
+
+```{r}
+variant <- sample(1:3, 1)
+```
+
+```{r}
+#| echo: false
+#| output: asis
+quarto::write_yaml_metadata_block(.list = setNames(list(TRUE), sprintf("is_email_variant_%d", variant)))
+```
+
+::: {.email}
+
+This email was sent from Quarto! With conditional output for condition `r variant`
+
+::: {.content-visible when-meta="is_email_variant_1"}
+
+email body 1
+
+```{r}
+head(mtcars)
+```
+
+::: {.subject}
+subject 1
+:::
+
+:::
+
+::: {.content-visible when-meta="is_email_variant_2"}
+
+email body 2 
+
+```{r}
+head(palmerpenguins::penguins)
+```
+
+::: {.subject}
+subject 2
+:::
+
+:::
+
+::: {.content-visible when-meta="is_email_variant_3"}
+
+email body 3
+
+```{r}
+praise::praise()
+```
+
+::: {.subject}
+subject 3
+:::
+
+:::
+
+::: {.email-scheduled}
+TRUE
+:::
+
+:::
+
+## Logging
+
+Case: `r variant`
+
+Report run: `r Sys.time()`
+````
+
+This example demonstrates several advanced concepts:
+
+1. **Random variant selection**: Using `sample()` to randomly choose one of three email variants
+2. **Dynamic metadata generation**: Creating boolean metadata flags for each variant using `sprintf()` and `setNames()`
+3. **Conditional email content**: Each variant shows different content (different datasets, subjects) based on the selected metadata flag
+4. **Email-specific features**: Using Quarto's email format with `.subject` divs and `.email-scheduled` metadata
+5. **Logging and tracking**: Recording which variant was selected for analysis purposes
+
+## Technical Details
+
+The `write_yaml_metadata_block()` function generates a YAML metadata block that can be inserted into the document body. It accepts named arguments or a list, which are converted to YAML format. The **yaml** R package is used for YAML serialization: <https://github.com/vubiostat/r-yaml>
+
+Look for the documentation of this package for more details on how YAML is formatted and structured from R objects. 
+
+Currently, this package does write YAML with additional specific handlers, for non-default behavior:
+
+- `TRUE` and `FALSE` are converted to `true` and `false` in YAML, respectively.
