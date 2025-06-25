@@ -11,6 +11,7 @@
 
 ^vignettes/.quarto$
 ^vignettes/*_files$
+^vignettes/*.html$
 ^revdep$
 ^cran-comments\.md$
 ^codecov\.yml$
