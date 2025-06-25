@@ -51,6 +51,7 @@ Suggests:
     testthat (>= 3.1.7),
     thematic,
     tidyverse,
+    tinytable,
     whoami,
     withr
 VignetteBuilder: 
