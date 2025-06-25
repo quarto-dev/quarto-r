@@ -5,6 +5,7 @@
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/dynamic-metadata.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/hello.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/index.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/articles/markdown-html-tables.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/publishing.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/theme-helpers.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/authors.html</loc></url>
@@ -30,6 +31,7 @@
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_update_extension.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_use_template.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_version.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/tbl_qmd_elements.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/theme_helpers.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/write_yaml_metadata_block.html</loc></url>
 </urlset>
