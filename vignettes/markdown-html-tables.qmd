@@ -273,6 +273,7 @@ your_table_function <- function(data, markdown_cols = NULL, quarto = TRUE) {
 Here is a more complex example that combines all these features to create a complete HTML table with Markdown content:
 
 ```{r}
+#| eval: !expr requireNamespace("kableExtra", quietly = TRUE)
 library(kableExtra)
 
 # Create a data frame with different types of content
@@ -319,6 +320,7 @@ The **gt** package provides a way to create tables with rich formatting.
 Here is the same table example as above, using **gt** with **quarto** R package functions. `fmt_passthrough()` is used to allow raw HTML content in the table cells, and `escape = FALSE` is set to avoid escaping the HTML content:
 
 ```{r}
+#| eval: !expr requireNamespace("gt", quietly = TRUE)
 library(gt)
 gt(complex_table) |>
   fmt_passthrough(columns = "Example", escape = FALSE)
@@ -329,6 +331,7 @@ Here is the example with built-in support for Markdown content in **gt**:
 
 ```{r}
 #| warning: false
+#| eval: !expr requireNamespace("gt", quietly = TRUE)
 data.frame(
   Feature = c("Formatting", "Math", "References", "Media"),
   Example = c(
@@ -358,6 +361,7 @@ From the **tinytable** package website (<https://vincentarelbundock.github.io/ti
 By default, `tinytable` deactivates Quarto HTML table processing. This is a design choice so that **tinytable** formatting is not affected by Quarto's HTML table processing. So, our previous table would look like this:
 
 ```{r}
+#| eval: !expr requireNamespace("tinytable", quietly = TRUE)
 library(tinytable)
 
 tt(complex_table)
@@ -368,6 +372,7 @@ Note that the display value for the video shortcode is used, as the shortcode is
 Quarto HTML table processing can be re-enabled in **tinytable**, and in that case, they will handle the `data-qmd` attribute internally, and functions `tbl_qmd_span()` and `tbl_qmd_div()` will not be needed.
 
 ```{r}
+#| eval: !expr requireNamespace("tinytable", quietly = TRUE)
 options(tinytable_quarto_disable_processing = FALSE)
 tt(complex_table)
 ```
@@ -376,12 +381,14 @@ Setting the option will opt-in to Quarto HTML table processing for all tables cr
 Let's unset the option:
 
 ```{r}
+#| eval: !expr requireNamespace("tinytable", quietly = TRUE)
 options(tinytable_quarto_disable_processing = NULL)
 ```
 
 Note that **tinytable** supports `data-qmd` attributes internally, so functions `tbl_qmd_span()` and `tbl_qmd_div()` are not needed when using **tinytable**. You can use `tt()` function directly with Markdown content in the table cells, and mark the cells as using Quarto Markdown processing.
 
 ```{r}
+#| eval: !expr requireNamespace("tinytable", quietly = TRUE)
 data.frame(
   Feature = c("Formatting", "Math", "References", "Media"),
   Example = c(
