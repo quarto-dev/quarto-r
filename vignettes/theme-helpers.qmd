@@ -24,7 +24,6 @@ These are very simple helper functions to get you started. If you need to custom
 Demonstrates a flextable with green foreground and yellow background.
 
 ```{r}
-#| echo: false
 #| warning: false
 library(flextable)
 library(quarto)
@@ -50,7 +49,6 @@ Demonstrates a ggiraph interactive plot with deep blue background and mauve fore
 
 
 ```{r}
-#| echo: false
 #| warning: false
 library(quarto)
 library(ggplot2)
@@ -71,7 +69,6 @@ Demonstrates a ggplot2 plot with near-black background and green-grey foreground
 
 
 ```{r}
-#| echo: false
 #| warning: false
 library(quarto)
 library(ggplot2)
@@ -91,7 +88,6 @@ Demonstrates a gt table with light green background and black foreground.
 
 
 ```{r}
-#| echo: false
 #| warning: false
 library(gt)
 library(quarto)
@@ -115,7 +111,6 @@ gt(islands_tbl) |> green_black_theme()
 Demonstrates a heatmaply interactive heatmap with a dark green background background and light blue foreground.
 
 ```{r}
-#| echo: false
 #| warning: false
 library(quarto)
 library(plotly)
@@ -136,7 +131,6 @@ Demonstrates a patchwork plot with dark red background and light grey foreground
 
 
 ```{r}
-#| echo: false
 #| warning: false
 library(ggplot2)
 library(quarto)
