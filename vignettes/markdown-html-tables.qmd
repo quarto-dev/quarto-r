@@ -19,49 +19,89 @@ The main challenge when working with Markdown in HTML tables is that Quarto won'
 
 See Quarto documentation about HTML tables parsing: <https://quarto.org/docs/authoring/tables.html#html-tables>.
 
+## When to Use These Functions
+
+Use the `tbl_qmd_*()` functions when:
+
+- **Working with table packages that don't have built-in Quarto support** (like kableExtra)
+- **You need raw HTML control** over some Markdown content that needs to be processed by Quarto
+- **Migrating existing table code** to support Quarto's HTML table processing
+
+**Don't use these functions** when:
+
+- Your table package already has built-in Quarto support (like gt's `fmt_markdown()` or tinytable's `format_tt(quarto = TRUE)`)
+- You're working outside of Quarto documents (the functions will have no effect)
+- Simple formatting is easy enough to write in raw HTML and does not require Quarto Markdown processing.
+
 ## Basic Usage
 
-The table helper functions create HTML elements (`<span>` or `<div>`) with the appropriate `data-qmd` or `qmd-base64` attributes. There are two main types of functions:
+The table helper functions create HTML elements (`<span>` or `<div>`) with the appropriate `data-qmd` or `data-qmd-base64` attributes. There are two main types of functions:
 
 1. Functions for creating `<span>` elements: 
-    - main function is `tbl_qmd_span()`, defaulting to base64 encoding,
-    - Two others are explicit versions: `tbl_qmd_span_base64()`   and `tbl_qmd_span_raw()`
+    - main function is `tbl_qmd_span()`, defaulting to base64 encoding
+    - Two others are explicit versions: `tbl_qmd_span_base64()` and `tbl_qmd_span_raw()`
 2. Functions for creating `<div>` elements: 
-    - main function is `tbl_qmd_div()`, defaulting to base64 encoding,
-    - Two others are explicit versions: `tbl_qmd_div_base64()`  and `tbl_qmd_div_raw()`
+    - main function is `tbl_qmd_div()`, defaulting to base64 encoding
+    - Two others are explicit versions: `tbl_qmd_div_base64()` and `tbl_qmd_div_raw()`
 
 Base64 encoding is useful when your Markdown content contains special characters or HTML tags, and this is used by default to avoid any escaping problems using this feature.
 
-### Example with a Basic HTML Table
+### Before and After Comparison
 
-Here's a simple example of creating an HTML table with Markdown content:
+Here's what happens when you don't use the helper functions:
 
 ```{r}
 library(quarto)
 
-# Create a simple data frame
-data <- data.frame(
-  Column1 = c("Row 1", "Row 2", "Row 3"),
-  Column2 = c("Value 1", "Value 2", "Value 3")
+# Without helper functions - Markdown won't be processed
+basic_data <- data.frame(
+  Item = c("Item 1", "Item 2", "Item 3"),
+  Description = c("**Bold text**", "*Italic text*", "`Code text`")
 )
 
-# Function to add Markdown formatting to table cells
-add_markdown <- function(data) {
-  data$Column1 <- sapply(data$Column1, function(x) {
-    tbl_qmd_span(paste0("**", x, "**"))
-  })
-  data$Column2 <- sapply(data$Column2, function(x) {
-    tbl_qmd_span(paste0("*", x, "*"))
-  })
-  return(data)
-}
-
-# Apply Markdown formatting
-data_with_md <- add_markdown(data)
-
-# Display the data frame as an HTML table
-knitr::kable(data_with_md, format = "html", escape = FALSE)
+knitr::kable(
+  basic_data,
+  format = "html",
+  escape = FALSE,
+  caption = "Without Quarto processing"
+)
 ```
+
+And here's the same table with proper Quarto processing:
+
+```{r}
+# With helper functions - Markdown will be processed
+enhanced_data <- data.frame(
+  Item = c("Item 1", "Item 2", "Item 3"),
+  Description = c(
+    tbl_qmd_span("**Bold text**"),
+    tbl_qmd_span("*Italic text*"),
+    tbl_qmd_span("`Code text`")
+  )
+)
+
+knitr::kable(
+  enhanced_data,
+  format = "html",
+  escape = FALSE,
+  caption = "With Quarto processing"
+)
+```
+
+**Key point**: Always remember to set `escape = FALSE` when using these functions with `knitr::kable()` or similar functions.
+
+### What the HTML Output Looks Like
+
+When you use `tbl_qmd_span("**Bold text**")`, it creates HTML like this:
+
+```{r}
+#| echo: false
+#| output: asis
+xfun::fenced_block(attrs = ".html", tbl_qmd_span("**Bold text**")) |>
+  cat(sep = "\n")
+```
+
+Quarto sees the `data-qmd-base64` attribute and processes the base64-decoded content as Markdown.
 
 ### Using with knitr::kable()
 
@@ -89,7 +129,7 @@ knitr::kable(tbl, format = "html", escape = FALSE)
 
 ### Display Text
 
-Some feature are Quarto features only. If your table can be used in other context than Quarto, you might want to use the `display` argument to provide a text that will be shown in the table instead of the Markdown content, as it won't be processed outside of Quarto documents.
+Some features are Quarto features only. If your table can be used in other context than Quarto, you might want to use the `display` argument to provide a text that will be shown in the table instead of the Markdown content, as it won't be processed outside of Quarto documents.
 
 For example, you might want to show a placeholder when using video shortcodes in a table, as the video player won't be rendered outside of Quarto:
 
@@ -133,12 +173,12 @@ Using `data-qmd` or `data-qmd-base64` attributes is a Quarto-specific feature an
 
 ## Table package integration
 
-To summarize the question of Markdown processing in HTML tables within Quarto,
+To summarize the question of Markdown processing in HTML tables within Quarto, currently, there are two ways this could be supported:
 
 - This is possible thanks to Quarto HTML Table parsing 
 - This is done using some `<span>` or `<div>` elements with `data-qmd` or `data-qmd-base64` attributes
 
-Any R package for producing tables and providing raw HTML as output needs to support this Quarto feature to allow Markdown content in HTML tables.
+Any R package for producing tables and providing raw HTML as output needs to support this Quarto feature to allow Markdown content in HTML tables.In this case, they will create themselves the `<span>` or `<div>` elements with the `data-qmd` or `data-qmd-base64` attributes.
 
 Currently, there is two ways this could be supported: 
 
