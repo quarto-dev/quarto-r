@@ -20,6 +20,7 @@ Depends:
 Imports:
     cli,
     fs,
+    htmltools,
     jsonlite,
     later,
     processx,
@@ -40,6 +41,7 @@ Suggests:
     ggplot2,
     gt,
     heatmaply,
+    kableExtra,
     knitr,
     palmerpenguins,
     patchwork,
@@ -49,8 +51,9 @@ Suggests:
     testthat (>= 3.1.7),
     thematic,
     tidyverse,
-    withr,
-    whoami
+    tinytable,
+    whoami,
+    withr
 VignetteBuilder: 
     quarto
 Config/testthat/edition: 3

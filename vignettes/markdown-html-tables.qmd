@@ -1,0 +1,415 @@
+---
+title: "Using Markdown in HTML Tables"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+vignette: >
+  %\VignetteIndexEntry{Using Markdown in HTML Tables}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction
+
+Quarto allows you to include Markdown syntax inside HTML tables, making it possible to add formatting, links, images, and even more complex elements like videos to your table cells. This vignette demonstrates how to use the table helper functions provided by this package to simplify this process.
+
+The main challenge when working with Markdown in HTML tables is that Quarto won't automatically process Markdown content. Quarto addresses this using special `data-qmd` attributes that tell the Quarto processor to interpret the content as Markdown. This package provides helper functions to create these attributes easily. 
+
+See Quarto documentation about HTML tables parsing: <https://quarto.org/docs/authoring/tables.html#html-tables>.
+
+## When to Use These Functions
+
+Use the `tbl_qmd_*()` functions when:
+
+- **Working with table packages that don't have built-in Quarto support** (like kableExtra)
+- **You need raw HTML control** over some Markdown content that needs to be processed by Quarto
+- **Migrating existing table code** to support Quarto's HTML table processing
+
+**Don't use these functions** when:
+
+- Your table package already has built-in Quarto support (like gt's `fmt_markdown()` or tinytable's `format_tt(quarto = TRUE)`)
+- You're working outside of Quarto documents (the functions will have no effect)
+- Simple formatting is easy enough to write in raw HTML and does not require Quarto Markdown processing
+
+## Basic Usage
+
+The table helper functions create HTML elements (`<span>` or `<div>`) with the appropriate `data-qmd` or `data-qmd-base64` attributes. There are two main types of functions:
+
+1. Functions for creating `<span>` elements: 
+    - main function is `tbl_qmd_span()`, defaulting to base64 encoding
+    - Two others are explicit versions: `tbl_qmd_span_base64()` and `tbl_qmd_span_raw()`
+2. Functions for creating `<div>` elements: 
+    - main function is `tbl_qmd_div()`, defaulting to base64 encoding
+    - Two others are explicit versions: `tbl_qmd_div_base64()` and `tbl_qmd_div_raw()`
+
+Base64 encoding is useful when your Markdown content contains special characters or HTML tags, and this is used by default to avoid any escaping problems using this feature.
+
+### Before and After Comparison
+
+Here's what happens when you don't use the helper functions:
+
+```{r}
+library(quarto)
+
+# Without helper functions - Markdown won't be processed
+basic_data <- data.frame(
+  Item = c("Item 1", "Item 2", "Item 3"),
+  Description = c("**Bold text**", "*Italic text*", "`Code text`")
+)
+
+knitr::kable(
+  basic_data,
+  format = "html",
+  escape = FALSE,
+  caption = "Without Quarto processing"
+)
+```
+
+And here's the same table with proper Quarto processing:
+
+```{r}
+# With helper functions - Markdown will be processed
+enhanced_data <- data.frame(
+  Item = c("Item 1", "Item 2", "Item 3"),
+  Description = c(
+    tbl_qmd_span("**Bold text**"),
+    tbl_qmd_span("*Italic text*"),
+    tbl_qmd_span("`Code text`")
+  )
+)
+
+knitr::kable(
+  enhanced_data,
+  format = "html",
+  escape = FALSE,
+  caption = "With Quarto processing"
+)
+```
+
+**Key point**: Always remember to set `escape = FALSE` when using these functions with `knitr::kable()` or similar functions.
+
+### What the HTML Output Looks Like
+
+When you use `tbl_qmd_span("**Bold text**")`, it creates HTML like this:
+
+```{r}
+#| echo: false
+#| output: asis
+xfun::fenced_block(attrs = ".html", tbl_qmd_span("**Bold text**")) |>
+  cat(sep = "\n")
+```
+
+Quarto sees the `data-qmd-base64` attribute and processes the base64-decoded content as Markdown.
+
+### Base64 vs Raw Encoding
+
+The helper functions offer two encoding options:
+
+- **Base64 encoding** (default): Safer for complex content with special characters
+- **Raw encoding**: More readable in HTML source, but can have escaping issues
+
+```{r}
+# Base64 encoding (default) - safer for complex content
+complex_content <- tbl_qmd_span_base64("Content with <em>HTML</em> & special chars")
+
+# Raw encoding - more readable but potential escaping issues
+simple_content <- tbl_qmd_span_raw("**Simple bold text**")
+
+data.frame(
+  Type = c("Base64", "Raw"),
+  Content = c(complex_content, simple_content)
+) |>
+  knitr::kable(format = "html", escape = FALSE)
+```
+
+### Using with knitr::kable()
+
+The `knitr::kable()` function is a common way to create tables in R Markdown and Quarto. By setting `escape = FALSE`, we can include HTML in the table cells:
+
+```{r}
+#| label: tbl-kable-equation
+#| tbl-cap: A table with a math equation rendered using Quarto's data-qmd attribute
+
+# Create a data frame with math expressions
+tbl <- data.frame(
+  var = c("$a$", "$b$", "$c$"),
+  val = c(1, 2, 3)
+)
+
+# Add data-qmd attributes to the math expressions
+tbl$var <- sapply(tbl$var, tbl_qmd_span)
+
+# Create the table
+knitr::kable(tbl, format = "html", escape = FALSE)
+```
+
+## Advanced Features
+
+### Display Text
+
+Some features are Quarto-specific. If your table might be used outside of Quarto, you can use the `display` argument to provide fallback text that will be shown when the Markdown content can't be processed.
+
+For example, you might want to show a placeholder when using video shortcodes in a table, as the video player won't be rendered outside of Quarto:
+
+```{r}
+#| label: video-placeholder
+# Create a video embed with a display text
+video_embed <- tbl_qmd_span(
+  "{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}",
+  display = "[Video Player]"
+)
+
+# Create a data frame with the video embed
+data <- data.frame(
+  Content = c("Regular text", video_embed),
+  Description = c("Just some text", "A YouTube video")
+)
+
+# Create the table
+knitr::kable(data, format = "html", escape = FALSE)
+```
+
+Behavior when the table is not processed by Quarto is simulated by opting-out HTML table processing for this specific table. For example, when `html-table-processing: none` cell option is set like in the Quarto computation cell below.
+
+```{r}
+#| label: video-placeholder
+#| echo: fenced
+#| html-table-processing: none
+```
+
+Output above is an HTML table not processed by Quarto, so the video shortcode is not rendered as a video player, but as regular text.
+
+See more about disabling HTML table processing in the [Quarto documentation](https://quarto.org/docs/authoring/tables.html#disabling-quarto-table-processing).
+
+## Troubleshooting
+
+### Common Issues
+
+**Content not rendering as Markdown:**
+- Check that `escape = FALSE` is set in your table function
+- Verify that Quarto HTML table processing is enabled (it's on by default)
+- Ensure you're using the functions in a Quarto document
+
+**Escaping problems:**
+- Use base64 encoding (the default) for content with special characters
+- Use `tbl_qmd_span_base64()` explicitly for complex HTML content
+
+**Performance with large tables:**
+- Base64 encoding adds some overhead - consider raw encoding for simple content in very large tables
+- Test with your specific use case to determine if performance is acceptable
+
+**Content appears as HTML tags:**
+- You may have forgotten `escape = FALSE` in your table function
+- Double-check that your table package supports raw HTML content
+
+### Testing Your Setup
+
+Use this simple test to verify everything is working:
+
+```{r}
+test_data <- data.frame(
+  Test = "Markdown Processing",
+  Result = tbl_qmd_span("**This should be bold**")
+)
+
+knitr::kable(test_data, format = "html", escape = FALSE)
+```
+
+If the text appears bold, your setup is working correctly.
+
+::: {.callout-important}
+
+## Limitations 
+
+Using `data-qmd` or `data-qmd-base64` attributes is a Quarto-specific feature and will only work when Quarto is allowed to process HTML tables. If this is used in an environment or document that opts out of Quarto HTML table processing, the content will not be rendered as expected.
+
+:::
+
+## Table Package Integration
+
+To summarize Markdown processing in HTML tables within Quarto:
+
+- This is possible thanks to Quarto HTML Table parsing 
+- This is done using `<span>` or `<div>` elements with `data-qmd` or `data-qmd-base64` attributes
+
+Any R package for producing tables and providing raw HTML as output can support this Quarto feature to allow Markdown content in HTML tables.
+
+Currently, there are two ways this can be supported: 
+
+- **Built-in support**: The package already supports Quarto HTML table parsing and offers a way to mark cells as to be processed by Quarto when in Quarto context. In this case, they create the `<span>` or `<div>` elements with the `data-qmd` or `data-qmd-base64` attributes internally.
+
+- **External helper approach**: The package does not support Quarto HTML table parsing directly but offers a way to insert raw HTML content in table cells. In this case, you can use the helper functions provided by this package to create the `<span>` or `<div>` elements with the appropriate attributes.
+
+Below we show how this works with some popular R packages for creating tables.
+
+### For Package Developers
+
+If you're developing an R package that creates HTML tables, consider:
+
+**Integration Options:**
+1. **Full integration**: Add native support for `data-qmd` attributes (like gt and tinytable)
+2. **Raw HTML support**: Allow users to insert raw HTML and let them use these helper functions
+3. **Hybrid approach**: Detect Quarto context and automatically apply appropriate attributes
+
+**Recommended Implementation:**
+```r
+# Example function signature for package developers
+your_table_function <- function(data, markdown_cols = NULL, quarto = TRUE) {
+  # If quarto = TRUE and in Quarto context, apply data-qmd attributes
+  # to columns specified in markdown_cols
+}
+```
+
+**Testing Strategy:**
+- Test both inside and outside Quarto documents
+- Verify that fallback `display` text works correctly
+- Test with various Markdown content types (math, links, formatting)
+
+### Using with kableExtra
+
+**kableExtra** is a popular package for creating and styling tables in R. It produces raw HTML but does not have specific support for Quarto's HTML table parsing. However, you can use the helper functions to insert Markdown content into the cells, as it allows inserting raw HTML content in table cells (by setting `escape = FALSE` to keep the raw HTML as-is).
+
+Here is a more complex example that combines all these features to create a complete HTML table with Markdown content:
+
+```{r}
+#| eval: !expr requireNamespace("kableExtra", quietly = TRUE)
+library(kableExtra)
+
+# Create a data frame with different types of content
+complex_table <- data.frame(
+  Feature = c("Formatting", "Math", "References", "Media"),
+  Example = c(
+    tbl_qmd_span("**Bold**, *italic*, and `code`"),
+    tbl_qmd_span("$\\int_{a}^{b} f(x) \\, dx$"),
+    tbl_qmd_span("See @tbl-kable-equation for example of a table"),
+    tbl_qmd_div(
+      "{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}",
+      display = "[Video Player]"
+    )
+  ),
+  Notes = c(
+    "Basic markdown formatting",
+    "LaTeX math expressions",
+    "Cross-references to other document elements",
+    "Embedded media using shortcodes"
+  )
+)
+
+# Create and style the table
+kbl(complex_table, format = "html", escape = FALSE) |>
+  kable_classic() |>
+  column_spec(2, width = "40%") |>
+  row_spec(0, bold = TRUE, background = "#f8f8f8")
+```
+
+### Using with **flextable**
+
+By design, **flextable** does not support inserting raw HTML content into its cells. Using the `tbl_qmd_span()` or `tbl_qmd_div()` functions directly in a flextable will not work as expected.
+
+Unfortunately, **flextable** does not yet integrate with Quarto's HTML table parsing features, and does not allow marking cell content as Markdown to be processed by Quarto.
+
+The Quarto team will be working with **flextable** developers to find a way to support this in the future. 
+
+### Using with **gt**
+
+The **gt** package provides a way to create tables with rich formatting. 
+
+**gt** allows inserting raw HTML content in table cells and has built-in support for Quarto's HTML table parsing. It uses the `data-qmd` attribute internally to mark cells that contain Markdown content.
+
+Here is the same table example as above, using **gt** with **quarto** R package functions. `fmt_passthrough()` is used to allow raw HTML content in the table cells, and `escape = FALSE` is set to avoid escaping the HTML content:
+
+```{r}
+#| eval: !expr requireNamespace("gt", quietly = TRUE)
+library(gt)
+gt(complex_table) |>
+  fmt_passthrough(columns = "Example", escape = FALSE)
+```
+
+However, **gt** already has built-in support for rendering Markdown content, so you can use it directly without needing the `tbl_qmd_span()` or `tbl_qmd_div()` functions.
+Here is the example with built-in support for Markdown content in **gt**:
+
+```{r}
+#| warning: false
+#| eval: !expr requireNamespace("gt", quietly = TRUE)
+data.frame(
+  Feature = c("Formatting", "Math", "References", "Media"),
+  Example = c(
+    "**Bold**, *italic*, and `code`",
+    "$\\int_{a}^{b} f(x) \\, dx$",
+    "See @tbl-kable-equation for example of a table",
+    "{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}"
+  ),
+  Notes = c(
+    "Basic markdown formatting",
+    "LaTeX math expressions",
+    "Cross-references to other document elements",
+    "Embedded media using shortcodes"
+  )
+) |>
+  gt() |>
+  fmt_markdown(columns = "Example")
+```
+
+`gt::fmt_markdown()` is aware of Quarto context and will internally use the `data-qmd` attribute to render Markdown content correctly when Quarto processes the document.
+
+### Using with **tinytable**
+
+From the **tinytable** package website (<https://vincentarelbundock.github.io/tinytable/>):
+> `tinytable` is a small but powerful R package to draw beautiful tables in a variety of formats: HTML, LaTeX, Word, PDF, PNG, Markdown, and Typst.
+
+By default, `tinytable` deactivates Quarto HTML table processing. This is a design choice so that **tinytable** formatting is not affected by Quarto's HTML table processing. So, our previous table would look like this:
+
+```{r}
+#| eval: !expr requireNamespace("tinytable", quietly = TRUE)
+library(tinytable)
+
+tt(complex_table)
+```
+
+Note that the display value for the video shortcode is used, as the shortcode is not processed by Quarto in this case.
+
+Quarto HTML table processing can be re-enabled in **tinytable**, and in that case, they will handle the `data-qmd` attribute internally, and functions `tbl_qmd_span()` and `tbl_qmd_div()` will not be needed.
+
+```{r}
+#| eval: !expr requireNamespace("tinytable", quietly = TRUE)
+options(tinytable_quarto_disable_processing = FALSE)
+tt(complex_table)
+```
+
+Setting the option will opt-in to Quarto HTML table processing for all tables created with **tinytable**. This allows a table using `tbl_qmd_span()` or `tbl_qmd_div()` to be processed correctly by Quarto.
+Let's unset the option:
+
+```{r}
+#| eval: !expr requireNamespace("tinytable", quietly = TRUE)
+options(tinytable_quarto_disable_processing = NULL)
+```
+
+Note that **tinytable** supports `data-qmd` attributes internally, so functions `tbl_qmd_span()` and `tbl_qmd_div()` are not needed when using **tinytable**. You can use `tt()` function directly with Markdown content in the table cells, and mark the cells as using Quarto Markdown processing.
+
+```{r}
+#| eval: !expr requireNamespace("tinytable", quietly = TRUE)
+data.frame(
+  Feature = c("Formatting", "Math", "References", "Media"),
+  Example = c(
+    "**Bold**, *italic*, and `code`",
+    "$\\int_{a}^{b} f(x) \\, dx$",
+    "See @tbl-kable-equation for example of a table",
+    "{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}"
+  ),
+  Notes = c(
+    "Basic markdown formatting",
+    "LaTeX math expressions",
+    "Cross-references to other document elements",
+    "Embedded media using shortcodes"
+  )
+) |>
+  tt() |>
+  format_tt(j = "Example", quarto = TRUE)
+```
+
+## Conclusion
+
+The table helper functions in this package make it easy to include Markdown content in HTML tables when working with Quarto documents. They are useful for users to get unblocked when using a package that provides HTML tables but doesn't already support Quarto processing. Hopefully, developers will also find them useful to simplify the process for users of creating tables with rich content. This is already happening with **gt** and **tinytable** packages, which have built-in support for Markdown content in tables by marking the cells with the `data-qmd` attribute internally for the user.
+
+For more information about tables in Quarto, see the [Quarto documentation on tables](https://quarto.org/docs/authoring/tables.html#html-tables).
