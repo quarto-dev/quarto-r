@@ -11,7 +11,7 @@ vignette: >
 
 ## Overview
 
-The **quarto** package includes functions to help you theme plotting and table packages, for example to provide [light and dark renderings](https://quarto.org/docs/computations/execution-options.html#output-options).
+The **quarto** package includes functions to help you theme plotting and table packages, for example to provide [light and dark renderings](https://quarto.org/docs/computations/execution-options.html#cell-renderings).
 
 The functions return theme objects or functions, which are applied differently depending on the package.
 
