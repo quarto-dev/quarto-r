@@ -4,7 +4,6 @@ format:
   html:
     toc: true
     toc-depth: 3
-keep-md: true
 vignette: >
   %\VignetteIndexEntry{Using Markdown in HTML Tables}
   %\VignetteEngine{quarto::html}
