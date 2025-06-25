@@ -190,6 +190,7 @@ gt(complex_table) |>
 Here is the example with built-in support for Markdown content in **gt**:
 
 ```{r}
+#| warning: false
 data.frame(
   Feature = c("Formatting", "Math", "References", "Media"),
   Example = c(
