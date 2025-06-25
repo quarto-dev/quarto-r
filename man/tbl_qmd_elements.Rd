@@ -10,29 +10,17 @@
 \alias{tbl_qmd_div_raw}
 \title{Create Quarto Markdown HTML Elements for Tables}
 \usage{
-tbl_qmd_span(
-  content,
-  display = NULL,
-  use_base64 = TRUE,
-  class = NULL,
-  attrs = NULL
-)
+tbl_qmd_span(content, display = NULL, use_base64 = TRUE)
 
-tbl_qmd_div(
-  content,
-  display = NULL,
-  use_base64 = TRUE,
-  class = NULL,
-  attrs = NULL
-)
+tbl_qmd_div(content, display = NULL, use_base64 = TRUE)
 
-tbl_qmd_span_base64(content, display = NULL, class = NULL, attrs = NULL)
+tbl_qmd_span_base64(content, display = NULL)
 
-tbl_qmd_div_base64(content, display = NULL, class = NULL, attrs = NULL)
+tbl_qmd_div_base64(content, display = NULL)
 
-tbl_qmd_span_raw(content, display = NULL, class = NULL, attrs = NULL)
+tbl_qmd_span_raw(content, display = NULL)
 
-tbl_qmd_div_raw(content, display = NULL, class = NULL, attrs = NULL)
+tbl_qmd_div_raw(content, display = NULL)
 }
 \arguments{
 \item{content}{Character string of content to wrap. This can include Markdown,
@@ -44,12 +32,6 @@ accessibility.}
 
 \item{use_base64}{Logical, whether to base64 encode the content (recommended
 for complex content with special characters or when content includes quotes)}
-
-\item{class}{Optional CSS class(es) to add to the element. While this works for
-both span and div elements, it's more commonly used with div elements.}
-
-\item{attrs}{Named list of additional HTML attributes to add to the element.
-For example: \code{list(id = "my-element", title = "Tooltip text")}}
 }
 \value{
 Character string containing the HTML element with appropriate data-qmd attributes
@@ -88,11 +70,6 @@ tbl_qmd_div("{{< video https://example.com >}}", display = "[Video content]")
 # Explicit encoding choices
 tbl_qmd_span_base64("Complex $\\\\LaTeX$ content")
 tbl_qmd_span_raw("Simple text")
-
-# Use with custom attributes
-tbl_qmd_span("**Important note**", attrs = list(title = "Hover for more info"))
-tbl_qmd_div("Content here", class = "callout",
-            attrs = list(id = "special-note", tabindex = "0"))
 
 # Use with different HTML table packages
 \dontrun{

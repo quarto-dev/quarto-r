@@ -27,10 +27,6 @@
 #'   accessibility.
 #' @param use_base64 Logical, whether to base64 encode the content (recommended
 #'   for complex content with special characters or when content includes quotes)
-#' @param class Optional CSS class(es) to add to the element. While this works for
-#'   both span and div elements, it's more commonly used with div elements.
-#' @param attrs Named list of additional HTML attributes to add to the element.
-#'   For example: `list(id = "my-element", title = "Tooltip text")`
 #'
 #' @return Character string containing the HTML element with appropriate data-qmd attributes
 #'
@@ -46,11 +42,6 @@
 #' # Explicit encoding choices
 #' tbl_qmd_span_base64("Complex $\\LaTeX$ content")
 #' tbl_qmd_span_raw("Simple text")
-#'
-#' # Use with custom attributes
-#' tbl_qmd_span("**Important note**", attrs = list(title = "Hover for more info"))
-#' tbl_qmd_div("Content here", class = "callout",
-#'             attrs = list(id = "special-note", tabindex = "0"))
 #'
 #' # Use with different HTML table packages
 #' \dontrun{
@@ -85,7 +76,12 @@ NULL
   invisible(TRUE)
 }
 
-
+#' @inheritParams tbl_qmd_elements
+#' @param class Optional CSS class(es) to add to the element. While this works for
+#'   both span and div elements, it's more commonly used with div elements.
+#' @param attrs Named list of additional HTML attributes to add to the element.
+#'   For example: `list(id = "my-element", title = "Tooltip text")`
+#' @noRd
 .tbl_qmd_element <- function(
   tag,
   content,
@@ -132,11 +128,9 @@ NULL
 tbl_qmd_span <- function(
   content,
   display = NULL,
-  use_base64 = TRUE,
-  class = NULL,
-  attrs = NULL
+  use_base64 = TRUE
 ) {
-  .tbl_qmd_element("span", content, display, use_base64, class, attrs)
+  .tbl_qmd_element("span", content, display, use_base64)
 }
 
 #' @rdname tbl_qmd_elements
@@ -144,26 +138,20 @@ tbl_qmd_span <- function(
 tbl_qmd_div <- function(
   content,
   display = NULL,
-  use_base64 = TRUE,
-  class = NULL,
-  attrs = NULL
+  use_base64 = TRUE
 ) {
-  .tbl_qmd_element("div", content, display, use_base64, class, attrs)
+  .tbl_qmd_element("div", content, display, use_base64)
 }
 #' @rdname tbl_qmd_elements
 #' @export
 tbl_qmd_span_base64 <- function(
   content,
-  display = NULL,
-  class = NULL,
-  attrs = NULL
+  display = NULL
 ) {
   tbl_qmd_span(
     content,
     display,
-    use_base64 = TRUE,
-    class = class,
-    attrs = attrs
+    use_base64 = TRUE
   )
 }
 
@@ -171,27 +159,21 @@ tbl_qmd_span_base64 <- function(
 #' @export
 tbl_qmd_div_base64 <- function(
   content,
-  display = NULL,
-  class = NULL,
-  attrs = NULL
+  display = NULL
 ) {
-  tbl_qmd_div(content, display, use_base64 = TRUE, class = class, attrs = attrs)
+  tbl_qmd_div(content, display, use_base64 = TRUE)
 }
 
 #' @rdname tbl_qmd_elements
 #' @export
 tbl_qmd_span_raw <- function(
   content,
-  display = NULL,
-  class = NULL,
-  attrs = NULL
+  display = NULL
 ) {
   tbl_qmd_span(
     content,
     display,
-    use_base64 = FALSE,
-    class = class,
-    attrs = attrs
+    use_base64 = FALSE
   )
 }
 
@@ -199,15 +181,11 @@ tbl_qmd_span_raw <- function(
 #' @export
 tbl_qmd_div_raw <- function(
   content,
-  display = NULL,
-  class = NULL,
-  attrs = NULL
+  display = NULL
 ) {
   tbl_qmd_div(
     content,
     display,
-    use_base64 = FALSE,
-    class = class,
-    attrs = attrs
+    use_base64 = FALSE
   )
 }

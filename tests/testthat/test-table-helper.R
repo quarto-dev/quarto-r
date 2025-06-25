@@ -9,19 +9,6 @@ test_that("tbl_qmd_span generates correct HTML with base64 encoding", {
     "<span data-qmd-base64=\"JFxhbHBoYSArIFxiZXRhJA==\">Greek formula</span>",
     fixed = TRUE
   )
-  expect_match(
-    tbl_qmd_span("**bold text**", class = "highlight"),
-    "<span data-qmd-base64=\"Kipib2xkIHRleHQqKg==\" class=\"highlight\">**bold text**</span>",
-    fixed = TRUE
-  )
-  expect_match(
-    tbl_qmd_span(
-      "**Important note**",
-      attrs = list(title = "Hover for more info")
-    ),
-    "<span data-qmd-base64=\"KipJbXBvcnRhbnQgbm90ZSoq\" title=\"Hover for more info\">**Important note**</span>",
-    fixed = TRUE
-  )
 })
 
 test_that("tbl_qmd_span_raw generates correct HTML with raw encoding", {
@@ -47,20 +34,6 @@ test_that("tbl_qmd_div generates correct HTML with base64 encoding", {
       display = "[Video content]"
     ),
     "<div data-qmd-base64=\"e3s8IHZpZGVvIGh0dHBzOi8vZXhhbXBsZS5jb20gPn19\">[Video content]</div>",
-    fixed = TRUE
-  )
-
-  expect_match(
-    tbl_qmd_div("Content here", class = "something"),
-    "<div data-qmd-base64=\"Q29udGVudCBoZXJl\" class=\"something\">Content here</div>",
-    fixed = TRUE
-  )
-  expect_match(
-    tbl_qmd_div(
-      "Content here",
-      attrs = list(id = "special-note", tabindex = "0")
-    ),
-    "<div data-qmd-base64=\"Q29udGVudCBoZXJl\" id=\"special-note\" tabindex=\"0\">Content here</div>",
     fixed = TRUE
   )
 })
@@ -106,6 +79,21 @@ test_that(".tbl_qmd_element correctly handles different tag types", {
   expect_match(
     .tbl_qmd_element("div", "content", "display", TRUE),
     "<div data-qmd-base64=\"Y29udGVudA==\">display</div>",
+    fixed = TRUE
+  )
+})
+
+test_that(".tbl_qmd_element handles class and additional attributes", {
+  expect_match(
+    .tbl_qmd_element(
+      "span",
+      "content",
+      "display",
+      TRUE,
+      class = "test-class",
+      attrs = list(id = "test-id", tabindex = "0")
+    ),
+    "<span data-qmd-base64=\"Y29udGVudA==\" class=\"test-class\" id=\"test-id\" tabindex=\"0\">display</span>",
     fixed = TRUE
   )
 })
