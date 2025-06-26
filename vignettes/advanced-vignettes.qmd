@@ -3,7 +3,7 @@ title: Custom Quarto Formats For Vignettes
 format: html
 vignette: >
   %\VignetteIndexEntry{Custom Quarto Formats For Vignettes}
-  %\VignetteEngine{quarto::format}
+  %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
