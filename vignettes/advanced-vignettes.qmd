@@ -1,0 +1,104 @@
+---
+title: Custom Quarto Formats For Vignettes
+format: html
+vignette: >
+  %\VignetteIndexEntry{Custom Quarto Formats For Vignettes}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+## About vignettes creation with Quarto
+
+Creating a vignette for a CRAN package is a way to provide documentation inside the package. Vignettes are typically longer, more detailed documents that explain how to use the package, provide examples, and demonstrate its functionality. However, vignettes are also meant to be a lightweight documentation format, so they can be included in a package without being too heavy, and hosted on CRAN package pages.
+
+To follow this best practice, Quarto R package vignette engines default to a format that is more minimal than the default Quarto HTML format. See `vignette("hello", package = "quarto")`. This is also useful for most users to have a default format that correctly configures Quarto HTML format for vignettes, so users do not have to configure it themselves.
+
+However, advanced users may want to customize the format used for their vignettes, for example when working with an internal package with no CRAN release where vignette size does not matter. This vignette shows how to do that.
+
+## Using 'quarto::format' engine for any Quarto format
+
+What if a vignette needs to be produced with a custom format? For example, if your organization has a custom Quarto format that you want to use for your vignettes, you can do so by using the `quarto::format` vignette engine.
+
+```yaml
+format: custom-html
+vignette: >
+  %\VignetteIndexEntry{Custom HTML Vignette}
+  %\VignetteEngine{quarto::format}
+  %\VignetteEncoding{UTF-8}
+```
+
+When using `quarto::format`, the vignette engine will not set any default configuration and will use the one defined in the YAML header as with Quarto itself. 
+
+To understand this clearly, let's illustrate with these examples:
+
+* This will produce a vignette with the default Quarto format (i.e., `format: html`):
+
+  ```yaml
+  vignette: >
+    %\VignetteIndexEntry{Custom HTML Vignette}
+    %\VignetteEngine{quarto::format}
+    %\VignetteEncoding{UTF-8}
+  ```
+
+* This will produce a vignette with custom configuration for Quarto HTML format:
+
+  ```yaml
+  format: 
+    html:
+      theme: cosmo
+  vignette: >
+    %\VignetteIndexEntry{Custom HTML Vignette}
+    %\VignetteEngine{quarto::format}
+    %\VignetteEncoding{UTF-8}
+  ```
+
+  This will produce a vignette with the `cosmo` theme, which is a Bootstrap theme. Bootstrap can be heavy, so this is not recommended for CRAN vignettes.
+
+* This is equivalent to using `quarto::html` vignette engine directly:
+
+  ```yaml
+  format: 
+    html:
+      theme: none
+      minimal: true
+      embed-resources: true
+      css: custom.css
+  vignette: >
+    %\VignetteIndexEntry{Custom HTML Vignette}
+    %\VignetteEngine{quarto::format}
+    %\VignetteEncoding{UTF-8}
+  ```
+
+  This will produce a vignette not using Bootstrap and with minimal feature set, as detailed in `vignette("hello", package = "quarto")`. 
+  However, you can provide your own CSS file this way. Remember that `quarto::html` uses [`vignette.css`](https://github.com/quarto-dev/quarto-r/blob/main/inst/rmarkdown/template/quarto_vignette/resources/vignette.css) by default, which is a minimal CSS file that provides basic styling for vignettes. If you want to use your own CSS file, you can specify it in the YAML header as shown above.
+
+The `quarto::format` is not limited to HTML format, and any Quarto format can be used with it. For example, you can use it to create a PDF vignette using LaTeX (which is equivalent to using `quarto::pdf` vignette engine directly - see `vignette("hello-pdf", package = "quarto")`) or a PDF vignette using Typst for example:
+
+```yaml
+format:
+  typst:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Typst Vignette}
+  %\VignetteEngine{quarto::format}
+  %\VignetteEncoding{UTF-8}
+```
+
+This should not be used for CRAN vignettes as CRAN will try to rebuild vignette, and Typst may not be available on all systems. However, this is useful for internal packages or for packages that are not submitted to CRAN, if a Typst PDF looks more appealing to you than a LaTeX PDF.
+
+## Recommendations
+
+Here are the vignette engines available in the `quarto` package:
+
+```{r}
+library(quarto)
+names(tools::vignetteEngine(package = "quarto"))
+```
+
+Here is our advice on which to use:
+
+- `quarto::html`: Use this for CRAN vignettes, as it provides a minimal HTML format suitable for package documentation.
+- `quarto::pdf`: Use this for CRAN vignettes if you prefer PDF format
+- `quarto::format`: Use this for custom formats, such as internal packages or when you want to use a specific Quarto format for your vignettes. 
+   This could also be useful to modify the hardcoded defaults for `quarto::html` that makes the format minimal.
+
