@@ -30,7 +30,7 @@
 #' This function requires an internet connection to fetch the latest version
 #' information from quarto.org. If the network request fails, an error will be thrown.
 #'
-#' @examplesIf quarto::quarto_available() && has_internet("https://www.quarto.org")
+#' @examplesIf quarto::quarto_available() && quarto:::has_internet("https://www.quarto.org")
 #' # Check current Quarto version
 #' check_newer_version()
 #'

@@ -4,16 +4,25 @@
 \alias{check_newer_version}
 \title{Check for newer version of Quarto}
 \usage{
-check_newer_version(version = quarto_version())
+check_newer_version(version = quarto_version(), verbose = TRUE)
 }
 \arguments{
 \item{version}{Character string specifying the Quarto version to check.
 Defaults to the currently installed version detected by \code{\link[=quarto_version]{quarto_version()}}.
 Use "99.9.9" to indicate a development version.}
+
+\item{verbose}{Logical indicating whether to print informational messages.
+Defaults to \code{TRUE}. When \code{FALSE}, the function runs silently and only
+returns the logical result.}
 }
 \value{
-Invisibly returns \code{NULL}. The function is called for its side effects
-of printing informational messages about version status.
+Invisibly returns a logical value:
+\itemize{
+\item \code{TRUE} if an update is available
+\item \code{FALSE} if no update is needed or when using development version
+The function is primarily called for its side effects of printing
+informational messages (when \code{verbose = TRUE}).
+}
 }
 \description{
 Checks if a newer version of Quarto is available and informs the user about
@@ -38,7 +47,7 @@ information from quarto.org. If the network request fails, an error will be thro
 }
 
 \examples{
-\dontshow{if (quarto::quarto_available() && has_internet("https://www.quarto.org")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (quarto::quarto_available() && quarto:::has_internet("https://www.quarto.org")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Check current Quarto version
 check_newer_version()
 
@@ -47,6 +56,12 @@ check_newer_version("1.7.30")
 
 # Check development version (will skip check)
 check_newer_version("99.9.9")
+
+# Check silently without messages
+result <- check_newer_version(verbose = FALSE)
+if (result) {
+  message("Update available!")
+}
 \dontshow{\}) # examplesIf}
 }
 \seealso{
