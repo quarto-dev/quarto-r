@@ -47,6 +47,7 @@ reference:
   - quarto_available
   - is_using_quarto
   - quarto_binary_sitrep
+  - check_newer_version
 
 - title: "Theme Helpers"
   desc: >
