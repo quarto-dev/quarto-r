@@ -42,13 +42,13 @@ test_that("metadata-file and metadata are merged in quarto_render", {
   skip_if_not_installed("withr")
   qmd <- local_qmd_file(c("content"))
   yaml <- withr::local_tempfile(fileext = ".yml")
-  write_yaml(list(title = "test"), yaml)
+  write_yaml(list(title = "test", other = "thing"), yaml)
   expect_snapshot_qmd_output(
     name = "metadata-merged",
     input = qmd,
     output_format = "native",
     metadata_file = yaml,
-    metadata = list(title = "test2")
+    metadata = list(title = "test2", any = "one")
   )
 })
 
@@ -98,4 +98,28 @@ test_that("`quarto_render(as_job = TRUE)` is wrapable", {
   # wait for background job to finish (10s should be conservative enough)
   Sys.sleep(10)
   expect_true(file.exists(output))
+})
+
+test_that("quarto_render allows to pass output-file meta", {
+  skip_if_no_quarto()
+  qmd <- local_qmd_file(c(
+    "---",
+    "title: Example title",
+    "format:",
+    "    html:",
+    "       toc: true",
+    "    docx:",
+    "        toc: true",
+    "---",
+    ""
+  ))
+  quarto_render(
+    qmd,
+    output_file = "final_report",
+    output_format = "all",
+    quiet = TRUE
+  )
+  withr::local_dir(dirname(qmd))
+  expect_true(file.exists("final_report.html"))
+  expect_true(file.exists("final_report.docx"))
 })

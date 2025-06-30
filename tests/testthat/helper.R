@@ -94,6 +94,7 @@ local_quarto_project <- function(
 .render <- function(
   input,
   output_file = NULL,
+  quarto_args = NULL,
   ...,
   .quiet = TRUE,
   .env = parent.frame()
@@ -102,20 +103,31 @@ local_quarto_project <- function(
   skip_if_not_installed("withr")
   # work inside input directory
   withr::local_dir(dirname(input))
+  output_file_forced <- NULL
   if (is.null(output_file)) {
-    output_file <- basename(withr::local_file(
+    output_file_forced <- basename(withr::local_file(
       xfun::with_ext(input, "test.out"),
       .local_envir = .env
     ))
+    # we enforce output file using CLI arg
+    quarto_args <- c(
+      quarto_args,
+      "--output",
+      output_file_forced
+    )
+  } else {
+    NULL
   }
   expect_no_error(quarto_render(
     basename(input),
     output_file = output_file,
     quiet = .quiet,
+    quarto_args = quarto_args,
     ...
   ))
-  expect_true(file.exists(output_file))
-  normalizePath(output_file)
+  out <- output_file %||% output_file_forced
+  expect_true(file.exists(out))
+  normalizePath(out)
 }
 
 .render_and_read <- function(input, ...) {

@@ -154,8 +154,11 @@ quarto_render <- function(
   if (!missing(output_format)) {
     args <- c(args, "--to", paste(output_format, collapse = ","))
   }
-  if (!missing(output_file)) {
-    args <- c(args, "--output", output_file)
+  if (!is.null(output_file)) {
+    # handle problem with cli flag
+    # https://github.com/quarto-dev/quarto-cli/issues/8399
+    # args <- c(args, "--output", output_file)
+    metadata[['output-file']] <- output_file
   }
   if (!missing(execute)) {
     args <- c(args, ifelse(isTRUE(execute), "--execute", "--no-execute"))
@@ -187,13 +190,11 @@ quarto_render <- function(
     args <- c(args, "--cache-refresh")
   }
   # metadata to pass to quarto render
-  if (!missing(metadata)) {
+  if (!is.null(metadata)) {
     # We merge meta if there is metadata_file passed
     if (!missing(metadata_file)) {
-      metadata <- merge_list(
-        yaml::read_yaml(metadata_file, eval.expr = FALSE),
-        metadata
-      )
+      file_content <- yaml::read_yaml(metadata_file, eval.expr = FALSE)
+      metadata <- merge_list(file_content, metadata)
     }
     meta_file <- tempfile(pattern = "quarto-meta", fileext = ".yml")
     on.exit(unlink(meta_file), add = TRUE)
