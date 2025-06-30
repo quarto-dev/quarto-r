@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Added `check_newer_version()` function to check if a newer version of Quarto is available. The function compares the current Quarto version against the latest stable and prerelease versions. It is aimed for verbosity by default (`verbose = TRUE`), but `verbose = FALSE` can also be set for just checking update availability with TRUE or FALSE return values. Version information is cached per session for up to 24 hours to minimize network requests.
+
 - Added `write_yaml_metadata_block()` function to dynamically set YAML metadata in Quarto documents from R code chunks. This addresses the limitation where Quarto metadata must be static and defined in the document header. The function enables conditional content and metadata-driven document behavior based on R computations (thanks, @kmasiello, #137, #160).
 
 - Added debugging logic for quarto vignette engine to help diagnose issues with Quarto vignettes in **pkgdown** and other context (thanks, @hadley, #185).
