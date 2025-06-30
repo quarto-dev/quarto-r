@@ -42,13 +42,13 @@ test_that("metadata-file and metadata are merged in quarto_render", {
   skip_if_not_installed("withr")
   qmd <- local_qmd_file(c("content"))
   yaml <- withr::local_tempfile(fileext = ".yml")
-  write_yaml(list(title = "test"), yaml)
+  write_yaml(list(title = "test", other = "thing"), yaml)
   expect_snapshot_qmd_output(
     name = "metadata-merged",
     input = qmd,
     output_format = "native",
     metadata_file = yaml,
-    metadata = list(title = "test2")
+    metadata = list(title = "test2", any = "one")
   )
 })
 
@@ -113,12 +113,13 @@ test_that("quarto_render allows to pass output-file meta", {
     "---",
     ""
   ))
-  out <- quarto_render(
+  quarto_render(
     qmd,
     output_file = "final_report",
     output_format = "all",
     quiet = TRUE
   )
+  withr::local_dir(dirname(qmd))
   expect_true(file.exists("final_report.html"))
   expect_true(file.exists("final_report.docx"))
 })

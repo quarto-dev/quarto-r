@@ -193,10 +193,8 @@ quarto_render <- function(
   if (!is.null(metadata)) {
     # We merge meta if there is metadata_file passed
     if (!missing(metadata_file)) {
-      metadata <- merge_list(
-        yaml::read_yaml(metadata_file, eval.expr = FALSE),
-        metadata
-      )
+      file_content <- yaml::read_yaml(metadata_file, eval.expr = FALSE)
+      metadata <- merge_list(file_content, metadata)
     }
     meta_file <- tempfile(pattern = "quarto-meta", fileext = ".yml")
     on.exit(unlink(meta_file), add = TRUE)
