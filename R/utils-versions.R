@@ -7,9 +7,15 @@
 #' @param version Character string specifying the Quarto version to check.
 #'   Defaults to the currently installed version detected by [quarto_version()].
 #'   Use "99.9.9" to indicate a development version.
+#' @param verbose Logical indicating whether to print informational messages.
+#'   Defaults to `TRUE`. When `FALSE`, the function runs silently and only
+#'   returns the logical result.
 #'
-#' @return Invisibly returns `NULL`. The function is called for its side effects
-#'   of printing informational messages about version status.
+#' @return Invisibly returns a logical value:
+#'   - `TRUE` if an update is available
+#'   - `FALSE` if no update is needed or when using development version
+#'   The function is primarily called for its side effects of printing
+#'   informational messages (when `verbose = TRUE`).
 #'
 #' @details
 #' The function handles three scenarios:
@@ -34,17 +40,32 @@
 #' # Check development version (will skip check)
 #' check_newer_version("99.9.9")
 #'
+#' # Check silently without messages
+#' result <- check_newer_version(verbose = FALSE)
+#' if (result) {
+#'   message("Update available!")
+#' }
+#'
 #' @seealso
 #' [quarto_version()] for getting the current Quarto version,
 #'
 #' @export
-check_newer_version <- function(version = quarto_version()) {
+check_newer_version <- function(version = quarto_version(), verbose = TRUE) {
+  inform_if_verbose <- function(...) {
+    void <- function(...) invisible(NULL)
+    if (verbose) {
+      return(cli::cli_inform(...))
+    } else {
+      return(void(...))
+    }
+  }
+
   if (version == "99.9.9") {
-    rlang::inform(c(
+    inform_if_verbose(c(
       "i" = "Skipping version check for development version.",
       ">" = "Please update using development mode."
     ))
-    return(invisible())
+    return(invisible(FALSE))
   }
   stable <- latest_available_version("stable")
   if (version > stable) {
@@ -54,26 +75,32 @@ check_newer_version <- function(version = quarto_version()) {
     } else {
       update <- FALSE
     }
-    cli::cli_inform(c(
-      "i" = "You are using prerelease version of Quarto: {version}.",
-      if (update) {
-        ">" = "A newer version is available: {prerelease}. You can download it from {.url https://quarto.org/docs/download/prerelease.html} or your preferred package manager if available."
-      } else {
-        "v" = "You are using the latest prerelease version."
-      }
-    ))
+    inform_if_verbose(
+      c(
+        "i" = "You are using prerelease version of Quarto: {version}.",
+        if (update) {
+          ">" = "A newer version is available: {prerelease}. You can download it from {.url https://quarto.org/docs/download/prerelease.html} or your preferred package manager if available."
+        } else {
+          "v" = "You are using the latest prerelease version."
+        }
+      )
+    )
+    return(invisible(update))
   } else if (version < stable) {
-    cli::cli_inform(c(
+    inform_if_verbose(c(
       "i" = "You are using an older version of Quarto: {version}.",
       " " = "The latest stable version is: {stable}.",
       ">" = "You can download new version from https://quarto.org/docs/download/ or your preferred package manager if available."
     ))
+    return(invisible(TRUE))
   } else {
-    cli::cli_inform(c(
+    inform_if_verbose(c(
       "i" = "You are using the latest stable version of Quarto: {version}."
     ))
+    return(invisible(FALSE))
   }
 }
+
 
 versions_urls <- list(
   stable = "https://quarto.org/docs/download/_download.json",

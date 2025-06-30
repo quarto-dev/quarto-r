@@ -45,8 +45,19 @@ test_that("latest_available_published works", {
 
 test_that("check_newer_version handles development version", {
   expect_message(
-    check_newer_version("99.9.9"),
-    "Skipping version check for development version"
+    expect_invisible(
+      expect_false(
+        check_newer_version("99.9.9"),
+        "Skipping version check for development version"
+      )
+    )
+  )
+  expect_no_message(
+    expect_invisible(
+      expect_false(
+        check_newer_version("99.9.9", FALSE)
+      )
+    )
   )
 })
 
@@ -56,8 +67,8 @@ test_that("check_newer_version handles stable version scenarios", {
       return("1.5.3")
     }
   )
-  expect_snapshot(check_newer_version("1.0.0"))
-  expect_snapshot(check_newer_version("1.5.3"))
+  expect_snapshot(expect_invisible(expect_true(check_newer_version("1.0.0"))))
+  expect_snapshot(expect_invisible(expect_false(check_newer_version("1.5.3"))))
 })
 
 test_that("check_newer_version handles prerelease version scenarios", {
@@ -72,10 +83,18 @@ test_that("check_newer_version handles prerelease version scenarios", {
   )
 
   expect_snapshot(
-    check_newer_version("1.6.3")
+    expect_invisible(
+      expect_true(
+        check_newer_version("1.6.3")
+      )
+    )
   )
   expect_snapshot(
-    check_newer_version("1.6.5")
+    expect_invisible(
+      expect_false(
+        check_newer_version("1.6.5")
+      )
+    )
   )
 })
 
@@ -155,8 +174,4 @@ test_that("argument validation works", {
   expect_error(get_latest_info("invalid"), "should be one of")
   expect_error(latest_available_version("invalid"), "should be one of")
   expect_error(latest_available_published("invalid"), "should be one of")
-})
-
-test_that("function returns invisible NULL", {
-  expect_invisible(check_newer_version("99.9.9"))
 })
