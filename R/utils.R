@@ -52,3 +52,16 @@ hide_path <- function(path) {
     gsub(fs::path_real(path), "<project directory>", x, fixed = TRUE)
   }
 }
+
+has_internet <- function(host = "https://www.google.com") {
+  tryCatch(
+    {
+      headers <- curlGetHeaders(host)
+      # If we get headers back, we have internet
+      !is.null(headers) && length(headers) > 0
+    },
+    error = function(e) {
+      FALSE
+    }
+  )
+}
