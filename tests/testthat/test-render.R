@@ -99,3 +99,26 @@ test_that("`quarto_render(as_job = TRUE)` is wrapable", {
   Sys.sleep(10)
   expect_true(file.exists(output))
 })
+
+test_that("quarto_render allows to pass output-file meta", {
+  skip_if_no_quarto()
+  qmd <- local_qmd_file(c(
+    "---",
+    "title: Example title",
+    "format:",
+    "    html:",
+    "       toc: true",
+    "    docx:",
+    "        toc: true",
+    "---",
+    ""
+  ))
+  out <- quarto_render(
+    qmd,
+    output_file = "final_report",
+    output_format = "all",
+    quiet = TRUE
+  )
+  expect_true(file.exists("final_report.html"))
+  expect_true(file.exists("final_report.docx"))
+})
