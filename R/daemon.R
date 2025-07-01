@@ -153,7 +153,7 @@ run_serve_daemon <- function(
     cli::cli
     cli::cli_inform(c(
       "",
-      i = "Stop the preview with {.code quarto_{command}_stop()}"
+      i = "Stop the preview with {.code quarto::quarto_{command}_stop()}"
     ))
   }
 
