@@ -109,7 +109,7 @@
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">user_level</span><span class="kw">:</span><span class="at"> admin</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">debug_mode</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">app_version</span><span class="kw">:</span><span class="at"> </span><span class="fl">2.1.0</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">generated_at</span><span class="kw">:</span><span class="at"> 2025-07-01T15:37:04+0000</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">generated_at</span><span class="kw">:</span><span class="at"> 2025-07-01T15:40:11+0000</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>Quarto will process this metadata block as an additional metadata block to the frontmatter one. And so, it wll make the metadata available for use throughout the document.</p>
 <p>They can be used in various ways, such as in shortcodes or conditional content.</p>
@@ -128,7 +128,7 @@
 <blockquote>
 <p><strong>Debug Information</strong></p>
 <p>This content is only visible when <code>debug_mode</code> is true. Since we set it to TRUE, this message should be visible.</p>
-<p>Generated at: 2025-07-01T15:37:04+0000</p>
+<p>Generated at: 2025-07-01T15:40:11+0000</p>
 </blockquote>
 </div>
 </section><section class="level2"><h2 id="advanced-use-case-conditional-content-based-on-parameters">Advanced Use Case: Conditional Content Based on parameters<a class="anchor" aria-label="anchor" href="#advanced-use-case-conditional-content-based-on-parameters"></a>
@@ -217,6 +217,7 @@
 </section><section class="level2"><h2 id="advanced-use-case-email-variant-testing">Advanced Use Case: Email Variant Testing<a class="anchor" aria-label="anchor" href="#advanced-use-case-email-variant-testing"></a>
 </h2>
 <p>One powerful application of dynamic metadata is variant emails using Quarto’s email format. This example shows how to randomly select an email variant and conditionally display different content based on that selection:</p>
+<p>This approach is particularly useful when deploying email reports through <a href="https://docs.posit.co/connect/user/quarto/" class="external-link">Posit Connect Quarto integration</a>, which supports <a href="https://docs.posit.co/connect/user/quarto/#email-customization" class="external-link">email customization</a> for automated report distribution.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> test conditional emails</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> email</span></span>
