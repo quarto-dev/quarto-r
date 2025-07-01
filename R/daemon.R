@@ -25,6 +25,9 @@ run_serve_daemon <- function(
   ps_key <- paste0(command, "_ps")
   port_key <- paste0(command, "_port")
   url_key <- paste0(command, "_url")
+
+  quarto <- the$preview_infos
+
   # We don't need to keep previous url
   quarto[[url_key]] <- NULL
 
@@ -171,6 +174,7 @@ run_serve_daemon <- function(
 }
 
 stop_serve_daemon <- function(command) {
+  quarto <- the$preview_infos
   ps_key <- paste0(command, "_ps")
   if (!is.null(quarto[[ps_key]])) {
     if (quarto[[ps_key]]$is_alive()) {
