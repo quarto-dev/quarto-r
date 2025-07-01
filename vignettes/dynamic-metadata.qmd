@@ -94,6 +94,94 @@ Generated at: {{< meta generated_at >}}
 This content would be hidden when debug mode is enabled.
 :::
 
+## Advanced Use Case: Conditional Content Based on parameters
+
+Another powerful use case is making Quarto parameters available as metadata for conditional content. This allows you to control document behavior through parameters while leveraging Quarto's conditional content features.
+
+Here's an example that demonstrates creating different versions of a sales report based on parameters:
+
+````markdown
+---
+title: "Sales Report"
+format: html 
+params:
+  region: "North America"
+  show_confidential: false
+  quarter: "Q1"
+---
+
+```{{r}}
+#| echo: false
+#| output: asis
+quarto::write_yaml_metadata_block(
+  params = params
+)
+```
+
+# {{< meta params.quarter >}} Sales Report - {{< meta params.region >}}
+
+::: {.content-visible when-meta="params.show_confidential"}
+::: {.callout-warning}
+## Confidential Information
+This section contains sensitive financial data and competitor analysis.
+
+Region: {{< meta params.region >}}
+Quarter: {{< meta params.quarter >}}
+:::
+
+```{{r}}
+# Show detailed financial breakdown
+cat("Detailed revenue breakdown by product line...")
+cat("\nConfidential metrics and competitor analysis...")
+```
+:::
+
+::: {.content-visible unless-meta="params.show_confidential"}
+::: {.callout-note}
+## Public Summary
+This report shows general performance metrics suitable for public distribution.
+
+Region: `{{r}} params$region`
+Quarter: `{{r}} params$quarter`
+:::
+
+```{{r}}
+# Show summary metrics only
+cat("Overall performance summary for", params$region)
+cat("\nPublic-facing metrics for", params$quarter)
+```
+:::
+````
+
+This approach is particularly useful for:
+
+1. **Parameterized reporting**: Generate different document versions based on input parameters
+2. **Conditional content**: Show or hide sections dynamically based on computed values
+3. **Document customization**: Tailor content and presentation for different contexts or audiences
+4. **Workflow automation**: Control document behavior programmatically through parameter passing
+
+You can render different versions by passing parameters:
+
+```r
+# Internal report with confidential data
+quarto::quarto_render("sales-report.qmd", 
+  execute_params = list(
+    region = "North America", 
+    show_confidential = TRUE, 
+    quarter = "Q2"
+  ))
+
+# Public report without confidential data  
+quarto::quarto_render("sales-report.qmd", 
+  execute_params = list(
+    region = "Europe", 
+    show_confidential = FALSE, 
+    quarter = "Q2"
+  ))
+```
+
+The key insight is that `write_yaml_metadata_block(params = params)` makes all your document parameters available as metadata. The boolean ones can then be used with Quarto's `when-meta` and `unless-meta` conditional attributes for dynamic content control.
+
 ## Advanced Use Case: Email Variant Testing
 
 One powerful application of dynamic metadata is variant emails using Quarto's email format. This example shows how to randomly select an email variant and conditionally display different content based on that selection:
