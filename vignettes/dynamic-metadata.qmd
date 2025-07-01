@@ -31,9 +31,11 @@ is_debug <- TRUE
 current_version <- "2.1.0"
 ```
 
-Now we can set metadata based on these computed values. **Note the `#| output: asis` chunk option** - this is essential:
+Now we can set metadata based on these computed values. Here is the R cell used in the vignette source. 
+**Note the `#| output: asis` chunk option** - this is essential:
 
 ```{r}
+#| echo: fenced
 #| label: metadata-block
 #| output: asis
 write_yaml_metadata_block(
