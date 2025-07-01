@@ -118,15 +118,15 @@ quarto::write_yaml_metadata_block(
 )
 ```
 
-# {{< meta params.quarter >}} Sales Report - {{< meta params.region >}}
+# {{{< meta params.quarter >}}} Sales Report - {{{< meta params.region >}}}
 
 ::: {.content-visible when-meta="params.show_confidential"}
 ::: {.callout-warning}
 ## Confidential Information
 This section contains sensitive financial data and competitor analysis.
 
-Region: {{< meta params.region >}}
-Quarter: {{< meta params.quarter >}}
+Region: {{{< meta params.region >}}}
+Quarter: {{{< meta params.quarter >}}}
 :::
 
 ```{{r}}
