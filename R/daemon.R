@@ -62,7 +62,10 @@ run_serve_daemon <- function(
 
   # port and host
   args <- c(args, "--port", port)
-  if (!identical(host, "127.0.0.1")) {
+  if (identical(host, "127.0.0.1")) {
+    host <- "localhost" # use localhost for consistency
+  }
+  if (!identical(host, "localhost")) {
     args <- c(args, "--host", host)
   }
 
@@ -148,12 +151,14 @@ run_serve_daemon <- function(
   }
   poll_process()
 
+  serve_url <- quarto[[url_key]] %||% sprintf("http://%s:%i", host, port)
+
   # indicate server is running
   if (isFALSE(quiet)) {
-    cli::cli
     cli::cli_inform(c(
       "",
-      i = "Stop the preview with {.code quarto::quarto_{command}_stop()}"
+      # "i" = "Preview server running at {.url {serve_url}}",
+      ">" = "Stop the preview with {.code quarto_{command}_stop()}"
     ))
   }
 
@@ -166,11 +171,10 @@ run_serve_daemon <- function(
         utils::browseURL
       )
     }
-    serve_url <- quarto[[url_key]] %||% paste0("http://localhost:", port)
     browse(serve_url)
   }
 
-  invisible()
+  invisible(serve_url)
 }
 
 stop_serve_daemon <- function(command) {
