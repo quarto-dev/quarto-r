@@ -109,7 +109,7 @@
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">user_level</span><span class="kw">:</span><span class="at"> admin</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">debug_mode</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">app_version</span><span class="kw">:</span><span class="at"> </span><span class="fl">2.1.0</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">generated_at</span><span class="kw">:</span><span class="at"> 2025-07-01T16:16:01+0000</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">generated_at</span><span class="kw">:</span><span class="at"> 2025-07-01T16:18:39+0000</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div>
 <p>Quarto will process this metadata block as an additional metadata block to the frontmatter one. And so, it wll make the metadata available for use throughout the document.</p>
 <p>They can be used in various ways, such as in shortcodes or conditional content.</p>
@@ -128,7 +128,7 @@
 <blockquote>
 <p><strong>Debug Information</strong></p>
 <p>This content is only visible when <code>debug_mode</code> is true. Since we set it to TRUE, this message should be visible.</p>
-<p>Generated at: 2025-07-01T16:16:01+0000</p>
+<p>Generated at: 2025-07-01T16:18:39+0000</p>
 </blockquote>
 </div>
 </section><section class="level2"><h2 id="advanced-use-case-conditional-content-based-on-parameters">Advanced Use Case: Conditional Content Based on parameters<a class="anchor" aria-label="anchor" href="#advanced-use-case-conditional-content-based-on-parameters"></a>
@@ -152,15 +152,15 @@
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># ?meta:params.quarter Sales Report - ?meta:params.region</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># {{&lt; meta params.quarter &gt;}} Sales Report - {{&lt; meta params.region &gt;}}</span></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>::: {.content-visible when-meta="params.show_confidential"}</span>
 <span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
 <span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Confidential Information</span></span>
 <span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>This section contains sensitive financial data and competitor analysis.</span>
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>Region: ?meta:params.region</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>Quarter: ?meta:params.quarter</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>Region: {{&lt; meta params.region &gt;}}</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>Quarter: {{&lt; meta params.quarter &gt;}}</span>
 <span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
