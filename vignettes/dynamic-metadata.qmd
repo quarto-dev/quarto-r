@@ -186,6 +186,9 @@ The key insight is that `write_yaml_metadata_block(params = params)` makes all y
 
 One powerful application of dynamic metadata is variant emails using Quarto's email format. This example shows how to randomly select an email variant and conditionally display different content based on that selection:
 
+This approach is particularly useful when deploying email reports through [Posit Connect Quarto integration](https://docs.posit.co/connect/user/quarto/), which supports [email customization](https://docs.posit.co/connect/user/quarto/#email-customization) for automated report distribution.
+
+
 ````markdown
 ---
 title: test conditional emails
