@@ -11,7 +11,7 @@ against the latest stable and prerelease versions available online."><meta prope
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9018</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9019</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -104,8 +104,7 @@ information from quarto.org. If the network request fails, an error will be thro
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Check current Quarto version</span></span></span>
 <span class="r-in"><span><span class="fu">check_newer_version</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> You are using prerelease version of Quarto: 1.8.14.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> You are using the latest prerelease version.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in if (version &gt; stable) {    prerelease &lt;- latest_available_version("prerelease")    if (version &lt; prerelease) {        update &lt;- TRUE    }    else {        update &lt;- FALSE    }    inform_if_verbose(c(i = "You are using prerelease version of Quarto: {version}.",         if (update) {            "&gt;" = "A newer version is available: {prerelease}. You can download it from {.url https://quarto.org/docs/download/prerelease.html} or your preferred package manager if available."        } else {            "v" = "You are using the latest prerelease version."        }))    return(invisible(update))} else if (version &lt; stable) {    inform_if_verbose(c(i = "You are using an older version of Quarto: {version}.",         ` ` = "The latest stable version is: {stable}.", `&gt;` = "You can download new version from https://quarto.org/docs/download/ or your preferred package manager if available."))    return(invisible(TRUE))} else {    inform_if_verbose(c(i = "You are using the latest stable version of Quarto: {version}."))    return(invisible(FALSE))}:</span> argument is of length zero</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check a specific version</span></span></span>
 <span class="r-in"><span><span class="fu">check_newer_version</span><span class="op">(</span><span class="st">"1.7.30"</span><span class="op">)</span></span></span>
@@ -121,9 +120,11 @@ information from quarto.org. If the network request fails, an error will be thro
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check silently without messages</span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">check_newer_version</span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in if (version &lt; prerelease) {    update &lt;- TRUE} else {    update &lt;- FALSE}:</span> argument is of length zero</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="va">result</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"Update available!"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'result' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
