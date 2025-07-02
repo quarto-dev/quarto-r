@@ -89,7 +89,6 @@ write_yaml_metadata_block <- function(..., .list = NULL) {
   if (length(meta) == 0) {
     return()
   }
-  res <- as_yaml(meta)
-  yaml_block <- paste0("---\n", res, "---\n")
+  yaml_block <- as_yaml_block(meta)
   knitr::asis_output(yaml_block)
 }
