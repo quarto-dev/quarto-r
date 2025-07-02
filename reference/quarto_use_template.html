@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9020</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9021</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,6 +50,7 @@
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">quarto_use_template</span><span class="op">(</span></span>
 <span>  <span class="va">template</span>,</span>
+<span>  dir <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  no_prompt <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  quarto_args <span class="op">=</span> <span class="cn">NULL</span></span>
@@ -64,6 +65,12 @@
 <dd><p>The template to install, either an archive or a GitHub
 repository as described in the documentation
 <a href="https://quarto.org/docs/extensions/formats.html" class="external-link">https://quarto.org/docs/extensions/formats.html</a>.</p></dd>
+
+
+<dt id="arg-dir">dir<a class="anchor" aria-label="anchor" href="#arg-dir"></a></dt>
+<dd><p>The directory in which to install the template. This must be an empty directory.
+To use directly in a non-empty directory, use <code>quarto use template</code> interactively in the terminal for safe installation
+without overwrite.</p></dd>
 
 
 <dt id="arg-no-prompt">no_prompt<a class="anchor" aria-label="anchor" href="#arg-no-prompt"></a></dt>
@@ -85,10 +92,13 @@ dedicated parameter of this <span style="R">R</span> function. See <code>quarto 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Install a template and set up a draft document from a GitHub repository</span></span></span>
+<span class="r-in"><span><span class="co"># Use a template and set up a draft document from a GitHub repository</span></span></span>
 <span class="r-in"><span><span class="fu">quarto_use_template</span><span class="op">(</span><span class="st">"quarto-journals/jss"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Install a template and set up a draft document from a ZIP archive</span></span></span>
+<span class="r-in"><span><span class="co"># Use a template in current directory by installing it in an empty directory</span></span></span>
+<span class="r-in"><span><span class="fu">quarto_use_template</span><span class="op">(</span><span class="st">"quarto-journals/jss"</span>, dir <span class="op">=</span> <span class="st">"new-empty-dir"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use a template and set up a draft document from a ZIP archive</span></span></span>
 <span class="r-in"><span><span class="fu">quarto_use_template</span><span class="op">(</span><span class="st">"https://github.com/quarto-journals/jss/archive/refs/heads/main.zip"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
