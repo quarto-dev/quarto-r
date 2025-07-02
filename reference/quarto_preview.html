@@ -109,6 +109,12 @@ recently rendered document.</p></dd>
 
 </dl></div>
     <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>The URL of the preview server (invisibly). This can be used to
+programmatically access the server location, for example to take screenshots
+with webshot2 or pass to other automation tools.</p>
+    </div>
+    <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Automatically reloads the browser when input files are re-rendered or
 document resources (e.g. CSS) change.</p>
@@ -126,6 +132,16 @@ document resources (e.g. CSS) change.</p>
 <span class="r-in"><span><span class="co"># Preview the project in "myproj" directory and use external browser</span></span></span>
 <span class="r-in"><span><span class="co"># (rather than RStudio Viewer)</span></span></span>
 <span class="r-in"><span><span class="fu">quarto_preview</span><span class="op">(</span><span class="st">"myproj"</span>, open <span class="op">=</span> <span class="fu">utils</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Capture the preview URL for programmatic use</span></span></span>
+<span class="r-in"><span><span class="va">preview_url</span> <span class="op">&lt;-</span> <span class="fu">quarto_preview</span><span class="op">(</span><span class="st">"document.qmd"</span>, browse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Preview available at:"</span>, <span class="va">preview_url</span>, <span class="st">"\n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Take a screenshot of the preview using webshot2</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/webshot2/" class="external-link">webshot2</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">preview_url</span> <span class="op">&lt;-</span> <span class="fu">quarto_preview</span><span class="op">(</span><span class="st">"document.qmd"</span>, browse <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">webshot2</span><span class="fu">::</span><span class="fu">webshot</span><span class="op">(</span><span class="va">preview_url</span>, <span class="st">"preview.png"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Stop any running quarto preview</span></span></span>
 <span class="r-in"><span><span class="fu">quarto_preview_stop</span><span class="op">(</span><span class="op">)</span></span></span>
