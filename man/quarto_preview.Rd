@@ -45,6 +45,9 @@ recently rendered document.}
 \item{quiet}{Suppress warning and other messages, from R and also Quarto CLI
 (i.e \code{--quiet} is passed as command line)}
 }
+\value{
+The URL of the preview server
+}
 \description{
 Render and preview a Quarto document or website project.
 }

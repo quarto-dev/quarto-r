@@ -24,6 +24,8 @@
 #' @param quiet Suppress warning and other messages, from R and also Quarto CLI
 #'   (i.e `--quiet` is passed as command line)
 #'
+#' @return The URL of the preview server
+#'
 #' @importFrom processx process
 #' @importFrom rstudioapi isAvailable
 #' @importFrom rstudioapi viewer
@@ -71,7 +73,7 @@ quarto_preview <- function(
     args <- c("--no-navigate")
   }
 
-  # serve
+  # serve (return serve_url)
   run_serve_daemon(
     "preview",
     file,
