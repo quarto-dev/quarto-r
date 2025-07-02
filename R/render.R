@@ -164,11 +164,6 @@ quarto_render <- function(
     args <- c(args, ifelse(isTRUE(execute), "--execute", "--no-execute"))
   }
   if (!missing(execute_params)) {
-    # Check for NA values in execute_params and error with helpful guidance
-    # This is because R's NA is not valid in YAML, and it would not be loaded
-    # correctly by quarto (using YAML 1.2).
-    check_params_for_na(execute_params)
-
     params_file <- tempfile(pattern = "quarto-params", fileext = ".yml")
     write_yaml(execute_params, params_file)
     args <- c(args, "--execute-params", params_file)
