@@ -68,3 +68,4 @@ reference:
     These functions are used to help with Quarto documents and projects:
   contents:
   - write_yaml_metadata_block
+  - add_spin_preamble
