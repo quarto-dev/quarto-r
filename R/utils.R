@@ -65,3 +65,11 @@ has_internet <- function(host = "https://www.google.com") {
     }
   )
 }
+
+is_empty_dir <- function(dir) {
+  if (!dir.exists(dir)) {
+    return(FALSE)
+  }
+  files <- list.files(dir, all.files = TRUE, no.. = TRUE)
+  length(files) == 0
+}
