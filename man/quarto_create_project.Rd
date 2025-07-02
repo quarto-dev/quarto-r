@@ -8,19 +8,25 @@ quarto_create_project(
   name,
   type = "default",
   dir = ".",
+  title = name,
   no_prompt = FALSE,
   quiet = FALSE,
   quarto_args = NULL
 )
 }
 \arguments{
-\item{name}{The name of the project and the directory that will be created.}
+\item{name}{The name of the project and the directory that will be created. Special case
+is to use \code{name = "."} to create the project in the current directory. In that case provide \code{title}
+to set the project title.}
 
 \item{type}{The type of project to create. As of Quarto 1.4, it can be one of
 \code{default}, \code{website}, \code{blog}, \code{book}, \code{manuscript}, \code{confluence}.}
 
 \item{dir}{The directory in which to create the new Quarto project, i.e. the
 parent directory.}
+
+\item{title}{The title of the project. By default, it will be the name of the project, same as directory name created.
+or "My project" if \code{name = "."}. If you want to set a different title, provide it here.}
 
 \item{no_prompt}{Do not prompt to approve the creation of the new project
 folder.}
@@ -50,7 +56,17 @@ your current Quarto version.
 
 \examples{
 \dontrun{
+# Create a new project directory in another directory
 quarto_create_project("my-first-quarto-project", dir = "~/tmp")
+
+# Create a new project directory in the current directory
+quarto_create_project("my-first-quarto-project")
+
+# Create a new project with a different title
+quarto_create_project("my-first-quarto-project", title = "My Quarto Project")
+
+# Create a new project inside the current directory directly
+quarto_create_project(".", title = "My Quarto Project")
 }
 
 
