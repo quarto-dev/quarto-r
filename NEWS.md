@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- `quarto_preview()` now explicitly returns the preview server URL (invisibly) and documents this behavior. This enables programmatic workflows such as taking screenshots with **webshot2** or passing the URL to other automation tools (thanks, @cwickham, #233).
+
 - `quarto_render(output_file = )` now sets the `output-file` Quarto metadata instead of the `--output` CLI flag. This allows the output file information to correctly be processed by Quarto, as if passed in a YAML header. e.g. it allows to support multiple output formats in the same render call. `quarto_render(quarto_args = c('--output', 'dummy.html'))` can still be used to set the `--output` CLI flag to enforce using the CLI flag and not the metadata processed by Quarto (#251, #43).
 
 - Added `check_newer_version()` function to check if a newer version of Quarto is available. The function compares the current Quarto version against the latest stable and prerelease versions. It is aimed for verbosity by default (`verbose = TRUE`), but `verbose = FALSE` can also be set for just checking update availability with TRUE or FALSE return values. Version information is cached per session for up to 24 hours to minimize network requests.
