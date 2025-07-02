@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- `quarto_preview()` now explicitly returns the preview server URL (invisibly) and documents this behavior. This enables programmatic workflows such as taking screenshots with **webshot2** or passing the URL to other automation tools (thanks, @cwickham, #233).
+
 - Added NA value detection in YAML processing to prevent silent failures when passing R's `NA` values to Quarto CLI. Functions `as_yaml()` and `write_yaml()` now validate for NA values and provide clear error messages with actionable suggestions. This addresses issues where R's `NA` values get converted to YAML strings (like `.na.real`) that Quarto doesn't recognize as missing values, because they are not supported in YAML 1.2 spec. This is to help users handle missing data appropriately before passing to Quarto (#168).
 
 - Added `add_spin_preamble()` function to add YAML preambles to R scripts for use with Quarto Script rendering support. The function automatically detects existing preambles and provides flexible customization options through `title` and `preamble` parameters (#164).
