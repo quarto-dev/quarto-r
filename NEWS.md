@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- `quarto_create_project()` gains a `title` argument to set the project title independently from the directory name. This allows creating projects with custom titles, including when using `name = "."` to create a project in the current directory (thanks, @davidkane9, #148). This matches with `--title` addition for `quarto create project` in Quarto CLI v1.5.15.
+
 - `quarto_render(output_file = )` now sets the `output-file` Quarto metadata instead of the `--output` CLI flag. This allows the output file information to correctly be processed by Quarto, as if passed in a YAML header. e.g. it allows to support multiple output formats in the same render call. `quarto_render(quarto_args = c('--output', 'dummy.html'))` can still be used to set the `--output` CLI flag to enforce using the CLI flag and not the metadata processed by Quarto (#251, #43).
 
 - Added `check_newer_version()` function to check if a newer version of Quarto is available. The function compares the current Quarto version against the latest stable and prerelease versions. It is aimed for verbosity by default (`verbose = TRUE`), but `verbose = FALSE` can also be set for just checking update availability with TRUE or FALSE return values. Version information is cached per session for up to 24 hours to minimize network requests.
