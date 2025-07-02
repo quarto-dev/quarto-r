@@ -42,7 +42,7 @@ format:
     css: custom.css
 ```
 
-All those configurations are set in way that they can't be overriden by the YAML header in the vignette source file and only new configurations can be set. Typical examples for such configurations are adding a [table of contents](https://quarto.org/docs/reference/formats/html.html#table-of-contents) or enabling the rendering of mathematical notation in the [format options](https://quarto.org/docs/reference/formats/html.html#format-options), e.g., by MathJax. Specifically, these two options can be set in the following way:
+All those configurations are set in way that they can't be overridden by the YAML header in the vignette source file and only new configurations can be set. Typical examples for such configurations are adding a [table of contents](https://quarto.org/docs/reference/formats/html.html#table-of-contents) or enabling the rendering of mathematical notation in the [format options](https://quarto.org/docs/reference/formats/html.html#format-options), e.g., by MathJax. Specifically, these two options can be set in the following way:
 
 ````yaml
 format: 

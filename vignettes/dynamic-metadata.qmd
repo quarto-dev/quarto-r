@@ -57,7 +57,7 @@ xfun::fenced_block(
 ) |> gsub(pattern = "^\\s+", replacement = "") |> cat(sep = "\n")
 ```
 
-Quarto will process this metadata block as an additional metadata block to the frontmatter one. And so, it wll make the metadata available for use throughout the document.
+Quarto will process this metadata block as an additional metadata block to the frontmatter one. And so, it will make the metadata available for use throughout the document.
 
 They can be used in various ways, such as in shortcodes or conditional content.
 
