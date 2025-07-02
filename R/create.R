@@ -53,9 +53,18 @@ quarto_create_project <- function(
 ) {
   check_quarto_version(
     "1.4",
-    "quarto create project",
+    "quarto create project <type> <name>",
     "https://quarto.org/docs/projects/quarto-projects.html"
   )
+
+  # If title is provided, check for Quarto version 1.5.15 or higher
+  if (title != name) {
+    check_quarto_version(
+      "1.5.15",
+      "quarto create project <type> <name> <title>",
+      "https://quarto.org/docs/projects/quarto-projects.html"
+    )
+  }
 
   if (rlang::is_missing(name)) {
     cli::cli_abort("You need to provide {.arg name} for the new project.")

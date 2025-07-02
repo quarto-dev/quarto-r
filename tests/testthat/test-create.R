@@ -38,7 +38,7 @@ test_that("create project only available for 1.4", {
 })
 
 test_that("Create a quarto project in another directory with a different title", {
-  skip_if_no_quarto("1.4")
+  skip_if_no_quarto("1.5.15")
   tempdir <- withr::local_tempdir()
   curr_wd <- getwd()
   expect_no_error(quarto_create_project(
@@ -59,7 +59,7 @@ test_that("Create a quarto project in another directory with a different title",
 })
 
 test_that("Create a quarto project in the same directory", {
-  skip_if_no_quarto("1.4")
+  skip_if_no_quarto("1.5.15")
   tempdir <- withr::local_tempdir()
   curr_wd <- getwd()
   expect_false(file.exists(file.path(tempdir, "_quarto.yml")))
