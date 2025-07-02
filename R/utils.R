@@ -24,6 +24,12 @@ write_yaml <- function(x, file) {
   yaml::write_yaml(x, file, handlers = yaml_handlers)
 }
 
+as_yaml_block <- function(x) {
+  # Convert to YAML and wrap in a block
+  yaml_content <- as_yaml(x)
+  paste0("---\n", yaml_content, "---\n")
+}
+
 
 # inline knitr:::merge_list()
 merge_list <- function(x, y) {

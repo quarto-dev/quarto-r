@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- Added `add_spin_preamble()` function to add YAML preambles to R scripts for use with Quarto Script rendering support. The function automatically detects existing preambles and provides flexible customization options through `title` and `preamble` parameters (#164).
+
 - `quarto_create_project()` gains a `title` argument to set the project title independently from the directory name. This allows creating projects with custom titles, including when using `name = "."` to create a project in the current directory (thanks, @davidkane9, #148). This matches with `--title` addition for `quarto create project` in Quarto CLI v1.5.15.
 
 - `quarto_use_template()` now supports using templates in another empty directory via the `dir` argument. However, the function will fail with a clear error message when used in non-empty directories, as interactive prompting is required and handled by Quarto CLI directly (requires Quarto 1.5.15+). Follow for [quarto-dev/quarto-cli#11127](https://github.com/quarto-dev/quarto-cli/issues/11127) for change with `--no-prompt` behavior in future Quarto versions.
