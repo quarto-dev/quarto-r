@@ -6,6 +6,7 @@
 \usage{
 quarto_use_template(
   template,
+  dir = ".",
   no_prompt = FALSE,
   quiet = FALSE,
   quarto_args = NULL
@@ -15,6 +16,10 @@ quarto_use_template(
 \item{template}{The template to install, either an archive or a GitHub
 repository as described in the documentation
 \url{https://quarto.org/docs/extensions/formats.html}.}
+
+\item{dir}{The directory in which to install the template. This must be an empty directory.
+To use directly in a non-empty directory, use \verb{quarto use template} interactively in the terminal for safe installation
+without overwrite.}
 
 \item{no_prompt}{Do not prompt to confirm approval to download external extension.}
 
@@ -30,10 +35,13 @@ Install and use a template for Quarto using \verb{quarto use}.
 }
 \examples{
 \dontrun{
-# Install a template and set up a draft document from a GitHub repository
+# Use a template and set up a draft document from a GitHub repository
 quarto_use_template("quarto-journals/jss")
 
-# Install a template and set up a draft document from a ZIP archive
+# Use a template in current directory by installing it in an empty directory
+quarto_use_template("quarto-journals/jss", dir = "new-empty-dir")
+
+# Use a template and set up a draft document from a ZIP archive
 quarto_use_template("https://github.com/quarto-journals/jss/archive/refs/heads/main.zip")
 }
 
