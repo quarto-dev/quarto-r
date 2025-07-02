@@ -46,7 +46,9 @@ recently rendered document.}
 (i.e \code{--quiet} is passed as command line)}
 }
 \value{
-The URL of the preview server
+The URL of the preview server (invisibly). This can be used to
+programmatically access the server location, for example to take screenshots
+with webshot2 or pass to other automation tools.
 }
 \description{
 Render and preview a Quarto document or website project.
@@ -66,6 +68,16 @@ quarto_preview("document.qmd")
 # Preview the project in "myproj" directory and use external browser
 # (rather than RStudio Viewer)
 quarto_preview("myproj", open = utils::browseURL)
+
+# Capture the preview URL for programmatic use
+preview_url <- quarto_preview("document.qmd", browse = FALSE)
+cat("Preview available at:", preview_url, "\n")
+
+# Take a screenshot of the preview using webshot2
+if (require(webshot2)) {
+  preview_url <- quarto_preview("document.qmd", browse = FALSE)
+  webshot2::webshot(preview_url, "preview.png")
+}
 
 # Stop any running quarto preview
 quarto_preview_stop()
