@@ -1,3 +1,29 @@
+# file specific helpers ----
+create_test_script <- function(
+  name,
+  content = c("x <- 1", "y <- 2"),
+  envir = rlang::caller_env()
+) {
+  tmp_dir <- withr::local_tempdir(.local_envir = envir)
+  withr::local_dir(tmp_dir, .local_envir = envir)
+  script <- name
+  xfun::write_utf8(content, script)
+  script
+}
+
+expect_preamble_added <- function(script, snapshot_name) {
+  expect_message(
+    result <- add_spin_preamble(script),
+    "Added spin preamble"
+  )
+  expect_equal(result, script)
+
+  announce_snapshot_file(name = snapshot_name)
+  expect_snapshot_file(script, snapshot_name)
+}
+
+# Tests ----
+
 test_that("add_spin_preamble checks for file existence", {
   expect_snapshot(
     error = TRUE,
@@ -6,29 +32,12 @@ test_that("add_spin_preamble checks for file existence", {
 })
 
 test_that("add_spin_preamble adds preamble to file without one", {
-  # Create temporary file
-  tmp_dir <- withr::local_tempdir()
-  withr::local_dir(tmp_dir)
-  script <- "report.R"
-  writeLines(c("x <- 1", "y <- 2"), script)
-
-  # Add preamble
-  expect_message(
-    result <- add_spin_preamble(script),
-    "Added spin preamble"
-  )
-
-  # Check return value
-  expect_equal(result, script)
-
-  announce_snapshot_file(name = "spin_preamble.R")
-  expect_snapshot_file(script, "spin_preamble.R")
+  script <- create_test_script("report.R")
+  expect_preamble_added(script, "spin_preamble.R")
 
   skip_on_cran()
   skip_if_no_quarto("1.4.511")
-  expect_no_error(
-    quarto_render(script, quiet = TRUE)
-  )
+  expect_no_error(quarto_render(script, quiet = TRUE))
   expect_true(file.exists(xfun::with_ext(script, "html")))
 })
 
@@ -78,35 +87,17 @@ test_that("add_spin_preamble detects preamble with leading whitespace", {
 })
 
 test_that("add_spin_preamble works with empty file", {
-  tmp_dir <- withr::local_tempdir()
-  withr::local_dir(tmp_dir)
-  script <- "report.R"
-  writeLines("", script) # Empty file
-
-  # Add preamble
-  expect_message(
-    result <- add_spin_preamble(script),
-    "Added spin preamble"
-  )
-
-  # Check return value
-  expect_equal(result, script)
-
-  announce_snapshot_file(name = "spin_preamble-empty.R")
-  expect_snapshot_file(script, "spin_preamble-empty.R")
+  script <- create_test_script("report.R", "")
+  expect_preamble_added(script, "spin_preamble-empty.R")
 })
 
 test_that("add_spin_preamble works with custom title", {
-  tmp_dir <- withr::local_tempdir()
-  withr::local_dir(tmp_dir)
-  script <- "analysis.R"
-  xfun::write_utf8(c("x <- 1", "y <- 2"), script)
+  script <- create_test_script("analysis.R")
 
   expect_message(
     result <- add_spin_preamble(script, title = "Custom Analysis"),
     "Added spin preamble"
   )
-
   expect_equal(result, script)
 
   announce_snapshot_file(name = "spin_preamble-custom-title.R")
@@ -114,10 +105,7 @@ test_that("add_spin_preamble works with custom title", {
 })
 
 test_that("add_spin_preamble works with custom preamble", {
-  tmp_dir <- withr::local_tempdir()
-  withr::local_dir(tmp_dir)
-  script <- "report.R"
-  xfun::write_utf8(c("library(ggplot2)", "plot(1:10)"), script)
+  script <- create_test_script("report.R", c("library(ggplot2)", "plot(1:10)"))
 
   expect_message(
     result <- add_spin_preamble(
@@ -130,7 +118,6 @@ test_that("add_spin_preamble works with custom preamble", {
     ),
     "Added spin preamble"
   )
-
   expect_equal(result, script)
 
   announce_snapshot_file(name = "spin_preamble-custom-preamble.R")
@@ -138,10 +125,7 @@ test_that("add_spin_preamble works with custom preamble", {
 })
 
 test_that("title parameter overrides preamble title", {
-  tmp_dir <- withr::local_tempdir()
-  withr::local_dir(tmp_dir)
-  script <- "override.R"
-  writeLines("x <- 1", script)
+  script <- create_test_script("override.R", "x <- 1")
 
   expect_message(
     result <- add_spin_preamble(
@@ -151,7 +135,6 @@ test_that("title parameter overrides preamble title", {
     ),
     "Added spin preamble"
   )
-
   expect_equal(result, script)
 
   announce_snapshot_file(name = "spin_preamble-title-override.R")
@@ -159,10 +142,7 @@ test_that("title parameter overrides preamble title", {
 })
 
 test_that("preamble title is used when title parameter is NULL", {
-  tmp_dir <- withr::local_tempdir()
-  withr::local_dir(tmp_dir)
-  script <- "preamble_title.R"
-  writeLines("x <- 1", script)
+  script <- create_test_script("preamble_title.R", "x <- 1")
 
   expect_message(
     result <- add_spin_preamble(
@@ -172,7 +152,6 @@ test_that("preamble title is used when title parameter is NULL", {
     ),
     "Added spin preamble"
   )
-
   expect_equal(result, script)
 
   announce_snapshot_file(name = "spin_preamble-preamble-title.R")
