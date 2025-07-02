@@ -6,7 +6,8 @@
       Error in `check_na_recursive()`:
       ! `NA` values detected in parameter values
       x Found NA at position: 2
-      i Quarto parameters cannot contain NA values
+      i Quarto CLI uses YAML 1.2 spec which cannot process R's `NA` values
+      i R's `NA` gets converted to YAML strings (like `.na.real`) that Quarto doesn't recognize as missing values
         Consider these alternatives:
       * Remove NA values from your data before passing to Quarto
       * Use `NULL` instead of `NA` for missing optional parameters
@@ -20,7 +21,8 @@
       Error in `check_na_recursive()`:
       ! `NA` values detected in parameter data$subset
       x Found NA at position: 2
-      i Quarto parameters cannot contain NA values
+      i Quarto CLI uses YAML 1.2 spec which cannot process R's `NA` values
+      i R's `NA` gets converted to YAML strings (like `.na.real`) that Quarto doesn't recognize as missing values
         Consider these alternatives:
       * Remove NA values from your data before passing to Quarto
       * Use `NULL` instead of `NA` for missing optional parameters
@@ -34,7 +36,8 @@
       Error in `check_na_recursive()`:
       ! `NA` values detected in parameter x
       x Found NA at positions: 2 and 4
-      i Quarto parameters cannot contain NA values
+      i Quarto CLI uses YAML 1.2 spec which cannot process R's `NA` values
+      i R's `NA` gets converted to YAML strings (like `.na.real`) that Quarto doesn't recognize as missing values
         Consider these alternatives:
       * Remove NA values from your data before passing to Quarto
       * Use `NULL` instead of `NA` for missing optional parameters
