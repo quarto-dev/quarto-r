@@ -24,7 +24,6 @@
 #'
 #' - Fallback to intelligent project root detection using [xfun::proj_root()] for interactive sessions:
 #'    - `_quarto.yml` or `_quarto.yaml` (Quarto project files)
-#'    - `.vscode` directory (VS Code/Positron workspace)
 #'    - `DESCRIPTION` file with `Package:` field (R package or Project)
 #'    - `.Rproj` files with `Version:` field (RStudio projects)
 #'
@@ -80,8 +79,8 @@ project_path <- function(..., root = NULL) {
       Sys.getenv("QUARTO_PROJECT_DIR")
     )
 
-    if (nzchar(quarto_root)) {
-      root <- quarto_root
+    root <- if (nzchar(quarto_root)) {
+      quarto_root
     } else {
       # Try to find project root using xfun::proj_root() with extended rules
       tryCatch(
@@ -92,19 +91,17 @@ project_path <- function(..., root = NULL) {
             # which are only set when running Quarto commands
             c("_quarto.yml", ""), # Quarto project config
             c("_quarto.yaml", ""), # Alternative Quarto config
-            # This is to provide some better fallback than just the working directory
-            c(".vscode", ""), # VS Code/Positron workspace
             xfun::root_rules # Default rules (DESCRIPTION, .Rproj)
           )
 
           proj_root <- xfun::proj_root(rules = extended_rules)
-          root <- if (!is.null(proj_root)) {
+          if (!is.null(proj_root)) {
             proj_root
           } else {
-            cli::cli_warn(
+            cli::cli_warn(c(
               "Failed to determine project root using {.fun xfun::proj_root}. Using current working directory.",
               ">" = "This may lead to different behavior interactively vs running Quarto commands."
-            )
+            ))
             getwd()
           }
         },
@@ -114,16 +111,25 @@ project_path <- function(..., root = NULL) {
             "Failed to determine project root: {e$message}. Using current working directory as a fallback.",
             ">" = "This may lead to different behavior interactively vs running Quarto commands."
           ))
-          root <- getwd()
+          getwd() # Return the working directory
         }
       )
     }
   }
 
   # Use xfun::from_root for better path handling
-  path <- tryCatch(
-    xfun::from_root(..., root = root, error = FALSE),
-    error = function(e) file.path(root, ...)
+  path <- rlang::try_fetch(
+    xfun::from_root(..., root = root, error = TRUE),
+    error = function(e) {
+      rlang::abort(
+        c(
+          "Failed to construct project path",
+          ">" = "Ensure you are using valid path components."
+        ),
+        parent = e,
+        call = rlang::caller_env()
+      )
+    }
   )
   path
 }
