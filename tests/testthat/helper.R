@@ -2,7 +2,7 @@
 skip_if_no_quarto <- function(ver = NULL) {
   skip_if(is.null(quarto_path()), message = "Quarto is not available")
   skip_if(
-    quarto_available(min = ver, error = FALSE),
+    !quarto_available(min = ver, error = FALSE),
     message = sprintf(
       "Version of quarto is lower than %s: %s.",
       ver,
