@@ -6,6 +6,7 @@
 #' @importFrom cli cli_inform
 #' @importFrom htmltools div
 #' @importFrom htmltools span
+#' @importFrom lifecycle deprecated
 #' @importFrom rlang caller_env
 #' @importFrom tools vignetteEngine
 #' @importFrom xfun base64_encode

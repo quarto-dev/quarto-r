@@ -23,6 +23,7 @@ Imports:
     htmltools,
     jsonlite,
     later,
+    lifecycle,
     processx,
     rlang,
     rmarkdown,
