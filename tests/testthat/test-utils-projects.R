@@ -16,20 +16,28 @@ test_that("project_path() uses Quarto environment variables", {
   temp_dir <- withr::local_tempdir()
   withr::local_dir(temp_dir)
   dir.create("project")
-  withr::local_envvar(
-    QUARTO_PROJECT_ROOT = xfun::normalize_path(file.path(temp_dir, "project"))
+  withr::with_envvar(
+    list(
+      QUARTO_PROJECT_ROOT = xfun::normalize_path(file.path(
+        temp_dir,
+        "project"
+      )),
+      QUARTO_PROJECT_DIR = ""
+    ),
+    expect_identical(
+      project_path("data", "file.csv"),
+      file.path("project", "data", "file.csv")
+    )
   )
-  expect_identical(
-    project_path("data", "file.csv"),
-    file.path("project", "data", "file.csv")
-  )
-  withr::local_envvar(
-    QUARTO_PROJECT_ROOT = "",
-    QUARTO_PROJECT_DIR = xfun::normalize_path(file.path(temp_dir, "project"))
-  )
-  expect_identical(
-    project_path("data", "file.csv"),
-    file.path("project", "data", "file.csv")
+  withr::with_envvar(
+    list(
+      QUARTO_PROJECT_ROOT = "",
+      QUARTO_PROJECT_DIR = xfun::normalize_path(file.path(temp_dir, "project"))
+    ),
+    expect_identical(
+      project_path("data", "file.csv"),
+      file.path("project", "data", "file.csv")
+    )
   )
 })
 
