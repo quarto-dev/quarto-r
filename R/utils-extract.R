@@ -16,6 +16,27 @@ extract_r_code <- function(qmd, script = NULL) {
   inspect <- quarto::quarto_inspect(qmd)
   fileInformation <- inspect$fileInformation[[1]]
 
+  codeCells <- fileInformation$codeCells
+  if (length(codeCells) == 0) {
+    cli::cli_inform(
+      c(
+        "No code cells found in {.file {qmd}}.",
+        ">" = "This function only extracts R code cells."
+      )
+    )
+    return(invisible(NULL))
+  }
+  if (all(codeCells$language != "r")) {
+    cli::cli_inform(
+      c(
+        "No R code cells found in {.file {qmd}}, only: {.emph {paste(unique(codeCells$language))}}.",
+        ">" = "This function only extracts R code cells."
+      ),
+      call = rlang::caller_env()
+    )
+    return(invisible(NULL))
+  }
+
   if (!file.exists(script)) {
     fs::file_create(script)
   }
