@@ -12,8 +12,10 @@ test_that("Installing an extension in empty dir", {
 test_that("Installing an extension in a new empty dir", {
   skip_if_no_quarto()
   skip_if_offline("github.com")
-  dir <- withr::local_tempdir()
+  dir <- withr::local_tempfile()
+  dir.create(dir)
   withr::local_dir(dir)
+  dir.create("empty-dir")
   quarto_use_template(
     "quarto-journals/jss",
     dir = "empty-dir",
