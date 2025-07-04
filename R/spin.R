@@ -103,10 +103,7 @@ add_spin_preamble <- function(
     metadata$title <- fs::path_file(fs::path_ext_remove(script))
   }
 
-  preamble_text <- paste(
-    "#'",
-    xfun::split_lines(as_yaml_block(metadata))
-  )
+  preamble_text <- create_header_preamble(metadata)
 
   new_content <- c(preamble_text, "", content)
   xfun::write_utf8(new_content, con = script)
@@ -117,4 +114,29 @@ add_spin_preamble <- function(
     ))
   }
   return(invisible(script))
+}
+
+create_header_preamble <- function(metadata) {
+  if (length(metadata) == 0) {
+    return("")
+  }
+  build_preamble("#'", as_yaml_block(metadata))
+}
+
+create_code_preamble <- function(metadata) {
+  if (length(metadata) == 0) {
+    return("")
+  }
+  # Remove trailing newline for this block as `as_yaml` adds one
+  build_preamble("#|", sub("\n$", "", as_yaml(metadata)))
+}
+
+build_preamble <- function(prepend, content) {
+  if (!nzchar(content)) {
+    return("")
+  }
+  paste(
+    prepend,
+    xfun::split_lines(content)
+  )
 }

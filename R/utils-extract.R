@@ -47,6 +47,8 @@ extract_r_code <- function(qmd, script = NULL) {
     )
   }
 
+  r_codeCells <- codeCells[codeCells$language == "r", ]
+
   if (!file.exists(script)) {
     fs::file_create(script)
   }
