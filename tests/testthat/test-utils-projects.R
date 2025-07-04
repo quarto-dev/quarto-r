@@ -34,10 +34,17 @@ test_that("project_path() uses Quarto environment variables", {
       QUARTO_PROJECT_ROOT = "",
       QUARTO_PROJECT_DIR = xfun::normalize_path(file.path(temp_dir, "project"))
     ),
-    expect_identical(
-      project_path("data", "file.csv"),
-      file.path("project", "data", "file.csv")
-    )
+    {
+      expect_identical(
+        get_running(),
+        xfun::normalize_path(file.path(temp_dir, "project"))
+      )
+
+      expect_identical(
+        project_path("data", "file.csv"),
+        file.path("project", "data", "file.csv")
+      )
+    }
   )
 })
 
