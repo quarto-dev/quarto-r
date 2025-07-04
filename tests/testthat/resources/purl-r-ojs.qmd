@@ -1,0 +1,19 @@
+---
+title: "Purl Test Document"
+format: html
+---
+
+## Section
+
+```{r}
+#| echo: false
+#| output: asis
+cat("Hello, world")
+```
+
+## Another section
+
+```{ojs}
+#| echo: true
+console.log("more")
+```
