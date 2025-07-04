@@ -22,12 +22,21 @@ Note that this function will return \code{NULL} when running code interactively
 in an IDE (even within a Quarto project directory), as these specific
 environment variables are only set during Quarto command execution.
 }
+\section{Use in Quarto document cells}{
+
+
+This function is particularly useful in Quarto document cells where you want to
+get the project root path dynamically during rendering. Cell example:
+
+\if{html}{\out{<div class="sourceCode markdown">}}\preformatted{```\{r\}`r ''`
+ # Get the project root path
+ project_root <- get_running_project_root()
+```
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 \dontrun{
-# This will be TRUE during `quarto render` in a project
-get_running_project_root()
-
-# This will be FALSE when not running during `quarto_render` (e.g. interactively)
 get_running_project_root()
 }
 }
