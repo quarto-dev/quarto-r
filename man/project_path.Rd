@@ -50,6 +50,19 @@ Last fallback is the current working directory if no project root can be determi
 A warning is issued to alert users that behavior may differ between interactive use and Quarto rendering,
 as in this case the computed path may be wrong.
 }
+\section{Use in Quarto document cells}{
+
+
+This function is particularly useful in Quarto document cells where you want to
+use a path relative to the project root dynamically during rendering.
+
+\if{html}{\out{<div class="sourceCode markdown">}}\preformatted{```\{r\}`r ''`
+ # Get a csv path from data directory in the Quarto project root
+ data <- project_path("data", "my_data.csv")
+```
+}\if{html}{\out{</div>}}
+}
+
 \examples{
 \dontrun{
 # Create a dummy Quarto project structure for example

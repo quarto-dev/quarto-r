@@ -31,6 +31,18 @@
 #' A warning is issued to alert users that behavior may differ between interactive use and Quarto rendering,
 #' as in this case the computed path may be wrong.
 #'
+#' @section Use in Quarto document cells:
+#'
+#' This function is particularly useful in Quarto document cells where you want to
+#' use a path relative to the project root dynamically during rendering.
+#'
+#' ````markdown
+#' ```{r}`r ''`
+#'  # Get a csv path from data directory in the Quarto project root
+#'  data <- project_path("data", "my_data.csv")
+#' ```
+#' ````
+#'
 #' @param ... Character vectors of path components to be joined
 #' @param root Project root directory. If `NULL` (default), automatic detection
 #'   is used following the hierarchy described above
@@ -157,6 +169,18 @@ project_path <- function(..., root = NULL) {
 #' in an IDE (even within a Quarto project directory), as these specific
 #' environment variables are only set during Quarto command execution.
 #'
+#' @section Use in Quarto document cells:
+#'
+#' This function is particularly useful in Quarto document cells where you want to
+#' get the project root path dynamically during rendering. Cell example:
+#'
+#' ````markdown
+#' ```{r}`r ''`
+#'  # Get the project root path
+#'  project_root <- get_running_project_root()
+#' ```
+#' ````
+#'
 #' @return Character Quarto project root path from set environment variables.
 #'
 #' @seealso
@@ -164,10 +188,6 @@ project_path <- function(..., root = NULL) {
 #'  * [project_path()] for constructing paths relative to the project root
 #' @examples
 #' \dontrun{
-#' # This will be TRUE during `quarto render` in a project
-#' get_running_project_root()
-#'
-#' # This will be FALSE when not running during `quarto_render` (e.g. interactively)
 #' get_running_project_root()
 #' }
 #' @export
