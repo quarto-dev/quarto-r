@@ -167,3 +167,50 @@ test_that("add_spin_preamble validates preamble argument", {
     add_spin_preamble(tmp_file, preamble = "not a list")
   )
 })
+
+test_that("build_preamble() splits and preprends", {
+  expect_identical(build_preamble("XXX", "A"), "XXX A")
+  expect_identical(build_preamble("XXX", "A\nB"), c("XXX A", "XXX B"))
+})
+
+test_that("build_preamble() handles empty content", {
+  expect_identical(build_preamble("XXX", ""), "")
+})
+
+test_that("create_header_preamble() handles empty metadata", {
+  expect_identical(create_header_preamble(list()), "")
+})
+
+test_that("create_header_preamble() creates correct YAML header", {
+  metadata <- list(
+    title = "Test Document",
+    author = "Jane Doe",
+    date = "2023-10-01"
+  )
+  expect_identical(
+    create_header_preamble(metadata),
+    c(
+      "#' ---",
+      "#' title: Test Document",
+      "#' author: Jane Doe",
+      "#' date: '2023-10-01'",
+      "#' ---",
+      "#' "
+    )
+  )
+})
+
+test_that("create_code_preamble() handles empty metadata", {
+  expect_identical(create_code_preamble(list()), "")
+})
+
+test_that("create_code_preamble() creates correct code comments", {
+  metadata <- list(
+    echo = TRUE,
+    eval = FALSE
+  )
+  expect_identical(
+    create_code_preamble(metadata),
+    c("#| echo: true", "#| eval: false")
+  )
+})
