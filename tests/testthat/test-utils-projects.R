@@ -22,7 +22,7 @@ test_that("project_path() uses Quarto environment variables", {
         temp_dir,
         "project"
       )),
-      QUARTO_PROJECT_DIR = ""
+      QUARTO_PROJECT_DIR = NA
     ),
     expect_identical(
       project_path("data", "file.csv"),
@@ -31,7 +31,7 @@ test_that("project_path() uses Quarto environment variables", {
   )
   withr::with_envvar(
     c(
-      QUARTO_PROJECT_ROOT = "",
+      QUARTO_PROJECT_ROOT = NA,
       QUARTO_PROJECT_DIR = xfun::normalize_path(file.path(temp_dir, "project"))
     ),
     {
@@ -134,8 +134,8 @@ test_that("project_path() handles xfun::proj_root() errors gracefully", {
 test_that("is_running_quarto_project() detects environment variables", {
   withr::with_envvar(
     c(
-      QUARTO_PROJECT_ROOT = "",
-      QUARTO_PROJECT_DIR = ""
+      QUARTO_PROJECT_ROOT = NA,
+      QUARTO_PROJECT_DIR = NA
     ),
     expect_null(get_running_project_root())
   )
@@ -143,14 +143,14 @@ test_that("is_running_quarto_project() detects environment variables", {
   withr::with_envvar(
     c(
       QUARTO_PROJECT_ROOT = "/some/path",
-      QUARTO_PROJECT_DIR = ""
+      QUARTO_PROJECT_DIR = NA
     ),
     expect_identical(get_running_project_root(), "/some/path")
   )
 
   withr::with_envvar(
     c(
-      QUARTO_PROJECT_ROOT = "",
+      QUARTO_PROJECT_ROOT = NA,
       QUARTO_PROJECT_DIR = "/some/path"
     ),
     expect_identical(get_running_project_root(), "/some/path")
