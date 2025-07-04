@@ -10,8 +10,12 @@ test_that("extract_r_code() writes metadata", {
   r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
 
   announce_snapshot_file(name = "purl.R")
+  expect_message(extract_r_code(
+    resources_path("purl-r.qmd"),
+    script = r_script
+  ))
   expect_snapshot_file(
-    path = extract_r_code(resources_path("purl-r.qmd"), script = r_script),
+    path = r_script,
     name = "purl.R"
   )
 })
