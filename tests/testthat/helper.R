@@ -316,3 +316,7 @@ local_clean_state <- function(env = parent.frame()) {
     .local_envir = env
   )
 }
+
+resources_path <- function(...) {
+  test_path("resources", ...)
+}

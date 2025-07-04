@@ -37,6 +37,16 @@ extract_r_code <- function(qmd, script = NULL) {
     return(invisible(NULL))
   }
 
+  if (any(codeCells$language != "r")) {
+    cli::cli_inform(
+      c(
+        "Extracting only R code cells from {.file {qmd}}.",
+        ">" = "Other languages will be ignored (found {.emph {paste(setdiff(unique(codeCells$language), 'r')}})."
+      ),
+      call = rlang::caller_env()
+    )
+  }
+
   if (!file.exists(script)) {
     fs::file_create(script)
   }
