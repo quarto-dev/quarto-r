@@ -53,7 +53,10 @@
 #' # Create a dummy Quarto project structure for example
 #' tmpdir <- tempfile("quarto_project")
 #' dir.create(tmpdir)
-#' quarto::quarto_create_project('test project', type = 'blog', dir = tmpdir, no_prompt = TRUE, quiet = TRUE)
+#' quarto::quarto_create_project(
+#'   'test project', type = 'blog',
+#'   dir = tmpdir, no_prompt = TRUE, quiet = TRUE
+#' )
 #' project_dir <- file.path(tmpdir, "test project")
 #'
 #' # Simulate working within a blog post

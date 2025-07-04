@@ -16,7 +16,7 @@ Character Path of the project root directory if found, or \code{NULL}
 \description{
 This function checks if the current working directory is within a Quarto
 project by looking for Quarto project files (\verb{_quarto.yml} or \verb{_quarto.yaml}).
-Unlike \code{\link[=is_running_quarto_project]{is_running_quarto_project()}}, this works both during rendering and
+Unlike \code{\link[=get_running_project_root]{get_running_project_root()}}, this works both during rendering and
 interactive sessions.
 }
 \examples{
