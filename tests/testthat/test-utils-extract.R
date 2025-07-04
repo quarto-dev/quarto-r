@@ -10,12 +10,12 @@ test_that("extract_r_code() writes metadata", {
   r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
 
   announce_snapshot_file(name = "purl.R")
-  expect_message(extract_r_code(
-    resources_path("purl-r.qmd"),
-    script = r_script
-  ))
+
   expect_snapshot_file(
-    path = r_script,
+    path = extract_r_code(
+      resources_path("purl-r.qmd"),
+      script = r_script
+    ),
     name = "purl.R"
   )
 })
@@ -36,4 +36,13 @@ test_that("extract_r_code() do nothing on file with only other language code", {
     "No R code cells found.*: python"
   )
   expect_false(file.exists(resources_path("purl.R")))
+})
+
+test_that("extract_r_code() ignore other language code", {
+  skip_if_no_quarto()
+  r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
+  expect_snapshot(
+    extract_r_code(resources_path("purl-r-ojs.qmd"), r_script),
+  )
+  expect_true(file.exists(r_script))
 })

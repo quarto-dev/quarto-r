@@ -41,7 +41,7 @@ extract_r_code <- function(qmd, script = NULL) {
     cli::cli_inform(
       c(
         "Extracting only R code cells from {.file {qmd}}.",
-        ">" = "Other languages will be ignored (found {.emph {paste(setdiff(unique(codeCells$language), 'r')}})."
+        ">" = "Other languages will be ignored (found {.emph {paste(setdiff(unique(codeCells$language), 'r'))}})."
       ),
       call = rlang::caller_env()
     )
@@ -50,5 +50,5 @@ extract_r_code <- function(qmd, script = NULL) {
   if (!file.exists(script)) {
     fs::file_create(script)
   }
-  add_spin_preamble(script, preamble = fileInformation$metadata)
+  add_spin_preamble(script, preamble = fileInformation$metadata, quiet = TRUE)
 }
