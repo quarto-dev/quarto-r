@@ -227,7 +227,7 @@ get_running_project_root <- function() {
 #' unlink(dir, recursive = TRUE)
 #'
 #'
-#' @seealso [is_running_quarto_project()] for detecting active Quarto rendering
+#' @seealso [get_running_project_root()] for detecting active Quarto rendering
 #' @export
 find_project_root <- function(path = ".") {
   quarto_rules <- rbind(

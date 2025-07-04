@@ -37,5 +37,5 @@ unlink(dir, recursive = TRUE)
 \dontshow{\}) # examplesIf}
 }
 \seealso{
-\code{\link[=is_running_quarto_project]{is_running_quarto_project()}} for detecting active Quarto rendering
+\code{\link[=get_running_project_root]{get_running_project_root()}} for detecting active Quarto rendering
 }
