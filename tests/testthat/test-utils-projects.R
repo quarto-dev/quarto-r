@@ -122,7 +122,7 @@ test_that("is_running_quarto_project() detects environment variables", {
       QUARTO_PROJECT_ROOT = "",
       QUARTO_PROJECT_DIR = ""
     ),
-    expect_false(is_running_quarto_project())
+    expect_null(get_running_project_root())
   )
 
   withr::with_envvar(
@@ -130,7 +130,7 @@ test_that("is_running_quarto_project() detects environment variables", {
       QUARTO_PROJECT_ROOT = "/some/path",
       QUARTO_PROJECT_DIR = ""
     ),
-    expect_true(is_running_quarto_project())
+    expect_identical(get_running_project_root(), "/some/path")
   )
 
   withr::with_envvar(
@@ -138,7 +138,7 @@ test_that("is_running_quarto_project() detects environment variables", {
       QUARTO_PROJECT_ROOT = "",
       QUARTO_PROJECT_DIR = "/some/path"
     ),
-    expect_true(is_running_quarto_project())
+    expect_identical(get_running_project_root(), "/some/path")
   )
 
   withr::with_envvar(
@@ -146,46 +146,49 @@ test_that("is_running_quarto_project() detects environment variables", {
       QUARTO_PROJECT_ROOT = "/path1",
       QUARTO_PROJECT_DIR = "/path2"
     ),
-    expect_true(is_running_quarto_project())
+    expect_identical(get_running_project_root(), "/path1")
   )
 })
 
-test_that("is_quarto_project() detects Quarto project files", {
+test_that("find_project_root() detects Quarto project files", {
   skip_if_no_quarto()
 
   temp_dir <- withr::local_tempdir()
-  expect_false(is_quarto_project(temp_dir))
+  expect_null(find_project_root(temp_dir))
 
-  project_dir <- local_quarto_project(type = "default")
-  expect_true(is_quarto_project(project_dir))
+  project_dir <- local_quarto_project("test-project", type = "default")
+  expect_match(
+    find_project_root(project_dir),
+    "quarto-tests-project-.*/test-project$"
+  )
 
-  withr::local_dir(project_dir)
-  expect_true(is_quarto_project())
+  withr::with_dir(
+    project_dir,
+    expect_match(
+      find_project_root(),
+      "quarto-tests-project-.*/test-project$"
+    )
+  )
 })
 
-test_that("is_quarto_project() works with _quarto.yaml", {
+test_that("find_project_root() works with _quarto.yaml", {
   temp_dir <- withr::local_tempdir()
 
   quarto_yaml <- file.path(temp_dir, "_quarto.yaml")
-  writeLines("project:", quarto_yaml)
+  writeLines("project:\n  type: default", quarto_yaml)
 
-  expect_true(is_quarto_project(temp_dir))
+  expect_identical(find_project_root(temp_dir), xfun::normalize_path(temp_dir))
 
   withr::local_dir(temp_dir)
-  expect_true(is_quarto_project())
-})
+  expect_identical(find_project_root(), xfun::normalize_path(temp_dir))
 
-test_that("is_quarto_project() handles errors gracefully", {
-  # Mock xfun::proj_root to throw an error
-  local_mocked_bindings(
-    proj_root = function(path = ".", rules = xfun::root_rules) {
-      stop("Test error")
-    },
-    .package = "xfun"
+  dir.create("subfolder")
+  expect_identical(
+    find_project_root("subfolder"),
+    xfun::normalize_path(temp_dir)
   )
-
-  temp_dir <- withr::local_tempdir()
-  expect_false(is_quarto_project(temp_dir))
+  withr::local_dir("subfolder")
+  expect_identical(find_project_root(), xfun::normalize_path(temp_dir))
 })
 
 test_that("project_path() prioritizes environment variables over file detection", {
