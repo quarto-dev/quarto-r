@@ -63,7 +63,10 @@ extract_r_code <- function(qmd, script = NULL) {
     row <- r_codeCells[i, ]
     metadata_list <- as.list(row$metadata)
     metadata_clean <- metadata_list[!is.na(metadata_list)]
-    content[i] <- c(row$source, create_code_preamble(metadata_clean))
+    content[i] <- paste(
+      c(create_code_preamble(metadata_clean), row$source),
+      collapse = "\n"
+    )
   }
 
   xfun::write_utf8(content, script)

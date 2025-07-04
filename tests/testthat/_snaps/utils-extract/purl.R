@@ -4,3 +4,10 @@
 #' ---
 #' 
 
+#| echo: false
+#| output: asis
+cat("Hello, world")
+
+#| echo: true
+cat("more")
+
