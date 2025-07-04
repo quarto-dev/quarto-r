@@ -13,7 +13,7 @@ project_path(..., root = NULL)
 is used following the hierarchy described above}
 }
 \value{
-A character vector of the normalized file path relative to the project root
+A character vector of the normalized file path relative to the project root.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
@@ -41,7 +41,6 @@ The function uses the following fallback hierarchy to determine the project root
 \item Fallback to intelligent project root detection using \code{\link[xfun:proj_root]{xfun::proj_root()}} for interactive sessions:
 \itemize{
 \item \verb{_quarto.yml} or \verb{_quarto.yaml} (Quarto project files)
-\item \code{.vscode} directory (VS Code/Positron workspace)
 \item \code{DESCRIPTION} file with \verb{Package:} field (R package or Project)
 \item \code{.Rproj} files with \verb{Version:} field (RStudio projects)
 }
@@ -53,37 +52,48 @@ as in this case the computed path may be wrong.
 }
 \examples{
 \dontrun{
-# Reference a data file from project root
-data_path <- quarto::project_path("data", "my_data.csv")
+# Create a dummy Quarto project structure for example
+tmpdir <- tempfile("quarto_project")
+dir.create(tmpdir)
+quarto::quarto_create_project('test project', type = 'blog', dir = tmpdir, no_prompt = TRUE, quiet = TRUE)
+project_dir <- file.path(tmpdir, "test project")
 
-# Reference a script
-script_path <- quarto::project_path("R", "analysis.R")
+# Simulate working within a blog post
+xfun::in_dir(
+  dir = file.path(project_dir, "posts", "welcome"), {
 
-# Reference nested directories
-output_path <- quarto::project_path("outputs", "figures", "plot.png")
+  # Reference a data file from project root
+  # ../../data/my_data.csv
+  quarto::project_path("data", "my_data.csv")
 
-# Explicitly specify root (overrides automatic detection)
-custom_path <- quarto::project_path("data", "file.csv", root = "/path/to/project")
+  # Reference a script from project root
+  # ../../R/analysis.R
+  quarto::project_path("R", "analysis.R")
 
-# Alternative approach using here::i_am() (potentially more robust)
-# This approach requires you to declare where you are in the project:
-if (requireNamespace("here", quietly = TRUE)) {
-  # Declare that this document is in the project root or subdirectory
-  here::i_am("analysis.qmd")          # If in project root
-  # here::i_am("reports/analysis.qmd") # If in subdirectory
+  # Explicitly specify root (overrides automatic detection)
+  # ../../data/file.csv
+  quarto::project_path("data", "file.csv", root = "../..")
 
-  # Now here::here() will work reliably from the project root
-  data_path_alt <- here::here("data", "my_data.csv")
-  script_path_alt <- here::here("R", "analysis.R")
-  output_path_alt <- here::here("outputs", "figures", "plot.png")
-}
+  # Alternative approach using here::i_am() (potentially more robust)
+  # This approach requires you to declare where you are in the project:
+  if (requireNamespace("here", quietly = TRUE)) {
+    # Declare that this document is in the project root or subdirectory
+    here::i_am("posts/welcome/index.qmd")
+
+    # Now here::here() will work reliably from the project root
+    here::here("data", "my_data.csv")
+    here::here("R", "analysis.R")
+  }
+})
+
 }
 
 }
 \seealso{
 \itemize{
-\item \code{\link[here:here]{here::here()}} for a similar function that works with R projects
-\item \code{\link[=is_running_quarto_project]{is_running_quarto_project()}} to check if quarto is running with a project context
+\item \code{\link[here:here]{here::here()}} and \code{\link[here:i_am]{here::i_am()}} for a similar function that works with R projects
+\item \code{\link[=find_project_root]{find_project_root()}} to search for Quarto Project configuration in parents directories
+\item \code{\link[=get_running_project_root]{get_running_project_root()}} for detecting the project root in Quarto commands
 \item \code{\link[xfun:from_root]{xfun::from_root()}} for the underlying path construction
 \item \code{\link[xfun:proj_root]{xfun::proj_root()}} for project root detection logic
 }

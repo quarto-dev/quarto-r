@@ -34,39 +34,50 @@
 #' @param ... Character vectors of path components to be joined
 #' @param root Project root directory. If `NULL` (default), automatic detection
 #'   is used following the hierarchy described above
-#' @return A character vector of the normalized file path relative to the project root
+#' @return A character vector of the normalized file path relative to the project root.
 #'
 #' @examples
 #' \dontrun{
-#' # Reference a data file from project root
-#' data_path <- quarto::project_path("data", "my_data.csv")
+#' # Create a dummy Quarto project structure for example
+#' tmpdir <- tempfile("quarto_project")
+#' dir.create(tmpdir)
+#' quarto::quarto_create_project('test project', type = 'blog', dir = tmpdir, no_prompt = TRUE, quiet = TRUE)
+#' project_dir <- file.path(tmpdir, "test project")
 #'
-#' # Reference a script
-#' script_path <- quarto::project_path("R", "analysis.R")
+#' # Simulate working within a blog post
+#' xfun::in_dir(
+#'   dir = file.path(project_dir, "posts", "welcome"), {
 #'
-#' # Reference nested directories
-#' output_path <- quarto::project_path("outputs", "figures", "plot.png")
+#'   # Reference a data file from project root
+#'   # ../../data/my_data.csv
+#'   quarto::project_path("data", "my_data.csv")
 #'
-#' # Explicitly specify root (overrides automatic detection)
-#' custom_path <- quarto::project_path("data", "file.csv", root = "/path/to/project")
+#'   # Reference a script from project root
+#'   # ../../R/analysis.R
+#'   quarto::project_path("R", "analysis.R")
 #'
-#' # Alternative approach using here::i_am() (potentially more robust)
-#' # This approach requires you to declare where you are in the project:
-#' if (requireNamespace("here", quietly = TRUE)) {
-#'   # Declare that this document is in the project root or subdirectory
-#'   here::i_am("analysis.qmd")          # If in project root
-#'   # here::i_am("reports/analysis.qmd") # If in subdirectory
+#'   # Explicitly specify root (overrides automatic detection)
+#'   # ../../data/file.csv
+#'   quarto::project_path("data", "file.csv", root = "../..")
 #'
-#'   # Now here::here() will work reliably from the project root
-#'   data_path_alt <- here::here("data", "my_data.csv")
-#'   script_path_alt <- here::here("R", "analysis.R")
-#'   output_path_alt <- here::here("outputs", "figures", "plot.png")
-#' }
+#'   # Alternative approach using here::i_am() (potentially more robust)
+#'   # This approach requires you to declare where you are in the project:
+#'   if (requireNamespace("here", quietly = TRUE)) {
+#'     # Declare that this document is in the project root or subdirectory
+#'     here::i_am("posts/welcome/index.qmd")
+#'
+#'     # Now here::here() will work reliably from the project root
+#'     here::here("data", "my_data.csv")
+#'     here::here("R", "analysis.R")
+#'   }
+#' })
+#'
 #' }
 #'
 #' @seealso
-#' * [here::here()] for a similar function that works with R projects
-#' * [is_running_quarto_project()] to check if quarto is running with a project context
+#' * [here::here()] and [here::i_am()] for a similar function that works with R projects
+#' * [find_project_root()] to search for Quarto Project configuration in parents directories
+#' * [get_running_project_root()] for detecting the project root in Quarto commands
 #' * [xfun::from_root()] for the underlying path construction
 #' * [xfun::proj_root()] for project root detection logic
 #'
@@ -74,12 +85,9 @@
 project_path <- function(..., root = NULL) {
   if (is.null(root)) {
     # Try Quarto project environment variables first
-    quarto_root <- Sys.getenv(
-      "QUARTO_PROJECT_ROOT",
-      Sys.getenv("QUARTO_PROJECT_DIR")
-    )
+    quarto_root <- get_running_project_root()
 
-    root <- if (nzchar(quarto_root)) {
+    root <- if (!is.null(quarto_root) && nzchar(quarto_root)) {
       quarto_root
     } else {
       # Try to find project root using xfun::proj_root() with extended rules
@@ -134,41 +142,44 @@ project_path <- function(..., root = NULL) {
   path
 }
 
-#' Check if running within a Quarto project context
+#' Get the root of the currently running Quarto project
 #'
 #' @description
-#' This function checks if the current R session is running within a Quarto
-#' project context by detecting Quarto project environment variables.
+#' This function is to be used inside cells and will return the project root
+#' when doing [quarto_render()] by detecting Quarto project environment variables.
 #'
 #' @details
 #' Quarto sets `QUARTO_PROJECT_ROOT` and `QUARTO_PROJECT_DIR` environment
 #' variables when executing commands within a Quarto project context (e.g.,
 #' `quarto render`, `quarto preview`). This function detects their presence.
 #'
-#' Note that this function will return `FALSE` when running code interactively
+#' Note that this function will return `NULL` when running code interactively
 #' in an IDE (even within a Quarto project directory), as these specific
 #' environment variables are only set during Quarto command execution.
 #'
-#' @return Logical indicating if Quarto project environment variables are set
+#' @return Character Quarto project root path from set environment variables.
 #'
 #' @seealso
-#'  * [is_quarto_project()] for checking Quarto project structure
+#'  * [find_project_root()] for finding the Quarto project root directory
 #'  * [project_path()] for constructing paths relative to the project root
 #' @examples
 #' \dontrun{
 #' # This will be TRUE during `quarto render` in a project
-#' is_running_quarto_project()
+#' get_running_project_root()
 #'
 #' # This will be FALSE when not running during `quarto_render` (e.g. interactively)
-#' is_running_quarto_project()
+#' get_running_project_root()
 #' }
 #' @export
-is_running_quarto_project <- function() {
-  nzchar(Sys.getenv("QUARTO_PROJECT_ROOT")) ||
-    nzchar(Sys.getenv("QUARTO_PROJECT_DIR"))
+get_running_project_root <- function() {
+  root <- Sys.getenv("QUARTO_PROJECT_ROOT", Sys.getenv("QUARTO_PROJECT_DIR"))
+  if (!nzchar(root)) {
+    return()
+  }
+  root
 }
 
-#' Check if working within a Quarto project structure
+#' Find the root of a Quarto project
 #'
 #' @description
 #' This function checks if the current working directory is within a Quarto
@@ -179,18 +190,18 @@ is_running_quarto_project <- function() {
 #' @param path Character. Path to check for Quarto project files. Defaults to
 #'   current working directory.
 #'
-#' @return Logical indicating if a Quarto project structure is detected
+#' @return Character Path of the project root directory if found, or `NULL`
 #'
 #' @examplesIf quarto_available()
 #' dir <- tempfile()
 #' dir.create(dir)
-#' is_quarto_project(dir)
+#' find_project_root(dir)
 #' quarto_create_project(dir)
-#' is_quarto_project(dir)
+#' find_project_root(dir)
 #'
 #' xfun::in_dir(dir,
 #'   # Check if current directory is in a Quarto project
-#'   is_quarto_project()
+#'   !is.null(find_project_root())
 #' )
 #' # clean up
 #' unlink(dir, recursive = TRUE)
@@ -198,19 +209,10 @@ is_running_quarto_project <- function() {
 #'
 #' @seealso [is_running_quarto_project()] for detecting active Quarto rendering
 #' @export
-is_quarto_project <- function(path = ".") {
-  tryCatch(
-    {
-      quarto_rules <- rbind(
-        c("_quarto.yml", ""),
-        c("_quarto.yaml", "")
-      )
-
-      proj_root <- xfun::proj_root(path = path, rules = quarto_rules)
-      !is.null(proj_root)
-    },
-    error = function(e) {
-      FALSE
-    }
+find_project_root <- function(path = ".") {
+  quarto_rules <- rbind(
+    c("_quarto.yml", ""),
+    c("_quarto.yaml", "")
   )
+  xfun::proj_root(path = path, rules = quarto_rules)
 }
