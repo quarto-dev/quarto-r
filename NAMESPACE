@@ -2,8 +2,8 @@
 
 export(add_spin_preamble)
 export(check_newer_version)
-export(is_quarto_project)
-export(is_running_quarto_project)
+export(find_project_root)
+export(get_running_project_root)
 export(is_using_quarto)
 export(new_blog_post)
 export(project_path)
