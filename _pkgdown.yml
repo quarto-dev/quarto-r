@@ -35,6 +35,9 @@ reference:
   contents:
   - quarto_create_project
   - new_blog_post
+  - project_path
+  - find_project_root
+  - get_running_project_root
 
 - title: "Configuration"
   desc: >
