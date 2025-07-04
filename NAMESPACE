@@ -2,6 +2,7 @@
 
 export(add_spin_preamble)
 export(check_newer_version)
+export(extract_r_code)
 export(is_using_quarto)
 export(new_blog_post)
 export(quarto_add_extension)
