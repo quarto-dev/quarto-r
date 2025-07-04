@@ -10,7 +10,10 @@ test_that("extract_r_code() errors on existing script", {
   file.create(r_script)
   expect_snapshot(
     error = TRUE,
-    extract_r_code(resources_path("purl-r.qmd"), script = r_script)
+    extract_r_code(resources_path("purl-r.qmd"), script = r_script),
+    transform = function(x) {
+      gsub("(! File ).*( already exists.)", "\\1<r script>\\2", x)
+    }
   )
 })
 
