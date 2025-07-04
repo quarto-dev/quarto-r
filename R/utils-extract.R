@@ -58,8 +58,14 @@ extract_r_code <- function(qmd, script = NULL) {
 
   r_codeCells <- codeCells[codeCells$language == "r", ]
 
-  if (!file.exists(script)) {
-    fs::file_create(script)
+  content <- character(nrow(r_codeCells))
+  for (i in seq_len(nrow(r_codeCells))) {
+    row <- r_codeCells[i, ]
+    metadata_list <- as.list(row$metadata)
+    metadata_clean <- metadata_list[!is.na(metadata_list)]
+    content[i] <- c(row$source, create_code_preamble(metadata_clean))
   }
+
+  xfun::write_utf8(content, script)
   add_spin_preamble(script, preamble = fileInformation$metadata, quiet = TRUE)
 }
