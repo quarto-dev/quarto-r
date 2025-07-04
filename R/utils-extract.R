@@ -1,9 +1,15 @@
-#' Extract R code from Quarto document
+#' Convert Quarto document to R script
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #'
 #' Extracts R code cells from a Quarto document and writes them to an R script
 #' file that can be rendered with the same options. The Markdown text is not
 #' preserved, but R chunk options are kept as comment headers using Quarto's
 #' `#|` syntax.
+#'
+#' This function is still experimental and may slightly change in
+#' future releases, depending on feedback.
 #'
 #' @param qmd Character. Path to the input Quarto document (.qmd file).
 #' @param script Character. Path to the output R script file. If `NULL`
@@ -36,16 +42,16 @@
 #'
 #' @examples
 #' \dontrun{
-#' # Extract R code from a Quarto document
-#' extract_r_code("my-document.qmd")
+#' # Convert a Quarto document to R script
+#' qmd_to_r_script("my-document.qmd")
 #' # Creates "my-document.R"
 #'
 #' # Specify custom output file
-#' extract_r_code("my-document.qmd", script = "extracted-code.R")
+#' qmd_to_r_script("my-document.qmd", script = "extracted-code.R")
 #' }
 #'
 #' @export
-extract_r_code <- function(qmd, script = NULL) {
+qmd_to_r_script <- function(qmd, script = NULL) {
   if (!file.exists(qmd)) {
     cli::cli_abort(
       c(

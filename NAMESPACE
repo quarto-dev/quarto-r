@@ -2,9 +2,9 @@
 
 export(add_spin_preamble)
 export(check_newer_version)
-export(extract_r_code)
 export(is_using_quarto)
 export(new_blog_post)
+export(qmd_to_r_script)
 export(quarto_add_extension)
 export(quarto_available)
 export(quarto_binary_sitrep)
