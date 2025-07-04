@@ -27,6 +27,7 @@
 #'   in the `preamble` list. If NULL, uses `preamble$title` or filename as fallback.
 #' @param preamble Named list of YAML metadata to include in preamble.
 #'   The `title` parameter takes precedence over `preamble$title` if both are provided.
+#' @param quiet If `TRUE`, suppresses messages and warnings.
 #' @return Invisibly returns the script path if modified, otherwise invisible NULL
 #'
 #' @examples
@@ -55,22 +56,31 @@
 #' )
 #' }
 #' @export
-add_spin_preamble <- function(script, title = NULL, preamble = NULL) {
+add_spin_preamble <- function(
+  script,
+  title = NULL,
+  preamble = NULL,
+  quiet = FALSE
+) {
   if (!fs::file_exists(script)) {
-    cli::cli_abort(c(
-      "File {.file {script}} does not exist.",
-      "Please provide a valid file path."
-    ))
+    cli::cli_abort(
+      c(
+        "File {.file {script}} does not exist.",
+        "Please provide a valid file path."
+      )
+    )
   }
 
   content <- xfun::read_utf8(script)
 
   # if files starts with a spin preamble, do nothing
   if (grepl("^\\s*#'", content[1])) {
-    cli::cli_inform(c(
-      "File {.file {script}} already has a spin preamble.",
-      "No changes made. Edit manually if needed."
-    ))
+    if (isFALSE(quiet)) {
+      cli::cli_inform(c(
+        "File {.file {script}} already has a spin preamble.",
+        "No changes made. Edit manually if needed."
+      ))
+    }
     return(invisible())
   }
 
@@ -101,6 +111,10 @@ add_spin_preamble <- function(script, title = NULL, preamble = NULL) {
   new_content <- c(preamble_text, "", content)
   xfun::write_utf8(new_content, con = script)
 
-  cli::cli_inform("Added spin preamble to {.file {script}}")
+  if (isFALSE(quiet)) {
+    cli::cli_inform(c(
+      "Added spin preamble to {.file {script}}."
+    ))
+  }
   return(invisible(script))
 }
