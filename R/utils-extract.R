@@ -13,6 +13,15 @@ extract_r_code <- function(qmd, script = NULL) {
     script <- fs::path_ext_set(qmd, "R")
   }
 
+  if (file.exists(script)) {
+    cli::cli_abort(
+      c(
+        "File {.file {script}} already exists.",
+        ">" = "Please provide a new file name or remove the existing file."
+      )
+    )
+  }
+
   inspect <- quarto::quarto_inspect(qmd)
   fileInformation <- inspect$fileInformation[[1]]
 
