@@ -5,6 +5,15 @@ test_that("extract_r_code() errors on wrong qmd", {
   )
 })
 
+test_that("extract_r_code() errors on existing script", {
+  r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
+  file.create(r_script)
+  expect_snapshot(
+    error = TRUE,
+    extract_r_code(resources_path("purl-r.qmd"), script = r_script)
+  )
+})
+
 test_that("extract_r_code() writes metadata", {
   skip_if_no_quarto()
   r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
