@@ -131,7 +131,7 @@ test_that("project_path() handles xfun::proj_root() errors gracefully", {
   )
 })
 
-test_that("is_running_quarto_project() detects environment variables", {
+test_that("get_running_project_root() detects environment variables", {
   withr::with_envvar(
     c(
       QUARTO_PROJECT_ROOT = NA,
