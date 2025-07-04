@@ -17,7 +17,7 @@ test_that("extract_r_code() errors on existing script", {
   )
 })
 
-test_that("extract_r_code() writes metadata", {
+test_that("extract_r_code() writes R file that renders", {
   skip_if_no_quarto()
   r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
 
@@ -29,6 +29,20 @@ test_that("extract_r_code() writes metadata", {
       script = r_script
     ),
     name = "purl.R"
+  )
+
+  skip_if_no_quarto("1.4.511")
+  announce_snapshot_file(name = "purl.md")
+  md_file <- xfun::with_ext(r_script, "md")
+  quarto::quarto_render(
+    r_script,
+    output_format = "markdown",
+    output_file = basename(md_file),
+    quiet = TRUE
+  )
+  expect_snapshot_file(
+    path = md_file,
+    name = "purl.md"
   )
 })
 
