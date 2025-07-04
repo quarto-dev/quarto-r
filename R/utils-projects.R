@@ -204,7 +204,7 @@ get_running_project_root <- function() {
 #' @description
 #' This function checks if the current working directory is within a Quarto
 #' project by looking for Quarto project files (`_quarto.yml` or `_quarto.yaml`).
-#' Unlike [is_running_quarto_project()], this works both during rendering and
+#' Unlike [get_running_project_root()], this works both during rendering and
 #' interactive sessions.
 #'
 #' @param path Character. Path to check for Quarto project files. Defaults to
