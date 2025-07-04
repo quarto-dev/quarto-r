@@ -213,18 +213,20 @@ get_running_project_root <- function() {
 #' @return Character Path of the project root directory if found, or `NULL`
 #'
 #' @examplesIf quarto_available()
-#' dir <- tempfile()
-#' dir.create(dir)
-#' find_project_root(dir)
-#' quarto_create_project(dir)
-#' find_project_root(dir)
+#' tmpdir <- tempfile()
+#' dir.create(tmpdir)
+#' find_project_root(tmpdir)
+#' quarto_create_project("test-proj", type = "blog", dir = tmpdir, no_prompt = TRUE, quiet = TRUE)
+#' blog_post_dir <- file.path(tmpdir, "test-proj", "posts", "welcome")
+#' find_project_root(blog_post_dir)
 #'
-#' xfun::in_dir(dir,
-#'   # Check if current directory is in a Quarto project
+#' xfun::in_dir(blog_post_dir, {
+#'   # Check if current directory is a Quarto project or in one
 #'   !is.null(find_project_root())
-#' )
+#' })
+#'
 #' # clean up
-#' unlink(dir, recursive = TRUE)
+#' unlink(tmpdir, recursive = TRUE)
 #'
 #'
 #' @seealso [get_running_project_root()] for detecting active Quarto rendering
