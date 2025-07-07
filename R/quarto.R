@@ -21,7 +21,7 @@ quarto_path <- function(normalize = TRUE) {
   if (!normalize) {
     return(quarto_path)
   }
-  normalizePath(quarto_path, winslash = "/", mustWork = FALSE)
+  xfun::normalize_path(quarto_path)
 }
 
 get_quarto_path_env <- function() {
@@ -257,7 +257,7 @@ quarto_binary_sitrep <- function(verbose = TRUE, debug = FALSE) {
     return(FALSE)
   }
 
-  quarto_found <- normalizePath(quarto_found, mustWork = FALSE)
+  quarto_found <- xfun::normalize_path(quarto_found)
 
   same_config <- TRUE
   if (debug) {
@@ -271,8 +271,8 @@ quarto_binary_sitrep <- function(verbose = TRUE, debug = FALSE) {
     ))
   }
 
-  quarto_r_env <- normalizePath(get_quarto_path_env(), mustWork = FALSE)
-  quarto_system <- normalizePath(unname(Sys.which("quarto")), mustWork = FALSE)
+  quarto_r_env <- xfun::normalize_path(get_quarto_path_env())
+  quarto_system <- xfun::normalize_path(unname(Sys.which("quarto")))
   # quarto R package will use QUARTO_PATH env var with higher priority than latest version on path $PATH
   # and RStudio IDE does not use this environment variable
   if (!is.na(quarto_r_env) && identical(quarto_r_env, quarto_found)) {
@@ -296,7 +296,7 @@ quarto_binary_sitrep <- function(verbose = TRUE, debug = FALSE) {
   # RStudio IDE > Render button will use RSTUDIO_QUARTO env var with higher priority than latest version on path $PATH
   rstudio_env <- Sys.getenv("RSTUDIO_QUARTO", unset = NA)
   if (!is.na(rstudio_env)) {
-    rstudio_env <- normalizePath(rstudio_env, mustWork = FALSE)
+    rstudio_env <- xfun::normalize_path(rstudio_env)
     if (!identical(rstudio_env, quarto_found)) {
       same_config <- FALSE
       if (verbose) {

@@ -11,5 +11,6 @@
 #' @importFrom tools vignetteEngine
 #' @importFrom xfun base64_encode
 #' @importFrom xfun env_option
+#' @importFrom xfun normalize_path
 ## usethis namespace: end
 NULL

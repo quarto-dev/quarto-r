@@ -141,7 +141,7 @@ project_path <- function(..., root = NULL) {
   }
 
   # Normalize the root path
-  root <- xfun::normalize_path(root, mustWork = FALSE)
+  root <- xfun::normalize_path(root)
   # Use xfun::from_root for better path handling
   path <- rlang::try_fetch(
     xfun::from_root(..., root = root, error = TRUE),
