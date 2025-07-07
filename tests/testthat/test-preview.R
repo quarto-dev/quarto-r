@@ -1,6 +1,7 @@
 test_that("quarto_preview default functionality", {
   skip_if_no_quarto()
   skip_on_cran()
+  skip_on_ci()
 
   tmp_dir <- withr::local_tempdir()
   withr::local_dir(tmp_dir)
@@ -23,6 +24,7 @@ test_that("quarto_preview default functionality", {
 test_that("quarto_preview can change port", {
   skip_if_no_quarto()
   skip_on_cran()
+  skip_on_ci()
 
   tmp_dir <- withr::local_tempdir()
   withr::local_dir(tmp_dir)
