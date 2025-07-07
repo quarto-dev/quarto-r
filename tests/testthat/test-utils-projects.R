@@ -3,14 +3,11 @@ test_that("project_path() works with explicit root", {
   withr::local_dir(temp_dir)
   expect_identical(
     project_path("data", "file.csv", root = temp_dir),
-    xfun::relative_path(file.path("data", "file.csv"), dir = temp_dir)
+    file.path("data", "file.csv")
   )
   expect_identical(
     project_path("outputs", "figures", "plot.png", root = temp_dir),
-    xfun::relative_path(
-      file.path("outputs", "figures", "plot.png"),
-      dir = temp_dir
-    )
+    file.path("outputs", "figures", "plot.png")
   )
   expect_identical(project_path(root = temp_dir), ".")
 })
