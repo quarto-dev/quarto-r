@@ -28,9 +28,15 @@ test_that("quarto_preview can change port", {
   withr::local_dir(tmp_dir)
   xfun::write_utf8(c("---", "title: Test", "---", "", "# Hello"), "test.qmd")
 
+  known_port <- find_port()
   expect_no_error({
     preview_url <- withr::with_dir(tmp_dir, {
-      quarto_preview("test.qmd", port = 8888, browse = FALSE, quiet = TRUE)
+      quarto_preview(
+        "test.qmd",
+        port = known_port,
+        browse = FALSE,
+        quiet = TRUE
+      )
     })
   })
 
@@ -40,5 +46,5 @@ test_that("quarto_preview can change port", {
   skip_if(!exists("preview_url", inherits = FALSE))
   skip_if(!is.character(preview_url))
   expect_true(grepl("^https?://", preview_url))
-  expect_true(grepl(":8888", preview_url))
+  expect_true(grepl(sprintf(":%s", known_port), preview_url))
 })
