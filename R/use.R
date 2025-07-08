@@ -36,6 +36,10 @@ quarto_use_template <- function(
 ) {
   rlang::check_required(template)
 
+  if (!fs::dir_exists(dir)) {
+    fs::dir_create(dir)
+  }
+
   if (!is_empty_dir(dir) && quarto_available("1.5.15")) {
     cli::cli_abort(c(
       "{.arg dir} must be an empty directory.",

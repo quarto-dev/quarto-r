@@ -211,7 +211,7 @@ transform_quarto_cli_in_output <- function(
         if (dir_only) {
           quarto_found <- dirname(quarto_found)
         }
-        quarto_found_normalized <- normalizePath(quarto_found, mustWork = FALSE)
+        quarto_found_normalized <- xfun::normalize_path(quarto_found)
         # look for non-normalized path
         lines <- hide_path(lines, quarto_found)
         # look for normalized path

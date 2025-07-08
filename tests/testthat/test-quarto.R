@@ -64,7 +64,7 @@ test_that("quarto CLI sitrep", {
   skip_if_no_quarto()
   skip_on_cran()
   local_reproducible_output(width = 1000)
-  dummy_quarto_path <- normalizePath("dummy", mustWork = FALSE)
+  dummy_quarto_path <- xfun::normalize_path("dummy")
   withr::with_envvar(
     list(QUARTO_PATH = dummy_quarto_path, RSTUDIO_QUARTO = NA),
     expect_snapshot(
