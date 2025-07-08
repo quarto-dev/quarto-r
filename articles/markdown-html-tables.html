@@ -30,7 +30,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9023</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9024</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,6 +49,7 @@
     <li><a class="dropdown-item" href="../articles/hello.html">Quarto HTML Vignettes</a></li>
     <li><a class="dropdown-item" href="../articles/markdown-html-tables.html">Using Markdown in HTML Tables</a></li>
     <li><a class="dropdown-item" href="../articles/publishing.html">Publishing</a></li>
+    <li><a class="dropdown-item" href="../articles/r-scripts.html">Working with R Scripts</a></li>
     <li><a class="dropdown-item" href="../articles/theme-helpers.html">Theme Helpers</a></li>
   </ul>
 </li>
@@ -538,23 +539,23 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 <span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">complex_table</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_passthrough.html" class="external-link">fmt_passthrough</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"Example"</span>, escape <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="jkkcepcuus" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jkkcepcuus table {
+<div id="qqebrhokiv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qqebrhokiv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#jkkcepcuus thead, #jkkcepcuus tbody, #jkkcepcuus tfoot, #jkkcepcuus tr, #jkkcepcuus td, #jkkcepcuus th {
+#qqebrhokiv thead, #qqebrhokiv tbody, #qqebrhokiv tfoot, #qqebrhokiv tr, #qqebrhokiv td, #qqebrhokiv th {
   border-style: none;
 }
 
-#jkkcepcuus p {
+#qqebrhokiv p {
   margin: 0;
   padding: 0;
 }
 
-#jkkcepcuus .gt_table {
+#qqebrhokiv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -580,12 +581,12 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-left-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_caption {
+#qqebrhokiv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#jkkcepcuus .gt_title {
+#qqebrhokiv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -597,7 +598,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-width: 0;
 }
 
-#jkkcepcuus .gt_subtitle {
+#qqebrhokiv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -609,7 +610,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-top-width: 0;
 }
 
-#jkkcepcuus .gt_heading {
+#qqebrhokiv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -621,13 +622,13 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_bottom_border {
+#qqebrhokiv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_col_headings {
+#qqebrhokiv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -642,7 +643,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_col_heading {
+#qqebrhokiv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -662,7 +663,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   overflow-x: hidden;
 }
 
-#jkkcepcuus .gt_column_spanner_outer {
+#qqebrhokiv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -674,15 +675,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 4px;
 }
 
-#jkkcepcuus .gt_column_spanner_outer:first-child {
+#qqebrhokiv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jkkcepcuus .gt_column_spanner_outer:last-child {
+#qqebrhokiv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jkkcepcuus .gt_column_spanner {
+#qqebrhokiv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -694,11 +695,11 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   width: 100%;
 }
 
-#jkkcepcuus .gt_spanner_row {
+#qqebrhokiv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#jkkcepcuus .gt_group_heading {
+#qqebrhokiv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -724,7 +725,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   text-align: left;
 }
 
-#jkkcepcuus .gt_empty_group_heading {
+#qqebrhokiv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -739,15 +740,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   vertical-align: middle;
 }
 
-#jkkcepcuus .gt_from_md > :first-child {
+#qqebrhokiv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jkkcepcuus .gt_from_md > :last-child {
+#qqebrhokiv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jkkcepcuus .gt_row {
+#qqebrhokiv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -766,7 +767,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   overflow-x: hidden;
 }
 
-#jkkcepcuus .gt_stub {
+#qqebrhokiv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -779,7 +780,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#jkkcepcuus .gt_stub_row_group {
+#qqebrhokiv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -793,15 +794,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   vertical-align: top;
 }
 
-#jkkcepcuus .gt_row_group_first td {
+#qqebrhokiv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#jkkcepcuus .gt_row_group_first th {
+#qqebrhokiv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#jkkcepcuus .gt_summary_row {
+#qqebrhokiv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -811,16 +812,16 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#jkkcepcuus .gt_first_summary_row {
+#qqebrhokiv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_first_summary_row.thick {
+#qqebrhokiv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#jkkcepcuus .gt_last_summary_row {
+#qqebrhokiv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -830,7 +831,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_grand_summary_row {
+#qqebrhokiv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -840,7 +841,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#jkkcepcuus .gt_first_grand_summary_row {
+#qqebrhokiv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -850,7 +851,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-top-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_last_grand_summary_row_top {
+#qqebrhokiv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -860,11 +861,11 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_striped {
+#qqebrhokiv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jkkcepcuus .gt_table_body {
+#qqebrhokiv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -873,7 +874,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_footnotes {
+#qqebrhokiv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -887,7 +888,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_footnote {
+#qqebrhokiv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -896,7 +897,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#jkkcepcuus .gt_sourcenotes {
+#qqebrhokiv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -910,7 +911,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#jkkcepcuus .gt_sourcenote {
+#qqebrhokiv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -918,72 +919,72 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#jkkcepcuus .gt_left {
+#qqebrhokiv .gt_left {
   text-align: left;
 }
 
-#jkkcepcuus .gt_center {
+#qqebrhokiv .gt_center {
   text-align: center;
 }
 
-#jkkcepcuus .gt_right {
+#qqebrhokiv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jkkcepcuus .gt_font_normal {
+#qqebrhokiv .gt_font_normal {
   font-weight: normal;
 }
 
-#jkkcepcuus .gt_font_bold {
+#qqebrhokiv .gt_font_bold {
   font-weight: bold;
 }
 
-#jkkcepcuus .gt_font_italic {
+#qqebrhokiv .gt_font_italic {
   font-style: italic;
 }
 
-#jkkcepcuus .gt_super {
+#qqebrhokiv .gt_super {
   font-size: 65%;
 }
 
-#jkkcepcuus .gt_footnote_marks {
+#qqebrhokiv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#jkkcepcuus .gt_asterisk {
+#qqebrhokiv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#jkkcepcuus .gt_indent_1 {
+#qqebrhokiv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#jkkcepcuus .gt_indent_2 {
+#qqebrhokiv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#jkkcepcuus .gt_indent_3 {
+#qqebrhokiv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#jkkcepcuus .gt_indent_4 {
+#qqebrhokiv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#jkkcepcuus .gt_indent_5 {
+#qqebrhokiv .gt_indent_5 {
   text-indent: 25px;
 }
 
-#jkkcepcuus .katex-display {
+#qqebrhokiv .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#jkkcepcuus div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qqebrhokiv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1047,23 +1048,23 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_markdown.html" class="external-link">fmt_markdown</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="vockgmalxp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vockgmalxp table {
+<div id="chobwmqrtd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#chobwmqrtd table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vockgmalxp thead, #vockgmalxp tbody, #vockgmalxp tfoot, #vockgmalxp tr, #vockgmalxp td, #vockgmalxp th {
+#chobwmqrtd thead, #chobwmqrtd tbody, #chobwmqrtd tfoot, #chobwmqrtd tr, #chobwmqrtd td, #chobwmqrtd th {
   border-style: none;
 }
 
-#vockgmalxp p {
+#chobwmqrtd p {
   margin: 0;
   padding: 0;
 }
 
-#vockgmalxp .gt_table {
+#chobwmqrtd .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1089,12 +1090,12 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-left-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_caption {
+#chobwmqrtd .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vockgmalxp .gt_title {
+#chobwmqrtd .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1106,7 +1107,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-width: 0;
 }
 
-#vockgmalxp .gt_subtitle {
+#chobwmqrtd .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1118,7 +1119,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-top-width: 0;
 }
 
-#vockgmalxp .gt_heading {
+#chobwmqrtd .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1130,13 +1131,13 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_bottom_border {
+#chobwmqrtd .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_col_headings {
+#chobwmqrtd .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1151,7 +1152,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_col_heading {
+#chobwmqrtd .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1171,7 +1172,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   overflow-x: hidden;
 }
 
-#vockgmalxp .gt_column_spanner_outer {
+#chobwmqrtd .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1183,15 +1184,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 4px;
 }
 
-#vockgmalxp .gt_column_spanner_outer:first-child {
+#chobwmqrtd .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vockgmalxp .gt_column_spanner_outer:last-child {
+#chobwmqrtd .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vockgmalxp .gt_column_spanner {
+#chobwmqrtd .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1203,11 +1204,11 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   width: 100%;
 }
 
-#vockgmalxp .gt_spanner_row {
+#chobwmqrtd .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vockgmalxp .gt_group_heading {
+#chobwmqrtd .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1233,7 +1234,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   text-align: left;
 }
 
-#vockgmalxp .gt_empty_group_heading {
+#chobwmqrtd .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1248,15 +1249,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   vertical-align: middle;
 }
 
-#vockgmalxp .gt_from_md > :first-child {
+#chobwmqrtd .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vockgmalxp .gt_from_md > :last-child {
+#chobwmqrtd .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vockgmalxp .gt_row {
+#chobwmqrtd .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1275,7 +1276,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   overflow-x: hidden;
 }
 
-#vockgmalxp .gt_stub {
+#chobwmqrtd .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1288,7 +1289,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#vockgmalxp .gt_stub_row_group {
+#chobwmqrtd .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1302,15 +1303,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   vertical-align: top;
 }
 
-#vockgmalxp .gt_row_group_first td {
+#chobwmqrtd .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vockgmalxp .gt_row_group_first th {
+#chobwmqrtd .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vockgmalxp .gt_summary_row {
+#chobwmqrtd .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1320,16 +1321,16 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#vockgmalxp .gt_first_summary_row {
+#chobwmqrtd .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_first_summary_row.thick {
+#chobwmqrtd .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vockgmalxp .gt_last_summary_row {
+#chobwmqrtd .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1339,7 +1340,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_grand_summary_row {
+#chobwmqrtd .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1349,7 +1350,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#vockgmalxp .gt_first_grand_summary_row {
+#chobwmqrtd .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1359,7 +1360,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-top-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_last_grand_summary_row_top {
+#chobwmqrtd .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1369,11 +1370,11 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_striped {
+#chobwmqrtd .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vockgmalxp .gt_table_body {
+#chobwmqrtd .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1382,7 +1383,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_footnotes {
+#chobwmqrtd .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1396,7 +1397,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_footnote {
+#chobwmqrtd .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1405,7 +1406,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#vockgmalxp .gt_sourcenotes {
+#chobwmqrtd .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1419,7 +1420,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#vockgmalxp .gt_sourcenote {
+#chobwmqrtd .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1427,72 +1428,72 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#vockgmalxp .gt_left {
+#chobwmqrtd .gt_left {
   text-align: left;
 }
 
-#vockgmalxp .gt_center {
+#chobwmqrtd .gt_center {
   text-align: center;
 }
 
-#vockgmalxp .gt_right {
+#chobwmqrtd .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vockgmalxp .gt_font_normal {
+#chobwmqrtd .gt_font_normal {
   font-weight: normal;
 }
 
-#vockgmalxp .gt_font_bold {
+#chobwmqrtd .gt_font_bold {
   font-weight: bold;
 }
 
-#vockgmalxp .gt_font_italic {
+#chobwmqrtd .gt_font_italic {
   font-style: italic;
 }
 
-#vockgmalxp .gt_super {
+#chobwmqrtd .gt_super {
   font-size: 65%;
 }
 
-#vockgmalxp .gt_footnote_marks {
+#chobwmqrtd .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vockgmalxp .gt_asterisk {
+#chobwmqrtd .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vockgmalxp .gt_indent_1 {
+#chobwmqrtd .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vockgmalxp .gt_indent_2 {
+#chobwmqrtd .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vockgmalxp .gt_indent_3 {
+#chobwmqrtd .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vockgmalxp .gt_indent_4 {
+#chobwmqrtd .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vockgmalxp .gt_indent_5 {
+#chobwmqrtd .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vockgmalxp .katex-display {
+#chobwmqrtd .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vockgmalxp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#chobwmqrtd div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1546,8 +1547,8 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 
     <script>
 
-      function styleCell_15894tyalqbi0iggfhqz(i, j, css_id) {
-          var table = document.getElementById("tinytable_15894tyalqbi0iggfhqz");
+      function styleCell_bwew5wzm7luau3louq78(i, j, css_id) {
+          var table = document.getElementById("tinytable_bwew5wzm7luau3louq78");
           var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -1557,7 +1558,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_15894tyalqbi0iggfhqz');
+        var table = document.getElementById('tinytable_bwew5wzm7luau3louq78');
         // Find the row with data-row attribute matching i
         var targetRow = table.querySelector(`tr [data-row="${i}"]`).closest('tr');
         var newRow = table.insertRow(targetRow.rowIndex);
@@ -1569,8 +1570,8 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_15894tyalqbi0iggfhqz(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_15894tyalqbi0iggfhqz");
+      function spanCell_bwew5wzm7luau3louq78(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_bwew5wzm7luau3louq78");
         const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
         if (!targetCell) {
           console.warn(`Cell at (${i}, ${j}) not found.`);
@@ -1601,24 +1602,24 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '4', j: 0 }, { i: '4', j: 1 }, { i: '4', j: 2 },  ], css_id: 'tinytable_css_4mocxai3suwiy1jszfmf',},
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_e1ydjt75tfcqh3ig4za8',},
+          { positions: [ { i: '4', j: 0 }, { i: '4', j: 1 }, { i: '4', j: 2 },  ], css_id: 'tinytable_css_rlnjwjn7qs95hqt31eqd',},
+          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_t6b8mvznjaq74hto5vzn',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_15894tyalqbi0iggfhqz(cell.i, cell.j, group.css_id);
+                  styleCell_bwew5wzm7luau3louq78(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><style>
       /* tinytable css entries after */
-      .table td.tinytable_css_4mocxai3suwiy1jszfmf, .table th.tinytable_css_4mocxai3suwiy1jszfmf { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_e1ydjt75tfcqh3ig4za8, .table th.tinytable_css_e1ydjt75tfcqh3ig4za8 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_rlnjwjn7qs95hqt31eqd, .table th.tinytable_css_rlnjwjn7qs95hqt31eqd { border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_t6b8mvznjaq74hto5vzn, .table th.tinytable_css_t6b8mvznjaq74hto5vzn { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
     </style>
 <div class="container">
-      <table class="table table table-borderless" id="tinytable_15894tyalqbi0iggfhqz" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table table table-borderless" id="tinytable_bwew5wzm7luau3louq78" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
 <th scope="col" data-row="0" data-col="0">Feature</th>
                 <th scope="col" data-row="0" data-col="1">Example</th>
@@ -1662,8 +1663,8 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 
     <script>
 
-      function styleCell_xc9h82v4yta6mop278ym(i, j, css_id) {
-          var table = document.getElementById("tinytable_xc9h82v4yta6mop278ym");
+      function styleCell_n1df0yvxuj8wtsnvj3v9(i, j, css_id) {
+          var table = document.getElementById("tinytable_n1df0yvxuj8wtsnvj3v9");
           var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -1673,7 +1674,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_xc9h82v4yta6mop278ym');
+        var table = document.getElementById('tinytable_n1df0yvxuj8wtsnvj3v9');
         // Find the row with data-row attribute matching i
         var targetRow = table.querySelector(`tr [data-row="${i}"]`).closest('tr');
         var newRow = table.insertRow(targetRow.rowIndex);
@@ -1685,8 +1686,8 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_xc9h82v4yta6mop278ym(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_xc9h82v4yta6mop278ym");
+      function spanCell_n1df0yvxuj8wtsnvj3v9(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_n1df0yvxuj8wtsnvj3v9");
         const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
         if (!targetCell) {
           console.warn(`Cell at (${i}, ${j}) not found.`);
@@ -1717,25 +1718,25 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '4', j: 0 }, { i: '4', j: 1 }, { i: '4', j: 2 },  ], css_id: 'tinytable_css_yjrtsawgqoewfyn0st67',},
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_0qqb6q4uyps8077cvb9j',},
+          { positions: [ { i: '4', j: 0 }, { i: '4', j: 1 }, { i: '4', j: 2 },  ], css_id: 'tinytable_css_i35wjk7fmgcvjgmnwrwf',},
+          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_h6e9yudlbt9sqpl6bzaf',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_xc9h82v4yta6mop278ym(cell.i, cell.j, group.css_id);
+                  styleCell_n1df0yvxuj8wtsnvj3v9(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><style>
       /* tinytable css entries after */
-      .table td.tinytable_css_yjrtsawgqoewfyn0st67, .table th.tinytable_css_yjrtsawgqoewfyn0st67 { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_0qqb6q4uyps8077cvb9j, .table th.tinytable_css_0qqb6q4uyps8077cvb9j { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_i35wjk7fmgcvjgmnwrwf, .table th.tinytable_css_i35wjk7fmgcvjgmnwrwf { border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_h6e9yudlbt9sqpl6bzaf, .table th.tinytable_css_h6e9yudlbt9sqpl6bzaf { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
     </style>
 <div class="container">
 
-<table id="tinytable_xc9h82v4yta6mop278ym" class="table table table-borderless caption-top" style="width: auto; margin-left: auto; margin-right: auto;">
+<table id="tinytable_n1df0yvxuj8wtsnvj3v9" class="table table table-borderless caption-top" style="width: auto; margin-left: auto; margin-right: auto;">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -1805,8 +1806,8 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 
     <script>
 
-      function styleCell_h1824x6n3900cfd2d63a(i, j, css_id) {
-          var table = document.getElementById("tinytable_h1824x6n3900cfd2d63a");
+      function styleCell_umzaswi8rab5suk1sxkx(i, j, css_id) {
+          var table = document.getElementById("tinytable_umzaswi8rab5suk1sxkx");
           var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
           if (cell) {
               console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
@@ -1816,7 +1817,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
           }
       }
       function insertSpanRow(i, colspan, content) {
-        var table = document.getElementById('tinytable_h1824x6n3900cfd2d63a');
+        var table = document.getElementById('tinytable_umzaswi8rab5suk1sxkx');
         // Find the row with data-row attribute matching i
         var targetRow = table.querySelector(`tr [data-row="${i}"]`).closest('tr');
         var newRow = table.insertRow(targetRow.rowIndex);
@@ -1828,8 +1829,8 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
         // this may be unsafe, but innerText does not interpret <br>
         newCell.innerHTML = content;
       }
-      function spanCell_h1824x6n3900cfd2d63a(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_h1824x6n3900cfd2d63a");
+      function spanCell_umzaswi8rab5suk1sxkx(i, j, rowspan, colspan) {
+        var table = document.getElementById("tinytable_umzaswi8rab5suk1sxkx");
         const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
         if (!targetCell) {
           console.warn(`Cell at (${i}, ${j}) not found.`);
@@ -1860,25 +1861,25 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '4', j: 0 }, { i: '4', j: 1 }, { i: '4', j: 2 },  ], css_id: 'tinytable_css_bgvny8zjaqe43zt87qdm',},
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_hrier8co0tkhvg91epx7',},
+          { positions: [ { i: '4', j: 0 }, { i: '4', j: 1 }, { i: '4', j: 2 },  ], css_id: 'tinytable_css_stzn825oeqcyk3fnxnri',},
+          { positions: [ { i: '0', j: 0 }, { i: '0', j: 1 }, { i: '0', j: 2 },  ], css_id: 'tinytable_css_8p3urzy66iz29vdvj3fv',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  styleCell_h1824x6n3900cfd2d63a(cell.i, cell.j, group.css_id);
+                  styleCell_umzaswi8rab5suk1sxkx(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><style>
       /* tinytable css entries after */
-      .table td.tinytable_css_bgvny8zjaqe43zt87qdm, .table th.tinytable_css_bgvny8zjaqe43zt87qdm { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_hrier8co0tkhvg91epx7, .table th.tinytable_css_hrier8co0tkhvg91epx7 { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
+      .table td.tinytable_css_stzn825oeqcyk3fnxnri, .table th.tinytable_css_stzn825oeqcyk3fnxnri { border-bottom: solid #d3d8dc 0.1em; }
+      .table td.tinytable_css_8p3urzy66iz29vdvj3fv, .table th.tinytable_css_8p3urzy66iz29vdvj3fv { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
     </style>
 <div class="container">
 
-<table id="tinytable_h1824x6n3900cfd2d63a" class="table table table-borderless caption-top" style="width: auto; margin-left: auto; margin-right: auto;">
+<table id="tinytable_umzaswi8rab5suk1sxkx" class="table table table-borderless caption-top" style="width: auto; margin-left: auto; margin-right: auto;">
 <thead><tr class="header">
 <th data-quarto-table-cell-role="th" scope="col" data-row="0" data-col="0">Feature</th>
 <th data-quarto-table-cell-role="th" scope="col" data-row="0" data-col="1">Example</th>

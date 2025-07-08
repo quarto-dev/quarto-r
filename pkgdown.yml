@@ -8,8 +8,9 @@ articles:
   hello: hello.html
   markdown-html-tables: markdown-html-tables.html
   publishing: publishing.html
+  r-scripts: r-scripts.html
   theme-helpers: theme-helpers.html
-last_built: 2025-07-07T17:45Z
+last_built: 2025-07-08T10:49Z
 urls:
   reference: https://quarto-dev.github.io/quarto-r/reference
   article: https://quarto-dev.github.io/quarto-r/articles

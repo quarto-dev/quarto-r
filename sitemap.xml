@@ -8,6 +8,7 @@
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/index.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/markdown-html-tables.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/publishing.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/articles/r-scripts.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/articles/theme-helpers.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/authors.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/index.html</loc></url>
@@ -17,6 +18,7 @@
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/index.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/is_using_quarto.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/new_blog_post.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/qmd_to_r_script.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto-package.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_add_extension.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_available.html</loc></url>
