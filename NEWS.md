@@ -4,6 +4,8 @@
 
 - Added NA value detection in YAML processing to prevent silent failures when passing R's `NA` values to Quarto CLI. Functions `as_yaml()` and `write_yaml()` now validate for NA values and provide clear error messages with actionable suggestions. This addresses issues where R's `NA` values get converted to YAML strings (like `.na.real`) that Quarto doesn't recognize as missing values, because they are not supported in YAML 1.2 spec. This is to help users handle missing data appropriately before passing to Quarto (#168).
 
+- Added `qmd_to_r_script()` function to extract R code cells from Quarto documents and create R scripts. This experimental function preserves chunk options using `#|` syntax, adds YAML metadata as spin-style headers, and handles mixed-language documents by filtering only R cells. Complements the existing `add_spin_preamble()` function for working with R scripts in Quarto workflows (#208, quarto-dev/quarto-cli#9112).
+
 - Added `add_spin_preamble()` function to add YAML preambles to R scripts for use with Quarto Script rendering support. The function automatically detects existing preambles and provides flexible customization options through `title` and `preamble` parameters (#164).
 
 - `quarto_create_project()` gains a `title` argument to set the project title independently from the directory name. This allows creating projects with custom titles, including when using `name = "."` to create a project in the current directory (thanks, @davidkane9, #148). This matches with `--title` addition for `quarto create project` in Quarto CLI v1.5.15.
