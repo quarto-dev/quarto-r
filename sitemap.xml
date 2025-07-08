@@ -15,9 +15,12 @@
 <url><loc>https://quarto-dev.github.io/quarto-r/news/index.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/add_spin_preamble.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/check_newer_version.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/find_project_root.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/get_running_project_root.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/index.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/is_using_quarto.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/new_blog_post.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/project_path.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/qmd_to_r_script.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto-package.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/quarto_add_extension.html</loc></url>
