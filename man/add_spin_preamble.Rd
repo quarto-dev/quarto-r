@@ -4,7 +4,7 @@
 \alias{add_spin_preamble}
 \title{Add spin preamble to R script}
 \usage{
-add_spin_preamble(script, title = NULL, preamble = NULL)
+add_spin_preamble(script, title = NULL, preamble = NULL, quiet = FALSE)
 }
 \arguments{
 \item{script}{Path to the R script file}
@@ -14,6 +14,8 @@ in the \code{preamble} list. If NULL, uses \code{preamble$title} or filename as 
 
 \item{preamble}{Named list of YAML metadata to include in preamble.
 The \code{title} parameter takes precedence over \code{preamble$title} if both are provided.}
+
+\item{quiet}{If \code{TRUE}, suppresses messages and warnings.}
 }
 \value{
 Invisibly returns the script path if modified, otherwise invisible NULL

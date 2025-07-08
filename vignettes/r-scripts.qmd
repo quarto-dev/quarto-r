@@ -1,0 +1,295 @@
+---
+title: "Working with R Scripts"
+format: 
+  html:
+    toc: true
+engine: knitr
+vignette: >
+  %\VignetteIndexEntry{Working with R Scripts}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This vignette demonstrates how to work with R scripts in Quarto workflows using the quarto R package. The package provides two main functions for this purpose:
+
+- `qmd_to_r_script()` - Extract R code cells from Quarto documents to create R scripts
+- `add_spin_preamble()` - Add YAML metadata to R scripts for use with Quarto rendering
+
+## Extracting R Code from Quarto Documents
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)\ 
+
+The `qmd_to_r_script()` function allows you to extract R code cells from `.qmd` files and convert them to `.R` scripts. This is particularly useful for:
+
+- Creating standalone R scripts from Quarto documents
+- Sharing R code without the narrative text
+- Converting Quarto documents for use in environments that don't support `.qmd` files
+
+### Basic Usage
+
+```{r}
+#| label: basic-usage
+#| eval: false
+library(quarto)
+
+# Extract R code from a Quarto document to an R script
+# It will output my-analysis.R
+qmd_to_r_script("my-analysis.qmd"")
+```
+
+The function preserves important metadata from your Quarto document:
+
+- **YAML metadata** is converted to spin-style headers (`#' ---`)
+- **Chunk options** are preserved using Quarto's `#|` syntax
+
+It also have some important limitations: 
+
+- **Only R code cells** are extracted; other languages (Python, Julia, etc.) are ignored
+
+### Example: Converting a Simple Quarto Document
+
+Let's create a sample Quarto document to demonstrate:
+
+```{r}
+#| label: create-example-qmd
+#| echo: false
+# Create a temporary directory for our examples
+dir.create(temp_dir <- tempfile(pattern = "quarto-r-scripts-vignette"))
+qmd_file <- file.path(temp_dir, "example.qmd")
+```
+
+````{cat, engine.opts=list(file = qmd_file)}
+#| label: sample-qmd
+#| lang: markdown
+#| filename: example.qmd
+
+# Sample Quarto document content
+---
+title: "My Analysis"
+author: "Data Scientist"
+format: html
+---
+
+# Introduction
+
+This is a sample analysis.
+
+```{r}
+#| label: setup
+#| message: false
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+#| label: data-viz
+#| fig-width: 8
+#| fig-height: 6
+mtcars |>
+  ggplot(aes(x = wt, y = mpg)) +
+  geom_point() +
+  geom_smooth()
+```
+````
+
+Now let's extract the R code:
+
+```{r}
+#| label: extract-r-script
+library(quarto)
+
+# Extract R code to a script
+r_script <- qmd_to_r_script(qmd_file)
+```
+
+Let's see what the generated R script looks like:
+
+```{embed}
+#| label: r-script-output
+#| file: !expr r_script
+#| attr.source: "filename='example.R'"
+```
+
+### Working with Mixed-Language Documents
+
+When working with documents that contain multiple languages (R, Python, JavaScript, etc.), `qmd_to_r_script()` will:
+
+1. Extract only the R code cells
+2. Provide informative messages about non-R cells
+3. Return `NULL` if no R cells are found
+
+```{r}
+#| echo: false
+mixed_qmd <- file.path(temp_dir, "mixed.qmd")
+```
+
+````{cat, engine.opts=list(file = mixed_qmd)}
+#| label: mixed-qmd
+#| lang: markdown
+#| filename: mixed.qmd
+---
+title: "Mixed Language Analysis"
+format: html
+---
+
+```{r}
+#| label: r-analysis
+data <- mtcars
+summary(data)
+```
+
+```{python}
+#| label: python-analysis
+import pandas as pd
+df = pd.DataFrame({"x": [1, 2, 3], "y": [4, 5, 6]})
+print(df.head())
+```
+
+```{ojs}
+//| label: js-viz
+Plot.plot({
+  marks: [Plot.dot(data, {x: "x", y: "y"})]
+})
+```
+````
+
+The function will inform you about the non-R cells and extract only the R code:
+```{r}
+#| label: extract-mixed-r-script
+# Extract R code from mixed-language document
+mixed_r_script <- qmd_to_r_script(mixed_qmd)
+```
+
+The resulting R script will contain only the R code cell:
+
+```{embed}
+#| label: mixed-r-script-output
+#| file: !expr mixed_r_script
+#| attr.source: "filename='mixed.R'"
+```
+
+## Adding YAML Metadata to R Scripts
+
+The `add_spin_preamble()` function helps you add YAML metadata to existing R scripts, making them compatible with Quarto's script rendering feature.
+
+### Basic Usage
+
+```r
+# Add a simple title to an R script
+add_spin_preamble("my-script.R", title = "My Analysis")
+
+# Add custom YAML metadata
+add_spin_preamble("my-script.R", 
+                  preamble = list(
+                    title = "Advanced Analysis",
+                    author = "Data Scientist",
+                    format = "html",
+                    execute = list(echo = TRUE, warning = FALSE)
+                  ))
+```
+
+### Example: Preparing a Script for Quarto Rendering
+
+```{r}
+#| label: prepare-script
+#| echo: false
+simple_script <- file.path(temp_dir, "simple.R")
+```
+
+```{cat, engine.opts=list(file = simple_script)}
+#| label: simple-script
+#| lang: r
+#| filename: simple.R
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+
+# Analyze mtcars data
+mtcars |>
+  group_by(cyl) |>
+  summarise(avg_mpg = mean(mpg), .groups = "drop")
+
+# Create visualization
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
+  geom_boxplot() +
+  labs(title = "MPG by Number of Cylinders",
+       x = "Cylinders", y = "Miles per Gallon")
+```
+
+Now add a YAML preamble:
+
+```{r}
+#| label: add-yaml-metadata
+# Add YAML metadata for Quarto rendering
+add_spin_preamble(simple_script, 
+                  title = "Car Analysis",
+                  preamble = list(
+                    author = "R User",
+                    format = list(
+                      html = list(
+                        code_fold = TRUE,
+                        theme = "cosmo"
+                      )
+                    )
+                  ))
+```
+
+The updated script now has YAML metadata:
+
+```{embed}
+#| label: simple-script-with-metadata
+#| file: !expr simple_script
+#| attr.source: "filename='simple.R'"
+```
+
+This script can now be rendered with Quarto:
+
+```r
+# Render the R script as a Quarto document
+quarto_render(simple_script)
+```
+
+## Integration with Existing Workflows
+
+These functions work seamlessly with other quarto package functions:
+
+```r
+# Complete workflow example
+library(quarto)
+
+# 1. Extract R code from Quarto document
+extracted_script <- qmd_to_r_script("analysis.qmd", output = "analysis.R")
+
+# 2. Add additional metadata if needed
+add_spin_preamble(extracted_script, 
+                  title = "Extracted Analysis",
+                  preamble = list(format = "pdf"))
+
+# 3. Render the script
+quarto_render(extracted_script)
+
+# 4. Preview the output
+quarto_preview(extracted_script)
+```
+
+```{r}
+#| include: false
+#| eval: false
+# Clean up temporary files
+unlink(temp_dir, recursive = TRUE)
+```
+
+## Summary
+
+The `qmd_to_r_script()` and `add_spin_preamble()` functions provide a powerful toolkit for working with R scripts in Quarto workflows. Whether you're extracting code from existing documents or preparing scripts for Quarto rendering, these functions help bridge the gap between narrative documents and standalone scripts.
+
+For more advanced usage and additional options, see the function documentation with `?qmd_to_r_script` and `?add_spin_preamble`.

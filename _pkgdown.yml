@@ -69,3 +69,4 @@ reference:
   contents:
   - write_yaml_metadata_block
   - add_spin_preamble
+  - qmd_to_r_script
