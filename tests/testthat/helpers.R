@@ -320,3 +320,37 @@ local_clean_state <- function(env = parent.frame()) {
 resources_path <- function(...) {
   test_path("resources", ...)
 }
+
+# Helper function to clean paths from snapshot output
+clean_paths_transform <- function(paths_to_clean) {
+  function(lines) {
+    # Clean each path provided
+    for (i in seq_along(paths_to_clean)) {
+      path_info <- paths_to_clean[[i]]
+      lines <- gsub(
+        path_info$actual,
+        path_info$replacement,
+        lines,
+        fixed = TRUE,
+      )
+    }
+    lines
+  }
+}
+
+single_file_transform <- function(file_path) {
+  clean_paths_transform(list(
+    list(actual = file_path, replacement = "<test_file>"),
+    list(actual = escape_path(file_path), replacement = "<test_file>"),
+    list(actual = basename(file_path), replacement = "<test_file_basename>")
+  ))
+}
+
+escape_path <- function(path) {
+  # Escape backslashes in the path for Windows compatibility
+  if (.Platform$OS.type == "windows") {
+    gsub("\\\\", "\\\\\\\\", path)
+  } else {
+    path
+  }
+}
