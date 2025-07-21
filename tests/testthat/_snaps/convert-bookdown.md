@@ -440,8 +440,8 @@
       -- File: '<test_file_basename>' --
       
       -- Lemma Block Labeled references: 
-      * Line 2 ('<test_file_basename>:2'): `` ```{lemma label="important",
-      name="Helper Lemma"} `` -> `:::{#lemma-important}`
+      * Line 2 ('<test_file_basename>:2'): `` ```{lemma label="important", name="Helper Lemma"} `` ->
+      `:::{#lemma-important}`
       
       -- Lem references: 
       * Line 5 ('<test_file_basename>:5'): `\@ref(lem:important)` -> `@lem-important`
@@ -452,8 +452,7 @@
       ! Theorem environments require manual restructuring
       Bookdown old syntax WITH label: ```{theorem, label="label"}
       Quarto syntax: :::{#thm-label}
-      See:
-      <https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs>
+      See: <https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs>
       
 
 # detects theorem block without label correctly

@@ -182,6 +182,7 @@ test_that("detects unsupported cross-references correctly", {
 })
 
 test_that("detects theorem block with label correctly", {
+  testthat::local_reproducible_output(width = 100)
   test_file <- local_rmd_file(
     "# Test Document",
     "```{lemma label=\"important\", name=\"Helper Lemma\"}",
