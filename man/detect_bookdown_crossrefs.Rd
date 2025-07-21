@@ -34,16 +34,16 @@ cross-references that use bookdown syntax and need manual conversion.
 
 \strong{Auto-detectable conversions:}
 \itemize{
-\item Figures: \verb{\\@ref(fig:label)} → \verb{@fig-label}
-\item Tables: \verb{\\@ref(tab:label)} → \verb{@tbl-label}
-\item Equations: \verb{\\@ref(eq:label)} → \verb{@eq-label}
-\item Sections: \verb{\\@ref(label)} → \verb{@sec-label}
-\item Theorems: \verb{\\@ref(thm:label)} → \verb{@thm-label} (also lem, cor, prp, def, exm, exr)
+\item Figures: \verb{\\@ref(fig:label)}-> \verb{@fig-label}
+\item Tables: \verb{\\@ref(tab:label)} -> \verb{@tbl-label}
+\item Equations: \verb{\\@ref(eq:label)} -> \verb{@eq-label}
+\item Sections: \verb{\\@ref(label)} -> \verb{@sec-label}
+\item Theorems: \verb{\\@ref(thm:label)} -> \verb{@thm-label} (also lem, cor, prp, def, exm, exr)
 }
 
 \strong{Manual conversion required:}
 \itemize{
-\item Numbered equations: \verb{(\\#eq:label)} → requires equation restructuring
+\item Numbered equations: \verb{(\\#eq:label)} -> requires equation restructuring
 \item Theorem blocks: Need explicit Quarto div syntax conversion
 All three formats from several bookdown versions are supported:
 \itemize{
@@ -82,7 +82,7 @@ not all possible variations.
 \strong{Verbose (\code{verbose = TRUE}):}
 \itemize{
 \item Detailed line-by-line breakdown
-\item Exact bookdown → Quarto syntax transformations
+\item Exact bookdown -> Quarto syntax transformations
 \item Context-aware conversion guidance showing only relevant syntax patterns
 \item Comprehensive examples with documentation links
 }

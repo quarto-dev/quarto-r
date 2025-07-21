@@ -118,18 +118,18 @@
       -- File: '<test_file_basename>' --
       
       -- Fig references: 
-      * Line 2 ('<test_file_basename>:2'): `\@ref(fig:plot1)` → `@fig-plot1`
+      * Line 2 ('<test_file_basename>:2'): `\@ref(fig:plot1)` -> `@fig-plot1`
       i   Note: Also ensure the corresponding code chunk has `#| label: fig-plot1`
       
       -- Eq references: 
-      * Line 4 ('<test_file_basename>:4'): `\@ref(eq:mean)` → `@eq-mean`
+      * Line 4 ('<test_file_basename>:4'): `\@ref(eq:mean)` -> `@eq-mean`
       
       -- Tab references: 
-      * Line 3 ('<test_file_basename>:3'): `\@ref(tab:data)` → `@tbl-data`
+      * Line 3 ('<test_file_basename>:3'): `\@ref(tab:data)` -> `@tbl-data`
       i   Note: Also ensure the corresponding table has tbl prefxed id, either `{#tbl-data}` or `label="tbl-data"` in the r cell.
       
       -- Sec references: 
-      * Line 5 ('<test_file_basename>:5'): `\@ref(methods)` → `@sec-methods`
+      * Line 5 ('<test_file_basename>:5'): `\@ref(methods)` -> `@sec-methods`
       i   Note: Also ensure the corresponding header has `{#sec-methods}`
       
       i Summary of conversion requirements:
@@ -139,18 +139,18 @@
       * 1 Tab reference
       ! Section reference detected - requires manual header updates:
       Bookdown automatically generates IDs from headers like:
-      `# Hello World` → auto-generated ID: `hello-world`
+      `# Hello World` -> auto-generated ID: `hello-world`
       referenced with `\@ref(hello-world)`
       
       Quarto requires explicit header IDs:
-      `# Hello World {#sec-hello-world}` → explicit ID: `sec-hello-world `
+      `# Hello World {#sec-hello-world}` -> explicit ID: `sec-hello-world `
       referenced with `@sec-hello-world`
       
       ! Figure reference detected - requires manual figure labeling:
       Bookdown automatically generates figure IDs from code chunk labels:
       ```{r mylabel, fig.cap='My Figure'}
       plot(mtcars)
-      ``` → auto-generated ID: `fig:mylabel`
+      ``` -> auto-generated ID: `fig:mylabel`
       referenced with `\@ref(fig:mylabel)`
       
       Quarto requires explicit figure IDs with fig prefix:
@@ -170,7 +170,7 @@
       cell label:
       ```{r mylabel}
       kable(mtcars, caption = 'My Table')
-      ``` → auto-generated ID: `tab:mylabel`
+      ``` -> auto-generated ID: `tab:mylabel`
       referenced with `\@ref(tab:mylabel)`
       
       Quarto requires explicit table IDs with tbl prefix in R code chunks:
@@ -225,7 +225,7 @@
       -- File: '<test_file_basename>' --
       
       -- Fig references: 
-      * Line 2 ('<test_file_basename>:2'): `\@ref(fig:plot1)` → `@fig-plot1`
+      * Line 2 ('<test_file_basename>:2'): `\@ref(fig:plot1)` -> `@fig-plot1`
       i   Note: Also ensure the corresponding code chunk has `#| label: fig-plot1`
       
       i Summary of conversion requirements:
@@ -234,7 +234,7 @@
       Bookdown automatically generates figure IDs from code chunk labels:
       ```{r mylabel, fig.cap='My Figure'}
       plot(mtcars)
-      ``` → auto-generated ID: `fig:mylabel`
+      ``` -> auto-generated ID: `fig:mylabel`
       referenced with `\@ref(fig:mylabel)`
       
       Quarto requires explicit figure IDs with fig prefix:
@@ -281,7 +281,7 @@
       -- File: '<test_file_basename>' --
       
       -- Tab references: 
-      * Line 2 ('<test_file_basename>:2'): `\@ref(tab:data)` → `@tbl-data`
+      * Line 2 ('<test_file_basename>:2'): `\@ref(tab:data)` -> `@tbl-data`
       i   Note: Also ensure the corresponding table has tbl prefxed id, either `{#tbl-data}` or `label="tbl-data"` in the r cell.
       
       i Summary of conversion requirements:
@@ -291,7 +291,7 @@
       cell label:
       ```{r mylabel}
       kable(mtcars, caption = 'My Table')
-      ``` → auto-generated ID: `tab:mylabel`
+      ``` -> auto-generated ID: `tab:mylabel`
       referenced with `\@ref(tab:mylabel)`
       
       Quarto requires explicit table IDs with tbl prefix in R code chunks:
@@ -338,7 +338,7 @@
       -- File: '<test_file_basename>' --
       
       -- Numbered Equation references: 
-      * Line 4 ('<test_file_basename>:4'): `(\#eq:binom)` → `{#eq-binom}`
+      * Line 4 ('<test_file_basename>:4'): `(\#eq:binom)` -> `{#eq-binom}`
       !   Requires manual conversion: Equation structure must be changed
       
       i Summary of conversion requirements:
@@ -389,7 +389,7 @@
       -- File: '<test_file_basename>' --
       
       -- Cnj references (NOT SUPPORTED IN QUARTO): 
-      * Line 2 ('<test_file_basename>:2'): `\@ref(cnj:guess)` → `NOT SUPPORTED IN
+      * Line 2 ('<test_file_basename>:2'): `\@ref(cnj:guess)` -> `NOT SUPPORTED IN
       QUARTO`
       x   Not supported in Quarto: Consider custom cross-references (<https://quarto.org/docs/authoring/cross-references-custom.html>) or supported theorem types.
       
@@ -398,13 +398,13 @@
       x Cross-references to types not supported in Quarto
       
       The following bookdown cross-reference types are not supported in Quarto:
-      • Conjecture (cnj)
-      • Hypothesis (hyp)
+      * Conjecture (cnj)
+      * Hypothesis (hyp)
       
       Consider these alternatives:
-      • Convert to regular text without cross-references
-      • Use supported theorem types (theorem, lemma, corollary, etc.)
-      • Create custom callout blocks with manual numbering
+      * Convert to regular text without cross-references
+      * Use supported theorem types (theorem, lemma, corollary, etc.)
+      * Create custom callout blocks with manual numbering
       
 
 # detects theorem block with label correctly
@@ -441,10 +441,10 @@
       
       -- Lemma Block Labeled references: 
       * Line 2 ('<test_file_basename>:2'): `` ```{lemma label="important",
-      name="Helper Lemma"} `` → `:::{#lemma-important}`
+      name="Helper Lemma"} `` -> `:::{#lemma-important}`
       
       -- Lem references: 
-      * Line 5 ('<test_file_basename>:5'): `\@ref(lem:important)` → `@lem-important`
+      * Line 5 ('<test_file_basename>:5'): `\@ref(lem:important)` -> `@lem-important`
       
       i Summary of conversion requirements:
       * 1 Lem reference
@@ -488,7 +488,7 @@
       
       -- Theorem Block Unlabeled references: 
       * Line 2 ('<test_file_basename>:2'): `` ```{theorem name="Pythagorean theorem"}
-      `` → `Manual conversion required: Use ::: {#thm-<id>} syntax. See
+      `` -> `Manual conversion required: Use ::: {#thm-<id>} syntax. See
       https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs`
       
       i Summary of conversion requirements:
@@ -534,10 +534,10 @@
       
       -- Theorem Div references: 
       * Line 2 ('<test_file_basename>:2'): `::: {.theorem #pyth-new name="Pythagorean
-      theorem"}` → `:::{#thm-pyth-new}`
+      theorem"}` -> `:::{#thm-pyth-new}`
       
       -- Thm references: 
-      * Line 7 ('<test_file_basename>:7'): `\@ref(thm:pyth-new)` → `@thm-pyth-new`
+      * Line 7 ('<test_file_basename>:7'): `\@ref(thm:pyth-new)` -> `@thm-pyth-new`
       
       i Summary of conversion requirements:
       * 1 Theorem Div reference

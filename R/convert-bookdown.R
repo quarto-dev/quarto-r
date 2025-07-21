@@ -25,14 +25,14 @@
 #' ## Detected Cross-Reference Types
 #'
 #' **Auto-detectable conversions:**
-#' - Figures: `\@ref(fig:label)` → `@fig-label`
-#' - Tables: `\@ref(tab:label)` → `@tbl-label`
-#' - Equations: `\@ref(eq:label)` → `@eq-label`
-#' - Sections: `\@ref(label)` → `@sec-label`
-#' - Theorems: `\@ref(thm:label)` → `@thm-label` (also lem, cor, prp, def, exm, exr)
+#' - Figures: `\@ref(fig:label)`-> `@fig-label`
+#' - Tables: `\@ref(tab:label)` -> `@tbl-label`
+#' - Equations: `\@ref(eq:label)` -> `@eq-label`
+#' - Sections: `\@ref(label)` -> `@sec-label`
+#' - Theorems: `\@ref(thm:label)` -> `@thm-label` (also lem, cor, prp, def, exm, exr)
 #'
 #' **Manual conversion required:**
-#' - Numbered equations: `(\#eq:label)` → requires equation restructuring
+#' - Numbered equations: `(\#eq:label)` -> requires equation restructuring
 #' - Theorem blocks: Need explicit Quarto div syntax conversion
 #'   All three formats from several bookdown versions are supported:
 #'   - Old syntax with label: `{theorem, label="thm:label"}`
@@ -61,7 +61,7 @@
 #'
 #' **Verbose (`verbose = TRUE`):**
 #' - Detailed line-by-line breakdown
-#' - Exact bookdown → Quarto syntax transformations
+#' - Exact bookdown -> Quarto syntax transformations
 #' - Context-aware conversion guidance showing only relevant syntax patterns
 #' - Comprehensive examples with documentation links
 #'
@@ -167,11 +167,11 @@ crossref_prefix <- c(
       alert = "Section reference detected - requires manual header updates:",
       details = c(
         "Bookdown automatically generates IDs from headers like:",
-        "  {.red {.code # Hello World}} → auto-generated ID: {.red {.code hello-world}}",
+        "  {.red {.code # Hello World}} -> auto-generated ID: {.red {.code hello-world}}",
         "  referenced with {.red {.code \\@ref(hello-world)}}",
         "",
         "Quarto requires explicit header IDs:",
-        "  {.green {.code # Hello World {{#sec-hello-world}}}} → explicit ID: {.green {.code sec-hello-world }}",
+        "  {.green {.code # Hello World {{#sec-hello-world}}}} -> explicit ID: {.green {.code sec-hello-world }}",
         "  referenced with {.green {.code @sec-hello-world}}"
       )
     ),
@@ -181,7 +181,7 @@ crossref_prefix <- c(
         "Bookdown automatically generates table IDs from kable/knitr functions based on cell label:",
         "  {.red ```{{r mylabel}} }",
         "  {.red kable(mtcars, caption = 'My Table')}",
-        "  {.red ```} → auto-generated ID: {.red {.code tab:mylabel}}",
+        "  {.red ```} -> auto-generated ID: {.red {.code tab:mylabel}}",
         "  referenced with {.red {.code \\@ref(tab:mylabel)}}",
         "",
         "Quarto requires explicit table IDs with tbl prefix in R code chunks:",
@@ -203,7 +203,7 @@ crossref_prefix <- c(
         "Bookdown automatically generates figure IDs from code chunk labels:",
         "  {.red ```{{r mylabel, fig.cap='My Figure'}} }",
         "  {.red plot(mtcars)}",
-        "  {.red ```} → auto-generated ID: {.red {.code fig:mylabel}}",
+        "  {.red ```} -> auto-generated ID: {.red {.code fig:mylabel}}",
         "  referenced with {.red {.code \\@ref(fig:mylabel)}}",
         "",
         "Quarto requires explicit figure IDs with fig prefix:",
@@ -248,9 +248,9 @@ crossref_prefix <- c(
       details = c(
         "",
         "The following bookdown cross-reference types are not supported in Quarto:",
-        # • {.red Conjecture (cnj) }"
+        # {.red Conjecture (cnj) }"
         paste0(
-          "• {.red ",
+          "* {.red ",
           tools::toTitleCase(names(bookdown_unsupported_types)),
           " (",
           bookdown_unsupported_types,
@@ -258,9 +258,9 @@ crossref_prefix <- c(
         ),
         "",
         "Consider these alternatives:",
-        "• Convert to regular text without cross-references",
-        "• Use supported theorem types (theorem, lemma, corollary, etc.)",
-        "• Create custom callout blocks with manual numbering"
+        "* Convert to regular text without cross-references",
+        "* Use supported theorem types (theorem, lemma, corollary, etc.)",
+        "* Create custom callout blocks with manual numbering"
       )
     )
   )
@@ -692,7 +692,7 @@ crossref_prefix <- c(
 
         for (result in type_results) {
           cli::cli_li(
-            "Line {result$line} ({.file {paste0(fs::path_rel(file_path, project_path), ':', result$line)}}): {.red {.code {result$bookdown_syntax}}} → {.green {.code {result$quarto_syntax}}}"
+            "Line {result$line} ({.file {paste0(fs::path_rel(file_path, project_path), ':', result$line)}}): {.red {.code {result$bookdown_syntax}}} -> {.green {.code {result$quarto_syntax}}}"
           )
           .display_detection_message(result)
         }
