@@ -20,6 +20,7 @@
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/detect_bookdown_crossrefs.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/find_project_root.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/get_running_project_root.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/has_parameters.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/index.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/is_using_quarto.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/new_blog_post.html</loc></url>
@@ -45,5 +46,7 @@
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/tbl_qmd_elements.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/theme_helpers.html</loc></url>
 <url><loc>https://quarto-dev.github.io/quarto-r/reference/write_yaml_metadata_block.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/yaml_character_handler.html</loc></url>
+<url><loc>https://quarto-dev.github.io/quarto-r/reference/yaml_quote_string.html</loc></url>
 </urlset>
 

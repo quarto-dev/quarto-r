@@ -13,7 +13,7 @@ features like when-meta and {{&amp;lt; meta &amp;gt;}} shortcodes."><meta proper
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9027</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9028</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -92,14 +92,39 @@ delimiters (<code>---</code>). Logical values are converted to lowercase strings
 takes precedence and will override the value from <code>.list</code>.</p>
 <p>If no metadata is provided (empty <code>...</code> and <code>NULL</code> or empty <code>.list</code>),
 the function returns <code>NULL</code> without generating any output.</p>
-<p><strong>Important</strong>: When using this function in Quarto documents, you must set
-the chunk option <code>output: asis</code> (or <code>#| output: asis</code>) for the metadata
-block to be properly processed by Quarto.</p>
 <p>This addresses the limitation where Quarto metadata must be static and
-cannot be set dynamically from R code during document rendering.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="quarto-usage">Quarto Usage<a class="anchor" aria-label="anchor" href="#quarto-usage"></a></h2>
+cannot be set dynamically from R code during document rendering.</p><div class="section">
+<h3 id="yaml-compatibility-">YAML 1.2 Compatibility:<a class="anchor" aria-label="anchor" href="#yaml-compatibility-"></a></h3>
+
+
+<p>To ensure compatibility with Quarto's YAML 1.2 parser (js-yaml), the function
+automatically handles two key differences between R's yaml package (YAML 1.1)
+and YAML 1.2:</p><div class="section">
+<h4 id="boolean-values-">Boolean values:<a class="anchor" aria-label="anchor" href="#boolean-values-"></a></h4>
+
+
+<p>R logical values (<code>TRUE</code>/<code>FALSE</code>) are converted to lowercase
+YAML 1.2 format (<code>true</code>/<code>false</code>) using [yaml::verbatim_logical()]. This prevents
+YAML 1.1 boolean representations like <code>yes</code>/<code>no</code> from being used.</p>
+</div>
+
+<div class="section">
+<h4 id="string-quoting-">String quoting:<a class="anchor" aria-label="anchor" href="#string-quoting-"></a></h4>
+
+
+<p>Strings with leading zeros that contain digits 8 or 9 (like <code>"029"</code>, <code>"089"</code>)
+are automatically quoted to prevent them from being parsed as octal numbers,
+which would result in data corruption (e.g., <code>"029"</code> becoming <code>29</code>).
+Valid octal numbers containing only digits 0-7 (like <code>"0123"</code>) are handled
+by the underlying <span class="pkg">yaml</span> package.</p>
+<p>For manual control over string quoting behavior, use [yaml_quote_string()].</p>
+</div>
+
+
+</div>
+
+<div class="section">
+<h3 id="quarto-usage-">Quarto Usage:<a class="anchor" aria-label="anchor" href="#quarto-usage-"></a></h3>
 
 
 <p>To use this function in a Quarto document, create an R code chunk with
@@ -110,7 +135,17 @@ the <code>output: asis</code> option:</p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>Without the <span class="st">`</span><span class="at">output: asis</span><span class="st">`</span> option, the YAML metadata block will be</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>displayed as text rather than processed as metadata by Quarto.</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span></code></pre><p></p></div>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>[yaml<span class="sc">::</span><span class="fu">verbatim_logical</span>()]<span class="sc">:</span> R<span class="sc">:</span>yaml<span class="sc">::</span><span class="fu">verbatim_logical</span>()</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>[<span class="fu">yaml_quote_string</span>()]<span class="sc">:</span> R<span class="sc">:</span><span class="fu">yaml_quote_string</span>()</span></code></pre><p></p></div>
+</div>
+
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="yaml_quote_string.html">yaml_quote_string()</a></code> for explicitly controlling which strings are quoted
+in YAML output when you encounter edge cases that need manual handling.</p></div>
     </div>
 
     <div class="section level2">
@@ -125,6 +160,12 @@ the <code>output: asis</code> option:</p>
 <span class="r-in"><span>  admin <span class="op">=</span> <span class="va">admin</span>,</span></span>
 <span class="r-in"><span>  level <span class="op">=</span> <span class="va">user_level</span>,</span></span>
 <span class="r-in"><span>  timestamp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.Date</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Strings with leading zeros are automatically quoted for YAML 1.2 compatibility</span></span></span>
+<span class="r-in"><span><span class="fu">write_yaml_metadata_block</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  zip_code <span class="op">=</span> <span class="st">"029"</span>,    <span class="co"># Automatically quoted as "029"</span></span></span>
+<span class="r-in"><span>  build_id <span class="op">=</span> <span class="st">"0123"</span>    <span class="co"># Quoted by yaml package (valid octal)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use with .list parameter</span></span></span>
