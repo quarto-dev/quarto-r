@@ -1,6 +1,6 @@
 Package: quarto
 Title: R Interface to 'Quarto' Markdown Publishing System
-Version: 1.4.4.9026
+Version: 1.4.4.9027
 Authors@R: c(
     person("JJ", "Allaire", , "jj@posit.co", role = "aut",
            comment = c(ORCID = "0000-0003-0174-9868")),
@@ -11,7 +11,7 @@ Authors@R: c(
   )
 Description: Convert R Markdown documents and 'Jupyter' notebooks to a
     variety of output formats using 'Quarto'.
-License: GPL (>= 2)
+License: MIT + file LICENSE
 URL: https://github.com/quarto-dev/quarto-r,
     https://quarto-dev.github.io/quarto-r/
 BugReports: https://github.com/quarto-dev/quarto-r/issues
