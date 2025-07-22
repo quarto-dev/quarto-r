@@ -486,8 +486,8 @@
       -- File: '<test_file_basename>' --
       
       -- Theorem Block Unlabeled references: 
-      * Line 2 ('<test_file_basename>:2'): `` ```{theorem name="Pythagorean theorem"}
-      `` -> `Manual conversion required: Use ::: {#thm-<id>} syntax. See
+      * Line 2 ('<test_file_basename>:2'): `` ```{theorem name="Pythagorean theorem"} `` -> `Manual
+      conversion required: Use ::: {#thm-<id>} syntax. See
       https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs`
       
       i Summary of conversion requirements:
@@ -495,8 +495,7 @@
       ! Theorem environments require manual restructuring
       Bookdown old syntax WITHOUT label: ```{theorem chunk_name}
       Quarto syntax: :::{#thm-label}
-      See:
-      <https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs>
+      See: <https://quarto.org/docs/authoring/cross-references.html#theorems-and-proofs>
       
 
 # detects theorem div syntax correctly

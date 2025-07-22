@@ -37,14 +37,34 @@ takes precedence and will override the value from \code{.list}.
 If no metadata is provided (empty \code{...} and \code{NULL} or empty \code{.list}),
 the function returns \code{NULL} without generating any output.
 
-\strong{Important}: When using this function in Quarto documents, you must set
-the chunk option \code{output: asis} (or \verb{#| output: asis}) for the metadata
-block to be properly processed by Quarto.
-
 This addresses the limitation where Quarto metadata must be static and
 cannot be set dynamically from R code during document rendering.
+\subsection{YAML 1.2 Compatibility:}{
+
+To ensure compatibility with Quarto's YAML 1.2 parser (js-yaml), the function
+automatically handles two key differences between R's yaml package (YAML 1.1)
+and YAML 1.2:
+\subsection{Boolean values:}{
+
+R logical values (\code{TRUE}/\code{FALSE}) are converted to lowercase
+YAML 1.2 format (\code{true}/\code{false}) using [yaml::verbatim_logical()]. This prevents
+YAML 1.1 boolean representations like \code{yes}/\code{no} from being used.
 }
-\section{Quarto Usage}{
+
+\subsection{String quoting:}{
+
+Strings with leading zeros that contain digits 8 or 9 (like \code{"029"}, \code{"089"})
+are automatically quoted to prevent them from being parsed as octal numbers,
+which would result in data corruption (e.g., \code{"029"} becoming \code{29}).
+Valid octal numbers containing only digits 0-7 (like \code{"0123"}) are handled
+by the underlying \pkg{yaml} package.
+
+For manual control over string quoting behavior, use [yaml_quote_string()].
+}
+
+}
+
+\subsection{Quarto Usage:}{
 
 To use this function in a Quarto document, create an R code chunk with
 the \code{output: asis} option:
@@ -58,9 +78,12 @@ write_yaml_metadata_block(admin = TRUE, version = "1.0")
 Without the `output: asis` option, the YAML metadata block will be
 displayed as text rather than processed as metadata by Quarto.
 
+
+[yaml::verbatim_logical()]: R:yaml::verbatim_logical()
+[yaml_quote_string()]: R:yaml_quote_string()
 }\if{html}{\out{</div>}}
 }
-
+}
 \examples{
 \dontrun{
 # In a Quarto document R chunk with `#| output: asis`:
@@ -72,6 +95,12 @@ write_yaml_metadata_block(
   admin = admin,
   level = user_level,
   timestamp = Sys.Date()
+)
+
+# Strings with leading zeros are automatically quoted for YAML 1.2 compatibility
+write_yaml_metadata_block(
+  zip_code = "029",    # Automatically quoted as "029"
+  build_id = "0123"    # Quoted by yaml package (valid octal)
 )
 
 # Use with .list parameter
@@ -92,4 +121,8 @@ write_yaml_metadata_block(
 # :::
 }
 
+}
+\seealso{
+\code{\link[=yaml_quote_string]{yaml_quote_string()}} for explicitly controlling which strings are quoted
+in YAML output when you encounter edge cases that need manual handling.
 }

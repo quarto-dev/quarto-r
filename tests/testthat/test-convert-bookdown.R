@@ -211,6 +211,7 @@ test_that("detects theorem block with label correctly", {
 })
 
 test_that("detects theorem block without label correctly", {
+  local_reproducible_output(width = 100)
   test_file <- local_rmd_file(
     "# Test Document",
     "```{theorem name=\"Pythagorean theorem\"}",

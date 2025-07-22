@@ -1,5 +1,10 @@
 # quarto (development version)
 
+- Improved YAML 1.2 compatibility features to ensure proper parsing by Quarto's js-yaml parser. 
+  - The `yaml_quote_string()` function allows explicit control over string quoting in YAML output.
+  - `write_yaml_metadata_block()` automatically handles data corruption prevention from leading zero strings like `"029"` that would be misinterpreted as octal numbers (becoming `29`) (thanks, @Mosk915, quarto-dev/quarto-cli#12736, #242). Boolean values are also correctly formatted as lowercase (`true`/`false`) instead of YAML 1.1 variants like `yes`/`no`. 
+  - This change also benefits other functions writing YAML like `quarto_render()` when using `metadata=` or `execute_params=` arguments.
+
 - Package is now licenced MIT like Quarto CLI.
 
 - Added `has_parameters()` function to detect whether Quarto documents use parameters. The function works with both knitr and Jupyter engines: for knitr documents (.qmd), it checks for a "params" field in the document metadata; for Jupyter notebooks (.ipynb), it detects cells tagged with "parameters" using papermill convention. This enables programmatic identification of parameterized documents for automated workflows and document processing (#245).

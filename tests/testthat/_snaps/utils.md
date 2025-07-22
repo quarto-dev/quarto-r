@@ -103,3 +103,17 @@
       * Use `NULL` instead of `NA` for missing optional parameters
       * Handle missing values within your document code using conditional logic
 
+# write_yaml_metadata_block produces YAML 1.2 compatible output
+
+    Code
+      cat(write_yaml_metadata_block(title = "Test Document", zip_code = "029", build = "0123",
+        version = yaml_quote_string("1.0"), debug = TRUE))
+    Output
+      ---
+      title: Test Document
+      zip_code: "029"
+      build: '0123'
+      version: "1.0"
+      debug: true
+      ---
+

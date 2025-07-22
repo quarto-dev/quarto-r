@@ -67,11 +67,17 @@ reference:
   contents:
   - starts_with("tbl_qmd_")
 
+- title: "YAML Helpers"
+  desc: >
+    These functions are used to help with YAML metadata in Quarto documents:
+  contents:
+  - write_yaml_metadata_block
+  - yaml_quote_string  
+
 - title: "Miscellaneous"
   desc: >
     These functions are used to help with Quarto documents and projects:
   contents:
-  - write_yaml_metadata_block
   - add_spin_preamble
   - qmd_to_r_script
   - detect_bookdown_crossrefs
