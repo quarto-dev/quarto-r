@@ -2,6 +2,7 @@
 
 export(add_spin_preamble)
 export(check_newer_version)
+export(detect_bookdown_crossrefs)
 export(find_project_root)
 export(get_running_project_root)
 export(is_using_quarto)
