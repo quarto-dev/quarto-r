@@ -99,6 +99,10 @@ which will render individual documents normally and projects as
 background jobs. Use the \code{quarto.render_as_job} \R option to control
 the default globally.}
 }
+\value{
+Invisibly returns \code{NULL}. The function is called for its side effect
+of rendering the specified document or project.
+}
 \description{
 Render the input file to the specified output format using quarto. If the
 input requires computations (e.g. for Rmd or Jupyter files) then those

@@ -57,6 +57,9 @@
 #'   background jobs. Use the `quarto.render_as_job` \R option to control
 #'   the default globally.
 #'
+#' @return Invisibly returns `NULL`. The function is called for its side effect
+#'   of rendering the specified document or project.
+#'
 #' @examples
 #' \dontrun{
 #' # Render R Markdown
