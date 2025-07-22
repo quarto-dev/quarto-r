@@ -1,5 +1,10 @@
 # quarto (development version)
 
+- Improved YAML 1.2 compatibility features to ensure proper parsing by Quarto's js-yaml parser. 
+  - The `yaml_quote_string()` function allows explicit control over string quoting in YAML output.
+  - `write_yaml_metadata_block()` automatically handles data corruption prevention from leading zero strings like `"029"` that would be misinterpreted as octal numbers (becoming `29`) (thanks, @Mosk915, quarto-dev/quarto-cli#12736, #242). Boolean values are also correctly formatted as lowercase (`true`/`false`) instead of YAML 1.1 variants like `yes`/`no`. 
+  - This change also benefits other functions writing YAML like `quarto_render()` when using `metadata=` or `execute_params=` arguments.
+
 - Package is now licenced MIT like Quarto CLI.
 
 - Added `detect_bookdown_crossrefs()` function to help users migrate from bookdown to Quarto by identifying cross-references that need manual conversion. The function scans R Markdown or Quarto files to detect bookdown-specific cross-reference syntax (like `\@ref(fig:label)` and `(\#eq:label)`) and provides detailed guidance on converting them to Quarto syntax (like `@fig-label` and `{#eq-label}`). It offers both compact and verbose reporting modes, with context-aware warnings that only show syntax patterns actually found in your files.
