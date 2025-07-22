@@ -2,6 +2,8 @@
 
 - Package is now licenced MIT like Quarto CLI.
 
+- Added `has_parameters()` function to detect whether Quarto documents use parameters. The function works with both knitr and Jupyter engines: for knitr documents (.qmd), it checks for a "params" field in the document metadata; for Jupyter notebooks (.ipynb), it detects cells tagged with "parameters" using papermill convention. This enables programmatic identification of parameterized documents for automated workflows and document processing (#245).
+
 - Added `detect_bookdown_crossrefs()` function to help users migrate from bookdown to Quarto by identifying cross-references that need manual conversion. The function scans R Markdown or Quarto files to detect bookdown-specific cross-reference syntax (like `\@ref(fig:label)` and `(\#eq:label)`) and provides detailed guidance on converting them to Quarto syntax (like `@fig-label` and `{#eq-label}`). It offers both compact and verbose reporting modes, with context-aware warnings that only show syntax patterns actually found in your files.
 
 - Added `project_path()`, `get_running_project_root()`, and `find_project_root()` functions for Quarto-aware project path construction. These functions provide a consistent way to reference files relative to the project root, working both during Quarto rendering (using `QUARTO_PROJECT_ROOT` environment variables) and in interactive sessions (using intelligent project detection). The `project_path()` function is particularly useful in Quarto document cells where you need to reference data files or scripts from the project root regardless of the document's location in subdirectories (#180).0).
