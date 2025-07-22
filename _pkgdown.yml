@@ -45,6 +45,7 @@ reference:
     for Quarto documents and projects:
   contents:
   - quarto_inspect
+  - has_parameters
   - quarto_path
   - quarto_version
   - quarto_available
