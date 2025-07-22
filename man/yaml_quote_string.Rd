@@ -23,7 +23,7 @@ as \pkg{yaml} uses YAML 1.1 and Quarto expects YAML 1.2.
 The \code{quoted} attribute is a convention used by \code{\link[yaml:as.yaml]{yaml::as.yaml()}}
 }
 \examples{
-as_yaml(list(id = yaml_quote_string("1.0")))
-as_yaml(list(id = "1.0"))
+yaml::as.yaml(list(id = yaml_quote_string("1.0")))
+yaml::as.yaml(list(id = "1.0"))
 
 }

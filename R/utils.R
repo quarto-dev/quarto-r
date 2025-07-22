@@ -16,8 +16,8 @@ relative_to_wd <- function(path) {
 #' @param x A character vector or single string
 #' @return The input with quoted attributes applied
 #' @examples
-#' as_yaml(list(id = yaml_quote_string("1.0")))
-#' as_yaml(list(id = "1.0"))
+#' yaml::as.yaml(list(id = yaml_quote_string("1.0")))
+#' yaml::as.yaml(list(id = "1.0"))
 #'
 #' @export
 yaml_quote_string <- function(x) {
