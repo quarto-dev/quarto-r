@@ -10,7 +10,7 @@
 ^Meta$
 
 ^tests/testthat/project/.quarto$
-
+^tests/testthat/_snaps/.quarto$
 ^vignettes/.quarto$
 ^vignettes/*_files$
 ^vignettes/*.html$
