@@ -9,6 +9,8 @@
 ^doc$
 ^Meta$
 
+^tests/testthat/project/.quarto$
+
 ^vignettes/.quarto$
 ^vignettes/*_files$
 ^vignettes/*.html$
