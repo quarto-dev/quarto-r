@@ -9,8 +9,8 @@ articles:
   markdown-html-tables: markdown-html-tables.html
   publishing: publishing.html
   r-scripts: r-scripts.html
-  theme-helpers: theme-helpers.html
-last_built: 2025-07-22T20:52Z
+  articles/theme-helpers: theme-helpers.html
+last_built: 2025-07-23T14:52Z
 urls:
   reference: https://quarto-dev.github.io/quarto-r/reference
   article: https://quarto-dev.github.io/quarto-r/articles
