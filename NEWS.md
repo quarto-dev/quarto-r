@@ -1,75 +1,176 @@
 # quarto (development version)
 
-- Improved YAML 1.2 compatibility features to ensure proper parsing by Quarto's js-yaml parser. 
-  - The `yaml_quote_string()` function allows explicit control over string quoting in YAML output.
-  - `write_yaml_metadata_block()` automatically handles data corruption prevention from leading zero strings like `"029"` that would be misinterpreted as octal numbers (becoming `29`) (thanks, @Mosk915, quarto-dev/quarto-cli#12736, #242). Boolean values are also correctly formatted as lowercase (`true`/`false`) instead of YAML 1.1 variants like `yes`/`no`. 
-  - This change also benefits other functions writing YAML like `quarto_render()` when using `metadata=` or `execute_params=` arguments.
+## Breaking changes
 
-- Package is now licenced MIT like Quarto CLI.
+- `quarto_render(output_file = )` now sets the `output-file` Quarto metadata 
+  instead of the `--output` CLI flag to avoid current problems with Quarto 
+  CLI. This allows the output file information to be correctly processed by 
+  Quarto, as if passed in a YAML header, and enables support for multiple 
+  output formats in the same render call. Users who need the old CLI flag 
+  behavior can use `quarto_render(quarto_args = c('--output', 'filename'))` 
+  (#251, #43).
 
-- Added `has_parameters()` function to detect whether Quarto documents use parameters. The function works with both knitr and Jupyter engines: for knitr documents (.qmd), it checks for a "params" field in the document metadata; for Jupyter notebooks (.ipynb), it detects cells tagged with "parameters" using papermill convention. This enables programmatic identification of parameterized documents for automated workflows and document processing (#245).
+- `quarto_use_template()` now fails with a clear error message when used in 
+  non-empty directories, following a Quarto CLI update fix. Previously, the 
+  function could work with interactive prompting, but this required user 
+  interaction that isn't suitable for programmatic use. The function still 
+  supports using templates in empty directories via the `dir` argument 
+  (requires Quarto 1.5.15+). Follow quarto-dev/quarto-cli#11127 for changes 
+  with `--no-prompt` behavior in future Quarto versions.
 
-- Added `detect_bookdown_crossrefs()` function to help users migrate from bookdown to Quarto by identifying cross-references that need manual conversion. The function scans R Markdown or Quarto files to detect bookdown-specific cross-reference syntax (like `\@ref(fig:label)` and `(\#eq:label)`) and provides detailed guidance on converting them to Quarto syntax (like `@fig-label` and `{#eq-label}`). It offers both compact and verbose reporting modes, with context-aware warnings that only show syntax patterns actually found in your files.
+- YAML 1.2 compatibility features improved to ensure written YAML can be 
+  properly read by Quarto's js-yaml parser. `write_yaml_metadata_block()` and 
+  other YAML-writing functions now handle data corruption prevention from 
+  leading zero strings like `"029"` that would be misinterpreted as octal 
+  numbers (becoming `29`) (thanks, @Mosk915, quarto-dev/quarto-cli#12736, 
+  #242). This change also benefits `quarto_render()` when using `metadata=`
+  or `execute_params=` arguments.
 
-- Added `project_path()`, `get_running_project_root()`, and `find_project_root()` functions for Quarto-aware project path construction. These functions provide a consistent way to reference files relative to the project root, working both during Quarto rendering (using `QUARTO_PROJECT_ROOT` environment variables) and in interactive sessions (using intelligent project detection). The `project_path()` function is particularly useful in Quarto document cells where you need to reference data files or scripts from the project root regardless of the document's location in subdirectories (#180).0).
+- Internal YAML processing functions now detect and prevent NA values to 
+  avoid incompatible YAML being sent to Quarto CLI. This prevents issues 
+  where R's `NA` values get converted to YAML strings (like `.na.real`) that 
+  Quarto doesn't recognize as missing values, since they are not supported 
+  in YAML 1.2 spec. Code that previously passed NA values will now receive 
+  clear error messages with actionable suggestions to handle missing data 
+  appropriately before passing to Quarto (#168).
 
-- `quarto_preview()` now explicitly returns the preview server URL (invisibly) and documents this behavior. This enables programmatic workflows such as taking screenshots with **webshot2** or passing the URL to other automation tools (thanks, @cwickham, #233).
+## New features
 
-- Added NA value detection in YAML processing to prevent silent failures when passing R's `NA` values to Quarto CLI. Functions `as_yaml()` and `write_yaml()` now validate for NA values and provide clear error messages with actionable suggestions. This addresses issues where R's `NA` values get converted to YAML strings (like `.na.real`) that Quarto doesn't recognize as missing values, because they are not supported in YAML 1.2 spec. This is to help users handle missing data appropriately before passing to Quarto (#168).
+- `add_spin_preamble()` adds YAML preambles to R scripts for use with 
+  Quarto Script rendering support. The function automatically detects 
+  existing preambles and provides flexible customization options through 
+  `title` and `preamble` parameters (#164).
 
-- Added `qmd_to_r_script()` function to extract R code cells from Quarto documents and create R scripts. This experimental function preserves chunk options using `#|` syntax, adds YAML metadata as spin-style headers, and handles mixed-language documents by filtering only R cells. Complements the existing `add_spin_preamble()` function for working with R scripts in Quarto workflows (#208, quarto-dev/quarto-cli#9112).
+- `check_newer_version()` checks online if a newer version of Quarto is 
+  available. The function compares the current Quarto version against the 
+  latest stable and prerelease versions. It is aimed for verbosity by 
+  default (`verbose = TRUE`), but `verbose = FALSE` can also be set for 
+  just checking update availability with TRUE or FALSE return values. 
+  Version information is cached per session for up to 24 hours to minimize 
+  network requests.
 
-- Added `add_spin_preamble()` function to add YAML preambles to R scripts for use with Quarto Script rendering support. The function automatically detects existing preambles and provides flexible customization options through `title` and `preamble` parameters (#164).
+- `detect_bookdown_crossrefs()` helps users migrate from bookdown to 
+  Quarto by identifying cross-references that need manual conversion. The 
+  function scans R Markdown or Quarto files to detect bookdown-specific 
+  cross-reference syntax (like `\@ref(fig:label)` and `(\#eq:label)`) and 
+  provides detailed guidance on converting them to Quarto syntax (like 
+  `@fig-label` and `{#eq-label}`). It offers both compact and verbose 
+  reporting modes, with context-aware warnings that only show syntax 
+  patterns actually found in your files.
 
-- `quarto_create_project()` gains a `title` argument to set the project title independently from the directory name. This allows creating projects with custom titles, including when using `name = "."` to create a project in the current directory (thanks, @davidkane9, #148). This matches with `--title` addition for `quarto create project` in Quarto CLI v1.5.15.
+- `find_project_root()`, `get_running_project_root()`, and 
+  `project_path()` provide Quarto-aware project path construction. These 
+  functions provide a consistent way to reference files relative to the 
+  project root, working both during Quarto rendering (using 
+  `QUARTO_PROJECT_ROOT` environment variables) and in interactive sessions 
+  (using intelligent project detection). The `project_path()` function is 
+  particularly useful in Quarto document cells where you need to reference 
+  data files or scripts from the project root regardless of the document's 
+  location in subdirectories (#180).
 
-- `quarto_use_template()` now supports using templates in another empty directory via the `dir` argument. However, the function will fail with a clear error message when used in non-empty directories, as interactive prompting is required and handled by Quarto CLI directly (requires Quarto 1.5.15+). Follow for [quarto-dev/quarto-cli#11127](https://github.com/quarto-dev/quarto-cli/issues/11127) for change with `--no-prompt` behavior in future Quarto versions.
+- `has_parameters()` detects whether Quarto documents use parameters. The 
+  function works with both knitr and Jupyter engines: for documents using 
+  the knitr engine, it checks for a `params` field in the document YAML 
+  metadata header; for documents using the Jupyter engine (.qmd with jupyter 
+  engine or .ipynb notebooks), it detects cells tagged with `"parameters"` 
+  using papermill convention. This enables programmatic identification of 
+  parameterized documents for automated workflows and document processing 
+  (#245).
 
-- `quarto_render(output_file = )` now sets the `output-file` Quarto metadata instead of the `--output` CLI flag. This allows the output file information to correctly be processed by Quarto, as if passed in a YAML header. e.g. it allows to support multiple output formats in the same render call. `quarto_render(quarto_args = c('--output', 'dummy.html'))` can still be used to set the `--output` CLI flag to enforce using the CLI flag and not the metadata processed by Quarto (#251, #43).
+- `new_blog_post()` creates new blog posts for Quarto blog (thanks, @topeto, #22).
 
-- Added `check_newer_version()` function to check if a newer version of Quarto is available. The function compares the current Quarto version against the latest stable and prerelease versions. It is aimed for verbosity by default (`verbose = TRUE`), but `verbose = FALSE` can also be set for just checking update availability with TRUE or FALSE return values. Version information is cached per session for up to 24 hours to minimize network requests.
+- `qmd_to_r_script()` extracts R code cells from Quarto documents and 
+  creates R scripts. This experimental function preserves chunk options 
+  using `#|` syntax, adds YAML metadata as spin-style headers, and handles 
+  mixed-language documents by filtering only R cells. Complements the 
+  existing `add_spin_preamble()` function for working with R scripts in 
+  Quarto workflows (#208, quarto-dev/quarto-cli#9112).
 
-- Added `write_yaml_metadata_block()` function to dynamically set YAML metadata in Quarto documents from R code chunks. This addresses the limitation where Quarto metadata must be static and defined in the document header. The function enables conditional content and metadata-driven document behavior based on R computations (thanks, @kmasiello, #137, #160).
+- `quarto_available()` checks if Quarto CLI is found (thanks, @hadley, 
+  #187).
 
-- Added debugging logic for quarto vignette engine to help diagnose issues with Quarto vignettes in **pkgdown** and other context (thanks, @hadley, #185).
-  Set `quarto.log.debug = TRUE` to enable debugging messages (or `R_QUARTO_LOG_DEBUG = TRUE` environment variable). 
-  Set `quarto.log.file` to change the file path to write to (or `R_QUARTO_LOG_FILE` environment variable). Default will be `./quarto-r-debug.log`
-  Debug mode will be on automatically when debugging Github Actions workflows, or when Quarto CLI's environment variable `QUARTO_LOG_LEVEL` is set to `DEBUG`.
+- `quarto_list_extensions()`, `quarto_remove_extension()`, and 
+  `quarto_update_extension()` provide new wrapper functions for extension 
+  management (thanks, @parmsam, #192). These functions wrap 
+  `quarto list extensions`, `quarto remove extensions`, and `quarto update extensions` 
+  respectively.
 
-- Added a `new_blog_post()` function (thanks, @topeto, #22). 
+- `theme_brand_*()` and `theme_colors_*()` helper functions assist with 
+  theming using dark and light brand colors for common graph and table 
+  packages (thanks, @gordonwoodhull, #234).
 
-- Make `quarto_render(as_job = TRUE)` wrapable (thanks, @salim-b, #105).
+- `write_yaml_metadata_block()` dynamically sets YAML metadata in Quarto 
+  documents from R code chunks. This addresses the limitation where Quarto 
+  metadata must be static and defined in the document header. The function 
+  enables conditional content and metadata-driven document behavior based 
+  on R computations (thanks, @kmasiello, #137, #160).
 
-- Quarto CLI will now correctly use the same R version than the one used to run functions in this package (#204).
+- `yaml_quote_string()` allows explicit control over string quoting in 
+  YAML output.
 
-- Add `quarto_available()` function to check if Quarto CLI is found (thanks, @hadley, #187).
+## Minor improvements and fixes
 
-- `quarto_render()` now correctly set `as_job` when not inside RStudio IDE and required **rstudioapi** functions are not available (#203).
+- Debugging logic added for quarto vignette engine to help diagnose issues 
+  with Quarto vignettes in **pkgdown** and other contexts (thanks, @hadley, 
+  #185). Set `quarto.log.debug = TRUE` to enable debugging messages (or 
+  `R_QUARTO_LOG_DEBUG = TRUE` environment variable). Set `quarto.log.file` 
+  to change the file path to write to (or `R_QUARTO_LOG_FILE` environment 
+  variable). Default will be `./quarto-r-debug.log`. Debug mode will be on 
+  automatically when debugging Github Actions workflows, or when Quarto 
+  CLI's environment variable `QUARTO_LOG_LEVEL` is set to `DEBUG`.
 
-- Add several new wrapper function (thanks, @parmsam, #192): 
-  - `quarto_list_extensions()` to list installed extensions using `quarto list extensions`
-  - `quarto_remove_extension()` to remove an installed extension using `quarto remove extensions`
-  - `quarto_update_extension()` to update an installed extension using `quarto update extensions`
+- Error reporting improved when background process call to `quarto` fails 
+  (thanks, @salim-b, #235).
 
-- `quarto_create_project()` offers better user experience now (thanks, @jennybc, #206, #153).
+- Interactive prompt error fixed for extension approval (thanks, @wjschne, 
+  #212).
 
-- `quarto_preview()` gains a `quiet` argument to suppress any output from R or Quarto CLI (thanks, @cwickham, #232.)
+- Package is now licensed MIT like Quarto CLI.
 
-- Add some helpers function `theme_brand_*` and `theme_colors_*` to help theme with dark and light brand using some common graph and table packages (thanks,  @gordonwoodhull, [#234](https://github.com/quarto-dev/quarto-r/issues/234)).
+- `quarto_create_project()` gains a `title` argument to set the project 
+  title independently from the directory name. This allows creating 
+  projects with custom titles, including when using `name = "."` to create 
+  a project in the current directory (thanks, @davidkane9, #148). This 
+  matches with `--title` addition for `quarto create project` in Quarto 
+  CLI v1.5.15.
 
-- Add `quarto.quiet` options to allow more verbose error message when `quarto_*` function are used inside other package. 
-  For example, inside **pkgdown** for building Quarto vignettes. **pkgdown** sets `quiet = TRUE` internally for its call to `quarto_render()`, 
-  and setting `options(quarto.quiet = TRUE)` allows to overwrite this.
-  
-- `quarto_path()` now returns a normalized path with potential symlink resolved, for less confusion with `quarto_binary_sitrep()` (thanks, @jennybc).
+- `quarto_create_project()` offers better user experience (thanks, 
+  @jennybc, #206, #153).
 
-- Fix an error with interactive prompt for extension approval (thanks, @wjschne, #212).
+- `quarto_path()` now correctly returns `NULL` when no quarto is found in 
+  the PATH (thanks, @jeroen, #220, #221).
 
-- `quarto_path()` now correctly return `NULL` when no quarto is found in the PATH (thanks, @jeroen, #220, #221).
+- `quarto_path()` now returns a normalized path with potential symlink 
+  resolved, for less confusion with `quarto_binary_sitrep()` (thanks, 
+  @jennybc).
 
-- `R_QUARTO_QUIET` environment variable can be used to set `quarto.quiet` option, which overrides any `quiet = TRUE` argument passed to `quarto_*` functions. This can be useful to debug Quarto rendering inside other packages, like **pkgdown**. Overrides will also now happens for [GHA debug logging](https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/troubleshooting-workflows/enabling-debug-logging).
+- `quarto_preview()` gains a `quiet` argument to suppress any output from 
+  R or Quarto CLI (thanks, @cwickham, #232).
 
-- Correctly report Quarto CLI error when background process call to `quarto` fails (thanks, @salim-b, [#235](https://github.com/quarto-dev/quarto-r/issues/235))
+- `quarto_preview()` now explicitly returns the preview server URL 
+  (invisibly) and documents this behavior. This enables programmatic 
+  workflows such as taking screenshots with **webshot2** or passing the 
+  URL to other automation tools (thanks, @cwickham, #233).
+
+- `quarto_render()` now correctly sets `as_job` when not inside RStudio 
+  IDE and required **rstudioapi** functions are not available (#203).
+
+- `quarto_render(as_job = TRUE)` is now wrapable (thanks, @salim-b, #105).
+
+- `quarto.quiet` option added to allow more verbose error messages when 
+  `quarto_*` functions are used inside other packages. For example, inside 
+  **pkgdown** for building Quarto vignettes. **pkgdown** sets `quiet = 
+  TRUE` internally for its call to `quarto_render()`, and setting 
+  `options(quarto.quiet = TRUE)` allows to overwrite this.
+
+- `R_QUARTO_QUIET` environment variable can be used to set `quarto.quiet` 
+  option, which overrides any `quiet = TRUE` argument passed to `quarto_*` 
+  functions. This can be useful to debug Quarto rendering inside other 
+  packages, like **pkgdown**. Overrides will also now happen for GHA debug 
+  logging.
+
+- R version consistency improved: Quarto CLI will now correctly use the 
+  same R version as the one used to run functions in this package (#204).
 
 # quarto 1.4.4
 
