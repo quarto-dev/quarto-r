@@ -1,4 +1,5 @@
 test_that("quarto_preview default functionality", {
+  skip("quarto-preview test only works interactively")
   skip_if_no_quarto()
   skip_on_cran()
   skip_on_ci()
@@ -22,6 +23,7 @@ test_that("quarto_preview default functionality", {
 })
 
 test_that("quarto_preview can change port", {
+  skip("quarto-preview test only works interactively")
   skip_if_no_quarto()
   skip_on_cran()
   skip_on_ci()
