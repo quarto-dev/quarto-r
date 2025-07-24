@@ -14,3 +14,10 @@ cat("more")
     more
 :::
 ::::
+
+::: cell
+``` {.r .cell-code}
+# # This code should not run.
+# 1 + a
+```
+:::

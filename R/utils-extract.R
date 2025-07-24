@@ -23,6 +23,11 @@
 #' - Adding the document's YAML metadata as a spin-style header
 #' - Creating an R script that can be rendered with the same options
 #'
+#' ## Chunk option handling:
+#' - Chunks with `purl: false` are completely skipped and not included in the output
+#' - Chunks with `eval: false` have their code commented out (prefixed with `# `) in the R script
+#' - All other chunk options are preserved as `#|` comment headers
+#'
 #' ## File handling:
 #' - If the output R script already exists, the function will abort with an error
 #' - Non-R code cells (e.g., Python, Julia, Observable JS) are ignored
@@ -35,7 +40,15 @@
 #' more details on rendering R scripts with Quarto.
 #'
 #' The resulting R script uses Quarto's executable cell format with `#|`
-#' comments to preserve chunk options like `echo`, `eval`, `output`, etc.
+#' comments to preserve chunk options like `label`, `echo`, `output`, etc.
+#'
+#' The resulting R script could also be `source()`d in R, as any `eval = FALSE` will be commented out.
+#'
+#' ## Limitations:
+#' This function relies on static analysis of the Quarto document by `quarto inspect`. This means that
+#' any \pkg{knitr} specific options like `child=` or specific feature like [knitr::read_chunk()] are not supported.
+#' They rely on tangling or knitting by \pkg{knitr} itself. For this support,
+#' one should look at [knitr::hook_purl()] or [knitr::purl()].
 #'
 #' @return Invisibly returns the path to the created R script file, or
 #'   `NULL` if no R code cells were found.
@@ -110,12 +123,22 @@ qmd_to_r_script <- function(qmd, script = NULL) {
   }
 
   r_codeCells <- codeCells[codeCells$language == "r", ]
-
   content <- character(nrow(r_codeCells))
   for (i in seq_len(nrow(r_codeCells))) {
     row <- r_codeCells[i, ]
     metadata_list <- as.list(row$metadata)
     metadata_clean <- metadata_list[!is.na(metadata_list)]
+    if (isFALSE(metadata_clean$purl)) {
+      # cell with purl: false should be skipped
+      next
+    }
+    if (isFALSE(metadata_clean$eval)) {
+      # cell with eval: false should be commented out in R script
+      row$source <- paste(
+        c(paste0("# ", head(xfun::split_lines(row$source), -1)), ""),
+        collapse = "\n"
+      )
+    }
     content[i] <- paste(
       c(create_code_preamble(metadata_clean), row$source),
       collapse = "\n"
