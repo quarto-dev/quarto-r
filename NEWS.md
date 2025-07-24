@@ -155,7 +155,7 @@
 - `quarto_render()` now correctly sets `as_job` when not inside RStudio 
   IDE and required **rstudioapi** functions are not available (#203).
 
-- `quarto_render(as_job = TRUE)` is now wrapable (thanks, @salim-b, #105).
+- `quarto_render(as_job = TRUE)` is now wrappable (thanks, @salim-b, #105).
 
 - `quarto.quiet` option added to allow more verbose error messages when 
   `quarto_*` functions are used inside other packages. For example, inside 
