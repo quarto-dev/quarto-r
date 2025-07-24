@@ -11,13 +11,17 @@ vignette: >
 
 ## Overview
 
-The **quarto** package includes functions to help you theme plotting and table packages, for example to provide [light and dark renderings](https://quarto.org/docs/computations/execution-options.html#cell-renderings).
+The **quarto** package includes helper functions for theming plotting and table packages.
 
 The functions return theme objects or functions, which are applied differently depending on the package.
 
-This vignette demonstrates adding background and foreground colors to outputs from each package.
+These are simple helper functions to get you started. Copy them if you to customize them further.
 
-These are very simple helper functions to get you started. If you need to customize them further, these functions can be copied from quarto-r.
+This vignette demonstrates adding background and foreground colors to outputs from each package using the `theme_colors_*` functions.
+
+Please see
+[light/dark renderings examples](https://examples.quarto.pub/lightdark-renderings-examples/ggplot2.html)
+for examples using each supported package with dark mode, `theme_brand_*`, and [`renderings: [light, dark]`](https://quarto.org/docs/computations/execution-options.html#cell-renderings)
 
 ## flextable
 
