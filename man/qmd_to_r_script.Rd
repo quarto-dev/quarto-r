@@ -36,6 +36,14 @@ This function processes a Quarto document by:
 \item Adding the document's YAML metadata as a spin-style header
 \item Creating an R script that can be rendered with the same options
 }
+\subsection{Chunk option handling:}{
+\itemize{
+\item Chunks with \code{purl: false} are completely skipped and not included in the output
+\item Chunks with \code{eval: false} have their code commented out (prefixed with \verb{# }) in the R script
+\item All other chunk options are preserved as \verb{#|} comment headers
+}
+}
+
 \subsection{File handling:}{
 \itemize{
 \item If the output R script already exists, the function will abort with an error
@@ -52,7 +60,17 @@ See \url{https://quarto.org/docs/computations/render-scripts.html#knitr} for
 more details on rendering R scripts with Quarto.
 
 The resulting R script uses Quarto's executable cell format with \verb{#|}
-comments to preserve chunk options like \code{echo}, \code{eval}, \code{output}, etc.
+comments to preserve chunk options like \code{label}, \code{echo}, \code{output}, etc.
+
+The resulting R script could also be \code{source()}d in R, as any \code{eval = FALSE} will be commented out.
+}
+
+\subsection{Limitations:}{
+
+This function relies on static analysis of the Quarto document by \verb{quarto inspect}. This means that
+any \pkg{knitr} specific options like \verb{child=} or specific feature like \code{\link[knitr:read_chunk]{knitr::read_chunk()}} are not supported.
+They rely on tangling or knitting by \pkg{knitr} itself. For this support,
+one should look at \code{\link[knitr:chunk_hook]{knitr::hook_purl()}} or \code{\link[knitr:knit]{knitr::purl()}}.
 }
 }
 \examples{

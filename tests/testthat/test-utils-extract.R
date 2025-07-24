@@ -46,6 +46,47 @@ test_that("qmd_to_r_script() writes R file that renders", {
   )
 })
 
+test_that("qmd_to_r_script() comment cells with eval = TRUE", {
+  r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
+
+  qmd_to_r_script(
+    resources_path("purl-r.qmd"),
+    script = r_script
+  )
+  content <- xfun::file_string(r_script)
+  expect_match(
+    content,
+    "# # This code should not run.",
+    fixed = TRUE
+  )
+  expect_no_match(
+    content,
+    "(?<!# )# This code should not run\\.",
+    perl = TRUE
+  )
+})
+
+test_that("qmd_to_r_script() ignore cells with purl = FALSE", {
+  r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
+
+  qmd_to_r_script(
+    resources_path("purl-r.qmd"),
+    script = r_script
+  )
+  content <- xfun::file_string(r_script)
+  expect_no_match(
+    content,
+    "#| purl: false",
+    fixed = TRUE
+  )
+  expect_no_match(
+    content,
+    "# This code should not be included in the purl output.",
+    fixed = TRUE
+  )
+})
+
+
 test_that("qmd_to_r_script() do nothing on file with no code", {
   skip_if_no_quarto()
   expect_message(

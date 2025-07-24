@@ -81,10 +81,11 @@
 
 - `qmd_to_r_script()` extracts R code cells from Quarto documents and 
   creates R scripts. This experimental function preserves chunk options 
-  using `#|` syntax, adds YAML metadata as spin-style headers, and handles 
-  mixed-language documents by filtering only R cells. Complements the 
-  existing `add_spin_preamble()` function for working with R scripts in 
-  Quarto workflows (#208, quarto-dev/quarto-cli#9112).
+  using `#|` syntax, adds YAML metadata as spin-style headers, handles 
+  mixed-language documents by filtering only R cells, skips chunks with 
+  `purl: false`, and properly processes `eval: false` chunks by commenting 
+  out their code. Complements the existing `add_spin_preamble()` function 
+  for working with R scripts in Quarto workflows (#208, #277, quarto-dev/quarto-cli#9112).
 
 - `quarto_available()` checks if Quarto CLI is found (thanks, @hadley, 
   #187).
