@@ -45,6 +45,11 @@ Create a theme using background and foreground colors (\verb{theme_colors_*}) or
 using a \strong{brand.yml} file (\verb{theme_brand_*}).
 }
 \details{
-The use of the theme will depend on the package. See the vignettes for
-usage examples.
+The use of the theme will depend on the package. Please see
+\href{https://examples.quarto.pub/lightdark-renderings-examples/ggplot2.html}{light/dark renderings examples}
+for examples using each supported package with dark mode, \verb{theme_brand_*},
+and \verb{renderings: [light, dark]},
+or \href{https://quarto-dev.github.io/quarto-r/articles/theme-helpers.html}{theme helper vignetes}
+for examples using each package and \verb{theme_colors_*} to specify the
+background and foreground colors directly.
 }
