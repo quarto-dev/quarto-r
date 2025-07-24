@@ -19,7 +19,7 @@ future releases, depending on feedback."><meta property="og:image" content="http
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9028</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9029</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,6 +96,14 @@ but with <code>.R</code> extension.</p></dd>
 <li><p>Adding the document's YAML metadata as a spin-style header</p></li>
 <li><p>Creating an R script that can be rendered with the same options</p></li>
 </ul><div class="section">
+<h3 id="chunk-option-handling-">Chunk option handling:<a class="anchor" aria-label="anchor" href="#chunk-option-handling-"></a></h3>
+
+<ul><li><p>Chunks with <code>purl: false</code> are completely skipped and not included in the output</p></li>
+<li><p>Chunks with <code>eval: false</code> have their code commented out (prefixed with <code># </code>) in the R script</p></li>
+<li><p>All other chunk options are preserved as <code>#|</code> comment headers</p></li>
+</ul></div>
+
+<div class="section">
 <h3 id="file-handling-">File handling:<a class="anchor" aria-label="anchor" href="#file-handling-"></a></h3>
 
 <ul><li><p>If the output R script already exists, the function will abort with an error</p></li>
@@ -112,7 +120,18 @@ but with <code>.R</code> extension.</p></dd>
 See <a href="https://quarto.org/docs/computations/render-scripts.html#knitr" class="external-link">https://quarto.org/docs/computations/render-scripts.html#knitr</a> for
 more details on rendering R scripts with Quarto.</p>
 <p>The resulting R script uses Quarto's executable cell format with <code>#|</code>
-comments to preserve chunk options like <code>echo</code>, <code>eval</code>, <code>output</code>, etc.</p>
+comments to preserve chunk options like <code>label</code>, <code>echo</code>, <code>output</code>, etc.</p>
+<p>The resulting R script could also be <code><a href="https://rdrr.io/r/base/source.html" class="external-link">source()</a></code>d in R, as any <code>eval = FALSE</code> will be commented out.</p>
+</div>
+
+<div class="section">
+<h3 id="limitations-">Limitations:<a class="anchor" aria-label="anchor" href="#limitations-"></a></h3>
+
+
+<p>This function relies on static analysis of the Quarto document by <code>quarto inspect</code>. This means that
+any <span class="pkg">knitr</span> specific options like <code>child=</code> or specific feature like <code><a href="https://rdrr.io/pkg/knitr/man/read_chunk.html" class="external-link">knitr::read_chunk()</a></code> are not supported.
+They rely on tangling or knitting by <span class="pkg">knitr</span> itself. For this support,
+one should look at <code><a href="https://rdrr.io/pkg/knitr/man/chunk_hook.html" class="external-link">knitr::hook_purl()</a></code> or <code><a href="https://rdrr.io/pkg/knitr/man/knit.html" class="external-link">knitr::purl()</a></code>.</p>
 </div>
 
     </div>
