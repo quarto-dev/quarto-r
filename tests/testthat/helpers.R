@@ -317,6 +317,21 @@ local_clean_state <- function(env = parent.frame()) {
   )
 }
 
+local_clean_dot_quarto <- function(where = ".", env = parent.frame()) {
+  skip_if_not_installed("withr")
+  skip_if_not_installed("fs")
+  withr::defer(
+    {
+      # clean up internal .quarto directory
+      dot_quarto <- fs::path(where, ".quarto")
+      if (fs::dir_exists(dot_quarto)) {
+        fs::dir_delete(dot_quarto)
+      }
+    },
+    envir = env
+  )
+}
+
 resources_path <- function(...) {
   test_path("resources", ...)
 }

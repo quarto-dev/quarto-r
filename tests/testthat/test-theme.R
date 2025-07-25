@@ -18,16 +18,14 @@ resource_dir <- function(input) {
 
 local_render_theme_file <- function(input, env = parent.frame()) {
   skip_if_not_installed("withr")
+  skip_if_not_installed("fs")
+  local_clean_dot_quarto(where = dirname(input), env = env)
   withr::defer(
     {
       # clean up output resource directory
       out_dir <- resource_dir(input)
       if (fs::dir_exists(out_dir)) {
         fs::dir_delete(out_dir)
-      }
-      # clean up internal .quarto directory
-      if (fs::dir_exists(".quarto")) {
-        fs::dir_delete(".quarto")
       }
     },
     envir = env
