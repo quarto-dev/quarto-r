@@ -9,8 +9,9 @@
 ^doc$
 ^Meta$
 
-^tests/testthat/project/.quarto$
-^tests/testthat/_snaps/.quarto$
+^tests/testthat/.*/.quarto$
+^tests/testthat/.*/*_files$
+
 ^vignettes/.quarto$
 ^vignettes/*_files$
 ^vignettes/*.html$
@@ -20,6 +21,4 @@
 ^CRAN-SUBMISSION$
 ^[\.]?air\.toml$
 ^LICENSE\.md$
-^vignettes/articles/\.quarto$
-^vignettes/articles/*_files$
 ^vignettes/articles$
