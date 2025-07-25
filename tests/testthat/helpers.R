@@ -91,6 +91,14 @@ local_quarto_project <- function(
   return(file.path(path_tmp, name))
 }
 
+local_clean_resources <- function(where, .env = parent.frame()) {
+  skip_if_not_installed("withr")
+  skip_if_not_installed("fs")
+  # clean up output file
+  files <- fs::dir_ls(where, type = "directory", glob = "*_files")
+  fs::dir_delete(files)
+}
+
 .render <- function(
   input,
   output_file = NULL,
@@ -103,6 +111,7 @@ local_quarto_project <- function(
   skip_if_not_installed("withr")
   # work inside input directory
   withr::local_dir(dirname(input))
+  local_clean_resources(where = ".", .env = .env)
   output_file_forced <- NULL
   if (is.null(output_file)) {
     output_file_forced <- basename(withr::local_file(
@@ -116,6 +125,7 @@ local_quarto_project <- function(
       output_file_forced
     )
   }
+
   expect_no_error(quarto_render(
     basename(input),
     output_file = output_file,
