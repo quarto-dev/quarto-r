@@ -96,6 +96,16 @@
   `quarto list extensions`, `quarto remove extensions`, and `quarto update extensions` 
   respectively.
 
+- `tbl_qmd_span()`, `tbl_qmd_div()`, and `tbl_qmd()` create HTML elements 
+  with special `data-qmd` attributes that tell Quarto to process their 
+  content as Markdown. These functions enable including formatted text, math 
+  equations, links, and other Markdown content within HTML tables generated 
+  by packages like **knitr**, **kableExtra**, and **DT**. The functions 
+  provide a `display` argument for fallback text when content includes 
+  Quarto-specific features like shortcodes. This addresses a common 
+  limitation where Markdown syntax inside HTML tables isn't automatically 
+  processed by Quarto.
+
 - `theme_brand_*()` and `theme_colors_*()` helper functions assist with 
   theming using dark and light brand colors for common graph and table 
   packages (thanks, @gordonwoodhull, #234).
