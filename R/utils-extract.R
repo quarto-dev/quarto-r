@@ -135,7 +135,7 @@ qmd_to_r_script <- function(qmd, script = NULL) {
     if (isFALSE(metadata_clean$eval)) {
       # cell with eval: false should be commented out in R script
       row$source <- paste(
-        c(paste0("# ", head(xfun::split_lines(row$source), -1)), ""),
+        c(paste0("# ", utils::head(xfun::split_lines(row$source), -1)), ""),
         collapse = "\n"
       )
     }
