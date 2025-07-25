@@ -7,7 +7,7 @@
 #' [light/dark renderings examples](https://examples.quarto.pub/lightdark-renderings-examples/ggplot2.html)
 #' for examples using each supported package with dark mode, `theme_brand_*`,
 #' and `renderings: [light, dark]`,
-#' or [theme helper vignetes](https://quarto-dev.github.io/quarto-r/articles/theme-helpers.html)
+#' or [theme helper article](https://quarto-dev.github.io/quarto-r/articles/theme-helpers.html)
 #' for examples using each package and `theme_colors_*` to specify the
 #' background and foreground colors directly.
 #'
