@@ -96,7 +96,7 @@
   `quarto list extensions`, `quarto remove extensions`, and `quarto update extensions` 
   respectively.
 
-- `tbl_qmd_span()`, `tbl_qmd_div()`, and `tbl_qmd()` create HTML elements 
+- `tbl_qmd_span()` and `tbl_qmd_div()` create HTML elements 
   with special `data-qmd` attributes that tell Quarto to process their 
   content as Markdown. These functions enable including formatted text, math 
   equations, links, and other Markdown content within HTML tables generated 
@@ -104,11 +104,18 @@
   provide a `display` argument for fallback text when content includes 
   Quarto-specific features like shortcodes. This addresses a common 
   limitation where Markdown syntax inside HTML tables isn't automatically 
-  processed by Quarto.
+  processed by Quarto. Additional convenience functions `tbl_qmd_span_base64()`, 
+  `tbl_qmd_div_base64()`, `tbl_qmd_span_raw()`, and `tbl_qmd_div_raw()` 
+  provide explicit control over encoding.
 
 - `theme_brand_*()` and `theme_colors_*()` helper functions assist with 
   theming using dark and light brand colors for common graph and table 
-  packages (thanks, @gordonwoodhull, #234).
+  packages (thanks, @gordonwoodhull, #234). The functions support **ggplot2** 
+  (`theme_brand_ggplot2()`, `theme_colors_ggplot2()`), **gt** 
+  (`theme_brand_gt()`, `theme_colors_gt()`), **flextable** 
+  (`theme_brand_flextable()`, `theme_colors_flextable()`), **plotly** 
+  (`theme_brand_plotly()`, `theme_colors_plotly()`), and **thematic** 
+  (`theme_brand_thematic()`, `theme_colors_thematic()`).
 
 - `write_yaml_metadata_block()` dynamically sets YAML metadata in Quarto 
   documents from R code chunks. This addresses the limitation where Quarto 
