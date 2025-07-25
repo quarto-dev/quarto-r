@@ -7,7 +7,7 @@ skip_if_not_installed("withr")
 install_dev_package()
 
 theme_file <- function(...) {
-  test_path("theme", ...)
+  resources_path("theme", ...)
 }
 
 resource_dir <- function(input) {
