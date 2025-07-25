@@ -34,11 +34,11 @@ test_that("qmd_to_r_script() writes R file that renders", {
   skip_if_no_quarto("1.4.511")
   announce_snapshot_file(name = "purl.md")
   md_file <- xfun::with_ext(r_script, "md")
-  quarto::quarto_render(
+  .render(
     r_script,
-    output_format = "markdown",
     output_file = basename(md_file),
-    quiet = TRUE
+    output_format = "markdown",
+    .quiet = TRUE
   )
   expect_snapshot_file(
     path = md_file,

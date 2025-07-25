@@ -16,10 +16,10 @@ resource_dir <- function(input) {
   )
 }
 
-local_render_theme_file <- function(input, env = parent.frame()) {
+local_render_theme_file <- function(input, .env = parent.frame()) {
   skip_if_not_installed("withr")
   skip_if_not_installed("fs")
-  local_clean_dot_quarto(where = dirname(input), env = env)
+  local_clean_dot_quarto(where = dirname(input), .env = .env)
   withr::defer(
     {
       # clean up output resource directory
@@ -28,8 +28,9 @@ local_render_theme_file <- function(input, env = parent.frame()) {
         fs::dir_delete(out_dir)
       }
     },
-    envir = env
+    envir = .env
   )
+  .render(input, .env = .env)
 }
 
 test_that("render flextable", {
@@ -37,7 +38,6 @@ test_that("render flextable", {
   skip_if_not_installed("flextable")
   file <- theme_file("flextable.qmd")
   local_render_theme_file(file)
-  .render(file)
 })
 
 test_that("render ggiraph", {
@@ -45,7 +45,6 @@ test_that("render ggiraph", {
   skip_if_not_installed("ggiraph")
   file <- theme_file("ggiraph.qmd")
   local_render_theme_file(file)
-  .render(file)
 })
 
 test_that("render ggplot2", {
@@ -53,7 +52,6 @@ test_that("render ggplot2", {
   skip_if_not_installed("ggplot2")
   file <- theme_file("ggplot2.qmd")
   local_render_theme_file(file)
-  .render(test_path(file))
 })
 
 test_that("render gt", {
@@ -61,7 +59,6 @@ test_that("render gt", {
   skip_if_not_installed("gt")
   file <- theme_file("gt.qmd")
   local_render_theme_file(file)
-  .render(file)
 })
 
 test_that("render plotly-r", {
@@ -69,7 +66,6 @@ test_that("render plotly-r", {
   skip_if_not_installed("plotly")
   file <- theme_file("plotly-r.qmd")
   local_render_theme_file(file)
-  .render(file)
 })
 
 test_that("render thematic", {
@@ -77,5 +73,4 @@ test_that("render thematic", {
   skip_if_not_installed("thematic")
   file <- theme_file("thematic.qmd")
   local_render_theme_file(file)
-  .render(file)
 })

@@ -115,8 +115,6 @@ local_quarto_project <- function(
       "--output",
       output_file_forced
     )
-  } else {
-    NULL
   }
   expect_no_error(quarto_render(
     basename(input),
@@ -126,6 +124,12 @@ local_quarto_project <- function(
     ...
   ))
   out <- output_file %||% output_file_forced
+  withr::defer(
+    if (file.exists(out)) {
+      unlink(out)
+    },
+    envir = .env
+  )
   expect_true(file.exists(out))
   normalizePath(out)
 }
@@ -317,7 +321,7 @@ local_clean_state <- function(env = parent.frame()) {
   )
 }
 
-local_clean_dot_quarto <- function(where = ".", env = parent.frame()) {
+local_clean_dot_quarto <- function(where = ".", .env = parent.frame()) {
   skip_if_not_installed("withr")
   skip_if_not_installed("fs")
   withr::defer(
@@ -328,7 +332,7 @@ local_clean_dot_quarto <- function(where = ".", env = parent.frame()) {
         fs::dir_delete(dot_quarto)
       }
     },
-    envir = env
+    envir = .env
   )
 }
 
