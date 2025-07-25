@@ -1,4 +1,4 @@
-# quarto (development version)
+# quarto 1.5.0
 
 ## Breaking changes
 
