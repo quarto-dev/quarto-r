@@ -16,6 +16,7 @@ test_that("check_params_for_na allows clean parameters", {
 })
 
 test_that("check_params_for_na detects NA in simple vectors", {
+  skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   bad_params <- list(values = c(1, NA, 3))
 
   expect_snapshot(
@@ -25,6 +26,7 @@ test_that("check_params_for_na detects NA in simple vectors", {
 })
 
 test_that("check_params_for_na detects NA in nested structures", {
+  skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   nested_params <- list(
     data = list(
       subset = c(1, NA, 3)
@@ -38,6 +40,7 @@ test_that("check_params_for_na detects NA in nested structures", {
 })
 
 test_that("check_params_for_na shows correct NA positions", {
+  skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   multi_na_params <- list(x = c(1, NA, 3, NA, 5))
 
   expect_snapshot(
@@ -47,6 +50,7 @@ test_that("check_params_for_na shows correct NA positions", {
 })
 
 test_that("check_params_for_na handles different NA types", {
+  skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   # Test different NA types
   expect_error(
     check_params_for_na(list(x = NA_real_)),
@@ -70,23 +74,25 @@ test_that("check_params_for_na handles different NA types", {
 })
 
 test_that("as_yaml detects NA in simple vectors", {
+  skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   expect_snapshot(
-    as_yaml(list(values = c(1, NA, 3))),
-    error = TRUE
+    error = TRUE,
+    as_yaml(list(values = c(1, NA, 3)))
   )
 })
 
 test_that("write_yaml detects NA in nested structures", {
+  skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   expect_snapshot(
-    write_yaml(list(data = list(subset = c(1, NA, 3))), tempfile()),
-    error = TRUE
+    error = TRUE?write_yaml(list(data = list(subset = c(1, NA, 3))), tempfile())
   )
 })
 
 test_that("as_yaml shows correct NA positions", {
+  skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   expect_snapshot(
-    as_yaml(list(x = c(1, NA, 3, NA))),
-    error = TRUE
+    error = TRUE,
+    as_yaml(list(x = c(1, NA, 3, NA)))
   )
 })
 
@@ -105,9 +111,10 @@ test_that("write_yaml allows clean data", {
 })
 
 test_that("quarto_render uses write_yaml validation", {
+  skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   expect_snapshot(
-    quarto_render("test.qmd", execute_params = list(bad_param = c(1, NA))),
-    error = TRUE
+    error = TRUE,
+    quarto_render("test.qmd", execute_params = list(bad_param = c(1, NA)))
   )
 })
 
