@@ -84,7 +84,8 @@ test_that("as_yaml detects NA in simple vectors", {
 test_that("write_yaml detects NA in nested structures", {
   skip_on_cran() # Skip on CRAN as we current throw warning only on CRAN
   expect_snapshot(
-    error = TRUE?write_yaml(list(data = list(subset = c(1, NA, 3))), tempfile())
+    error = TRUE,
+    write_yaml(list(data = list(subset = c(1, NA, 3))), tempfile())
   )
 })
 
