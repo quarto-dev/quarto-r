@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">quarto</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.4.9029</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,9 +43,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="quarto-development-version">quarto (development version)<a class="anchor" aria-label="anchor" href="#quarto-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.5.0" id="quarto-150">quarto 1.5.0<a class="anchor" aria-label="anchor" href="#quarto-150"></a></h2>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-1-5-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-5-0"></a></h3>
 <ul><li>
 <p><code>quarto_render(output_file = )</code> now sets the <code>output-file</code> Quarto metadata instead of the <code>--output</code> CLI flag to avoid current problems with Quarto</p>
 <ol start="151" style="list-style-type: upper-roman"><li>This allows the output file information to be correctly processed by Quarto, as if passed in a YAML header, and enables support for multiple output formats in the same render call. Users who need the old CLI flag behavior can use <code>quarto_render(quarto_args = c('--output', 'filename'))</code> (<a href="https://github.com/quarto-dev/quarto-r/issues/251" class="external-link">#251</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/43" class="external-link">#43</a>).</li>
@@ -55,7 +55,7 @@
 <li><p>Internal YAML processing functions now detect and prevent NA values to avoid incompatible YAML being sent to Quarto CLI. This prevents issues where R’s <code>NA</code> values get converted to YAML strings (like <code>.na.real</code>) that Quarto doesn’t recognize as missing values, since they are not supported in YAML 1.2 spec. Code that previously passed NA values will now receive clear error messages with actionable suggestions to handle missing data appropriately before passing to Quarto (<a href="https://github.com/quarto-dev/quarto-r/issues/168" class="external-link">#168</a>).</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="new-features-development-version">New features<a class="anchor" aria-label="anchor" href="#new-features-development-version"></a></h3>
+<h3 id="new-features-1-5-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-5-0"></a></h3>
 <ul><li><p><code><a href="../reference/add_spin_preamble.html">add_spin_preamble()</a></code> adds YAML preambles to R scripts for use with Quarto Script rendering support. The function automatically detects existing preambles and provides flexible customization options through <code>title</code> and <code>preamble</code> parameters (<a href="https://github.com/quarto-dev/quarto-r/issues/164" class="external-link">#164</a>).</p></li>
 <li><p><code><a href="../reference/check_newer_version.html">check_newer_version()</a></code> checks online if a newer version of Quarto is available. The function compares the current Quarto version against the latest stable and prerelease versions. It is aimed for verbosity by default (<code>verbose = TRUE</code>), but <code>verbose = FALSE</code> can also be set for just checking update availability with TRUE or FALSE return values. Version information is cached per session for up to 24 hours to minimize network requests.</p></li>
 <li><p><code><a href="../reference/detect_bookdown_crossrefs.html">detect_bookdown_crossrefs()</a></code> helps users migrate from bookdown to Quarto by identifying cross-references that need manual conversion. The function scans R Markdown or Quarto files to detect bookdown-specific cross-reference syntax (like <code>\@ref(fig:label)</code> and <code>(\#eq:label)</code>) and provides detailed guidance on converting them to Quarto syntax (like <code>@fig-label</code> and <code>{#eq-label}</code>). It offers both compact and verbose reporting modes, with context-aware warnings that only show syntax patterns actually found in your files.</p></li>
@@ -71,7 +71,7 @@
 <li><p><code><a href="../reference/yaml_quote_string.html">yaml_quote_string()</a></code> allows explicit control over string quoting in YAML output.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="minor-improvements-and-fixes-development-version">Minor improvements and fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-fixes-development-version"></a></h3>
+<h3 id="minor-improvements-and-fixes-1-5-0">Minor improvements and fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-fixes-1-5-0"></a></h3>
 <ul><li><p>Debugging logic added for quarto vignette engine to help diagnose issues with Quarto vignettes in <strong>pkgdown</strong> and other contexts (thanks, <a href="https://github.com/hadley" class="external-link">@hadley</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/185" class="external-link">#185</a>). Set <code>quarto.log.debug = TRUE</code> to enable debugging messages (or <code>R_QUARTO_LOG_DEBUG = TRUE</code> environment variable). Set <code>quarto.log.file</code> to change the file path to write to (or <code>R_QUARTO_LOG_FILE</code> environment variable). Default will be <code>./quarto-r-debug.log</code>. Debug mode will be on automatically when debugging Github Actions workflows, or when Quarto CLI’s environment variable <code>QUARTO_LOG_LEVEL</code> is set to <code>DEBUG</code>.</p></li>
 <li><p>Error reporting improved when background process call to <code>quarto</code> fails (thanks, <a href="https://github.com/salim-b" class="external-link">@salim-b</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/235" class="external-link">#235</a>).</p></li>
 <li><p>Interactive prompt error fixed for extension approval (thanks, <a href="https://github.com/wjschne" class="external-link">@wjschne</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/212" class="external-link">#212</a>).</p></li>
