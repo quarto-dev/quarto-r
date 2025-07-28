@@ -133,8 +133,7 @@ check_params_for_na <- function(x) {
       # Found NA values (excluding NaN which is mathematically valid)
       na_positions <- which(is.na(data) & !is.nan(data))
       n_na <- length(na_positions)
-
-      cli::cli_abort(c(
+      warn_or_error(c(
         "{.code NA} values detected in parameter {.field {path}}",
         "x" = "Found NA at position{if (n_na > 1) 's' else ''}: {.val {na_positions}}",
         "i" = "Quarto CLI uses YAML 1.2 spec which cannot process R's {.code NA} values",
@@ -150,6 +149,18 @@ check_params_for_na <- function(x) {
   check_na_recursive(x)
 }
 
+
+warn_or_error <- function(message, ..., .envir = parent.frame()) {
+  if (is_cran_check()) {
+    msg <- c(
+      message,
+      "!" = "This warning will become an error in future versions of Quarto R package."
+    )
+    cli::cli_warn(message = msg, ..., .envir = .envir)
+  } else {
+    cli::cli_abort(message = message, ..., .envir = .envir)
+  }
+}
 
 # inline knitr:::merge_list()
 merge_list <- function(x, y) {
