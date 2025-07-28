@@ -10,7 +10,7 @@ articles:
   publishing: publishing.html
   r-scripts: r-scripts.html
   articles/theme-helpers: theme-helpers.html
-last_built: 2025-07-28T11:36Z
+last_built: 2025-07-28T16:09Z
 urls:
   reference: https://quarto-dev.github.io/quarto-r/reference
   article: https://quarto-dev.github.io/quarto-r/articles
