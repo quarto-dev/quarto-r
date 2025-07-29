@@ -10,7 +10,7 @@
 #'   `"all"` will render all formats defined within the file or project.
 #' @param output_file Base name for single-file output (e.g. PDF, ePub, MS Word).
 #'   This sets the `output-file` Quarto metadata. If `NULL`, the output filename
-#'   will be based on the input filename. 
+#'   will be based on the input filename.
 #' @param execute Whether to execute embedded code chunks.
 #' @param execute_params A list of named parameters that override custom params
 #'   specified within the YAML front-matter.
