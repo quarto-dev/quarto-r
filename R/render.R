@@ -8,10 +8,9 @@
 #'   to rendering the project in the current working directory).
 #' @param output_format Target output format (defaults to `"html"`). The option
 #'   `"all"` will render all formats defined within the file or project.
-#' @param output_file The name of the output file. If using `NULL`, the output
-#'   filename will be based on the filename for the input file. `output_file` is
-#'   mapped to the `--output` option flag of the `quarto` CLI. It is expected to
-#'   be a filename only, not a path, relative or absolute.
+#' @param output_file Base name for single-file output (e.g. PDF, ePub, MS Word).
+#'   This sets the `output-file` Quarto metadata. If `NULL`, the output filename
+#'   will be based on the input filename.
 #' @param execute Whether to execute embedded code chunks.
 #' @param execute_params A list of named parameters that override custom params
 #'   specified within the YAML front-matter.
