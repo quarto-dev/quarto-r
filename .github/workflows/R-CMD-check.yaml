@@ -52,7 +52,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: quarto-dev/quarto-actions/setup@v2
-        if: format('{0}', matrix.config.quarto) == 'false'
+        if: format('{0}', matrix.config.quarto) != 'false'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
