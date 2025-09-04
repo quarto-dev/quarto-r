@@ -76,5 +76,5 @@ jobs:
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
-          args: ${{ format('c("--no-manual", "--as-cran"{0})', format('{0}', matrix.config.quarto) == 'false' && ',"--no-vignettes"' || '') }}
+          args: ${{ format('c("--no-manual", "--as-cran"{0})', format('{0}', matrix.config.quarto) == 'false' && ',"--ignore-vignettes"' || '') }}
           build_args: ${{ format('c("--no-manual","--compact-vignettes=gs+qpdf"{0})', format('{0}', matrix.config.quarto) == 'false' && ',"--no-build-vignettes"' || '') }}
