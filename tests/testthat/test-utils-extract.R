@@ -47,6 +47,7 @@ test_that("qmd_to_r_script() writes R file that renders", {
 })
 
 test_that("qmd_to_r_script() comment cells with eval = TRUE", {
+  skip_if_no_quarto()
   r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
 
   qmd_to_r_script(
@@ -67,6 +68,7 @@ test_that("qmd_to_r_script() comment cells with eval = TRUE", {
 })
 
 test_that("qmd_to_r_script() ignore cells with purl = FALSE", {
+  skip_if_no_quarto()
   r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
 
   qmd_to_r_script(
