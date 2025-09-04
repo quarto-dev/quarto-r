@@ -1,4 +1,4 @@
-# quarto (development version)
+# quarto 1.5.1
 
 - Make sure tests pass on CRAN checks even when Quarto is not installed by adding a gihub action to test when no quarto is available. Also fix tests that were
 not skipping when quarto was not available which failed on CRAN checks for MacOS and no binary were built. (thanks, @jabenninghoff, #282)
