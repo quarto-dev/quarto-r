@@ -19,7 +19,7 @@ jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) [${{ format('{0}', matrix.config.quarto) == 'false' && 'No'}}Quarto ${{ matrix.config.quarto || 'release' }}]
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) [${{ format('{0}', matrix.config.quarto) == 'false' && 'No ' || ''}}Quarto ${{ matrix.config.quarto || 'release' }}]
 
     strategy:
       fail-fast: false
