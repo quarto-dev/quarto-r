@@ -24,7 +24,7 @@ test_that("create quiete arg", {
 })
 
 test_that("quarto.quiet options takes over", {
-  withr::local_envvar(list(QUARTO_R_QUIET = NA))
+  withr::local_envvar(list(R_QUARTO_QUIET = NA))
   expect_identical(is_quiet(TRUE), TRUE)
   expect_identical(is_quiet(FALSE), FALSE)
   expect_identical(is_quiet(NA), FALSE)
