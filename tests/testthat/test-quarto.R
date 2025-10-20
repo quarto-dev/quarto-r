@@ -161,6 +161,9 @@ test_that("quarto_available()", {
 test_that("quarto sees same libpaths as main process", {
   skip_if_no_quarto()
   skip_on_cran()
+  # Issue on windows with libpaths
+  # https://github.com/quarto-dev/quarto-r/issues/217
+  skip_on_os("windows")
   qmd <- local_qmd_file(c("```{r}", "#| echo: false", ".libPaths()", "```"))
   tmp_lib <- withr::local_tempdir("tmp_libpath")
   withr::local_libpaths(tmp_lib, action = "prefix")
