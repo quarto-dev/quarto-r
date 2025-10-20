@@ -124,28 +124,6 @@ test_that("quarto.quiet options controls echo and overwrite function argument", 
   })
 })
 
-test_that("quarto sees same libpaths as main process", {
-  skip_if_no_quarto()
-  skip_on_cran()
-  qmd <- local_qmd_file(c("```{r}", "#| echo: false", ".libPaths()", "```"))
-  tmp_lib <- withr::local_tempdir("tmp_libpath")
-  withr::local_libpaths(tmp_lib, action = "prefix")
-  withr::local_dir(dirname(qmd))
-  out <- "out.md"
-  # .libPaths() is known in Quarto render
-  out <- .render_and_read(qmd, output_format = "gfm")
-  expect_match(out, basename(tmp_lib), all = FALSE, fixed = TRUE)
-  # Opting-out globally
-  withr::with_options(
-    list(quarto.use_libpaths = FALSE),
-    out <- .render_and_read(qmd, output_format = "gfm")
-  )
-  expect_no_match(out, basename(tmp_lib), fixed = TRUE)
-  # Opting-out at command
-  out <- .render_and_read(qmd, output_format = "gfm", libpaths = NULL)
-  expect_no_match(out, basename(tmp_lib), fixed = TRUE)
-})
-
 test_that("quarto_available()", {
   expect_error(
     quarto_available("1.5", "1.4"),
@@ -184,7 +162,7 @@ test_that("quarto sees same libpaths as main process", {
   skip_if_no_quarto()
   skip_on_cran()
   qmd <- local_qmd_file(c("```{r}", "#| echo: false", ".libPaths()", "```"))
-  tmp_lib <-  withr::local_tempdir("tmp_libpath")
+  tmp_lib <- withr::local_tempdir("tmp_libpath")
   withr::local_libpaths(tmp_lib, action = "prefix")
   withr::local_dir(dirname(qmd))
   out <- "out.md"
@@ -193,12 +171,11 @@ test_that("quarto sees same libpaths as main process", {
   expect_match(out, basename(tmp_lib), all = FALSE, fixed = TRUE)
   # Opting-out globally
   withr::with_options(
-    list(quarto.use_libpaths = FALSE), 
+    list(quarto.use_libpaths = FALSE),
     out <- .render_and_read(qmd, output_format = "gfm")
   )
   expect_no_match(out, basename(tmp_lib), fixed = TRUE)
   # Opting-out at command
   out <- .render_and_read(qmd, output_format = "gfm", libpaths = NULL)
   expect_no_match(out, basename(tmp_lib), fixed = TRUE)
-
 })
