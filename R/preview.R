@@ -24,7 +24,7 @@
 #' @param quiet Suppress warning and other messages, from R and also Quarto CLI
 #'   (i.e `--quiet` is passed as command line)
 #'
-#' @return The URL of the preview server (invisibly). This can be used to 
+#' @return The URL of the preview server (invisibly). This can be used to
 #'   programmatically access the server location, for example to take screenshots
 #'   with webshot2 or pass to other automation tools.
 #'

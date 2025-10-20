@@ -128,16 +128,37 @@ quarto_run <- function(
   args = character(),
   quarto_bin = find_quarto(),
   echo = FALSE,
+  libpaths = .libPaths(),
   echo_cmd = getOption("quarto.echo_cmd", FALSE),
   ...,
   .call = rlang::caller_env()
 ) {
+  # To store any environment variables to pass to the process
+  custom_env <- NULL
+
   # This is required due to a bug in QUARTO CLI, fixed only in 1.8+
   # https://github.com/quarto-dev/quarto-cli/pull/12887
-  custom_env <- NULL
   if (!quarto_available(min = "1.8.13")) {
-    custom_env <- c("current", QUARTO_R = R.home("bin"))
+    custom_env <- c(custom_env, QUARTO_R = R.home("bin"))
   }
+
+  # handle session .libpaths() for background session
+  # It needs to be passed if .libPaths() was modified in the current R session
+  # (e.g. to install dev package in a temporary library)
+  opt_in_libpath <- getOption("quarto.use_libpaths", TRUE)
+  if (isTRUE(opt_in_libpath) && !is.null(libpaths)) {
+    custom_env <- c(
+      custom_env,
+      R_LIBS = paste(libpaths, collapse = .Platform$path.sep)
+    )
+  }
+  
+  # This is required because `"current"` only is not supported by processx
+  # FIXME: https://github.com/r-lib/processx/issues/399
+  if (!is.null(custom_env)) {
+    custom_env <- c("current", custom_env)
+  }
+
   res <- withCallingHandlers(
     processx::run(
       quarto_bin,

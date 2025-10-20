@@ -47,7 +47,7 @@ information from quarto.org. If the network request fails, an error will be thro
 }
 
 \examples{
-\dontshow{if (quarto::quarto_available() && quarto:::has_internet("https://www.quarto.org")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (quarto::quarto_available() && quarto:::has_internet("https://www.quarto.org")) withAutoprint(\{ # examplesIf}
 # Check current Quarto version
 check_newer_version()
 

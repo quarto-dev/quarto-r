@@ -20,7 +20,7 @@ Unlike \code{\link[=get_running_project_root]{get_running_project_root()}}, this
 interactive sessions.
 }
 \examples{
-\dontshow{if (quarto_available()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (quarto_available()) withAutoprint(\{ # examplesIf}
 tmpdir <- tempfile()
 dir.create(tmpdir)
 find_project_root(tmpdir)
