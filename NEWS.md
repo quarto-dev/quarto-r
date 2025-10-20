@@ -1,6 +1,6 @@
 # quarto (development version)
 
-- `.libPaths()` from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with **pkgdown** or when building vignettes (thanks, )
+- `.libPaths()` from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with **pkgdown** or when building vignettes.
 
 # quarto 1.5.1
 
