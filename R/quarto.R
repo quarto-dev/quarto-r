@@ -152,7 +152,7 @@ quarto_run <- function(
       R_LIBS = paste(libpaths, collapse = .Platform$path.sep)
     )
   }
-  
+
   # This is required because `"current"` only is not supported by processx
   # FIXME: https://github.com/r-lib/processx/issues/399
   if (!is.null(custom_env)) {
