@@ -44,7 +44,9 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="quarto-development-version">quarto (development version)<a class="anchor" aria-label="anchor" href="#quarto-development-version"></a></h2>
-</div>
+<ul><li>
+<code><a href="https://rdrr.io/r/base/libPaths.html" class="external-link">.libPaths()</a></code> from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with <strong>pkgdown</strong> or when building vignettes.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.5.1" id="quarto-151">quarto 1.5.1<a class="anchor" aria-label="anchor" href="#quarto-151"></a></h2><p class="text-muted">CRAN release: 2025-09-04</p>
 <ul><li>Make sure tests pass on CRAN checks even when Quarto is not installed by adding a gihub action to test when no quarto is available. Also fix tests that were not skipping when quarto was not available which failed on CRAN checks for MacOS and no binary were built. (thanks, <a href="https://github.com/jabenninghoff" class="external-link">@jabenninghoff</a>, <a href="https://github.com/quarto-dev/quarto-r/issues/282" class="external-link">#282</a>)</li>
