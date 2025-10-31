@@ -124,3 +124,27 @@ test_that("quarto_render allows to pass output-file meta", {
   expect_true(file.exists("final_report.html"))
   expect_true(file.exists("final_report.docx"))
 })
+
+
+test_that("{ } are escaped correctly in abort message", {
+  skip_if_no_quarto()
+  proj <- test_path("resources", "cli_error")
+  withr::local_dir(proj)
+  keep_files <- list.files(".", all.files = TRUE)
+  withr::defer({
+    unlink(
+      setdiff(list.files(".", all.files = TRUE), keep_files),
+      recursive = TRUE,
+      force = TRUE
+    )
+  })
+  withr::local_options(quarto.tests.hide_echo = TRUE)
+  expect_snapshot(
+    error = TRUE,
+    quarto_render(
+      "pdf-error.qmd",
+      quiet = FALSE,
+      quarto_args = c("--log", "test.log")
+    )
+  )
+})
