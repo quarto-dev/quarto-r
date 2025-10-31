@@ -4,5 +4,5 @@ indent-width = 2
 indent-style = "space"
 line-ending = "auto"
 persistent-line-breaks = true
-exclude = []
+exclude = ["_snaps"]
 default-exclude = true
