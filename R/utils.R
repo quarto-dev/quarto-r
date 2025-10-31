@@ -162,6 +162,12 @@ warn_or_error <- function(message, ..., .envir = parent.frame()) {
   }
 }
 
+cli_escape <- function(x) {
+  x <- gsub("{", "{{", x, fixed = TRUE)
+  x <- gsub("}", "}}", x, fixed = TRUE)
+  x
+}
+
 # inline knitr:::merge_list()
 merge_list <- function(x, y) {
   x[names(y)] <- y
@@ -212,4 +218,8 @@ is_empty_dir <- function(dir) {
   }
   files <- list.files(dir, all.files = TRUE, no.. = TRUE)
   length(files) == 0
+}
+
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
 }

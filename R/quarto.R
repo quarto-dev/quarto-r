@@ -159,6 +159,11 @@ quarto_run <- function(
     custom_env <- c("current", custom_env)
   }
 
+  # Special case for tests to force hiding echo
+  if (is_testing() && getOption("quarto.tests.hide_echo", FALSE)) {
+    echo <- FALSE
+  }
+
   res <- withCallingHandlers(
     processx::run(
       quarto_bin,
@@ -346,7 +351,7 @@ wrap_quarto_error <- function(cnd, args, .call = rlang::caller_env()) {
     msg <- c(
       msg,
       " " = paste0(rep("-", nchar(msg)), collapse = ""),
-      quarto_error_msg
+      cli_escape(quarto_error_msg)
     )
   }
 
