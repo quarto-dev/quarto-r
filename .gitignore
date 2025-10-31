@@ -8,3 +8,5 @@ docs
 /doc/
 /Meta/
 **/.quarto/
+
+/.luarc.json
