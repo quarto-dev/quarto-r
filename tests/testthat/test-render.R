@@ -139,12 +139,12 @@ test_that("{ } are escaped correctly in abort message", {
     )
   })
   withr::local_options(quarto.tests.hide_echo = TRUE)
-  expect_snapshot(
-    error = TRUE,
+  expect_error(
     quarto_render(
       "pdf-error.qmd",
       quiet = FALSE,
       quarto_args = c("--log", "test.log")
-    )
+    ),
+    regexp = "Error returned by quarto CLI(.*)nil value \\(global 'internal_error'\\)"
   )
 })
