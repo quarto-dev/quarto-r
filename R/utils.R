@@ -162,6 +162,12 @@ warn_or_error <- function(message, ..., .envir = parent.frame()) {
   }
 }
 
+cli_escape <- function(x) {
+  x <- gsub("{", "{{", x, fixed = TRUE)
+  x <- gsub("}", "}}", x, fixed = TRUE)
+  x
+}
+
 # inline knitr:::merge_list()
 merge_list <- function(x, y) {
   x[names(y)] <- y

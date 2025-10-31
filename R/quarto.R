@@ -351,7 +351,7 @@ wrap_quarto_error <- function(cnd, args, .call = rlang::caller_env()) {
     msg <- c(
       msg,
       " " = paste0(rep("-", nchar(msg)), collapse = ""),
-      quarto_error_msg
+      cli_escape(quarto_error_msg)
     )
   }
 
