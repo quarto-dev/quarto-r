@@ -159,6 +159,11 @@ quarto_run <- function(
     custom_env <- c("current", custom_env)
   }
 
+  # Special case for tests to force hiding echo
+  if (is_testing() && getOption("quarto.tests.hide_echo", FALSE)) {
+    echo <- FALSE
+  }
+
   res <- withCallingHandlers(
     processx::run(
       quarto_bin,

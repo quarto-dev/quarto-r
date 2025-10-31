@@ -213,3 +213,7 @@ is_empty_dir <- function(dir) {
   files <- list.files(dir, all.files = TRUE, no.. = TRUE)
   length(files) == 0
 }
+
+is_testing <- function() {
+  identical(Sys.getenv("TESTTHAT"), "true")
+}
