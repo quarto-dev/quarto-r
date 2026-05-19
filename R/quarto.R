@@ -147,10 +147,18 @@ quarto_run <- function(
   # (e.g. to install dev package in a temporary library)
   opt_in_libpath <- getOption("quarto.use_libpaths", TRUE)
   if (isTRUE(opt_in_libpath) && !is.null(libpaths)) {
-    custom_env <- c(
-      custom_env,
-      R_LIBS = paste(libpaths, collapse = .Platform$path.sep)
-    )
+    libs_val <- paste(libpaths, collapse = .Platform$path.sep)
+    custom_env <- c(custom_env, R_LIBS = libs_val)
+
+    # On Windows, also point R_ENVIRON_USER at a temp Renviron that re-sets
+    # R_LIBS. The user Renviron is processed after the site Renviron, so this
+    # wins over any system-level reset of R_LIBS during R startup.
+    # https://github.com/quarto-dev/quarto-r/issues/217
+    if (.Platform$OS.type == "windows") {
+      environ_file <- tempfile("quarto_renviron_", fileext = "")
+      writeLines(sprintf("R_LIBS=%s", libs_val), environ_file)
+      custom_env <- c(custom_env, R_ENVIRON_USER = environ_file)
+    }
   }
 
   # This is required because `"current"` only is not supported by processx
