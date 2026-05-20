@@ -32,7 +32,8 @@ Imports:
     utils,
     xfun,
     yaml (>= 2.3.10)
-Suggests: 
+Suggests:
+    brand.yml,
     bslib,
     callr,
     curl,

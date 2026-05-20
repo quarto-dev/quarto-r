@@ -2,6 +2,7 @@
 skip_on_cran()
 skip_if_no_quarto()
 skip_if_not_installed("withr")
+skip_if_not_installed("brand.yml")
 
 # We need to install the package in a temporary library when we are in dev mode
 install_dev_package()
