@@ -10,3 +10,5 @@ docs
 **/.quarto/
 
 /.luarc.json
+.positai
+CLAUDE.local.md
