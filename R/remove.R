@@ -43,10 +43,10 @@ quarto_remove_extension <- function(
   if (!is_installed) {
     if (!quiet) {
       cli::cli_alert_warning(
-        "{.str { extension } } is not among installed extensions."
+        "{.str {extension}} is not among installed extensions."
       )
-      return(invisible(FALSE))
     }
+    return(invisible(FALSE))
   }
 
   quarto_bin <- find_quarto()
