@@ -5,6 +5,7 @@ test_that("cli_arg_metadata returns empty args when both inputs NULL", {
 })
 
 test_that("cli_arg_metadata with metadata only writes temp YAML and uses --metadata-file", {
+  skip_if_not_installed("withr")
   skip_if_not_installed("yaml")
   result <- cli_arg_metadata(
     metadata = list(title = "test", lang = "fr"),
@@ -54,6 +55,7 @@ test_that("cli_arg_metadata merges metadata over metadata_file with metadata win
 })
 
 test_that("cli_arg_metadata preserves nested list structure in temp YAML", {
+  skip_if_not_installed("withr")
   skip_if_not_installed("yaml")
   nested <- list(format = list(html = list(`toc-title` = "Custom")))
   result <- cli_arg_metadata(metadata = nested, metadata_file = NULL)
@@ -66,6 +68,7 @@ test_that("cli_arg_metadata preserves nested list structure in temp YAML", {
 test_that("cli_arg_metadata merge is shallow (top-level keys replaced wholesale)", {
   # Documents current behavior - metadata replaces top-level keys entirely.
   # If we ever switch to deep merge, this test should be updated, not silently broken.
+  skip_if_not_installed("withr")
   skip_if_not_installed("yaml")
   yml <- withr::local_tempfile(fileext = ".yml")
   yaml::write_yaml(

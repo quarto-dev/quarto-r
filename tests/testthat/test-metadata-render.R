@@ -65,9 +65,9 @@ test_that("metadata overrides keys from _quarto.yml", {
     quiet = TRUE
   )
 
-  announce_snapshot_file(name = "metadata-nested-override.test.out")
+  announce_snapshot_file(name = "metadata-toplevel-override.test.out")
   expect_snapshot_file(
     file.path(proj, "index.native"),
-    "metadata-nested-override.test.out"
+    "metadata-toplevel-override.test.out"
   )
 })
