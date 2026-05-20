@@ -65,6 +65,25 @@ test_that("cli_arg_metadata preserves nested list structure in temp YAML", {
   expect_identical(written, nested)
 })
 
+test_that("cli_arg_metadata removes temp file if write_yaml errors", {
+  skip_if_not_installed("withr")
+  captured_tmp <- NULL
+  local_mocked_bindings(
+    write_yaml = function(x, file) {
+      captured_tmp <<- file
+      file.create(file)
+      stop("simulated write failure")
+    }
+  )
+
+  expect_error(
+    cli_arg_metadata(metadata = list(title = "x"), metadata_file = NULL),
+    "simulated write failure"
+  )
+  expect_false(is.null(captured_tmp))
+  expect_false(file.exists(captured_tmp))
+})
+
 test_that("cli_arg_metadata merge is shallow (top-level keys replaced wholesale)", {
   # Documents current behavior - metadata replaces top-level keys entirely.
   # If we ever switch to deep merge, this test should be updated, not silently broken.
