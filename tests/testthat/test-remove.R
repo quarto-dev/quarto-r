@@ -3,6 +3,7 @@ test_that("Removing an extension", {
   skip_if_offline("github.com")
   qmd <- local_qmd_file(c("content"))
   withr::local_dir(dirname(qmd))
+  local_edition(3)
   expect_snapshot(expect_false(quarto_remove_extension(
     "quarto-ext/fontawesome",
     no_prompt = TRUE
