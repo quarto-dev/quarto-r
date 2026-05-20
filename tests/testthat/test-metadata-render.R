@@ -22,7 +22,10 @@ test_that("metadata overrides keys from _quarto.yml", {
       "format:",
       "  html:",
       "    toc-title: Original",
-      "custom-key: from-quarto-yml"
+      "custom-key: from-quarto-yml",
+      # control key only set in _quarto.yml; proves project metadata
+      # was actually read (not just our --metadata-file override)
+      "yml-only-key: kept"
     ),
     file.path(proj, "_quarto.yml")
   )
@@ -44,7 +47,11 @@ test_that("metadata overrides keys from _quarto.yml", {
   xfun::write_utf8(
     c(
       'function Pandoc(doc)',
-      '  local wanted = { ["title"] = true, ["custom-key"] = true }',
+      '  local wanted = {',
+      '    ["title"] = true,',
+      '    ["custom-key"] = true,',
+      '    ["yml-only-key"] = true,',
+      '  }',
       '  local kept = pandoc.Meta({})',
       '  for k, v in pairs(doc.meta) do',
       '    if wanted[k] then kept[k] = v end',
