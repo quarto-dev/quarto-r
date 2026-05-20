@@ -4,6 +4,11 @@
 
 - Curly braces in Quarto CLI error messages are now escaped to prevent them from being interpreted as `cli` formatting syntax (#293).
 
+- Internal refactor: extracted `--metadata-file` argument construction into a
+  dedicated `cli_arg_metadata()` helper. No user-visible behavior change except
+  that an explicit `metadata_file = NULL` is now treated identically to omitting
+  the argument.
+
 # quarto 1.5.1
 
 - Make sure tests pass on CRAN checks even when Quarto is not installed by adding a gihub action to test when no quarto is available. Also fix tests that were
