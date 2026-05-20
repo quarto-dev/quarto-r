@@ -8,7 +8,8 @@ test_that("Updating an extension", {
     no_prompt = TRUE,
     quiet = TRUE
   )
-  expect_equal(quarto_list_extensions()$Version, "0.0.1")
+  # last installed is fontawesome
+  expect_equal(tail(quarto_list_extensions(), 1)$Version, "0.0.1")
   quarto_update_extension(
     "quarto-ext/fontawesome",
     no_prompt = TRUE,
@@ -16,7 +17,9 @@ test_that("Updating an extension", {
   )
   expect_true(dir.exists("_extensions/quarto-ext/fontawesome"))
   expect_true(
-    as.numeric_version(current_version <- quarto_list_extensions()$Version) >
+    as.numeric_version(
+      current_version <- tail(quarto_list_extensions(), 1)$Version
+    ) >
       "0.0.1"
   )
   expect_false(identical(current_version, "0.0.1"))
