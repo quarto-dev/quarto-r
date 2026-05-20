@@ -19,6 +19,9 @@ test_that("qmd_to_r_script() errors on existing script", {
 
 test_that("qmd_to_r_script() writes R file that renders", {
   skip_if_no_quarto()
+  # TODO: Problem with quarto 1.9 - reactivate when fix.
+  # https://github.com/quarto-dev/quarto-cli/issues/14529
+  skip_if_quarto("1.9")
   r_script <- withr::local_tempfile(pattern = "purl", fileext = ".R")
 
   announce_snapshot_file(name = "purl.R")
