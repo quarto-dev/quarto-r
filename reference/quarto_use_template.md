@@ -1,0 +1,61 @@
+# Use a custom format extension template
+
+Install and use a template for Quarto using `quarto use`.
+
+## Usage
+
+``` r
+quarto_use_template(
+  template,
+  dir = ".",
+  no_prompt = FALSE,
+  quiet = FALSE,
+  quarto_args = NULL
+)
+```
+
+## Arguments
+
+- template:
+
+  The template to install, either an archive or a GitHub repository as
+  described in the documentation
+  <https://quarto.org/docs/extensions/formats.html>.
+
+- dir:
+
+  The directory in which to install the template. This must be an empty
+  directory. To use directly in a non-empty directory, use
+  `quarto use template` interactively in the terminal for safe
+  installation without overwrite.
+
+- no_prompt:
+
+  Do not prompt to confirm approval to download external extension.
+
+- quiet:
+
+  Suppress warnings and messages.
+
+- quarto_args:
+
+  Character vector of other `quarto` CLI arguments to append to the
+  Quarto command executed by this function. This is mainly intended for
+  advanced usage and useful for CLI arguments which are not yet mirrored
+  in a dedicated parameter of this R function. See
+  `quarto render --help` for options.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+# Use a template and set up a draft document from a GitHub repository
+quarto_use_template("quarto-journals/jss")
+
+# Use a template in current directory by installing it in an empty directory
+quarto_use_template("quarto-journals/jss", dir = "new-empty-dir")
+
+# Use a template and set up a draft document from a ZIP archive
+quarto_use_template("https://github.com/quarto-journals/jss/archive/refs/heads/main.zip")
+} # }
+```

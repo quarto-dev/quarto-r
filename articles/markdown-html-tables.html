@@ -12,8 +12,8 @@
 <link rel="icon" sizes="any" href="../favicon.ico">
 <link rel="manifest" href="../site.webmanifest">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><script src="markdown-html-tables_files/libs/quarto-html/popper.min.js"></script><script src="markdown-html-tables_files/libs/quarto-html/tippy.umd.min.js"></script><link href="markdown-html-tables_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="markdown-html-tables_files/libs/quarto-html/light-border.css" rel="stylesheet">
@@ -277,7 +277,7 @@
 Table 1: A table with a math equation rendered using Quarto’s data-qmd attribute
 </figcaption><div aria-describedby="tbl-kable-equation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="table do-not-create-environment cell caption-top">
+<table class="table cell caption-top">
 <thead><tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">val</th>
@@ -504,7 +504,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 </tr>
 <tr class="even">
 <td style="text-align: left;">Math</td>
-<td style="text-align: left; width: 40%;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
+<td style="text-align: left; width: 40%;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
 <td style="text-align: left;">LaTeX math expressions</td>
 </tr>
 <tr class="odd">
@@ -539,23 +539,23 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 <span><span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="va">complex_table</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_passthrough.html" class="external-link">fmt_passthrough</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"Example"</span>, escape <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="dtfrfgrwnb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dtfrfgrwnb table {
+<div id="ofxhnqoiwi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ofxhnqoiwi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dtfrfgrwnb thead, #dtfrfgrwnb tbody, #dtfrfgrwnb tfoot, #dtfrfgrwnb tr, #dtfrfgrwnb td, #dtfrfgrwnb th {
+#ofxhnqoiwi thead, #ofxhnqoiwi tbody, #ofxhnqoiwi tfoot, #ofxhnqoiwi tr, #ofxhnqoiwi td, #ofxhnqoiwi th {
   border-style: none;
 }
 
-#dtfrfgrwnb p {
+#ofxhnqoiwi p {
   margin: 0;
   padding: 0;
 }
 
-#dtfrfgrwnb .gt_table {
+#ofxhnqoiwi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -581,12 +581,12 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-left-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_caption {
+#ofxhnqoiwi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dtfrfgrwnb .gt_title {
+#ofxhnqoiwi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -598,7 +598,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-width: 0;
 }
 
-#dtfrfgrwnb .gt_subtitle {
+#ofxhnqoiwi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -610,7 +610,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-top-width: 0;
 }
 
-#dtfrfgrwnb .gt_heading {
+#ofxhnqoiwi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -622,13 +622,13 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_bottom_border {
+#ofxhnqoiwi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_col_headings {
+#ofxhnqoiwi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -643,7 +643,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_col_heading {
+#ofxhnqoiwi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -663,7 +663,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   overflow-x: hidden;
 }
 
-#dtfrfgrwnb .gt_column_spanner_outer {
+#ofxhnqoiwi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -675,15 +675,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 4px;
 }
 
-#dtfrfgrwnb .gt_column_spanner_outer:first-child {
+#ofxhnqoiwi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dtfrfgrwnb .gt_column_spanner_outer:last-child {
+#ofxhnqoiwi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dtfrfgrwnb .gt_column_spanner {
+#ofxhnqoiwi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -695,11 +695,11 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   width: 100%;
 }
 
-#dtfrfgrwnb .gt_spanner_row {
+#ofxhnqoiwi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dtfrfgrwnb .gt_group_heading {
+#ofxhnqoiwi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -725,7 +725,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   text-align: left;
 }
 
-#dtfrfgrwnb .gt_empty_group_heading {
+#ofxhnqoiwi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -740,15 +740,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   vertical-align: middle;
 }
 
-#dtfrfgrwnb .gt_from_md > :first-child {
+#ofxhnqoiwi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dtfrfgrwnb .gt_from_md > :last-child {
+#ofxhnqoiwi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dtfrfgrwnb .gt_row {
+#ofxhnqoiwi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -767,7 +767,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   overflow-x: hidden;
 }
 
-#dtfrfgrwnb .gt_stub {
+#ofxhnqoiwi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -780,7 +780,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#dtfrfgrwnb .gt_stub_row_group {
+#ofxhnqoiwi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -794,15 +794,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   vertical-align: top;
 }
 
-#dtfrfgrwnb .gt_row_group_first td {
+#ofxhnqoiwi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dtfrfgrwnb .gt_row_group_first th {
+#ofxhnqoiwi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dtfrfgrwnb .gt_summary_row {
+#ofxhnqoiwi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -812,16 +812,16 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#dtfrfgrwnb .gt_first_summary_row {
+#ofxhnqoiwi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_first_summary_row.thick {
+#ofxhnqoiwi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dtfrfgrwnb .gt_last_summary_row {
+#ofxhnqoiwi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -831,7 +831,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_grand_summary_row {
+#ofxhnqoiwi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -841,7 +841,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#dtfrfgrwnb .gt_first_grand_summary_row {
+#ofxhnqoiwi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -851,7 +851,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-top-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_last_grand_summary_row_top {
+#ofxhnqoiwi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -861,11 +861,11 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_striped {
+#ofxhnqoiwi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dtfrfgrwnb .gt_table_body {
+#ofxhnqoiwi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -874,7 +874,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_footnotes {
+#ofxhnqoiwi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -888,7 +888,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_footnote {
+#ofxhnqoiwi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -897,7 +897,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#dtfrfgrwnb .gt_sourcenotes {
+#ofxhnqoiwi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -911,7 +911,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#dtfrfgrwnb .gt_sourcenote {
+#ofxhnqoiwi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -919,72 +919,72 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#dtfrfgrwnb .gt_left {
+#ofxhnqoiwi .gt_left {
   text-align: left;
 }
 
-#dtfrfgrwnb .gt_center {
+#ofxhnqoiwi .gt_center {
   text-align: center;
 }
 
-#dtfrfgrwnb .gt_right {
+#ofxhnqoiwi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dtfrfgrwnb .gt_font_normal {
+#ofxhnqoiwi .gt_font_normal {
   font-weight: normal;
 }
 
-#dtfrfgrwnb .gt_font_bold {
+#ofxhnqoiwi .gt_font_bold {
   font-weight: bold;
 }
 
-#dtfrfgrwnb .gt_font_italic {
+#ofxhnqoiwi .gt_font_italic {
   font-style: italic;
 }
 
-#dtfrfgrwnb .gt_super {
+#ofxhnqoiwi .gt_super {
   font-size: 65%;
 }
 
-#dtfrfgrwnb .gt_footnote_marks {
+#ofxhnqoiwi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dtfrfgrwnb .gt_asterisk {
+#ofxhnqoiwi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dtfrfgrwnb .gt_indent_1 {
+#ofxhnqoiwi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dtfrfgrwnb .gt_indent_2 {
+#ofxhnqoiwi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dtfrfgrwnb .gt_indent_3 {
+#ofxhnqoiwi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dtfrfgrwnb .gt_indent_4 {
+#ofxhnqoiwi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dtfrfgrwnb .gt_indent_5 {
+#ofxhnqoiwi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dtfrfgrwnb .katex-display {
+#ofxhnqoiwi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dtfrfgrwnb div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ofxhnqoiwi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1009,7 +1009,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Feature">Math</td>
-<td class="gt_row gt_left" headers="Example"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
+<td class="gt_row gt_left" headers="Example"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
 <td class="gt_row gt_left" headers="Notes">LaTeX math expressions</td>
 </tr>
 <tr class="odd">
@@ -1048,23 +1048,23 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/gt.html" class="external-link">gt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://gt.rstudio.com/reference/fmt_markdown.html" class="external-link">fmt_markdown</a></span><span class="op">(</span>columns <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<div id="xmdrkbtwsj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xmdrkbtwsj table {
+<div id="qmyvabitrl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qmyvabitrl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xmdrkbtwsj thead, #xmdrkbtwsj tbody, #xmdrkbtwsj tfoot, #xmdrkbtwsj tr, #xmdrkbtwsj td, #xmdrkbtwsj th {
+#qmyvabitrl thead, #qmyvabitrl tbody, #qmyvabitrl tfoot, #qmyvabitrl tr, #qmyvabitrl td, #qmyvabitrl th {
   border-style: none;
 }
 
-#xmdrkbtwsj p {
+#qmyvabitrl p {
   margin: 0;
   padding: 0;
 }
 
-#xmdrkbtwsj .gt_table {
+#qmyvabitrl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1090,12 +1090,12 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-left-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_caption {
+#qmyvabitrl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xmdrkbtwsj .gt_title {
+#qmyvabitrl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1107,7 +1107,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-width: 0;
 }
 
-#xmdrkbtwsj .gt_subtitle {
+#qmyvabitrl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1119,7 +1119,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-top-width: 0;
 }
 
-#xmdrkbtwsj .gt_heading {
+#qmyvabitrl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1131,13 +1131,13 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_bottom_border {
+#qmyvabitrl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_col_headings {
+#qmyvabitrl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1152,7 +1152,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_col_heading {
+#qmyvabitrl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1172,7 +1172,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   overflow-x: hidden;
 }
 
-#xmdrkbtwsj .gt_column_spanner_outer {
+#qmyvabitrl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1184,15 +1184,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 4px;
 }
 
-#xmdrkbtwsj .gt_column_spanner_outer:first-child {
+#qmyvabitrl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xmdrkbtwsj .gt_column_spanner_outer:last-child {
+#qmyvabitrl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xmdrkbtwsj .gt_column_spanner {
+#qmyvabitrl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1204,11 +1204,11 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   width: 100%;
 }
 
-#xmdrkbtwsj .gt_spanner_row {
+#qmyvabitrl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xmdrkbtwsj .gt_group_heading {
+#qmyvabitrl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1234,7 +1234,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   text-align: left;
 }
 
-#xmdrkbtwsj .gt_empty_group_heading {
+#qmyvabitrl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1249,15 +1249,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   vertical-align: middle;
 }
 
-#xmdrkbtwsj .gt_from_md > :first-child {
+#qmyvabitrl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xmdrkbtwsj .gt_from_md > :last-child {
+#qmyvabitrl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xmdrkbtwsj .gt_row {
+#qmyvabitrl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1276,7 +1276,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   overflow-x: hidden;
 }
 
-#xmdrkbtwsj .gt_stub {
+#qmyvabitrl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1289,7 +1289,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#xmdrkbtwsj .gt_stub_row_group {
+#qmyvabitrl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1303,15 +1303,15 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   vertical-align: top;
 }
 
-#xmdrkbtwsj .gt_row_group_first td {
+#qmyvabitrl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xmdrkbtwsj .gt_row_group_first th {
+#qmyvabitrl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xmdrkbtwsj .gt_summary_row {
+#qmyvabitrl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1321,16 +1321,16 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#xmdrkbtwsj .gt_first_summary_row {
+#qmyvabitrl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_first_summary_row.thick {
+#qmyvabitrl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xmdrkbtwsj .gt_last_summary_row {
+#qmyvabitrl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1340,7 +1340,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_grand_summary_row {
+#qmyvabitrl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1350,7 +1350,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#xmdrkbtwsj .gt_first_grand_summary_row {
+#qmyvabitrl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1360,7 +1360,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-top-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_last_grand_summary_row_top {
+#qmyvabitrl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1370,11 +1370,11 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_striped {
+#qmyvabitrl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xmdrkbtwsj .gt_table_body {
+#qmyvabitrl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1383,7 +1383,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-bottom-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_footnotes {
+#qmyvabitrl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1397,7 +1397,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_footnote {
+#qmyvabitrl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1406,7 +1406,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#xmdrkbtwsj .gt_sourcenotes {
+#qmyvabitrl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1420,7 +1420,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   border-right-color: #D3D3D3;
 }
 
-#xmdrkbtwsj .gt_sourcenote {
+#qmyvabitrl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1428,72 +1428,72 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
   padding-right: 5px;
 }
 
-#xmdrkbtwsj .gt_left {
+#qmyvabitrl .gt_left {
   text-align: left;
 }
 
-#xmdrkbtwsj .gt_center {
+#qmyvabitrl .gt_center {
   text-align: center;
 }
 
-#xmdrkbtwsj .gt_right {
+#qmyvabitrl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xmdrkbtwsj .gt_font_normal {
+#qmyvabitrl .gt_font_normal {
   font-weight: normal;
 }
 
-#xmdrkbtwsj .gt_font_bold {
+#qmyvabitrl .gt_font_bold {
   font-weight: bold;
 }
 
-#xmdrkbtwsj .gt_font_italic {
+#qmyvabitrl .gt_font_italic {
   font-style: italic;
 }
 
-#xmdrkbtwsj .gt_super {
+#qmyvabitrl .gt_super {
   font-size: 65%;
 }
 
-#xmdrkbtwsj .gt_footnote_marks {
+#qmyvabitrl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xmdrkbtwsj .gt_asterisk {
+#qmyvabitrl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xmdrkbtwsj .gt_indent_1 {
+#qmyvabitrl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xmdrkbtwsj .gt_indent_2 {
+#qmyvabitrl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xmdrkbtwsj .gt_indent_3 {
+#qmyvabitrl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xmdrkbtwsj .gt_indent_4 {
+#qmyvabitrl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xmdrkbtwsj .gt_indent_5 {
+#qmyvabitrl .gt_indent_5 {
   text-indent: 25px;
 }
 
-#xmdrkbtwsj .katex-display {
+#qmyvabitrl .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#xmdrkbtwsj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qmyvabitrl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1513,7 +1513,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Feature">Math</td>
-<td class="gt_row gt_left" headers="Example"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
+<td class="gt_row gt_left" headers="Example"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
 <td class="gt_row gt_left" headers="Notes">LaTeX math expressions</td>
 </tr>
 <tr class="odd">
@@ -1547,30 +1547,30 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 
     <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script><script>
       // Create table-specific functions using external factory
-      const tableFns_1e6ayf1fn9jahgebtoy4 = TinyTable.createTableFunctions("tinytable_1e6ayf1fn9jahgebtoy4");
+      const tableFns_rw0bcsm6ifs2dl6l0rl2 = TinyTable.createTableFunctions("tinytable_rw0bcsm6ifs2dl6l0rl2");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '4', j: 1 }, { i: '4', j: 2 }, { i: '4', j: 3 } ], css_id: 'tinytable_css_z1zeepzkwhygrq425ywp',},
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_btlnxb2j2thi3ttflt1y',},
+          { positions: [ { i: '4', j: 1 }, { i: '4', j: 2 }, { i: '4', j: 3 } ], css_id: 'tinytable_css_o9rmd73sdihwd9iu3bp6',},
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_jd7qllns4f2l8zy2rq2d',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_1e6ayf1fn9jahgebtoy4.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_rw0bcsm6ifs2dl6l0rl2.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
 <style>
     /* tinytable css entries after */
-    #tinytable_1e6ayf1fn9jahgebtoy4 td.tinytable_css_z1zeepzkwhygrq425ywp, #tinytable_1e6ayf1fn9jahgebtoy4 th.tinytable_css_z1zeepzkwhygrq425ywp {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
-    #tinytable_1e6ayf1fn9jahgebtoy4 td.tinytable_css_btlnxb2j2thi3ttflt1y, #tinytable_1e6ayf1fn9jahgebtoy4 th.tinytable_css_btlnxb2j2thi3ttflt1y {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_rw0bcsm6ifs2dl6l0rl2 td.tinytable_css_o9rmd73sdihwd9iu3bp6, #tinytable_rw0bcsm6ifs2dl6l0rl2 th.tinytable_css_o9rmd73sdihwd9iu3bp6 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_rw0bcsm6ifs2dl6l0rl2 td.tinytable_css_jd7qllns4f2l8zy2rq2d, #tinytable_rw0bcsm6ifs2dl6l0rl2 th.tinytable_css_jd7qllns4f2l8zy2rq2d {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
     </style>
 <div class="container">
-      <table class="table tinytable" id="tinytable_1e6ayf1fn9jahgebtoy4" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
+      <table class="table tinytable" id="tinytable_rw0bcsm6ifs2dl6l0rl2" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
 <thead><tr>
 <th scope="col" data-row="0" data-col="1">Feature</th>
                 <th scope="col" data-row="0" data-col="2">Example</th>
@@ -1614,31 +1614,31 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 
     <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script><script>
       // Create table-specific functions using external factory
-      const tableFns_bnwzukkdu8mkexv8hq85 = TinyTable.createTableFunctions("tinytable_bnwzukkdu8mkexv8hq85");
+      const tableFns_8du040up76m5mt4l7b9k = TinyTable.createTableFunctions("tinytable_8du040up76m5mt4l7b9k");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '4', j: 1 }, { i: '4', j: 2 }, { i: '4', j: 3 } ], css_id: 'tinytable_css_9twn6od7172ez5i5k8vo',},
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_219tlmbzwvkqou84xszw',},
+          { positions: [ { i: '4', j: 1 }, { i: '4', j: 2 }, { i: '4', j: 3 } ], css_id: 'tinytable_css_nu1aqpqoem4b7e7x4iti',},
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_kx08fxf1mh39z9tkgg9a',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_bnwzukkdu8mkexv8hq85.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_8du040up76m5mt4l7b9k.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
 <style>
     /* tinytable css entries after */
-    #tinytable_bnwzukkdu8mkexv8hq85 td.tinytable_css_9twn6od7172ez5i5k8vo, #tinytable_bnwzukkdu8mkexv8hq85 th.tinytable_css_9twn6od7172ez5i5k8vo {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
-    #tinytable_bnwzukkdu8mkexv8hq85 td.tinytable_css_219tlmbzwvkqou84xszw, #tinytable_bnwzukkdu8mkexv8hq85 th.tinytable_css_219tlmbzwvkqou84xszw {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_8du040up76m5mt4l7b9k td.tinytable_css_nu1aqpqoem4b7e7x4iti, #tinytable_8du040up76m5mt4l7b9k th.tinytable_css_nu1aqpqoem4b7e7x4iti {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_8du040up76m5mt4l7b9k td.tinytable_css_kx08fxf1mh39z9tkgg9a, #tinytable_8du040up76m5mt4l7b9k th.tinytable_css_kx08fxf1mh39z9tkgg9a {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
     </style>
 <div class="container">
 
-<table id="tinytable_bnwzukkdu8mkexv8hq85" class="table tinytable caption-top" style="width: auto; margin-left: auto; margin-right: auto;">
+<table id="tinytable_8du040up76m5mt4l7b9k" class="table tinytable caption-top" style="width: auto; margin-left: auto; margin-right: auto;">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -1659,7 +1659,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 </tr>
 <tr class="even">
 <td data-row="2" data-col="1">Math</td>
-<td data-row="2" data-col="2"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
+<td data-row="2" data-col="2"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
 <td data-row="2" data-col="3">LaTeX math expressions</td>
 </tr>
 <tr class="odd">
@@ -1708,31 +1708,31 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 
     <script src="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.js"></script><script>
       // Create table-specific functions using external factory
-      const tableFns_wi609w7jtg9otoewb4c9 = TinyTable.createTableFunctions("tinytable_wi609w7jtg9otoewb4c9");
+      const tableFns_1ucx8ss90ngbth96eu3b = TinyTable.createTableFunctions("tinytable_1ucx8ss90ngbth96eu3b");
       // tinytable span after
       window.addEventListener('load', function () {
           var cellsToStyle = [
             // tinytable style arrays after
-          { positions: [ { i: '4', j: 1 }, { i: '4', j: 2 }, { i: '4', j: 3 } ], css_id: 'tinytable_css_jhxmxkqscxsyctc6jhk6',},
-          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_etq1l617kjxq0h8m9fjh',},
+          { positions: [ { i: '4', j: 1 }, { i: '4', j: 2 }, { i: '4', j: 3 } ], css_id: 'tinytable_css_1iemyju9ub0ib6vxnyf8',},
+          { positions: [ { i: '0', j: 1 }, { i: '0', j: 2 }, { i: '0', j: 3 } ], css_id: 'tinytable_css_oihbt3bkrt5zroubdzsx',},
           ];
 
           // Loop over the arrays to style the cells
           cellsToStyle.forEach(function (group) {
               group.positions.forEach(function (cell) {
-                  tableFns_wi609w7jtg9otoewb4c9.styleCell(cell.i, cell.j, group.css_id);
+                  tableFns_1ucx8ss90ngbth96eu3b.styleCell(cell.i, cell.j, group.css_id);
               });
           });
       });
     </script><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vincentarelbundock/tinytable@main/inst/tinytable.css">
 <style>
     /* tinytable css entries after */
-    #tinytable_wi609w7jtg9otoewb4c9 td.tinytable_css_jhxmxkqscxsyctc6jhk6, #tinytable_wi609w7jtg9otoewb4c9 th.tinytable_css_jhxmxkqscxsyctc6jhk6 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.1em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
-    #tinytable_wi609w7jtg9otoewb4c9 td.tinytable_css_etq1l617kjxq0h8m9fjh, #tinytable_wi609w7jtg9otoewb4c9 th.tinytable_css_etq1l617kjxq0h8m9fjh {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: black; --line-color-left: black; --line-color-right: black; --line-color-top: black; --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_1ucx8ss90ngbth96eu3b td.tinytable_css_1iemyju9ub0ib6vxnyf8, #tinytable_1ucx8ss90ngbth96eu3b th.tinytable_css_1iemyju9ub0ib6vxnyf8 {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 0; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.08em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.1em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
+    #tinytable_1ucx8ss90ngbth96eu3b td.tinytable_css_oihbt3bkrt5zroubdzsx, #tinytable_1ucx8ss90ngbth96eu3b th.tinytable_css_oihbt3bkrt5zroubdzsx {  position: relative; --border-bottom: 1; --border-left: 0; --border-right: 0; --border-top: 1; --line-color-bottom: var(--tt-line-color); --line-color-left: var(--tt-line-color); --line-color-right: var(--tt-line-color); --line-color-top: var(--tt-line-color); --line-width-bottom: 0.05em; --line-width-left: 0.1em; --line-width-right: 0.1em; --line-width-top: 0.08em; --trim-bottom-left: 0%; --trim-bottom-right: 0%; --trim-left-bottom: 0%; --trim-left-top: 0%; --trim-right-bottom: 0%; --trim-right-top: 0%; --trim-top-left: 0%; --trim-top-right: 0%;  }
     </style>
 <div class="container">
 
-<table id="tinytable_wi609w7jtg9otoewb4c9" class="table tinytable caption-top" style="width: auto; margin-left: auto; margin-right: auto;">
+<table id="tinytable_1ucx8ss90ngbth96eu3b" class="table tinytable caption-top" style="width: auto; margin-left: auto; margin-right: auto;">
 <thead><tr class="header">
 <th data-quarto-table-cell-role="th" scope="col" data-row="0" data-col="1">Feature</th>
 <th data-quarto-table-cell-role="th" scope="col" data-row="0" data-col="2">Example</th>
@@ -1748,7 +1748,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 </tr>
 <tr class="even">
 <td data-row="2" data-col="1">Math</td>
-<td data-row="2" data-col="2"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>x</mi><mo stretchy="true" form="postfix">)</mo></mrow><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
+<td data-row="2" data-col="2"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mo>∫</mo><mi>a</mi><mi>b</mi></msubsup><mi>f</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>d</mi><mi>x</mi></mrow><annotation encoding="application/x-tex">\int_{a}^{b} f(x) \, dx</annotation></semantics></math></td>
 <td data-row="2" data-col="3">LaTeX math expressions</td>
 </tr>
 <tr class="odd">
@@ -1864,7 +1864,7 @@ Table 1: A table with a math equation rendered using Quarto’s data-qmd attrib
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

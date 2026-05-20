@@ -1,0 +1,103 @@
+# Quarto HTML Vignettes
+
+This is an example Quarto vignette, demonstrating how the **quarto**
+package can let you write R package vignettes with Quarto
+(<https://quarto.org>).
+
+## Quarto as vignette builder
+
+Add this to your `DESCRIPTION` file:
+
+``` dcf
+VignetteBuilder:
+    quarto
+```
+
+## HTML Vignette Engines
+
+The **quarto** R package registers vignette engines that can be used in
+`%\VignetteEngine{}` directives in vignette headers.
+
+To learn more about how vignettes engine works, and how to write
+vignette engines, see the [Writing R
+Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Non_002dSweave-vignettes)
+manual and the [R Packages (2e)](https://r-pkgs.org/vignettes.html)
+book.
+
+To produce a HTML vignette engine, add this to your YAML header
+
+``` yaml
+vignette: >
+  %\VignetteIndexEntry{Vignette's Title}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+```
+
+This will build a HTML document using Quarto, suitable for using as
+vignette to publish on CRAN. Choice has been made to create a very
+minimal HTML vignette by default, and so it is built with the following
+changes based to Quarto’s `format: html` defaults:
+
+- The HTML file produced is standalone
+  (i.e. [`embed-resources: true`](https://quarto.org/docs/output-formats/html-publishing.html#standalone-html))
+- Bootstrap has been disabled
+  (i.e. [`theme: none`](https://quarto.org/docs/output-formats/html-themes.html)
+  and
+  [`minimal: true`](https://quarto.org/docs/output-formats/html-basics.html#minimal-html))
+- A custom CSS file is provided.
+
+This is equivalent to
+
+``` yaml
+format: 
+  html:
+    theme: none
+    minimal: true
+    embed-resources: true
+    css: custom.css
+```
+
+All those configurations are set in way that they can’t be overridden by
+the YAML header in the vignette source file and only new configurations
+can be set. Typical examples for such configurations are adding a [table
+of
+contents](https://quarto.org/docs/reference/formats/html.html#table-of-contents)
+or enabling the rendering of mathematical notation in the [format
+options](https://quarto.org/docs/reference/formats/html.html#format-options),
+e.g., by MathJax. Specifically, these two options can be set in the
+following way:
+
+``` yaml
+format: 
+  html:
+    toc: true
+    html-math-method: mathjax
+vignette: >
+  %\VignetteIndexEntry{Vignette's Title}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+```
+
+The minimal default format is a deliberate limitation of the current
+implementation of the vignette engine. It ensures that the HTML
+vignettes produced are reasonable in size and can be published on CRAN
+without problems.
+
+Another limitation concerns the interactive rendering. If you render
+your vignette `.qmd` file using `quarto render` or any other function,
+the output will be based on the default HTML format from Quarto and not
+the vignette engine one. Only building the vignette will produce the
+real results. More details about building vignettes are available in the
+[R Packages
+(2e)](https://r-pkgs.org/vignettes.html#sec-vignettes-how-built-checked)
+book.
+
+Intermediates resources that would be created by an authoring workflow
+that would `quarto render` with default `format: html` should be ignored
+in package sources.
+
+- Added to `.Rbuildignore` (e.g
+  `usethis::use_build_ignore("vignettes/*_files")`)
+- Added to `.gitignore`
+  (e.g. `usethis::use_git_ignore("*_files", "vignettes")`)
