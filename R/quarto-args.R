@@ -42,7 +42,13 @@ cli_arg_metadata <- function(metadata = NULL, metadata_file = NULL) {
     metadata <- merge_list(file_content, metadata)
   }
   tmp <- tempfile(pattern = "quarto-meta", fileext = ".yml")
+  # Remove tmp if write_yaml() errors before we hand the path to the
+  # caller; the caller (e.g. quarto_render()) registers its own
+  # on.exit cleanup for the success path.
+  success <- FALSE
+  on.exit(if (!success) unlink(tmp), add = TRUE)
   write_yaml(metadata, tmp)
+  success <- TRUE
   list(
     args = c("--metadata-file", tmp),
     tmp_file = tmp
