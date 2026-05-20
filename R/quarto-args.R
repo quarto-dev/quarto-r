@@ -26,3 +26,25 @@ append_cli_args <- function(new, append_to = NULL, after = length(append_to)) {
   }
   new
 }
+
+cli_arg_metadata <- function(metadata = NULL, metadata_file = NULL) {
+  if (is.null(metadata) && is.null(metadata_file)) {
+    return(list(args = character(), tmp_file = NULL))
+  }
+  if (is.null(metadata)) {
+    return(list(
+      args = c("--metadata-file", metadata_file),
+      tmp_file = NULL
+    ))
+  }
+  if (!is.null(metadata_file)) {
+    file_content <- yaml::read_yaml(metadata_file, eval.expr = FALSE)
+    metadata <- merge_list(file_content, metadata)
+  }
+  tmp <- tempfile(pattern = "quarto-meta", fileext = ".yml")
+  write_yaml(metadata, tmp)
+  list(
+    args = c("--metadata-file", tmp),
+    tmp_file = tmp
+  )
+}
