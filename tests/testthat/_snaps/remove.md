@@ -3,7 +3,7 @@
     Code
       expect_false(quarto_remove_extension("quarto-ext/fontawesome", no_prompt = TRUE))
     Message
-      ! "quarto-ext/fontawesome " is not among installed extensions.
+      ! "quarto-ext/fontawesome" is not among installed extensions.
 
 ---
 
