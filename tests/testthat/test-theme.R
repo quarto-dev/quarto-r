@@ -44,10 +44,6 @@ test_that("render flextable", {
 test_that("render ggiraph", {
   skip_if_not_installed("bslib")
   skip_if_not_installed("ggiraph")
-  skip_if(
-    inherits(tryCatch(gdtools::font_set_liberation(), error = identity), "error"),
-    "gdtools font setup fails on this system"
-  )
   file <- theme_file("ggiraph.qmd")
   local_render_theme_file(file)
 })
