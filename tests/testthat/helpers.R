@@ -185,6 +185,11 @@ transform_quarto_cli_in_output <- function(
 
   return(
     function(lines) {
+      # Quarto CLI prepends "Quarto version: X.Y.Z" on stderr under DEBUG log
+      # level (auto-on in GHA debug mode). Strip so snapshots stay stable.
+      # See https://github.com/quarto-dev/quarto-cli/issues/14532.
+      lines <- lines[!grepl("^\\s*Quarto version:\\s+[0-9]", lines)]
+
       if (hide_stack) {
         # Hide possible stack first
         stack_trace_index <- which(grepl("\\s*Stack trace\\:", lines))

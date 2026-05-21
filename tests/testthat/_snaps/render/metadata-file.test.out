@@ -1,6 +1,0 @@
-Pandoc
-  Meta
-    { unMeta =
-        fromList [ ( "title" , MetaInlines [ Str "test" ] ) ]
-    }
-  [ Para [ Str "content" ] ]

@@ -28,9 +28,23 @@ quarto_remove_extension <- function(
   rlang::check_required(extension)
 
   installed_extensions <- quarto_list_extensions()
-  if (is.null(installed_extensions)) {
+  # TODO: adapt based on https://github.com/quarto-dev/quarto-r/issues/301
+  if (quarto_available(max = "1.9")) {
+    if (is.null(installed_extensions)) {
+      if (!quiet) {
+        cli::cli_alert_warning("No extensions installed.")
+      }
+      return(invisible(FALSE))
+    }
+  }
+
+  # Check extension is installed
+  is_installed <- extension %in% installed_extensions$Id
+  if (!is_installed) {
     if (!quiet) {
-      cli::cli_alert_warning("No extensions installed.")
+      cli::cli_alert_warning(
+        "{.str {extension}} is not among installed extensions."
+      )
     }
     return(invisible(FALSE))
   }

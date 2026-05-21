@@ -1,0 +1,10 @@
+Pandoc
+  Meta
+    { unMeta =
+        fromList
+          [ ( "custom-key" , MetaInlines [ Str "overridden" ] )
+          , ( "title" , MetaInlines [ Str "Doc" ] )
+          , ( "yml-only-key" , MetaInlines [ Str "kept" ] )
+          ]
+    }
+  []

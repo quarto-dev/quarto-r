@@ -22,3 +22,8 @@
 ^[\.]?air\.toml$
 ^LICENSE\.md$
 ^vignettes/articles$
+^\.positai$
+^\.claude$
+^\.agents$
+^CLAUDE\.local\.md$
+^skills-lock\.json$

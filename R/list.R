@@ -19,6 +19,10 @@ quarto_list_extensions <- function() {
   x <- quarto_list(args, quarto_bin = quarto_bin, echo = FALSE)
   # Clean the stderr output to remove extra spaces and ensure consistent formatting
   stderr_cleaned <- gsub("\\s+$", "", x$stderr)
+  # Quarto CLI prepends a "Quarto version: X.Y.Z" line to stderr when log level
+  # is DEBUG (auto-enabled in GHA debug mode). Strip it so read.table() can use
+  # the real header row. See https://github.com/quarto-dev/quarto-cli/issues/14532.
+  stderr_cleaned <- sub("^Quarto version:[^\n]*\n", "", stderr_cleaned)
   if (grepl("No extensions are installed", stderr_cleaned)) {
     invisible()
   } else {

@@ -197,18 +197,10 @@ quarto_render <- function(
     args <- c(args, "--cache-refresh")
   }
   # metadata to pass to quarto render
-  if (!is.null(metadata)) {
-    # We merge meta if there is metadata_file passed
-    if (!missing(metadata_file)) {
-      file_content <- yaml::read_yaml(metadata_file, eval.expr = FALSE)
-      metadata <- merge_list(file_content, metadata)
-    }
-    meta_file <- tempfile(pattern = "quarto-meta", fileext = ".yml")
-    on.exit(unlink(meta_file), add = TRUE)
-    write_yaml(metadata, meta_file)
-    args <- c(args, "--metadata-file", meta_file)
-  } else if (!missing(metadata_file)) {
-    args <- c(args, "--metadata-file", metadata_file)
+  meta_result <- cli_arg_metadata(metadata, metadata_file)
+  args <- c(args, meta_result$args)
+  if (!is.null(meta_result$tmp_file)) {
+    on.exit(unlink(meta_result$tmp_file), add = TRUE)
   }
   if (isTRUE(debug)) {
     args <- c(args, "--debug")
