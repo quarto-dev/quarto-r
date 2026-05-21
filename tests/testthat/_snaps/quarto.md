@@ -8,7 +8,7 @@
       Caused by error:
       x Error returned by quarto CLI.
       i Rerun with `quiet = FALSE` to see the full error message.
-      Caused by error:
+      Caused by error in `processx::run()`:
       ! System command 'quarto' failed
 
 # quarto_run report full quarto cli error message
@@ -26,7 +26,7 @@
         Stack trace:
         <stack trace>
         
-      Caused by error:
+      Caused by error in `processx::run()`:
       ! System command 'quarto' failed
 
 # is_using_quarto correctly check directory

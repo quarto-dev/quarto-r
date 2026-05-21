@@ -8,16 +8,18 @@ test_that("Updating an extension", {
     no_prompt = TRUE,
     quiet = TRUE
   )
-  expect_equal(quarto_list_extensions()$Version, "0.0.1")
+  installed <- quarto_list_extensions()
+  fontawesome_row <- installed[installed$Id == "quarto-ext/fontawesome", ]
+  expect_equal(fontawesome_row$Version, "0.0.1")
   quarto_update_extension(
     "quarto-ext/fontawesome",
     no_prompt = TRUE,
     quiet = TRUE
   )
   expect_true(dir.exists("_extensions/quarto-ext/fontawesome"))
-  expect_true(
-    as.numeric_version(current_version <- quarto_list_extensions()$Version) >
-      "0.0.1"
-  )
+  installed <- quarto_list_extensions()
+  fontawesome_row <- installed[installed$Id == "quarto-ext/fontawesome", ]
+  current_version <- fontawesome_row$Version
+  expect_true(as.numeric_version(current_version) > "0.0.1")
   expect_false(identical(current_version, "0.0.1"))
 })
