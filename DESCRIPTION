@@ -34,7 +34,7 @@ Imports:
     yaml (>= 2.3.10)
 Suggests:
     brand.yml,
-    bslib,
+    bslib (>= 0.9.0),
     callr,
     curl,
     dplyr,
