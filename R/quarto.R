@@ -147,10 +147,20 @@ quarto_run <- function(
   # (e.g. to install dev package in a temporary library)
   opt_in_libpath <- getOption("quarto.use_libpaths", TRUE)
   if (isTRUE(opt_in_libpath) && !is.null(libpaths)) {
-    custom_env <- c(
-      custom_env,
-      R_LIBS = paste(libpaths, collapse = .Platform$path.sep)
-    )
+    libs <- paste(libpaths, collapse = .Platform$path.sep)
+    custom_env <- c(custom_env, R_LIBS = libs)
+
+    # On Windows, R_LIBS is not inherited by the Rscript process spawned by
+    # quarto.exe. Pass the lib paths through the Rscript command line instead
+    # (requires Quarto >= 1.7; older versions ignore the env var, in which case
+    # behavior is unchanged).
+    # https://github.com/quarto-dev/quarto-r/issues/217
+    if (.Platform$OS.type == "windows") {
+      rscript_args <- knitr_rscript_args(libs)
+      if (!is.null(rscript_args)) {
+        custom_env <- c(custom_env, QUARTO_KNITR_RSCRIPT_ARGS = rscript_args)
+      }
+    }
   }
 
   # This is required because `"current"` only is not supported by processx
@@ -187,6 +197,31 @@ quarto_run <- function(
   )
 
   invisible(res)
+}
+
+# hex-encode a string as its UTF-8 bytes, producing a comma-free pure-ASCII
+# payload safe for QUARTO_KNITR_RSCRIPT_ARGS (decoded by inst/rmd-init.R)
+hex_encode <- function(x) {
+  paste(sprintf("%02x", as.integer(charToRaw(enc2utf8(x)))), collapse = "")
+}
+
+# value for the QUARTO_KNITR_RSCRIPT_ARGS environment variable: the init
+# script shipped in inst/ (which becomes the Rscript entry point and restores
+# .libPaths() from the hex-encoded trailing argument `libs`, then sources
+# Quarto's knitr engine script), preserving any user-set value. Returns NULL
+# if the mechanism cannot be used.
+knitr_rscript_args <- function(libs) {
+  init_script <- system.file("rmd-init.R", package = "quarto")
+  # a comma in the path would break Quarto's comma-separated parsing of
+  # QUARTO_KNITR_RSCRIPT_ARGS; fall back to R_LIBS only in that case
+  if (!nzchar(init_script) || grepl(",", init_script, fixed = TRUE)) {
+    return(NULL)
+  }
+  user_args <- Sys.getenv("QUARTO_KNITR_RSCRIPT_ARGS", "")
+  paste(
+    c(if (nzchar(user_args)) user_args, init_script, hex_encode(libs)),
+    collapse = ","
+  )
 }
 
 quarto_run_what <- function(

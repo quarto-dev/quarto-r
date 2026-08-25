@@ -1,5 +1,7 @@
 # quarto (development version)
 
+- On Windows, `.libPaths()` are now propagated to the R process run by Quarto through the Rscript command line (via `QUARTO_KNITR_RSCRIPT_ARGS`) instead of relying on the `R_LIBS` environment variable, which is not inherited by that process (#217).
+
 - `.libPaths()` from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with **pkgdown** or when building vignettes.
 
 - Curly braces in Quarto CLI error messages are now escaped to prevent them from being interpreted as `cli` formatting syntax (#293).
