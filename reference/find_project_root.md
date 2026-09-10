@@ -38,7 +38,7 @@ find_project_root(tmpdir)
 quarto_create_project("test-proj", type = "blog", dir = tmpdir, no_prompt = TRUE, quiet = TRUE)
 blog_post_dir <- file.path(tmpdir, "test-proj", "posts", "welcome")
 find_project_root(blog_post_dir)
-#> [1] "/tmp/Rtmp9KCBBR/file1eab77689b88/test-proj"
+#> [1] "/tmp/RtmpE2de4E/file1cfc57e66e1/test-proj"
 
 xfun::in_dir(blog_post_dir, {
   # Check if current directory is a Quarto project or in one
