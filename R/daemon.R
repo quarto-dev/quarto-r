@@ -100,7 +100,8 @@ run_serve_daemon <- function(
     args,
     wd = wd,
     stdout = "|",
-    stderr = "2>&1"
+    stderr = "2>&1",
+    cleanup_tree = TRUE
   )
 
   # wait for port to be bound to
@@ -181,14 +182,14 @@ stop_serve_daemon <- function(command) {
   quarto <- the$preview_infos
   ps_key <- paste0(command, "_ps")
   if (!is.null(quarto[[ps_key]])) {
-    if (quarto[[ps_key]]$is_alive()) {
-      ps <- quarto[[ps_key]]
-      quarto[[ps_key]] <- NULL
+    ps <- quarto[[ps_key]]
+    quarto[[ps_key]] <- NULL
+    if (ps$is_alive()) {
       ps$interrupt()
       ps$poll_io(500)
-      ps$kill()
-      ps$wait(3000)
     }
+    ps$kill_tree()
+    ps$wait(3000)
   }
   Sys.sleep(0.5)
   invisible()
