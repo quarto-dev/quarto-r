@@ -1,7 +1,6 @@
 test_that("quarto_preview_stop stops the preview server", {
   skip_if_no_quarto()
   skip_if_not_installed("callr")
-  skip_if_not_installed("pkgload")
   skip_on_cran()
 
   tmp_dir <- withr::local_tempdir()
@@ -14,7 +13,17 @@ test_that("quarto_preview_stop stops the preview server", {
 
   preview_process <- callr::r_bg(
     function(package_path, input, result_file) {
-      pkgload::load_all(package_path, quiet = TRUE)
+      source_r_dir <- file.path(package_path, "R")
+      is_source_tree <-
+        file.exists(file.path(package_path, "DESCRIPTION")) &&
+        dir.exists(source_r_dir) &&
+        length(list.files(source_r_dir, pattern = "\\.[Rr]$")) > 0
+
+      if (is_source_tree) {
+        pkgload::load_all(package_path, quiet = TRUE)
+      } else {
+        loadNamespace("quarto")
+      }
 
       port <- quarto:::find_port()
       quarto::quarto_preview(
