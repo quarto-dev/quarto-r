@@ -50,7 +50,7 @@ body of your document:
 user_level: admin
 debug_mode: true
 app_version: 2.1.0
-generated_at: 2026-09-10T13:09:11+0000
+generated_at: 2026-09-10T13:14:20+0000
 ---
 ```
 
@@ -88,7 +88,7 @@ content features:
 > This content is only visible when `debug_mode` is true. Since we set
 > it to TRUE, this message should be visible.
 >
-> Generated at: 2026-09-10T13:09:11+0000
+> Generated at: 2026-09-10T13:14:20+0000
 
 ## Advanced Use Case: Conditional Content Based on parameters
 
