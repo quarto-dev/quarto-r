@@ -24,7 +24,7 @@ Imports:
     jsonlite,
     later,
     lifecycle,
-    processx,
+    processx (>= 3.2.0),
     rlang,
     rmarkdown,
     rstudioapi,

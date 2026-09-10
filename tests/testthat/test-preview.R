@@ -1,3 +1,95 @@
+test_that("quarto_preview_stop stops the preview server", {
+  skip_if_no_quarto()
+  skip_if_not_installed("callr")
+  skip_on_cran()
+
+  package_path <- testthat::test_path("..", "..")
+  source_r_dir <- file.path(package_path, "R")
+  is_source_tree <-
+    file.exists(file.path(package_path, "DESCRIPTION")) &&
+    dir.exists(source_r_dir) &&
+    length(list.files(source_r_dir, pattern = "\\.[Rr]$")) > 0
+  if (is_source_tree) {
+    skip_if_not_installed("pkgload")
+  }
+
+  tmp_dir <- withr::local_tempdir()
+  input <- file.path(tmp_dir, "test.qmd")
+  xfun::write_utf8(c("---", "title: Test", "---", "", "# Hello"), input)
+
+  result_file <- file.path(tmp_dir, "result.rds")
+  stdout_file <- file.path(tmp_dir, "stdout.log")
+  stderr_file <- file.path(tmp_dir, "stderr.log")
+
+  preview_process <- callr::r_bg(
+    function(package_path, is_source_tree, input, result_file) {
+      if (is_source_tree) {
+        pkgload::load_all(package_path, quiet = TRUE)
+      } else {
+        loadNamespace("quarto")
+      }
+
+      port <- quarto:::find_port()
+      quarto::quarto_preview(
+        input,
+        port = port,
+        browse = FALSE,
+        quiet = TRUE
+      )
+      quarto::quarto_preview_stop()
+      saveRDS(quarto:::port_active(port), result_file)
+
+      # Keep the parent alive so the test can reliably terminate the full tree.
+      repeat {
+        Sys.sleep(1)
+      }
+    },
+    args = list(
+      package_path = package_path,
+      is_source_tree = is_source_tree,
+      input = input,
+      result_file = result_file
+    ),
+    stdout = stdout_file,
+    stderr = stderr_file,
+    supervise = TRUE
+  )
+  withr::defer({
+    if (preview_process$is_alive()) {
+      preview_process$kill_tree()
+      preview_process$wait(5000)
+    }
+  })
+
+  deadline <- Sys.time() + 30
+  while (
+    !file.exists(result_file) &&
+      preview_process$is_alive() &&
+      Sys.time() < deadline
+  ) {
+    Sys.sleep(0.1)
+  }
+
+  if (!file.exists(result_file)) {
+    output <- c(
+      readLines(stdout_file, warn = FALSE),
+      readLines(stderr_file, warn = FALSE)
+    )
+    fail(paste(
+      c("Preview subprocess did not return a result.", output),
+      collapse = "\n"
+    ))
+    return()
+  }
+
+  port_is_active <- readRDS(result_file)
+  preview_process$kill_tree()
+  preview_process$wait(5000)
+
+  expect_identical(port_is_active, FALSE)
+})
+
+
 test_that("quarto_preview default functionality", {
   skip("quarto-preview test only works interactively")
   skip_if_no_quarto()

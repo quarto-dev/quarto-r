@@ -1,5 +1,8 @@
 # quarto (development version)
 
+- `quarto_preview_stop()` now reliably stops the running preview server by
+  preserving its process state across calls (thanks, @jabenninghoff, #304).
+
 - `.libPaths()` from the calling R session will now be passed by default to all call to quarto as a subprocess. This should solve issue with **pkgdown** or when building vignettes.
 
 - Curly braces in Quarto CLI error messages are now escaped to prevent them from being interpreted as `cli` formatting syntax (#293).

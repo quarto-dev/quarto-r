@@ -2,7 +2,7 @@
 # Using convention in https://github.com/tidyverse/design/issues/126
 the <- rlang::new_environment(
   list(
-    preview_infos = list()
+    preview_infos = rlang::new_environment(parent = emptyenv())
 
     # other possibles values in this env but should not exist because of env_cache usage
     # latest_stable = list(date = NULL, infos = NULL),
