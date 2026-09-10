@@ -165,7 +165,7 @@ R code:
 # Extract R code from mixed-language document
 mixed_r_script <- qmd_to_r_script(mixed_qmd)
 #> Extracting only R code cells from
-#> '/tmp/RtmpROvGnG/quarto-r-scripts-vignette25b61456f316/mixed.qmd'.
+#> '/tmp/Rtmpoeei23/quarto-r-scripts-vignette262c13e0fac3/mixed.qmd'.
 #> → Other languages will be ignored (found python and ojs).
 ```
 
@@ -249,7 +249,7 @@ add_spin_preamble(simple_script,
                     )
                   ))
 #> Added spin preamble to
-#> '/tmp/RtmpROvGnG/quarto-r-scripts-vignette25b61456f316/simple.R'.
+#> '/tmp/Rtmpoeei23/quarto-r-scripts-vignette262c13e0fac3/simple.R'.
 ```
 
 The updated script now has YAML metadata:

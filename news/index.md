@@ -2,6 +2,12 @@
 
 ## quarto (development version)
 
+- [`quarto_preview_stop()`](https://quarto-dev.github.io/quarto-r/reference/quarto_preview.md)
+  now reliably stops the running preview server by preserving its
+  process state across calls (thanks,
+  [@jabenninghoff](https://github.com/jabenninghoff),
+  [\#304](https://github.com/quarto-dev/quarto-r/issues/304)).
+
 - [`.libPaths()`](https://rdrr.io/r/base/libPaths.html) from the calling
   R session will now be passed by default to all call to quarto as a
   subprocess. This should solve issue with **pkgdown** or when building
