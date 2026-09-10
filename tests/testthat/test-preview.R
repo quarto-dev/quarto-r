@@ -3,6 +3,16 @@ test_that("quarto_preview_stop stops the preview server", {
   skip_if_not_installed("callr")
   skip_on_cran()
 
+  package_path <- testthat::test_path("..", "..")
+  source_r_dir <- file.path(package_path, "R")
+  is_source_tree <-
+    file.exists(file.path(package_path, "DESCRIPTION")) &&
+    dir.exists(source_r_dir) &&
+    length(list.files(source_r_dir, pattern = "\\.[Rr]$")) > 0
+  if (is_source_tree) {
+    skip_if_not_installed("pkgload")
+  }
+
   tmp_dir <- withr::local_tempdir()
   input <- file.path(tmp_dir, "test.qmd")
   xfun::write_utf8(c("---", "title: Test", "---", "", "# Hello"), input)
@@ -12,13 +22,7 @@ test_that("quarto_preview_stop stops the preview server", {
   stderr_file <- file.path(tmp_dir, "stderr.log")
 
   preview_process <- callr::r_bg(
-    function(package_path, input, result_file) {
-      source_r_dir <- file.path(package_path, "R")
-      is_source_tree <-
-        file.exists(file.path(package_path, "DESCRIPTION")) &&
-        dir.exists(source_r_dir) &&
-        length(list.files(source_r_dir, pattern = "\\.[Rr]$")) > 0
-
+    function(package_path, is_source_tree, input, result_file) {
       if (is_source_tree) {
         pkgload::load_all(package_path, quiet = TRUE)
       } else {
@@ -41,7 +45,8 @@ test_that("quarto_preview_stop stops the preview server", {
       }
     },
     args = list(
-      package_path = testthat::test_path("..", ".."),
+      package_path = package_path,
+      is_source_tree = is_source_tree,
       input = input,
       result_file = result_file
     ),
