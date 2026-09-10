@@ -69,15 +69,13 @@ for getting the current Quarto version,
 ``` r
 # Check current Quarto version
 check_newer_version()
-#> ℹ You are using prerelease version of Quarto: 1.10.3.
+#> ℹ You are using prerelease version of Quarto: 1.11.4.
 #> You are using the latest prerelease version.
 
 # Check a specific version
 check_newer_version("1.7.30")
-#> ℹ You are using an older version of Quarto: 1.7.30.
-#>   The latest stable version is: 1.9.37.
-#> → You can download new version from https://quarto.org/docs/download/ or your
-#>   preferred package manager if available.
+#> ℹ You are using prerelease version of Quarto: 1.7.30.
+#> You are using the latest prerelease version.
 
 # Check development version (will skip check)
 check_newer_version("99.9.9")
